@@ -1,10 +1,16 @@
 Working hours:
 
 Mon 30.1.2012:
-4 hours - UseCases, DomainModel, TRAC editing, Planning
+4 hours - UseCases, DomainModel, Wiki editing, Planning
 
 Wed 1.2.2012
 2 hours - UseCases, Planning, ProjectPlan
 
 Mon 6.2.2012
 4 hours	- Customer Meeting, Team meeting, Risk Analysis, StakeHoldersAnalysis
+
+Sun 12.2.2012
+1 hour - Non-functional requirements, misc.
+
+Mon 13.2.2012
+3 hours - UseCases, Manual, Updating Wiki

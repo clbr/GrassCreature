@@ -14,3 +14,6 @@ Sun 12.2.2012
 
 Mon 13.2.2012
 3 hours - UseCases, Manual, Updating Wiki
+
+Wed 15.2.2012
+2 hours - PhP class modeling

@@ -1,3 +1,5 @@
+<?php require_once("session.php"); ?>
+
 <html>
 <head>
 	<title>Ideabank</title>

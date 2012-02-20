@@ -29,9 +29,9 @@ class sess {
 		echo "\t";
 		if ($this->isLoggedIn()) {
 			echo "<form action=login.php method=post>\n";
-			echo "Logged in as $uid \n";
-			echo "\t<input type=submit name=logout value=\"Log out\">\n";
-			echo "</form>\n";
+			echo "\t\tLogged in as $uid \n";
+			echo "\t\t<input type=submit name=logout value=\"Log out\">\n";
+			echo "\t</form>\n";
 		} else {
 			echo "<input type=button name=login value=\"Log in\" onclick=showlogin()>";
 		}

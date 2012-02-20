@@ -30,6 +30,11 @@ class sess {
 
 		echo "\n</div>";
 	}
+
+	function getUserID() {
+
+		return $_SESSION["userID"];
+	}
 }
 
 $sess = new sess;

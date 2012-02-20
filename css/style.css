@@ -1,3 +1,56 @@
-body {
-	background-color: #ffa655;
+
+	body{
+	background-color:#736AFF;
+p.normal {font-style:normal;}
+font-size:12px;
+  
 }
+p, h1, form, button{border:0; margin:0; padding:0;}
+.spacer{clear:both; height:1px;}
+
+/* ----------- Adding Idea ----------- */
+.IdeaAdd{
+
+margin:auto;
+width:20%;
+padding:10%;
+}
+
+/* ----------- stylized ----------- */
+
+div#ulko{
+color: grey;
+margin:auto;
+width:65%;
+
+}
+
+div#h1 {
+
+font-size:150%;
+font-weight:bold;
+
+}
+div#Add{
+font-size:100%;
+color:#666666;
+color:blue;
+
+
+}
+label#Add{
+display:block;
+font-weight:bold;
+text-align:right;
+color:#FFB6C1;
+float:left;
+
+}
+
+
+
+.submit{
+background-color:;
+
+}
+

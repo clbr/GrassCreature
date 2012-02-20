@@ -24,9 +24,17 @@ class sess {
 
 		echo "<div id=loginbox>\n";
 
+		$uid = $_SESSION["userID"];
+
 		echo "\t";
-		if ($this->isLoggedIn()) echo "logged in";
-		else echo "<input type=button name=login value=\"Log in\" onclick=showlogin()>";
+		if ($this->isLoggedIn()) {
+			echo "<form action=login.php method=post>\n";
+			echo "\t\tLogged in as $uid \n";
+			echo "\t\t<input type=submit name=logout value=\"Log out\">\n";
+			echo "\t</form>\n";
+		} else {
+			echo "<input type=button name=login value=\"Log in\" onclick=showlogin()>";
+		}
 
 		echo "\n</div>";
 	}

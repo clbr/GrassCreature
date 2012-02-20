@@ -19,14 +19,25 @@ class sess {
 		else
 			return false;
 	}
+
+	function printBox() {
+
+		echo "<div id=loginbox>\n";
+
+		echo "\t";
+		if ($this->isLoggedIn()) echo "logged in";
+		else echo "<input type=button name=login value=\"Log in\" onclick=alert(\"moi\")>";
+
+		echo "\n</div>";
+	}
+
+	function getUserID() {
+
+		return $_SESSION["userID"];
+	}
 }
 
 $sess = new sess;
-
-if ($sess->isLoggedIn()) echo "logged in";
-else echo "logged out";
-
-
 
 
 ?>

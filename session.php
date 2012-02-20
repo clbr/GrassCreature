@@ -26,7 +26,7 @@ class sess {
 
 		echo "\t";
 		if ($this->isLoggedIn()) echo "logged in";
-		else echo "logged out";
+		else echo "<input type=button name=login value=\"Log in\" onclick=alert(\"moi\")>";
 
 		echo "\n</div>";
 	}

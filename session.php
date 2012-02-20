@@ -19,14 +19,20 @@ class sess {
 		else
 			return false;
 	}
+
+	function printBox() {
+
+		echo "<div id=loginbox>\n";
+
+		echo "\t";
+		if ($this->isLoggedIn()) echo "logged in";
+		else echo "logged out";
+
+		echo "\n</div>";
+	}
 }
 
 $sess = new sess;
-
-if ($sess->isLoggedIn()) echo "logged in";
-else echo "logged out";
-
-
 
 
 ?>

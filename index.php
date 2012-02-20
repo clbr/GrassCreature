@@ -11,6 +11,9 @@
 
 <body>
 
+<?php
+	$sess->printBox();
+?>
 
 
 

@@ -6,6 +6,11 @@ function out() {
 	header("Location: index.php");
 }
 
+if (isset($_POST["logout"])) {
+	session_destroy();
+	out();
+}
+
 if (!isset($_POST["username"]) || !isset($_POST["password"]))
 	out();
 

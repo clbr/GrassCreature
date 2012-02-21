@@ -8,11 +8,11 @@ if (mysqli_connect_errno()) {
  exit();
 }
 
-$name1=(string)$name;
-$desc1=(string)$desc;
+$name=(string)$name;
+$desc=(string)$desc;
 
 $sth = $mysqli->prepare("INSERT INTO Idea (Name, Description, Version, Status, RequestDate, Inventor) VALUES (?, ?, 0, 'new', CURDATE(), 1)");
-$sth->bind_param("ss", $name1, $desc1);
+$sth->bind_param("ss", $name, $desc);
 $sth->execute();
 
 

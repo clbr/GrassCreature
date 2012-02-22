@@ -24,10 +24,10 @@ class sess {
 
 		echo "<div id=loginbox>\n";
 
-		$uid = $_SESSION["userID"];
-
 		echo "\t";
 		if ($this->isLoggedIn()) {
+			$uid = $_SESSION["userID"];
+
 			echo "<form action=login.php method=post>\n";
 			echo "\t\tLogged in as $uid \n";
 			echo "\t\t<input type=submit name=logout value=\"Log out\">\n";

@@ -1,10 +1,39 @@
 function showlogin() {
 	var div = document.getElementById("loginbox");
-	div.innerHTML = "<form action=login.php method=post>" +
-			"<input type=text name=username length=20>" +
-			" <input type=password name=password length=20>" +
-			" <input type=submit value=\"Log in\">" +
+	div.innerHTML = "<form action=login.php method=post name=loginform>" +
+			"<input type=text name=username length=20 " +
+			"onkeypress=\"return noenter(event)\">" +
+			" <input type=password name=password length=20 " +
+			"onkeypress=\"return noenter(event)\">" +
+			" <input type=button onclick=\"dologin()\" value=\"Log in\">" +
 			"</form>";
+}
+
+function dologin() {
+
+	var form = document.getElementsByName("loginform")[0];
+	var pass = "ideabank" + form.username.value + form.password.value;
+
+	var final = md5(pass);
+
+	form.password.value = final;
+
+	form.submit();
+}
+
+// This prevents the enter key from submitting the login form.
+function noenter(e) {
+	var key;
+	if (window.event)
+		key = window.event.keyCode;
+	else
+		key = e.which;
+
+	if (key == 13) {
+		dologin();
+		return false;
+	}
+	return true;
 }
 
 /*

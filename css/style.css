@@ -1,6 +1,5 @@
 body{
 	background-color:#736AFF;
-	p.normal {font-style:normal;}
 	font-size:12px;
  
 }
@@ -88,10 +87,10 @@ label#Add{
 }
 
 
-
+/*
 .submit{
 	background-color:;
-}
+}*/
 
 /* session / login */
 

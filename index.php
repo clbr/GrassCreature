@@ -19,6 +19,6 @@
 
 
 
-<script src="js/js.js" type=javascript></script>
+<script src="js/js.js" type="text/javascript"></script>
 </body>
 </html>

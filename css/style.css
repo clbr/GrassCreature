@@ -22,10 +22,29 @@ p, h1, form, button{
 
 	margin:auto;
 	width:20%;
-	padding:10%;
+	padding:5%;
 }
 
+
+/* ------------ Submit Button ------- */
+
+.submit{
+	margin-top:5%;
+	
+	margin-left:18%;
+	color:#565656;
+	
+}
+
+.submit input{
+font-size: 80%;
+color:purple;
+}
+
+
 /* ----------- stylized ----------- */
+
+
 
 
 
@@ -36,16 +55,17 @@ div#bg{
 }
 
 
+
 div#ulko{
-	color: green;
+	
 	margin:auto;
 	width:65%;
 
 }
 
 div#banner {
-
-	font-size:180%;
+	color: green;
+	font-size:160%;
 	font-weight:bold;
 
 }

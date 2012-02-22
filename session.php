@@ -33,7 +33,7 @@ class sess {
 			echo "\t\t<input type=submit name=logout value=\"Log out\">\n";
 			echo "\t</form>\n";
 		} else {
-			echo "<input type=button name=login value=\"Log in\" onclick=showlogin()>";
+			echo "<input type=button name=login value=\"Log in\" onclick=\"showlogin()\">";
 		}
 
 		echo "\n</div>";

@@ -18,6 +18,6 @@
 
 
 
-<script src=js/js.js></script>
+<script src="js/js.js" type=javascript></script>
 </body>
 </html>

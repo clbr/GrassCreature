@@ -1,3 +1,4 @@
-== Ideapankin sivut
+Ideapankin sivut
+================
 
 dem sum versionhallinta

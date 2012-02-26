@@ -5,10 +5,15 @@ require_once('session.php');
 
 class captcha {
 
+	const fishw = 50;
+	const fishh = 30;
+	const fullw = 468;
+	const fullh = 80;
+
 	private function fish() {
 
-		$w = 50;
-		$h = 30;
+		$w = self::fishw;
+		$h = self::fishh;
 
 		$img = imagecreatetruecolor($w, $h) or die('Can\'t create image');
 
@@ -30,8 +35,8 @@ class captcha {
 
 	function init() {
 
-		$w = 468;
-		$h = 80;
+		$w = self::fullw;
+		$h = self::fullh;
 
 		$_SESSION['centerx'] = rand(40, $w - 40);
 		$_SESSION['centery'] = rand(25, $h - 25);
@@ -39,8 +44,8 @@ class captcha {
 
 	function generate() {
 
-		$w = 468;
-		$h = 80;
+		$w = self::fullw;
+		$h = self::fullh;
 
 		$fish = $this->fish();
 

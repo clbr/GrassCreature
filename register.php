@@ -47,18 +47,17 @@ if (isset($error)) {
 
 <form action=register.php method=post id=registerform>
 
-	<h3>Required fields:</h3>
-
 	<table border=0>
+
+	<tr><td colspan=2><h3>Required fields:</h3></td></tr>
+
 	<tr><td>Username:</td><td><input type=text size=40 name=username></td></tr>
 	<tr><td>E-mail:</td><td><input type=text size=40 name=email></td></tr>
 	<tr><td>Password:</td><td><input type=password size=40 name=password1></td></tr>
 	<tr><td>Password again:</td><td><input type=password size=40 name=password2></td></tr>
-	</table>
 
-	<h3>Optional fields:</h3>
+	<tr><td colspan=2><h3>Optional fields:</h3></td></tr>
 
-	<table border=0>
 	<tr><td>Company:</td><td><input type=text size=40 name=company></td></tr>
 	<tr><td>Company address:</td><td><input type=text size=40 name=companyaddress></td></tr>
 	</table>

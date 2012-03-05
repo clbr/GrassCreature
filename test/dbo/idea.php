@@ -1,12 +1,10 @@
 <?php
 
+require_once("../../DatabaseOperation/details.php");
+
 function addIdea($name, $desc) {
 
-$mysqli = new mysqli("mysql.labranet.jamk.fi", "ideapankki", "0jWF)(p35j%J", "ideapankki_dev");
-if (mysqli_connect_errno()) {
- printf("Connect failed: %s\n", mysqli_connect_error());
- exit();
-}
+$mysqli = db_connect();
 
 $name=(string)$name;
 $desc=(string)$desc;

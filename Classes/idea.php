@@ -59,7 +59,7 @@
 			$schaisse = searchIdeas($tags); // Palataan tähän palvelinohjelmoinnin mysql-tunnin jälkeen...
 		}
 		
-		function comment($_POST['IdeaID'], $_POST['Comment']) {
+		function addComment($_POST['IdeaID'], $_POST['Comment']) {
 			commentIdea($_POST['IdeaID'], $_POST['Comment']);
 		}
 		

@@ -21,6 +21,8 @@
 		echo "jep.<br>";
 	}
 	
+	getComments();
+	
 ?>
 
 

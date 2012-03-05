@@ -51,7 +51,7 @@ if (isset($error)) {
 
 	<tr><td colspan=2><h3>Required fields:</h3></td></tr>
 
-	<tr><td>Username:</td><td><input type=text size=40 name=username></td></tr>
+	<tr><td>Username:</td><td><input type=text size=40 name=username onblur="reg_ajaxy()"> <span id=reg_namecheck></span></td></tr>
 	<tr><td>E-mail:</td><td><input type=text size=40 name=email></td></tr>
 	<tr><td>Password:</td><td><input type=password size=40 name=password1></td></tr>
 	<tr><td>Password again:</td><td><input type=password size=40 name=password2></td></tr>
@@ -117,6 +117,26 @@ function regform(event) {
 	form.password1.value = final;
 
 	form.submit();
+}
+
+function reg_ajaxy() {
+
+	var x = new XMLHttpRequest();
+
+	var dest = document.getElementById('reg_namecheck');
+	var uname = document.getElementsByName('username')[0].value;
+
+	x.open("GET", "DatabaseOperation/register.php?check=" + uname, true);
+
+	x.onreadystatechange = function() {
+		if (x.readyState == 4) {
+			dest.innerHTML = x.responseText;
+		}
+	}
+
+	x.send(null);
+
+	dest.innerHTML = "<img src=\"img/loading.gif\" width=16 height=16>";
 }
 
 </script>

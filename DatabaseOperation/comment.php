@@ -1,11 +1,9 @@
 <?php
 	error_reporting(E_ALL);
 	
-	/*require_once("details.php");
-	$mysqli = db_connect(); ei mene näin funktiolle asti */
+	require_once("details.php");
 	
-	function addComment ($text, $commentorID, $ideaID) {	
-		require_once("details.php");
+	function addComment ($text, $commentorID, $ideaID) {
 		$mysqli = db_connect();		
 		
 		if ($mysqli)
@@ -22,7 +20,6 @@
 	}
 	
 	function getComments() { 
-		require_once("details.php");
 		$mysqli = db_connect();	
 		
 		$ideaID = 5; // normally id as paramater to this function.

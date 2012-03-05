@@ -19,5 +19,31 @@ function register_user($uname, $mail, $pw, $comp = "", $compadd = "") {
 
 }
 
+// AJAX username check
+if (isset($_GET["check"])) {
+
+	$u = $_GET["check"];
+
+	$db = db_connect();
+
+	$st = $db->prepare("select Name from User where Name=?");
+	if (!$st)
+		die($db->error);
+
+	$st->bind_param("s", $u);
+
+	if (!$st->execute())
+		die($db->error);
+
+	$st->store_result();
+
+	if ($st->num_rows > 0) {
+		echo "<img src=\"img/fail.png\" width=24 height=24>";
+	} else {
+		echo "<img src=\"img/success.png\" width=24 height=24>";
+	}
+
+	$db->close();
+}
 
 ?>

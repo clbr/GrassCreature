@@ -47,18 +47,17 @@ if (isset($error)) {
 
 <form action=register.php method=post id=registerform>
 
-	<h3>Required fields:</h3>
-
 	<table border=0>
+
+	<tr><td colspan=2><h3>Required fields:</h3></td></tr>
+
 	<tr><td>Username:</td><td><input type=text size=40 name=username></td></tr>
 	<tr><td>E-mail:</td><td><input type=text size=40 name=email></td></tr>
 	<tr><td>Password:</td><td><input type=password size=40 name=password1></td></tr>
 	<tr><td>Password again:</td><td><input type=password size=40 name=password2></td></tr>
-	</table>
 
-	<h3>Optional fields:</h3>
+	<tr><td colspan=2><h3>Optional fields:</h3></td></tr>
 
-	<table border=0>
 	<tr><td>Company:</td><td><input type=text size=40 name=company></td></tr>
 	<tr><td>Company address:</td><td><input type=text size=40 name=companyaddress></td></tr>
 	</table>
@@ -68,12 +67,12 @@ if (isset($error)) {
 
 	<br><br>
 	<h3>Click on the fish to submit:</h3>
-	<img src=captcha.php?gen width=468 height=80 onclick="regform()" id=captchapic>
+	<img src="captcha.php?gen" width=468 height=80 onclick="regform()" id=captchapic alt=captcha>
 </form>
 
 
-<script src=js/js.js></script>
-<script>
+<script src="js/js.js" type="text/javascript"></script>
+<script type="text/javascript">
 
 function regform() {
 
@@ -97,6 +96,12 @@ function regform() {
 	var mail = document.getElementsByName('email')[0].value;
 	if (mail.indexOf("@") == -1 || mail.indexOf(".") == -1) {
 		alert("The e-mail address is invalid");
+		return;
+	}
+
+	var uname = document.getElementsByName('username')[0].value;
+	if (uname.length < 1 || mail.length < 1 || pw1.length < 1) {
+		alert("Please fill all the required fields");
 		return;
 	}
 

@@ -20,6 +20,31 @@ require_once("captcha.php");
 
 <body>
 
+<?php
+
+if (isset($_POST["username"])) {
+
+	$cx = $_POST["captchax"];
+	$cy = $_POST["captchay"];
+
+	if (!$captcha->check($cx, $cy)) {
+		$error = "Captcha failed";
+		goto main;
+	}
+
+	//register_user();
+	echo "<h2>Successfully registered! You may now log in.</h2>";
+
+} else {
+
+main:
+
+if (isset($error)) {
+	echo "<h3 class=error>$error</h3>";
+}
+
+?>
+
 <form action=register.php method=post id=registerform>
 
 	<h3>Required fields:</h3>
@@ -69,6 +94,13 @@ function regform() {
 		return;
 	}
 
+	var mail = document.getElementsByName('email')[0].value;
+	if (mail.indexOf("@") == -1 || mail.indexOf(".") == -1) {
+		alert("The e-mail address is invalid");
+		return;
+	}
+
+
 	// Hereby submit
 	var form = document.getElementsByName('captchax')[0].form;
 
@@ -81,5 +113,10 @@ function regform() {
 }
 
 </script>
+
+<?php
+}
+?>
+
 </body>
 </html>

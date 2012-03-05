@@ -40,7 +40,7 @@ if (isset($_POST["username"])) {
 main:
 
 if (isset($error)) {
-	echo "<h3 class=error>$error</h3>";
+	echo "<script type=\"text/javascript\">alert(\"$error\"); window.history.back();</script>";
 }
 
 ?>

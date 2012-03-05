@@ -108,11 +108,6 @@ label#Add{
 	padding: 5px;
 }
 
-h3.error {
-	font-size: 28px;
-	color: red;
-}
-
 iframe#main {
 	width: 99%;
 	border: 0px;

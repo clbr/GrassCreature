@@ -100,6 +100,8 @@ label#Add{
 	padding: 0.5em;
 	display: inline-block;
 	float: right;
+	margin-right: 30px;
+	margin-top: 10px;
 }
 
 #registerform td {
@@ -110,3 +112,13 @@ h3.error {
 	font-size: 28px;
 	color: red;
 }
+
+iframe#main {
+	width: 99%;
+	border: 0px;
+	position: fixed;
+	z-index: -1;
+	right: 10px;
+	height: 100%;
+}
+

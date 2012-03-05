@@ -27,7 +27,7 @@ require_once("captcha.php");
 	<table border=0>
 	<tr><td>Username:</td><td><input type=text size=40 name=username></td></tr>
 	<tr><td>E-mail:</td><td><input type=text size=40 name=email></td></tr>
-	<tr><td>Password:</td><td><input type=password size=40 name=password></td></tr>
+	<tr><td>Password:</td><td><input type=password size=40 name=password1></td></tr>
 	<tr><td>Password again:</td><td><input type=password size=40 name=password2></td></tr>
 	</table>
 
@@ -38,12 +38,48 @@ require_once("captcha.php");
 	<tr><td>Company address:</td><td><input type=text size=40 name=companyaddress></td></tr>
 	</table>
 
+	<input type=hidden name=captchax>
+	<input type=hidden name=captchay>
+
 	<br><br>
 	<h3>Click on the fish to submit:</h3>
-	<img src=captcha.php?gen width=468 height=80 onclick="regform()">
+	<img src=captcha.php?gen width=468 height=80 onclick="regform()" id=captchapic>
 </form>
 
 
 <script src=js/js.js></script>
+<script>
+
+function regform() {
+
+	// First the captcha position
+	var pos_x = event.offsetX ? (event.offsetX) :
+		event.pageX-document.getElementById("captchapic").offsetLeft;
+	var pos_y = event.offsetY ? (event.offsetY) :
+		event.pageY-document.getElementById("captchapic").offsetTop;
+
+	document.getElementsByName('captchax')[0].value = pos_x;
+	document.getElementsByName('captchay')[0].value = pos_y;
+
+	// Then the form checks
+	var pw1 = document.getElementsByName('password1')[0].value;
+	var pw2 = document.getElementsByName('password2')[0].value;
+	if (pw1 != pw2) {
+		alert("The passwords don't match");
+		return;
+	}
+
+	// Hereby submit
+	var form = document.getElementsByName('captchax')[0].form;
+
+	var pass = "ideabank" + form.username.value + form.password1.value;
+	var final = md5(pass);
+
+	form.password1.value = final;
+
+	form.submit();
+}
+
+</script>
 </body>
 </html>

@@ -67,14 +67,16 @@ if (isset($error)) {
 
 	<br><br>
 	<h3>Click on the fish to submit:</h3>
-	<img src="captcha.php?gen" width=468 height=80 onclick="regform()" id=captchapic alt=captcha>
+	<img src="captcha.php?gen" width=468 height=80 onclick="regform(event)" id=captchapic alt=captcha>
 </form>
 
 
 <script src="js/js.js" type="text/javascript"></script>
 <script type="text/javascript">
 
-function regform() {
+function regform(event) {
+
+	event = event || window.event;
 
 	// First the captcha position
 	var pos_x = event.offsetX ? (event.offsetX) :

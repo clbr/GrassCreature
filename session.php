@@ -26,10 +26,11 @@ class sess {
 
 		echo "\t";
 		if ($this->isLoggedIn()) {
-			$uid = $_SESSION["userID"];
+//			$uid = $_SESSION["userID"];
+			$uname = $_SESSION["uname"];
 
 			echo "<form action=login.php method=post>\n";
-			echo "\t\tLogged in as $uid \n";
+			echo "\t\tLogged in as $uname \n";
 			echo "\t\t<input type=submit name=logout value=\"Log out\">\n";
 			echo "\t</form>\n";
 		} else {

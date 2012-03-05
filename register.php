@@ -32,7 +32,7 @@ if (isset($_POST["username"])) {
 		goto main;
 	}
 
-	//register_user();
+	register_user($_POST["username"], $_POST["email"], $_POST["password1"], $_POST["company"], $_POST["companyaddress"]);
 	echo "<h2>Successfully registered! You may now log in.</h2>";
 
 } else {

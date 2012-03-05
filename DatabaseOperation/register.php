@@ -38,9 +38,9 @@ if (isset($_GET["check"])) {
 	$st->store_result();
 
 	if ($st->num_rows > 0) {
-		echo "<img src=\"img/fail.png\" width=24 height=24>";
+		echo "<img src=\"img/fail.png\" width=24 height=24 title=\"This username is already taken.\">";
 	} else {
-		echo "<img src=\"img/success.png\" width=24 height=24>";
+		echo "<img src=\"img/success.png\" width=24 height=24 title=\"This username is free.\">";
 	}
 
 	$db->close();

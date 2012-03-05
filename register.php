@@ -38,6 +38,9 @@ require_once("captcha.php");
 	<tr><td>Company address:</td><td><input type=text size=40 name=companyaddress></td></tr>
 	</table>
 
+	<br><br>
+	<h3>Click on the fish to submit:</h3>
+	<img src=captcha.php?gen width=468 height=80 onclick="regform()">
 </form>
 
 

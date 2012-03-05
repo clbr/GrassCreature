@@ -67,12 +67,12 @@ if (isset($error)) {
 
 	<br><br>
 	<h3>Click on the fish to submit:</h3>
-	<img src=captcha.php?gen width=468 height=80 onclick="regform()" id=captchapic>
+	<img src="captcha.php?gen" width=468 height=80 onclick="regform()" id=captchapic alt=captcha>
 </form>
 
 
-<script src=js/js.js></script>
-<script>
+<script src="js/js.js" type="text/javascript"></script>
+<script type="text/javascript">
 
 function regform() {
 

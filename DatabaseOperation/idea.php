@@ -19,4 +19,23 @@ function addIdea($name, $desc) {
 
 }
 
+function removeIdeaPermanently($ideaID) {
+	require("details.php");
+	$mysqli = db_connect();	
+	
+	$sql = "DELETE FROM Idea WHERE IdeaID = $ideaID";
+	$mysqli->query($sql) or die($mysqli->error);	
+	$mysqli->close();
+}
+
+function addVote($rating, $ideaID, $userID) {
+	require("details.php");
+	$mysqli = db_connect();	
+	
+	$sql = "INSERT INTO Rating (Rating, Idea_IdeaID, User_UserID) VALUES ($rating, $ideaID, $userID)";
+	$mysqli->query($sql) or die($mysqli->error);	
+	$mysqli->close();
+}
+
+
 ?>

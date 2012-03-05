@@ -4,32 +4,35 @@
 	/*require_once("details.php");
 	$mysqli = db_connect(); ei mene näin funktiolle asti */
 	
-	function addComment ($text, $commentID, $ideaID) {	
+	function addComment ($text, $commentorID, $ideaID) {	
 		require_once("details.php");
 		$mysqli = db_connect();		
 		
 		if ($mysqli)
 			echo "yhteys";
 		
-		$sql = "INSERT INTO Comment (CommentID, Text, User_UserID, Idea_IdeaID, Date) VALUES (?, ?, ?, ?, ?)";
+		$sql = "INSERT INTO Comment (Text, User_UserID, Idea_IdeaID, Date) VALUES (?, ?, ?, ?)";
 		$stmt = $mysqli->prepare($sql);				
-		$stmt->bind_param('isiis', $commentID, $text, $userID, $ideaID, $date);
-		
-		$userID = 1;
-		$date = date('Y-m-d');
+		$stmt->bind_param('siis', $text, $commentorID, $ideaID, date('Y-m-d'));
+				
+		//$date = date('Y-m-d'); // can be inserted straight to bind_param.
 		
 		$stmt->execute();
 		echo "loppu.";
 	}
 	
-	/*if ($mysqli)
-			echo "yhteys";*/
-			
-		/*$sql = "SELECT * FROM TASK";
-		$result = $mysqli->query($sql) or die($mysqli->error);
+	function getComments() { 
+		require_once("details.php");
+		$mysqli = db_connect();	
 		
-		echo "ID date groupID hours task dudeID<br>";
+		$ideaID = 5; // normally id as paramater to this function.
+		
+		// If there are column name collisions, use User.Name etc. instead.
+		$sql = "SELECT Date, Name, Company, Text FROM Comment LEFT OUTER JOIN User ON Comment.User_UserID = User.UserID WHERE Idea_IdeaID = $ideaID";
+		$result = $mysqli->query($sql) or die($mysqli->error);		
+		
 		while ($obj = $result->fetch_object()) {
-			echo $obj->TaskID. " " . $obj->Date . " " . $obj->GroupID . " " . $obj->Hours . " " . $obj->Task . " " . $obj->DudeID . "<br>";
-		}*/
+			echo $obj->Date . " " . $obj->Name . " " . $obj->Company . " " . $obj->Text . "<br>";
+		}
+	}
 ?>

@@ -10,21 +10,21 @@ if (mysqli_connect_errno()) {
 
 		$status1 = $_POST["status"];
 		$inventor1 = $_POST["inventor"];
-		
+
 		if($inventor1!=NULL){
 		$sql = "SELECT Name, Description, Status, RequestDate, Inventor
 		FROM Idea
 		WHERE Status='$status1'
 		AND Inventor='$inventor1'
 		";}
-		
+
 		else{
 		$sql = "SELECT Name, Description, Status, RequestDate, Inventor
 		FROM Idea
 		WHERE Status='$status1'
 		";}
-					
-		
+
+
 $result = $mysqli->query($sql);
 
 $mysqli->close();

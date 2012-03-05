@@ -2,8 +2,8 @@
 <?php
 function top101()
 {
-	require_once("S:\www\details.php"); 
-	$yhteys = functiondb_connect(); 
+	require_once("S:\www\details.php");
+	$yhteys = functiondb_connect();
 	$sql = "SELECT * FROM Idea ORDER BY AddingDate DESC";
 	$result = $mysqli->query($sql) or die($mysqli->error);
 	if($result)

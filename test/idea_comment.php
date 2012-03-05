@@ -10,19 +10,19 @@
 		commentorID: <input type="text" name="commentorID" />
 		ideaID: <input type="text" name="ideaID" />
 		<input type="submit" name ="submit" value="Submit" />
-	</form> 
+	</form>
 </div>
 <?php
-	error_reporting(E_ALL);	
+	error_reporting(E_ALL);
 	require_once('../DatabaseOperation/comment.php');
-	
-	if(isset($_POST['submit'])) {		
+
+	if(isset($_POST['submit'])) {
 		addComment($_POST['text'], $_POST['commentorID'], $_POST['ideaID']);
 		echo "jep.<br>";
 	}
-	
+
 	getComments();
-	
+
 ?>
 
 

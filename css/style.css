@@ -105,3 +105,8 @@ label#Add{
 #registerform td {
 	padding: 5px;
 }
+
+h3.error {
+	font-size: 28px;
+	color: red;
+}

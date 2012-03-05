@@ -20,11 +20,11 @@ require_once("captcha.php");
 
 <body>
 
-<form action=register.php method=post>
+<form action=register.php method=post id=registerform>
 
 	<h3>Required fields:</h3>
 
-	<table>
+	<table border=0>
 	<tr><td>Username:</td><td><input type=text size=40 name=username></td></tr>
 	<tr><td>E-mail:</td><td><input type=text size=40 name=email></td></tr>
 	<tr><td>Password:</td><td><input type=password size=40 name=password></td></tr>
@@ -33,7 +33,7 @@ require_once("captcha.php");
 
 	<h3>Optional fields:</h3>
 
-	<table>
+	<table border=0>
 	<tr><td>Company:</td><td><input type=text size=40 name=company></td></tr>
 	<tr><td>Company address:</td><td><input type=text size=40 name=companyaddress></td></tr>
 	</table>

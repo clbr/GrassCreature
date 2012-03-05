@@ -101,3 +101,7 @@ label#Add{
 	display: inline-block;
 	float: right;
 }
+
+#registerform table {
+	padding: 5px;
+}

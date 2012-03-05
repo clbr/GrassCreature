@@ -6,7 +6,7 @@
 <?php
 require_once("session.php");
 require_once("details.php"); 
-function(){
+function top101(){
 $yhteys = functiondb_connect(); 
 
 

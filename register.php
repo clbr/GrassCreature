@@ -100,6 +100,12 @@ function regform() {
 		return;
 	}
 
+	var uname = document.getElementsByName('username')[0].value;
+	if (uname.length < 1 || mail.length < 1 || pw1.length < 1) {
+		alert("Please fill all the required fields");
+		return;
+	}
+
 
 	// Hereby submit
 	var form = document.getElementsByName('captchax')[0].form;

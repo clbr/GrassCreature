@@ -2,6 +2,7 @@
 
 require_once("session.php");
 require_once("DatabaseOperation/register.php");
+require_once("captcha.php");
 
 ?>
 
@@ -19,6 +20,25 @@ require_once("DatabaseOperation/register.php");
 
 <body>
 
+<form action=register.php method=post>
+
+	<h3>Required fields:</h3>
+
+	<table>
+	<tr><td>Username:</td><td><input type=text size=40 name=username></td></tr>
+	<tr><td>E-mail:</td><td><input type=text size=40 name=email></td></tr>
+	<tr><td>Password:</td><td><input type=password size=40 name=password></td></tr>
+	<tr><td>Password again:</td><td><input type=password size=40 name=password2></td></tr>
+	</table>
+
+	<h3>Optional fields:</h3>
+
+	<table>
+	<tr><td>Company:</td><td><input type=text size=40 name=company></td></tr>
+	<tr><td>Company address:</td><td><input type=text size=40 name=companyaddress></td></tr>
+	</table>
+
+</form>
 
 
 <script src=js/js.js></script>

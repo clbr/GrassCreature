@@ -7,6 +7,8 @@ function showlogin() {
 			"onkeypress=\"return noenter(event)\">" +
 			" <input type=button onclick=\"dologin()\" value=\"Log in\">" +
 			"</form>";
+
+	document.forms["loginform"].username.focus();
 }
 
 function dologin() {

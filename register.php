@@ -128,6 +128,8 @@ function reg_ajaxy() {
 	var dest = document.getElementById('reg_namecheck');
 	var uname = document.getElementsByName('username')[0].value;
 
+	if (uname.length < 1) return;
+
 	x.open("GET", "DatabaseOperation/register.php?check=" + uname, true);
 
 	x.onreadystatechange = function() {

@@ -54,7 +54,7 @@ if (isset($error)) {
 	<tr><td colspan=2><h3>Required fields:</h3></td></tr>
 
 	<tr><td>Username:</td><td><input type=text size=40 name=username onblur="reg_ajaxy()"> <span id=reg_namecheck></span></td></tr>
-	<tr><td>E-mail:</td><td><input type=text size=40 name=email></td></tr>
+	<tr><td>E-mail:</td><td><input type=text size=40 name=email onblur="reg_emailtest()"> <span id=reg_emtest></span></td></tr>
 	<tr><td>Password:</td><td><input type=password size=40 name=password1 onblur="reg_pwmatch()"> <span id=pw1_pic></span></td></tr>
 	<tr><td>Password again:</td><td><input type=password size=40 name=password2 onblur="reg_pwmatch()"> <span id=pw2_pic></td></tr>
 
@@ -155,6 +155,17 @@ function reg_pwmatch() {
 		document.getElementById('pw1_pic').innerHTML = "<img src=\"img/fail.png\" width=24 height=24>";
 		document.getElementById('pw2_pic').innerHTML = "<img src=\"img/fail.png\" width=24 height=24>";
 	}
+}
+
+function reg_emailtest() {
+
+	var mail = document.getElementsByName('email')[0].value;
+	if (mail.indexOf("@") == -1 || mail.indexOf(".") == -1) {
+		document.getElementById('reg_emtest').innerHTML = "<img src=\"img/fail.png\" width=24 height=24>";
+	} else {
+		document.getElementById('reg_emtest').innerHTML = "<img src=\"img/success.png\" width=24 height=24>";
+	}
+
 }
 
 </script>

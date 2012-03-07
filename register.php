@@ -47,6 +47,8 @@ if (isset($error)) {
 
 <form action=register.php method=post id=registerform>
 
+	<h2>Register an account:</h2>
+
 	<table border=0>
 
 	<tr><td colspan=2><h3>Required fields:</h3></td></tr>

@@ -11,20 +11,28 @@
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 	<base target=main>
+	<script src="js/js.js" type="text/javascript"></script>
 </head>
 
 <body>
 
 <div id="Add" class="IdeaAdd">
 	<form method="POST" action="AddIdea.php">
-		<div><label for="name">*Idea name:</label> <input type="text" id="IdeaName" name="IdeaName"/></div>
-		<div><label for="desc">*Idea description: </label> <TEXTAREA name="desc" rows="4" cols="20"></TEXTAREA></div>
-		<div><label for="cost">Cost estimation (&euro;): </label> <input type="text" id="CostEst" name="CostEst"></div>
-		<div><label for="info">Additional information: </label> <TEXTAREA Name="AddInfo" rows="3" cols="20"></TEXTAREA></div>
-		<div><label for="info">Request date: </label> <TEXTAREA Name="ReqDate" rows="1" cols="20"></TEXTAREA></div>
-		<div><label for="based">Based on: </label> <TEXTAREA Name="BasedOn" rows="1" cols="20"></TEXTAREA></div>
-		<div><label for="based">ID:ni on: </label> <TEXTAREA Name="userID" rows="1" cols="20"></TEXTAREA></div>
-		<div class="submit"><input type="submit" name="submitIdea" value="Submit idea"></div>
+		<label for="name">*Idea name:</label><br>
+		<input type="text" id="IdeaName" name="IdeaName"><br>
+		<label for="desc">*Idea description: </label><br>
+		<TEXTAREA name="desc" rows="10" cols="70"></TEXTAREA><br>
+		<label for="cost">Cost estimation (&euro;): </label><br>
+		<input type="text" id="CostEst" name="CostEst"><br>
+		<label for="info">Additional information: </label><br>
+		<TEXTAREA Name="AddInfo" rows="3" cols="20"></TEXTAREA><br>
+		<label for="ReqDate">Request date: </label><br>
+		<input Name="ReqDate" rows="1" cols="20"><br>
+		<label for="based">Based on: </label><br>
+		<input Name="BasedOn" rows="1" cols="20"><br>
+		<label for="userID">ID:ni on: </label><br>
+		<input Name="userID" rows="1" cols="20"><br>
+		<input type="submit" name="submitIdea" value="Submit idea">
 	</form> 	  
 </div>
 
@@ -38,6 +46,5 @@
 	}
 ?>
 
-<script src="js/js.js" type="text/javascript"></script>
 </body>
 </html>

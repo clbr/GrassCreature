@@ -101,7 +101,7 @@ function getIdea($id) {
 	if ($st->fetch()) {
 		echo "<div id=ideadiv>\n" .
 			"<input type=hidden name=id value=$ID>\n" .
-			"<table border=1>\n" .
+			"<table border=0>\n" .
 
 			"\t<tr><td>Name</td><td>$Name</td></tr>\n" .
 			"\t<tr><td>Description</td><td>$Description</td></tr>\n" .

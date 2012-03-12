@@ -20,6 +20,7 @@
 	error_reporting(E_ALL);
 	require_once('DatabaseOperation/idea.php');
 	
+	// Fields are shown when the page loads, after submit is pressed, fields go away and a success message is shown instead.
 	if (!isset($_POST['submitIdea'])) {
 	?>
 	<div id="ideaForms" class="IdeaAdd">
@@ -42,8 +43,6 @@
 	<?php
 	}
 	else {	
-	//if (isset($_POST['submitIdea'])) {
-		//
 		addIdea($_POST['IdeaName'], $_POST['desc'], $_POST['ReqDate'], $_POST['CostEst'], $_POST['AddInfo'], $_POST['BasedOn'], $_SESSION['userID']);
 		echo "<div class='IdeaAdd'>Idea succesfully added.</div>";
 	}

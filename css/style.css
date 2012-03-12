@@ -130,12 +130,20 @@ iframe#main {
 	border: 2px groove;
 	display: inline-block;
 	padding: 0.5em;
-	margin-left: 1em;
-	margin-right: 1em;
+	margin: 1em;
+	border-color: #4b7daa;
+	background-image: url(../img/cloudbg.png);
 }
 
 #frontwelcome {
 	margin-left: 5em;
 	margin-top: 2em;
 	margin-bottom: 3em;
+}
+
+#adminnote {
+	margin: 3em;
+	margin-top: 1em;
+	border-width: 5px;
+	font-size: larger;
 }

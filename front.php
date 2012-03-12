@@ -17,6 +17,16 @@
 
 <h2 id=frontwelcome>Welcome to the Ideabank!</h2>
 
+<?php
+
+if ($sess->isAdmin()) {
+	echo "<div id=adminnote class=ideabox>\n";
+	echo "You have N new ideas to accept:\n<br>";
+	echo "</div><p>\n";
+
+}
+
+?>
 
 <div id=newestideas class=ideabox>
 Top 10 newest ideas here

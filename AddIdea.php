@@ -49,7 +49,7 @@
 		$ideaID = addIdea($_POST['IdeaName'], $_POST['desc'], $_POST['ReqDate'], $_POST['CostEst'], $_POST['AddInfo'], $_POST['BasedOn'], $_SESSION['userID']);
 		
 		// Upload image if there are any.
-		if ($_FILES)
+		if (!$_FILES['file']['type'] == "")
 			uploadImage($ideaID);
 			
 		echo "<div class='IdeaAdd'>Idea succesfully added with the ID: $ideaID.</div>";

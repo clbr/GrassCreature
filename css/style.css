@@ -167,3 +167,15 @@ iframe#main {
 #frontsearch input {
 	margin-bottom: 0.5em;
 }
+
+#ideadiv {
+	margin: 2em;
+}
+
+#ideadiv td {
+	padding: 5px;
+}
+
+#ideadiv tr:hover {
+	background-image: url(../img/cloudbg.png);
+}

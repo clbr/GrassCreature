@@ -87,4 +87,39 @@
 	}
 
 
+function getIdea($id) {
+
+	$db = db_connect();
+
+	$st = $db->prepare("select * from Idea where IdeaID=?");
+	$st->bind_param('i', $id);
+
+	$st->execute();
+
+	$st->bind_result($ID, $Name, $Description, $Version, $Status, $Cost, $AddInfo, $BasedOn, $ReqDate, $AddDate, $Inventor);
+
+	if ($st->fetch()) {
+		echo "<div id=ideadiv>\n" .
+			"<input type=hidden name=id value=$ID>\n" .
+			"<table border=1>\n" .
+
+			"\t<tr><td>Name</td><td>$Name</td></tr>\n" .
+			"\t<tr><td>Description</td><td>$Description</td></tr>\n" .
+			"\t<tr><td>Status</td><td>$Status</td></tr>\n" .
+			"\t<tr><td>Cost</td><td>$Cost</td></tr>\n" .
+			"\t<tr><td>Additional info</td><td>$AddInfo</td></tr>\n" .
+			"\t<tr><td>Based on</td><td>$BasedOn</td></tr>\n" .
+			"\t<tr><td>Requested date</td><td>$ReqDate</td></tr>\n" .
+			"\t<tr><td>Added date</td><td>$AddDate</td></tr>\n" .
+			"\t<tr><td>Inventor</td><td>$Inventor</td></tr>\n" .
+
+//			"\t<tr><td></td><td></td></tr>\n" .
+
+			"</table>\n" .
+			"</div>\n";
+	}
+
+	$db->close();
+}
+
 ?>

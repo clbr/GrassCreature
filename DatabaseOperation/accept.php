@@ -8,7 +8,7 @@ function getUnaccepted() {
 
 $mysqli = db_connect();
 
-$sth = $mysqli->prepare("select * from Idea where Status = 'new';");
+$sth = $mysqli->prepare("select Name from Idea where Status = 'new';");
 
 $sth->execute();
 

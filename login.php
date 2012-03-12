@@ -3,6 +3,22 @@
 require_once("session.php");
 require_once("DatabaseOperation/details.php");
 
+function checkadmin($db, $dbid) {
+
+	$res = $db->query("select Group_GroupID from User_has_Group where User_UserID = " . $dbid);
+
+	if ($res) {
+		while ($row = $res->fetch_array()) {
+			if ($row["Group_GroupID"] == 0)
+				return true;
+		}
+	} else {
+		echo $db->error;
+	}
+
+	return false;
+}
+
 function out() {
 	header("Location: index.php");
 }
@@ -39,7 +55,8 @@ if (!$st->execute())
 $st->bind_result($dbname, $dbpwd, $dbid);
 
 if ($st->fetch() && $dbpwd == $p) {
-	$_SESSION["isAdmin"] = false; // TODO: add check when the admin group is in place
+	$st->close();
+	$_SESSION["isAdmin"] = checkadmin($db, $dbid);
 	$_SESSION["userID"] = $dbid;
 	$_SESSION["uname"] = $u;
 }

@@ -15,8 +15,15 @@
 <body>
 
 
-Etusivu
+<h2>Welcome to the Ideabank!</h2>
 
+<div id=newestideas class=ideabox>
+Top 10 newest ideas here
+</div>
+
+<div id=bestideas class=ideabox>
+Top 10 best ideas here
+</div>
 
 <script src="js/js.js" type="text/javascript"></script>
 </body>

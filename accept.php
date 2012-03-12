@@ -1,6 +1,7 @@
 <?php
 
 require_once("session.php");
+require_once("DatabaseOperation/accept.php");
 
 ?>
 
@@ -18,7 +19,10 @@ require_once("session.php");
 
 <body>
 
-
+<?php
+getUnaccepted();
+echo "vittu";
+?>
 
 </body>
 </html>

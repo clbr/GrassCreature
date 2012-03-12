@@ -20,9 +20,12 @@ require_once("DatabaseOperation/accept.php");
 <body>
 
 <?php
-echo "vittu";
-getUnaccepted();
-echo "vittu";
+$ideas = getUnaccepted();
+
+while ($sth->fetch()) {
+   printf ("name: %s | desc: %s\n", $name, $desc);
+}
+
 ?>
 
 </body>

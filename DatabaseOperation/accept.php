@@ -12,11 +12,10 @@ $sth = $mysqli->prepare("select * from Idea where Status = 'new';");
 
 $sth->execute();
 
-$result = $sth->store_result();
+$stmt->bind_result($name);
 
-while ($ideas = $result->fetch_array(MYSQLI_ASSOC)) {
-    $name = $ideas["Name"];
-    echo $name;
+while ($sth->fetch()) {
+   printf ("%s\n", $name);
 }
 
 $mysqli->close();

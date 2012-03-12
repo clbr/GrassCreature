@@ -19,12 +19,13 @@
 <?php
 	error_reporting(E_ALL);
 	require_once('DatabaseOperation/idea.php');
+	require_once('uploadFile.php');
 	
-	// Fields are shown when the page loads, after submit is pressed, fields go away and a success message is shown instead.
 	if (!isset($_POST['submitIdea'])) {
+	// Fields are shown when the page loads, after submit is pressed, fields go away and a success message is shown instead.
 	?>
 	<div id="ideaForms" class="IdeaAdd">
-		<form method="POST" action="AddIdea.php">
+		<form method="POST" action="AddIdea.php" enctype="multipart/form-data">
 			*Idea name:<br>
 			<input type="text" id="IdeaName" name="IdeaName"><br>
 			*Idea description:<br>
@@ -35,16 +36,23 @@
 			<TEXTAREA Name="AddInfo" rows="6" cols="70"></TEXTAREA><br>
 			Request date/time frame for idea/implementation:<br>
 			<input Name="ReqDate" rows="1" cols="20"><br>
-			Based on idea ID:<br>
+			Based on idea ID (if any):<br>
 			<input Name="BasedOn" rows="1" cols="20"><br>
+			Attach image:<br>
+			<input type="file" name="file" id="file"><br>
 			<input type="submit" name="submitIdea" value="Submit idea" onclick="ideaAdded()">
 		</form> 	  
 	</div>
 	<?php
 	}
 	else {	
-		addIdea($_POST['IdeaName'], $_POST['desc'], $_POST['ReqDate'], $_POST['CostEst'], $_POST['AddInfo'], $_POST['BasedOn'], $_SESSION['userID']);
-		echo "<div class='IdeaAdd'>Idea succesfully added.</div>";
+		$ideaID = addIdea($_POST['IdeaName'], $_POST['desc'], $_POST['ReqDate'], $_POST['CostEst'], $_POST['AddInfo'], $_POST['BasedOn'], $_SESSION['userID']);
+		
+		// Upload image if there are any.
+		if ($_FILES)
+			uploadImage($ideaID);
+			
+		echo "<div class='IdeaAdd'>Idea succesfully added with the ID: $ideaID.</div>";
 	}
 ?>
 

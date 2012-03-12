@@ -11,6 +11,13 @@
 		$stmt = $mysqli->prepare($sql);
 		$stmt->bind_param('ssisisii', $name, $desc, $version = 1, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);
 		$stmt->execute();
+		
+		// Return the id of the just created idea. Will be used for uploaded image location.
+		$sql = "SELECT LAST_INSERT_ID()";
+		if ($result = $mysqli->query($sql) or die($mysqli->error))
+			$just_added_id = $result->fetch_row();			
+		
+		return $just_added_id[0];
 	}
 
 	function saveVersion($ideaID, $version, $name, $desc, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID) {

@@ -16,33 +16,36 @@
 
 <body>
 
-<div id="Add" class="IdeaAdd">
-	<form method="POST" action="AddIdea.php">
-		<label for="name">*Idea name:</label><br>
-		<input type="text" id="IdeaName" name="IdeaName"><br>
-		<label for="desc">*Idea description: </label><br>
-		<TEXTAREA name="desc" rows="10" cols="70"></TEXTAREA><br>
-		<label for="cost">Cost estimation (&euro;): </label><br>
-		<input type="text" id="CostEst" name="CostEst"><br>
-		<label for="info">Additional information: </label><br>
-		<TEXTAREA Name="AddInfo" rows="3" cols="20"></TEXTAREA><br>
-		<label for="ReqDate">Request date: </label><br>
-		<input Name="ReqDate" rows="1" cols="20"><br>
-		<label for="based">Based on: </label><br>
-		<input Name="BasedOn" rows="1" cols="20"><br>
-		<label for="userID">ID:ni on: </label><br>
-		<input Name="userID" rows="1" cols="20"><br>
-		<input type="submit" name="submitIdea" value="Submit idea">
-	</form> 	  
-</div>
-
 <?php
 	error_reporting(E_ALL);
 	require_once('DatabaseOperation/idea.php');
 	
-	if (isset($_POST['submitIdea'])) {
-		addIdea($_POST['IdeaName'], $_POST['desc'], $_POST['ReqDate'], $_POST['CostEst'], $_POST['AddInfo'], $_POST['BasedOn'], $_POST['userID']);
-		echo "painettu";
+	if (!isset($_POST['submitIdea'])) {
+	?>
+	<div id="ideaForms" class="IdeaAdd">
+		<form method="POST" action="AddIdea.php">
+			*Idea name:<br>
+			<input type="text" id="IdeaName" name="IdeaName"><br>
+			*Idea description:<br>
+			<TEXTAREA name="desc" rows="10" cols="70"></TEXTAREA><br>
+			Cost estimation (&euro;)<br>
+			<input type="text" id="CostEst" name="CostEst"><br>
+			Additional information:<br>
+			<TEXTAREA Name="AddInfo" rows="6" cols="70"></TEXTAREA><br>
+			Request date/time frame for idea/implementation:<br>
+			<input Name="ReqDate" rows="1" cols="20"><br>
+			Based on idea ID:<br>
+			<input Name="BasedOn" rows="1" cols="20"><br>
+			<input type="submit" name="submitIdea" value="Submit idea" onclick="ideaAdded()">
+		</form> 	  
+	</div>
+	<?php
+	}
+	else {	
+	//if (isset($_POST['submitIdea'])) {
+		//
+		addIdea($_POST['IdeaName'], $_POST['desc'], $_POST['ReqDate'], $_POST['CostEst'], $_POST['AddInfo'], $_POST['BasedOn'], $_SESSION['userID']);
+		echo "<div class='IdeaAdd'>Idea succesfully added.</div>";
 	}
 ?>
 

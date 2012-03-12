@@ -1,7 +1,10 @@
 body{
 	background-color: #ffa655;
 	font-size:12px;
- 
+}
+
+a:hover {
+	text-decoration: none;
 }
 
 p, h1, form, button{

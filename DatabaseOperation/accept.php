@@ -8,14 +8,14 @@ function getUnaccepted() {
 
 $mysqli = db_connect();
 
-$sth = $mysqli->prepare("select * from Idea where Status = 'new';");
+$sth = $mysqli->prepare("select Name, Description from Idea where Status = 'new';");
 
 $sth->execute();
 
-$sth->bind_result($name);
+$sth->bind_result($name, $desc);
 
 while ($sth->fetch()) {
-   printf ("%s\n", $name);
+   printf ("name: %s | desc: %s\n", $name, $desc);
 }
 
 $mysqli->close();

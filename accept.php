@@ -21,6 +21,7 @@ require_once("DatabaseOperation/accept.php");
 
 <?php
 getUnaccepted();
+echo "vittu";
 ?>
 
 </body>

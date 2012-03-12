@@ -20,7 +20,7 @@ while ($sth->fetch()) {
 
 $mysqli->close();
 
-return 0;
+return $sth;
 
 }
 

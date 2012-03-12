@@ -2,29 +2,14 @@
 	error_reporting(E_ALL);
 	require_once("details.php");
 
-	/*function addIdea($name, $desc) {
-		$mysqli = db_connect();
-
-		$sql = "INSERT INTO Idea (Name, Description, Version, Status, RequestDate, Inventor) VALUES ('$name', '$desc', 0, 'new', CURDATE(), 1)";
-		$result = $mysqli->query($sql);
-
-		if(!$result) {
-			$mysqli->close();
-			return 1;
-		}
-
-		$mysqli->close();
-		return 0;
-	}*/
-
 	function addIdea($name, $desc, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID) {
 		// Add entirely new idea.
 		$mysqli = db_connect();
-
-		$sql = "INSERT INTO Idea (Name, Description, Version, RequestDate, Cost, AdditionalInfo, BasedOn, Inventor, AddingDate) VALUES (
-			?, ?, ?, ?, ?, ?, ?, CURDATE())";
+		
+		$sql = "INSERT INTO Idea (Name, Description, Version, RequestDate, Cost, AdditionalInfo, BasedOn, Inventor, Status, AddingDate) VALUES (
+			?, ?, ?, ?, ?, ?, ?, ?, 'New', CURDATE())";
 		$stmt = $mysqli->prepare($sql);
-		$stmt->bind_param('ssiiissi', $name, $desc, $version = 1, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);
+		$stmt->bind_param('ssisisii', $name, $desc, $version = 1, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);
 		$stmt->execute();
 	}
 

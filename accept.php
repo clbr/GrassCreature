@@ -22,7 +22,7 @@ require_once("DatabaseOperation/accept.php");
 <?php
 $ideas = getUnaccepted();
 
-while ($sth->fetch()) {
+while ($ideas->fetch()) {
    printf ("name: %s | desc: %s\n", $name, $desc);
 }
 

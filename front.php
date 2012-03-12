@@ -15,7 +15,8 @@
 <body>
 
 
-<h2>Welcome to the Ideabank!</h2>
+<h2 id=frontwelcome>Welcome to the Ideabank!</h2>
+
 
 <div id=newestideas class=ideabox>
 Top 10 newest ideas here
@@ -23,6 +24,10 @@ Top 10 newest ideas here
 
 <div id=bestideas class=ideabox>
 Top 10 best ideas here
+</div>
+
+<div id=mostcommentedideas class=ideabox>
+Top 10 most commented ideas here
 </div>
 
 <script src="js/js.js" type="text/javascript"></script>

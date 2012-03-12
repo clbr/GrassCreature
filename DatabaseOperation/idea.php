@@ -52,15 +52,16 @@ function editIdea($ideaID, $name, $desc, $reqdate, $cost, $additionalInfo, $base
 	saveVersion($ideaID, $version, $name, $desc, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);	
 	
 	$version++;
-
-	$sql = "INSERT INTO Idea (Name, Description, Version, RequestDate, Cost, AdditionalInfo, BasedOn, Inventor) VALUES (
-		?, ?, ?, ?, ?, ?, ?, ?)";
+	
+	$sql = "UPDATE Idea SET Name = ?, SET Description = ?, SET Version = ?, SET RequestDate = ?, SET Cost = ?, SET AdditionalInfo = ?,
+		SET BasedOn = ?, SET Inventor = ? WHERE IdeaID = $ideaID";
+	
 	$stmt = $mysqli->prepare($sql);
 	$stmt->bind_param('ssiisissi', $name, $desc, $version, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);
 	$stmt->execute();
 }
 
-function adminEditIdea($ideaID, $status, $name, $desc, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID, $addDate) {
+function adminEditIdea($ideaID, $status, $name, $desc, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID) {
 	$mysqli = db_connect();
 
 	// Difference to normal editing: Can change status.
@@ -68,13 +69,17 @@ function adminEditIdea($ideaID, $status, $name, $desc, $reqdate, $cost, $additio
 	// Before editing all current info will be retrieved from db to textfields for user to edit.
 
 	// Version incrementing has to be done by code, auto increment is no good here.
-	// Gets the biggest version number from this id.
-	$sql = "SELECT Version FROM Idea WHERE IdeaID = $ideaID ORDER BY Version DESC LIMIT 1";
+	$sql = "SELECT Version FROM Idea WHERE IdeaID = $ideaID";
 	$version = $mysqli->query($sql) or die($mysqli->error);
+	
+	// Save previous version.
+	saveVersion($ideaID, $version, $name, $desc, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);	
+	
 	$version++;
-
-	$sql = "INSERT INTO Idea (Name, Description, Version, Status, RequestDate, Cost, AdditionalInfo, BasedOn, Inventor, AddingDate) VALUES (
-		?, ?, ?, ?, ?, ?, ?, ?, ?, CURDATE())";
+		
+	$sql = "UPDATE Idea SET Name = ?, SET Description = ?, SET Version = ?, SET Status = ?, SET RequestDate = ?, SET Cost = ?, SET AdditionalInfo = ?,
+		SET BasedOn = ?, SET Inventor = ? WHERE IdeaID = $ideaID";	
+	
 	$stmt = $mysqli->prepare($sql);
 	$stmt->bind_param('ssisiissi', $name, $desc, $version, $status, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);
 	$stmt->execute();

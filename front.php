@@ -16,7 +16,7 @@
 <body>
 
 
-<h2 id=frontwelcome>Welcome to the Ideabank!</h2>
+<h1 id=frontwelcome>Welcome to the Ideabank!</h1>
 
 
 <?php

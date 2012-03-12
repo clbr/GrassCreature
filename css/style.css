@@ -106,6 +106,15 @@ label#Add{
 
 #registerform td {
 	padding: 5px;
+	height: 42px;
+}
+
+#registerform img {
+	vertical-align: middle;
+}
+
+#registerform input {
+	vertical-align: middle;
 }
 
 iframe#main {

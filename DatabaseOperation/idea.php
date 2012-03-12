@@ -87,4 +87,25 @@
 	}
 
 
+function getIdea($id) {
+
+	$db = db_connect();
+
+	$st = $db->prepare("select * from Idea where IdeaID=?");
+	$st->bind_param('i', $id);
+
+	$st->execute();
+
+	$st->bind_result($ID, $Name, $Description, $Version, $Status, $Cost, $AddInfo, $BasedOn, $ReqDate, $AddDate, $Inventor);
+
+	if ($st->fetch()) {
+		echo "<div id=ideadiv>" .
+			"<table border=1>" .
+			"</table>" .
+			"</div>";
+	}
+
+	$db->close();
+}
+
 ?>

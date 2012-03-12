@@ -20,9 +20,7 @@ require_once("DatabaseOperation/accept.php");
 <body>
 
 <?php
-echo "vittu";
 getUnaccepted();
-echo "vittu";
 ?>
 
 </body>

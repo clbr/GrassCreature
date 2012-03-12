@@ -2,6 +2,8 @@
 
 require_once("details.php");
 
+echo "VITTU TOIMI";
+
 function getUnaccepted() {
 
 $mysqli = db_connect();
@@ -26,5 +28,8 @@ $mysqli->close();
 return 0;
 
 }
+
+getUnaccepted();
+echo "VITTU TOIMI3";
 
 ?>

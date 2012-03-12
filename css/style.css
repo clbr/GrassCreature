@@ -173,8 +173,18 @@ iframe#main {
 
 #ideadiv td {
 	padding: 5px;
+	border-bottom: 1px solid;
+}
+
+#ideadiv table {
+	border-collapse: collapse;
+	max-width: 50%;
 }
 
 #ideadiv tr:hover {
 	background-image: url(../img/cloudbg.png);
+}
+
+#idealeft {
+	min-width: 9em;
 }

@@ -107,7 +107,7 @@ function getIdea($id) {
 			"\t<tr><td>Description</td><td>$Description</td></tr>\n" .
 			"\t<tr><td>Status</td><td>$Status</td></tr>\n" .
 			"\t<tr><td>Cost</td><td>$Cost</td></tr>\n" .
-			"\t<tr><td>Additional info</td><td>$AddInfo</td></tr>\n" .
+			"\t<tr><td id=idealeft>Additional info</td><td>$AddInfo</td></tr>\n" .
 			"\t<tr><td>Based on</td><td>$BasedOn</td></tr>\n" .
 			"\t<tr><td>Requested date</td><td>$ReqDate</td></tr>\n" .
 			"\t<tr><td>Added date</td><td>$AddDate</td></tr>\n" .

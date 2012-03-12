@@ -56,7 +56,7 @@ if (isset($error)) {
 	<tr><td>Username:</td><td><input type=text size=40 name=username onblur="reg_ajaxy()"> <span id=reg_namecheck></span></td></tr>
 	<tr><td>E-mail:</td><td><input type=text size=40 name=email onblur="reg_emailtest()"> <span id=reg_emtest></span></td></tr>
 	<tr><td>Password:</td><td><input type=password size=40 name=password1 onblur="reg_pwmatch()"> <span id=pw1_pic></span></td></tr>
-	<tr><td>Password again:</td><td><input type=password size=40 name=password2 onblur="reg_pwmatch()"> <span id=pw2_pic></td></tr>
+	<tr><td>Password again:</td><td><input type=password size=40 name=password2 onblur="reg_pwmatch()"> <span id=pw2_pic></span></td></tr>
 
 	<tr><td colspan=2><h3>Optional fields:</h3></td></tr>
 

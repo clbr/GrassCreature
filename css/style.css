@@ -1,7 +1,18 @@
 body{
-	background-color:#736AFF;
+	background-color: #ffa655;
 	font-size:12px;
- 
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+a:link {
+	color: #009c1a;
+}
+
+a:visited {
+	color: #00590f;
 }
 
 p, h1, form, button{
@@ -106,6 +117,15 @@ label#Add{
 
 #registerform td {
 	padding: 5px;
+	height: 42px;
+}
+
+#registerform img {
+	vertical-align: middle;
+}
+
+#registerform input {
+	vertical-align: middle;
 }
 
 iframe#main {
@@ -117,3 +137,32 @@ iframe#main {
 	height: 100%;
 }
 
+.ideabox {
+	border: 2px groove #4b7daa;
+	display: inline-block;
+	padding: 0.5em;
+	margin: 1em;
+	background-image: url(../img/cloudbg.png);
+}
+
+#frontwelcome {
+	margin-left: 2em;
+	margin-top: 2em;
+	margin-bottom: 1em;
+}
+
+#adminnote {
+	margin: 3em;
+	margin-top: 1em;
+	border-width: 5px;
+	font-size: larger;
+	padding: 2em;
+}
+
+#frontsearch {
+	float: right;
+}
+
+#frontsearch input {
+	margin-bottom: 0.5em;
+}

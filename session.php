@@ -30,7 +30,8 @@ class sess {
 			$uname = $_SESSION["uname"];
 
 			echo "<form action=login.php method=post>\n";
-			echo "\t\tLogged in as $uname \n";
+			echo "\t\tLogged in as $uname";
+			if ($this->isAdmin()) echo ", administrator\n";
 			echo "\t\t<input type=submit name=logout value=\"Log out\">\n";
 			echo "\t</form>\n";
 		} else {

@@ -135,9 +135,9 @@ iframe#main {
 }
 
 #frontwelcome {
-	margin-left: 5em;
+	margin-left: 2em;
 	margin-top: 2em;
-	margin-bottom: 3em;
+	margin-bottom: 1em;
 }
 
 #adminnote {
@@ -145,6 +145,7 @@ iframe#main {
 	margin-top: 1em;
 	border-width: 5px;
 	font-size: larger;
+	padding: 2em;
 }
 
 #frontsearch {

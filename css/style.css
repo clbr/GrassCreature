@@ -127,11 +127,10 @@ iframe#main {
 }
 
 .ideabox {
-	border: 2px groove;
+	border: 2px groove #4b7daa;
 	display: inline-block;
 	padding: 0.5em;
 	margin: 1em;
-	border-color: #4b7daa;
 	background-image: url(../img/cloudbg.png);
 }
 
@@ -146,4 +145,12 @@ iframe#main {
 	margin-top: 1em;
 	border-width: 5px;
 	font-size: larger;
+}
+
+#frontsearch {
+	float: right;
+}
+
+#frontsearch input {
+	margin-bottom: 0.5em;
 }

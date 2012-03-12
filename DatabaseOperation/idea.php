@@ -99,19 +99,29 @@ function getIdea($id) {
 	$st->bind_result($ID, $Name, $Description, $Version, $Status, $Cost, $AddInfo, $BasedOn, $ReqDate, $AddDate, $Inventor);
 
 	if ($st->fetch()) {
+		$st->close();
+
+		$st = $db->prepare("select Name from User where UserID = ?");
+		$st->bind_param('i', $Inventor);
+		$st->execute();
+		$st->bind_result($uname);
+		$st->fetch();
+
 		echo "<div id=ideadiv>\n" .
 			"<input type=hidden name=id value=$ID>\n" .
 			"<table border=0>\n" .
 
 			"\t<tr><td>Name</td><td>$Name</td></tr>\n" .
 			"\t<tr><td>Description</td><td>$Description</td></tr>\n" .
-			"\t<tr><td>Status</td><td>$Status</td></tr>\n" .
-			"\t<tr><td>Cost</td><td>$Cost</td></tr>\n" .
-			"\t<tr><td id=idealeft>Additional info</td><td>$AddInfo</td></tr>\n" .
-			"\t<tr><td>Based on</td><td>$BasedOn</td></tr>\n" .
-			"\t<tr><td>Requested date</td><td>$ReqDate</td></tr>\n" .
+			"\t<tr><td id=idealeft>Status</td><td>$Status</td></tr>\n";
+
+		if (!empty($Cost)) echo "\t<tr><td>Cost</td><td>$Cost</td></tr>\n";
+		if (!empty($AddInfo)) echo "\t<tr><td>Additional info</td><td>$AddInfo</td></tr>\n";
+		if (!empty($BasedOn)) echo "\t<tr><td>Based on</td><td><a href=\"showIdea.php?id=$BasedOn\">$BasedOn</a></td></tr>\n";
+
+		echo "\t<tr><td>Requested date</td><td>$ReqDate</td></tr>\n" .
 			"\t<tr><td>Added date</td><td>$AddDate</td></tr>\n" .
-			"\t<tr><td>Inventor</td><td>$Inventor</td></tr>\n" .
+			"\t<tr><td>Inventor</td><td><a href=\"showUser.php?id=$Inventor\">$uname</a></td></tr>\n" .
 
 //			"\t<tr><td></td><td></td></tr>\n" .
 

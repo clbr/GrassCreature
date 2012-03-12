@@ -12,11 +12,12 @@ $sth->execute();
 
     $result = $sth->get_result();
 
-    while ($ideas = $result->fetch_assoc()) {
+while ($ideas = $result->fetch_array(MYSQLI_ASSOC)) {
+    $name = $ideas["Name"];
+    echo $name;
+}
 
-        printf("name: %s\n", $ideas['Name']);
 
-    }
 
 $mysqli->close();
 

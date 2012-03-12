@@ -1,4 +1,17 @@
-<?php require_once("session.php"); ?>
+<?php require_once("session.php");
+
+if (!isset($_GET["id"])) {
+	echo "<script type=\"text/javascript\">" .
+		"alert(\"No idea id given\"); window.history.back();" .
+		"</script>";
+	return;
+}
+
+require_once("DatabaseOperation/idea.php");
+
+$id = $_GET["id"];
+
+?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
   "http://www.w3.org/TR/html4/loose.dtd">
@@ -15,6 +28,11 @@
 
 <body>
 
+<?php
+
+getIdea($id);
+
+?>
 
 
 <script src="js/js.js" type="text/javascript"></script>

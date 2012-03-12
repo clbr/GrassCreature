@@ -30,7 +30,7 @@ if ($sess->isAdmin()) {
 	if ($num > 0) {
 		echo "<div id=adminnote class=ideabox>\n" .
 			"<a href=\"accept.php\">" .
-			"You have $num new ideas to accept</a><br>" .
+			"You have $num new ideas to accept.</a><br>" .
 			"</div><p>\n";
 	}
 

@@ -3,6 +3,7 @@
 require_once("details.php");
 
 echo "VITTU TOIMI";
+error_reporting(E_ALL);
 
 function getUnaccepted() {
 

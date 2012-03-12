@@ -17,7 +17,7 @@
 	$sess->printBox();
 ?>
 
-<iframe name=main id=main src="register.php"></iframe>
+<iframe name=main id=main src="front.php"></iframe>
 
 <script src="js/js.js" type="text/javascript"></script>
 </body>

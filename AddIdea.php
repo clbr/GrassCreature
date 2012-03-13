@@ -25,7 +25,7 @@ if (!$sess->isLoggedIn())
 	error_reporting(E_ALL);
 	require_once('DatabaseOperation/idea.php');
 	require_once('uploadFile.php');
-	
+
 	if (!isset($_POST['submitIdea'])) {
 	// Fields are shown when the page loads, after submit is pressed, fields go away and a success message is shown instead.
 	?>
@@ -46,17 +46,17 @@ if (!$sess->isLoggedIn())
 			Attach image:<br>
 			<input type="file" name="file" id="file"><br>
 			<input type="submit" name="submitIdea" value="Submit idea" onclick="ideaAdded()">
-		</form> 	  
+		</form>
 	</div>
 	<?php
 	}
-	else {	
+	else {
 		$ideaID = addIdea($_POST['IdeaName'], $_POST['desc'], $_POST['ReqDate'], $_POST['CostEst'], $_POST['AddInfo'], $_POST['BasedOn'], $sess->getUserID());
-		
+
 		// Upload image if there are any.
 		if (!$_FILES['file']['type'] == "")
 			uploadImage($ideaID);
-			
+
 		echo "<div class='IdeaAdd'>Idea succesfully added with the ID: $ideaID.</div>";
 	}
 ?>

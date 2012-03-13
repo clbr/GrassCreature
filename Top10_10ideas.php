@@ -20,7 +20,7 @@ function top102()
 		echo"<table border='1'>";
 		$result->data_seek(0);
 		echo "<tr><td>Idea Name</td><td>Inventor</td><td>Time when added</td></tr>";
-		
+
 		for($i=0; $i<10; $i++)
 		{
 		$row = $result->fetch_row();
@@ -28,9 +28,9 @@ function top102()
 			<td>$row[0]</td>
 			<td>$row[1]</td>
 			<td>$row[2]</td>
-			
+
 			</tr>";
-			
+
 			//echo "<pre>"; var_dump($row); echo "</pre>";
 		}
 		echo"</table>";

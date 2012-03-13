@@ -5,18 +5,18 @@
 	function addIdea($name, $desc, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID) {
 		// Add entirely new idea.
 		$mysqli = db_connect();
-		
+
 		$sql = "INSERT INTO Idea (Name, Description, Version, RequestDate, Cost, AdditionalInfo, BasedOn, Inventor, Status, AddingDate) VALUES (
 			?, ?, ?, ?, ?, ?, ?, ?, 'New', CURDATE())";
 		$stmt = $mysqli->prepare($sql);
 		$stmt->bind_param('ssisisii', $name, $desc, $version = 1, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);
 		$stmt->execute();
-		
+
 		// Return the id of the just created idea. Will be used for uploaded image location.
 		$sql = "SELECT LAST_INSERT_ID()";
 		if ($result = $mysqli->query($sql) or die($mysqli->error))
-			$just_added_id = $result->fetch_row();			
-		
+			$just_added_id = $result->fetch_row();
+
 		return $just_added_id[0];
 	}
 
@@ -39,15 +39,15 @@
 		// Version incrementing has to be done by code, auto increment is no good here.
 		$sql = "SELECT Version FROM Idea WHERE IdeaID = $ideaID";
 		$version = $mysqli->query($sql) or die($mysqli->error);
-		
+
 		// Save previous version.
-		saveVersion($ideaID, $version, $name, $desc, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);	
-		
+		saveVersion($ideaID, $version, $name, $desc, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);
+
 		$version++;
-		
+
 		$sql = "UPDATE Idea SET Name = ?, SET Description = ?, SET Version = ?, SET RequestDate = ?, SET Cost = ?, SET AdditionalInfo = ?,
 			SET BasedOn = ?, SET Inventor = ? WHERE IdeaID = $ideaID";
-		
+
 		$stmt = $mysqli->prepare($sql);
 		$stmt->bind_param('ssiisissi', $name, $desc, $version, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);
 		$stmt->execute();
@@ -63,15 +63,15 @@
 		// Version incrementing has to be done by code, auto increment is no good here.
 		$sql = "SELECT Version FROM Idea WHERE IdeaID = $ideaID";
 		$version = $mysqli->query($sql) or die($mysqli->error);
-		
+
 		// Save previous version.
-		saveVersion($ideaID, $version, $name, $desc, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);	
-		
+		saveVersion($ideaID, $version, $name, $desc, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);
+
 		$version++;
-			
+
 		$sql = "UPDATE Idea SET Name = ?, SET Description = ?, SET Version = ?, SET Status = ?, SET RequestDate = ?, SET Cost = ?, SET AdditionalInfo = ?,
-			SET BasedOn = ?, SET Inventor = ? WHERE IdeaID = $ideaID";	
-		
+			SET BasedOn = ?, SET Inventor = ? WHERE IdeaID = $ideaID";
+
 		$stmt = $mysqli->prepare($sql);
 		$stmt->bind_param('ssisiissi', $name, $desc, $version, $status, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);
 		$stmt->execute();

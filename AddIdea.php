@@ -1,4 +1,9 @@
-<?php require_once("session.php"); ?>
+<?php require_once("session.php");
+
+// This page requires login.
+if (!$sess->isLoggedIn())
+	header("Location: index.php");
+?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
   "http://www.w3.org/TR/html4/loose.dtd">
@@ -46,7 +51,7 @@
 	<?php
 	}
 	else {	
-		$ideaID = addIdea($_POST['IdeaName'], $_POST['desc'], $_POST['ReqDate'], $_POST['CostEst'], $_POST['AddInfo'], $_POST['BasedOn'], $_SESSION['userID']);
+		$ideaID = addIdea($_POST['IdeaName'], $_POST['desc'], $_POST['ReqDate'], $_POST['CostEst'], $_POST['AddInfo'], $_POST['BasedOn'], $sess->getUserID());
 		
 		// Upload image if there are any.
 		if (!$_FILES['file']['type'] == "")

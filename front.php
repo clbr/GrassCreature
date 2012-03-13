@@ -36,13 +36,6 @@ if ($sess->isAdmin()) {
 
 }
 
-// Link for adding new ideas.
-if ($sess->isLoggedIn()) {
-	echo "<div id=ideaAddingPage class=ideabox>
-	<a href='http://student.labranet.jamk.fi/~f6855/ideapankkikehitys/GrassCreature/AddIdea.php'>Add idea</a>
-	</div>";
-}
-
 ?>
 
 <div id=newestideas class=ideabox>

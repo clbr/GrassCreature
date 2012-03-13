@@ -201,3 +201,10 @@ iframe#main {
 	text-align: right;
 	margin-top: 5em;
 }
+
+.rightbox {
+	display: inline-block;
+	padding: 0.5em;
+	margin: 1em;
+	background-image: url(../img/cloudbg.png);
+}

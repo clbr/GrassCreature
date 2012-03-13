@@ -9,6 +9,7 @@
 	<link rel="icon" href="favicon.ico" type="image/x-icon">
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<base target=main>
 </head>
 
 <body>
@@ -18,13 +19,27 @@
 ?>
 
 <div id=rightbar>
-	<div id=frontsearch>
+
+	<div class=rightbox>
+	<a href=front.php>
+	<img src=ourlogohere height=100 width=200>
+	</a>
+	</div><p>
+
+	<div id=frontsearch class=rightbox>
 	<form method=post action="search.php">
 		<input type=text size=30 name=simpletext> <input type=submit value=Search><br>
 		<a href="search.php">Advanced search</a>
 	</form>
-	</div>
+	</div><p>
 
+	<?php
+	// Link for adding new ideas.
+	if ($sess->isLoggedIn()) {
+		echo "<div class=rightbox>" .
+		"<a href='AddIdea.php'>Add idea</a></div><p>\n";
+	}
+	?>
 </div>
 
 <iframe name=main id=main src="front.php"></iframe>

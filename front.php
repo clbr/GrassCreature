@@ -58,15 +58,6 @@ Top 10 most commented ideas here
 </div>
 
 
-<div id=frontsearch class=ideabox>
-<form method=post action="search.php">
-	<input type=text size=30 name=simpletext> <input type=submit value=Search><br>
-	<a href="search.php">Advanced search</a>
-</form>
-</div>
-
-
-
 <script src="js/js.js" type="text/javascript"></script>
 </body>
 </html>

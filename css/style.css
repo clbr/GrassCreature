@@ -161,7 +161,7 @@ iframe#main {
 }
 
 #frontsearch {
-	float: right;
+	text-align: left;
 }
 
 #frontsearch input {
@@ -193,4 +193,11 @@ iframe#main {
 .accidea {
 	margin: auto;
 	width: 90em;
+}
+
+#rightbar {
+	float: right;
+	clear: both;
+	text-align: right;
+	margin-top: 5em;
 }

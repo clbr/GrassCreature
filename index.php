@@ -17,6 +17,16 @@
 	$sess->printBox();
 ?>
 
+<div id=rightbar>
+	<div id=frontsearch>
+	<form method=post action="search.php">
+		<input type=text size=30 name=simpletext> <input type=submit value=Search><br>
+		<a href="search.php">Advanced search</a>
+	</form>
+	</div>
+
+</div>
+
 <iframe name=main id=main src="front.php"></iframe>
 
 <script src="js/js.js" type="text/javascript"></script>

@@ -26,39 +26,51 @@ if (!$sess->isLoggedIn())
 	require_once('DatabaseOperation/idea.php');
 	require_once('uploadFile.php');
 
-	if (!isset($_POST['submitIdea'])) {
+	if (!isset($_POST['submitChanges'])) {	
 	// Fields are shown when the page loads, after submit is pressed, fields go away and a success message is shown instead.
-	getIdeaInfo()
-	?>
+	
+	$ideaid = $_GET['ideaid'];
+	
+	// Gets the currently open idea's info.
+	$ideaData = getIdeaInfo($ideaid);
+	$idea = $ideaData->fetch_object();
+	
+	// Fill textfields with existing data.
+	echo'
 	<div id="ideaForms" class="IdeaAdd">
 		<form method="POST" action="AddIdea.php" enctype="multipart/form-data">
 			*Idea name:<br>
-			<input type="text" id="IdeaName" name="IdeaName"><br>
+			<input type="text" id="IdeaName" name="IdeaName" value="'.$idea->Name.'"><br>
 			*Idea description:<br>
-			<TEXTAREA name="desc" rows="10" cols="70"></TEXTAREA><br>
+			<TEXTAREA name="desc" rows="10" cols="70">'.$idea->Description.'</TEXTAREA><br>
 			Cost estimation (&euro;)<br>
-			<input type="text" id="CostEst" name="CostEst"><br>
+			<input type="text" id="CostEst" name="CostEst" value="'.$idea->Cost.'"><br>
 			Additional information:<br>
-			<TEXTAREA Name="AddInfo" rows="6" cols="70"></TEXTAREA><br>
+			<TEXTAREA Name="AddInfo" rows="6" cols="70">'.$idea->AdditionalInfo.'</TEXTAREA><br>
 			Request date/time frame for idea/implementation:<br>
-			<input Name="ReqDate" rows="1" cols="20"><br>
+			<input Name="ReqDate" rows="1" cols="20" value="'.$idea->RequestDate.'"><br>
 			Based on idea ID (if any):<br>
-			<input Name="BasedOn" rows="1" cols="20"><br>
+			<input Name="BasedOn" rows="1" cols="20" value="'.$idea->BasedOn.'"><br>
 			Attach image:<br>
 			<input type="file" name="file" id="file"><br>
-			<input type="submit" name="submitIdea" value="Submit idea" onclick="ideaAdded()">
+			<input type="submit" name="submitChanges" value="Submit changes">
 		</form>
-	</div>
-	<?php
+	</div>';
 	}
 	else {
-		$ideaID = addIdea($_POST['IdeaName'], $_POST['desc'], $_POST['ReqDate'], $_POST['CostEst'], $_POST['AddInfo'], $_POST['BasedOn'], $sess->getUserID());
+		// Save old version to db...
+		saveVersion($idea->IdeaID, $idea->Version, $idea->Name, $idea->Description, $idea->RequestDate, $idea->Cost, $idea->AdditionalInfo,
+			$idea->BasedOn, $idea->Inventor);
+		
+		// and edit the idea with new data.
+		$ideaID = editIdea($_POST['IdeaName'], $_POST['desc'], $_POST['ReqDate'], $_POST['CostEst'], $_POST['AddInfo'], $_POST['BasedOn'],
+			$idea->Version, $sess->getUserID());
 
-		// Upload image if there are any.
+		// Upload image if there are any. Uploads the image to a folder with the same name as the idea's id.
 		if (!$_FILES['file']['type'] == "")
 			uploadImage($ideaID);
 
-		echo "<div class='IdeaEdit'>Idea succesfully edited.</div>";
+		echo "<div class='IdeaEdit'>Idea with id ".$idea->IdeaID." succesfully edited.</div>";
 	}
 ?>
 

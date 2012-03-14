@@ -7,7 +7,7 @@
 		$mysqli = db_connect();
 
 		$sql = "INSERT INTO Idea (Name, Description, Version, RequestDate, Cost, AdditionalInfo, BasedOn, Inventor, Status, AddingDate) VALUES (
-			?, ?, ?, ?, ?, ?, ?, ?, 'New', CURDATE())";
+			?, ?, ?, ?, ?, ?, ?, ?, 'New', NOW())";
 		$stmt = $mysqli->prepare($sql);
 		$stmt->bind_param('ssisisii', $name, $desc, $version = 1, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);
 		$stmt->execute();
@@ -31,18 +31,16 @@
 		$stmt->execute();
 	}
 
-	function editIdea($ideaID, $name, $desc, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID) {
+	function editIdea($ideaID, $name, $desc, $reqdate, $cost, $additionalInfo, $basedOn, $version, $inventorID) {
 		$mysqli = db_connect();
 
 		// Before editing all current info will be retrieved from db to textfields for user to edit.
 
 		// Version incrementing has to be done by code, auto increment is no good here.
-		$sql = "SELECT Version FROM Idea WHERE IdeaID = $ideaID";
-		$version = $mysqli->query($sql) or die($mysqli->error);
-
-		// Save previous version.
-		saveVersion($ideaID, $version, $name, $desc, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);
-
+		//$sql = "SELECT Version FROM Idea WHERE IdeaID = $ideaID";
+		//$version = $mysqli->query($sql) or die($mysqli->error);
+		
+		// ^ currently obsolete, since found a better way to get version...
 		$version++;
 
 		$sql = "UPDATE Idea SET Name = ?, SET Description = ?, SET Version = ?, SET RequestDate = ?, SET Cost = ?, SET AdditionalInfo = ?,
@@ -51,9 +49,12 @@
 		$stmt = $mysqli->prepare($sql);
 		$stmt->bind_param('ssiisissi', $name, $desc, $version, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);
 		$stmt->execute();
+		
+		// Return ID for images.
+		return $ideaID;
 	}
 
-	function adminEditIdea($ideaID, $status, $name, $desc, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID) {
+	function adminEditIdea($ideaID, $status, $name, $desc, $reqdate, $cost, $additionalInfo, $basedOn,$version, $inventorID) {
 		$mysqli = db_connect();
 
 		// Difference to normal editing: Can change status.
@@ -61,12 +62,8 @@
 		// Before editing all current info will be retrieved from db to textfields for user to edit.
 
 		// Version incrementing has to be done by code, auto increment is no good here.
-		$sql = "SELECT Version FROM Idea WHERE IdeaID = $ideaID";
-		$version = $mysqli->query($sql) or die($mysqli->error);
-
-		// Save previous version.
-		saveVersion($ideaID, $version, $name, $desc, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);
-
+		//$sql = "SELECT Version FROM Idea WHERE IdeaID = $ideaID";
+		//$version = $mysqli->query($sql) or die($mysqli->error);
 		$version++;
 
 		$sql = "UPDATE Idea SET Name = ?, SET Description = ?, SET Version = ?, SET Status = ?, SET RequestDate = ?, SET Cost = ?, SET AdditionalInfo = ?,
@@ -96,7 +93,7 @@
 	function getIdeaInfo($id) {
 		$mysqli = db_connect();
 		
-		$sql = "select * from Idea where IdeaID=?";
+		$sql = "select * from Idea where IdeaID=$id";
 		$result = $mysqli->query($sql) or die($mysqli->error);
 		return $result;
 	}
@@ -142,12 +139,13 @@ function getIdea($id, $userID) {
 			"</table>\n" .
 			"</div>\n";
 		
+		// Edit button for created ideas.
 		if ($userID == $Inventor) {
-			echo "<a href='editIdea.php'>Edit idea</a>";	
+			// Send idea-id along page change.
+			echo "<a href='editIdea.php?ideaid=$id'>Edit idea</a>";	
 		}		
 		
 	}
-
 	$db->close();
 }
 

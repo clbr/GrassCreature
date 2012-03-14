@@ -50,7 +50,7 @@ if (!$sess->isLoggedIn())
 
 			Attach images:<br>
 			<div id=addimages>
-			<input type="file" name="file[]" onchange="moreimages()"></div>
+			<input type="file" name="file"></div>
 			<br>
 			<input type="submit" name="submitIdea" value="Submit idea">
 		</form>

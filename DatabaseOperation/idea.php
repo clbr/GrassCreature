@@ -93,8 +93,15 @@
 		$mysqli->close();
 	}
 
+	function getIdeaInfo($id) {
+		$mysqli = db_connect();
+		
+		$sql = "select * from Idea where IdeaID=?";
+		$result = $mysqli->query($sql) or die($mysqli->error);
+		return $result;
+	}
 
-function getIdea($id) {
+function getIdea($id, $userID) {
 
 	$db = db_connect();
 
@@ -134,6 +141,11 @@ function getIdea($id) {
 
 			"</table>\n" .
 			"</div>\n";
+		
+		if ($userID == $Inventor) {
+			echo "<a href='editIdea.php'>Edit idea</a>";	
+		}		
+		
 	}
 
 	$db->close();

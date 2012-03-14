@@ -9,7 +9,6 @@
 	<link rel="icon" href="favicon.ico" type="image/x-icon">
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-	<base target=main>
 </head>
 
 <body>
@@ -45,5 +44,20 @@
 <iframe name=main id=main src="front.php"></iframe>
 
 <script src="js/js.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+function dolinks() {
+	var links = document.getElementsByTagName('a');
+	var len = links.length;
+
+	for (var i = 0; i < len; i++) {
+		links[i].target = 'main';
+	}
+}
+
+dolinks();
+
+</script>
+
 </body>
 </html>

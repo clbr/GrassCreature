@@ -217,3 +217,21 @@ iframe#main {
 .rightbox input {
 	font-size: 12px;
 }
+
+#userdiv {
+	margin: 2em;
+}
+
+#userdiv td, th {
+	padding: 5px;
+	border-bottom: 1px solid;
+}
+
+#userdiv table {
+	border-collapse: collapse;
+	max-width: 50%;
+}
+
+#userdiv tr:hover {
+	background-image: url(../img/cloudbg.png);
+}

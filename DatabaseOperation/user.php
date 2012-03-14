@@ -29,7 +29,10 @@ function getUser($id, $isLoggedIn) {
 	}
 	$st->close();
 
+	// Only show ideas to logged in users
 	if ($isLoggedIn) {
+
+		echo "<br><br>\n";
 
 		$st = $db->prepare("select IdeaID, Name from Idea where Inventor = ?");
 		$st->bind_param("i", $id);
@@ -49,6 +52,8 @@ function getUser($id, $isLoggedIn) {
 
 		echo "</table>\n";
 	}
+
+	echo "</div>\n";
 
 	$db->close();
 }

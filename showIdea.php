@@ -30,7 +30,7 @@ $id = $_GET["id"];
 
 <?php
 
-getIdea($id);
+getIdea($id, $userID->getUserID() );
 
 ?>
 

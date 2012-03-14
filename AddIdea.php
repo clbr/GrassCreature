@@ -33,16 +33,22 @@ if (!$sess->isLoggedIn())
 		<form method="POST" action="AddIdea.php" enctype="multipart/form-data">
 			*Idea name:<br>
 			<input type="text" id="IdeaName" name="IdeaName"><br>
+
 			*Idea description:<br>
 			<TEXTAREA name="desc" rows="10" cols="70"></TEXTAREA><br>
+
 			Cost estimation (&euro;)<br>
 			<input type="text" id="CostEst" name="CostEst"><br>
+
 			Additional information:<br>
 			<TEXTAREA Name="AddInfo" rows="6" cols="70"></TEXTAREA><br>
+
 			Request date/time frame for idea/implementation:<br>
 			<input Name="ReqDate" rows="1" cols="20"><br>
+
 			Based on idea ID (if any):<br>
 			<input Name="BasedOn" rows="1" cols="20"><br>
+
 			Attach image:<br>
 			<input type="file" name="file" id="file"><br>
 			<input type="submit" name="submitIdea" value="Submit idea" onclick="ideaAdded()">

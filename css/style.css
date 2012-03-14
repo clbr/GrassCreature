@@ -222,6 +222,10 @@ iframe#main {
 	font-size: 12px;
 }
 
+.rightbox img {
+	border-style: none;
+}
+
 #userdiv {
 	margin: 2em;
 }

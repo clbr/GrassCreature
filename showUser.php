@@ -30,7 +30,7 @@ $id = $_GET["id"];
 
 <?php
 
-getUser($id);
+getUser($id, $sess->isLoggedIn());
 
 ?>
 

@@ -16,7 +16,6 @@ if (!$sess->isLoggedIn())
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 	<base target=main>
-	<script src="js/js.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -66,6 +65,8 @@ if (!$sess->isLoggedIn())
 		echo "<div class='IdeaAdd'>Idea succesfully added with the ID: $ideaID.</div>";
 	}
 ?>
+
+<script src="js/js.js" type="text/javascript"></script>
 
 </body>
 </html>

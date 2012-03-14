@@ -22,7 +22,7 @@
 
 	<div class=rightbox>
 	<a href=front.php>
-	<img src=ourlogohere height=100 width=200>
+	<img src=img/logo.png height=37 width=139>
 	</a>
 	</div><p>
 

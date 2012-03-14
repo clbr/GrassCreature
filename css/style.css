@@ -198,7 +198,7 @@ iframe#main {
 #rightbar {
 	float: right;
 	clear: both;
-	text-align: right;
+	text-align: center;
 	margin-top: 5em;
 }
 

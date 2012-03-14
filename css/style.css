@@ -144,6 +144,10 @@ iframe#main {
 	padding: 0.5em;
 	margin: 1em;
 	background-image: url(../img/cloudbg.png);
+
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
 }
 
 #frontwelcome {
@@ -220,6 +224,10 @@ iframe#main {
 
 .rightbox input {
 	font-size: 12px;
+}
+
+.rightbox img {
+	border-style: none;
 }
 
 #userdiv {

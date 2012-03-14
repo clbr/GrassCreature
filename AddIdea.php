@@ -48,9 +48,11 @@ if (!$sess->isLoggedIn())
 			Based on idea ID (if any):<br>
 			<input Name="BasedOn" rows="1" cols="20"><br>
 
-			Attach image:<br>
-			<input type="file" name="file" id="file"><br>
-			<input type="submit" name="submitIdea" value="Submit idea" onclick="ideaAdded()">
+			Attach images:<br>
+			<div id=addimages>
+			<input type="file" name="file[]" onchange="moreimages()"></div>
+			<br>
+			<input type="submit" name="submitIdea" value="Submit idea">
 		</form>
 	</div>
 	<?php
@@ -67,6 +69,25 @@ if (!$sess->isLoggedIn())
 ?>
 
 <script src="js/js.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+function moreimages() {
+
+	var send = document.getElementById('addimages');
+	if (!send) return;
+
+	var br = document.createElement('br');
+	send.appendChild(br);
+
+	var inp = document.createElement('input');
+	inp.type = 'file';
+	inp.name = 'file[]';
+	inp.onchange = 'moreimages()';
+	send.appendChild(inp);
+}
+
+</script>
 
 </body>
 </html>

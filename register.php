@@ -69,7 +69,7 @@ if (isset($error)) {
 	<input type=hidden name=captchay>
 
 	<br><br>
-	<h3>Click on the fish <img src="img/fisu.png" width=55 height=33 alt="fish"> to submit:</h3>
+	<h3>Click on the fish below to submit, it looks like this: <img src="img/fisu.png" width=55 height=33 alt="fish"></h3>
 	<img src="captcha.php?gen" width=468 height=80 onclick="regform(event)" id=captchapic alt=captcha>
 </form>
 

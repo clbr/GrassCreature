@@ -58,13 +58,16 @@ if (!$sess->isLoggedIn())
 	<?php
 	}
 	else {
-		$ideaID = addIdea($_POST['IdeaName'], $_POST['desc'], $_POST['ReqDate'], $_POST['CostEst'], $_POST['AddInfo'], $_POST['BasedOn'], $sess->getUserID());
+		echo "<div class='IdeaAdd'>";
+
+		$ideaID = addIdea($_POST['IdeaName'], $_POST['desc'], $_POST['ReqDate'], $_POST['CostEst'],
+			$_POST['AddInfo'], $_POST['BasedOn'], $sess->getUserID());
 
 		// Upload image if there are any.
-		if (!$_FILES['file']['size'] == 0)
-			uploadImage($ideaID);
+		if ($_FILES['file']['size'][0] != 0)
+			uploadImages($ideaID);
 
-		echo "<div class='IdeaAdd'>Idea succesfully added with the ID: $ideaID.</div>";
+		echo "<br><br>Idea succesfully added with the ID: $ideaID.</div>";
 	}
 ?>
 

@@ -30,7 +30,11 @@ $id = $_GET["id"];
 
 <?php
 
-getIdea($id, $sess->getUserID() );
+$uid = -1;
+if ($sess->isLoggedIn())
+	$uid = $sess->getUserID();
+
+getIdea($id, $uid);
 
 ?>
 

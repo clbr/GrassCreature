@@ -17,8 +17,50 @@
 	$sess->printBox();
 ?>
 
+<div id=rightbar>
+
+	<div class=rightbox>
+	<a href=front.php>
+	<img src=img/logo.png height=37 width=139>
+	</a>
+	</div><p>
+
+	<div id=frontsearch class=rightbox>
+	<form method=post action="search.php">
+		<input type=text size=18 name=simpletext> <input type=submit value=Go><br>
+		<a href="search.php">Advanced search</a>
+	</form>
+	</div><p>
+
+	<?php
+	// Link for adding new ideas.
+	if ($sess->isLoggedIn()) {
+		echo "<div class=rightbox>" .
+		"<a href='AddIdea.php'>Add idea</a></div><p>\n";
+	} else {
+		echo "<div class=rightbox>" .
+		"<a href='register.php'>Register</a></div><p>\n";
+	}
+	?>
+</div>
+
 <iframe name=main id=main src="front.php"></iframe>
 
 <script src="js/js.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+function dolinks() {
+	var links = document.getElementsByTagName('a');
+	var len = links.length;
+
+	for (var i = 0; i < len; i++) {
+		links[i].target = 'main';
+	}
+}
+
+dolinks();
+
+</script>
+
 </body>
 </html>

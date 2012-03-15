@@ -1,10 +1,29 @@
-30.1 	5h
-1.2 	2h
-13.2	4h
-15.2	2h
-20.2	6h
-22.2	5h
-23.2	1h
-24.2	5h
-5.3	6h
-7.3	2h
+Date	Hours	Main topic
+---------------------------------------------------------------
+30.1 	5h	Setting up, use cases
+
+1.2 	2h	Continued on use cases
+
+8.2	2h	Logo tuning
+
+13.2	4h	Create the EER model of the db
+
+15.2	2h	Update the EER model, create favicon
+
+20.2	6h	Implement login, client-side MD5
+
+22.2	5h	Validation, css
+
+23.2	1h	Readme tweaks
+
+24.2	5h	Captcha
+
+5.3	6h	Start on registering
+
+7.3	2h	Tweak the login and register pages, ajax etc
+
+12.3	6h	Add proper check for admin, front page tuning
+
+13.3	2h	Tune the right bar
+
+14.3	5h	Add user viewing, css tweaks

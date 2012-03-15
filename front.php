@@ -38,7 +38,6 @@ if ($sess->isAdmin()) {
 
 ?>
 
-
 <div id=newestideas class=ideabox>
 Top 10 newest ideas here
 </div>
@@ -50,15 +49,6 @@ Top 10 best ideas here
 <div id=mostcommentedideas class=ideabox>
 Top 10 most commented ideas here
 </div>
-
-
-<div id=frontsearch class=ideabox>
-<form method=post action="search.php">
-	<input type=text size=30 name=simpletext> <input type=submit value=Search><br>
-	<a href="search.php">Advanced search</a>
-</form>
-</div>
-
 
 
 <script src="js/js.js" type="text/javascript"></script>

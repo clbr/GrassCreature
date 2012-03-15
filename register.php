@@ -41,6 +41,7 @@ main:
 
 if (isset($error)) {
 	echo "<script type=\"text/javascript\">alert(\"$error\"); window.history.back();</script>";
+	return;
 }
 
 ?>

@@ -31,8 +31,9 @@ p, h1, form, button{
 .IdeaAdd{
 
 	margin:auto;
-	width:20%;
+	width:50%;
 	padding:5%;
+	border: 1px solid black;
 }
 
 
@@ -143,6 +144,10 @@ iframe#main {
 	padding: 0.5em;
 	margin: 1em;
 	background-image: url(../img/cloudbg.png);
+
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
 }
 
 #frontwelcome {
@@ -160,9 +165,85 @@ iframe#main {
 }
 
 #frontsearch {
-	float: right;
+	text-align: left;
 }
 
 #frontsearch input {
 	margin-bottom: 0.5em;
+}
+
+#ideadiv {
+	margin: 2em;
+}
+
+#ideadiv td {
+	padding: 5px;
+	border-bottom: 1px solid;
+}
+
+#ideadiv table {
+	border-collapse: collapse;
+	max-width: 50%;
+}
+
+#ideadiv tr:hover {
+	background-image: url(../img/cloudbg.png);
+}
+
+#idealeft {
+	min-width: 9em;
+}
+
+.accidea {
+	margin: auto;
+	width: 90em;
+}
+
+#rightbar {
+	float: right;
+	clear: both;
+	text-align: center;
+	margin-top: 5em;
+}
+
+.rightbox {
+	display: inline-block;
+	padding: 0.5em;
+	margin-right: 1em;
+	margin-top: 0.4em;
+	margin-bottom: 0.4em;
+	background-image: url(../img/cloudbg.png);
+	min-width: 150px;
+	min-height: 20px;
+	font-size: larger;
+
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+}
+
+.rightbox input {
+	font-size: 12px;
+}
+
+.rightbox img {
+	border-style: none;
+}
+
+#userdiv {
+	margin: 2em;
+}
+
+#userdiv td, th {
+	padding: 5px;
+	border-bottom: 1px solid;
+}
+
+#userdiv table {
+	border-collapse: collapse;
+	max-width: 50%;
+}
+
+#userdiv tr:hover {
+	background-image: url(../img/cloudbg.png);
 }

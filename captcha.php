@@ -9,7 +9,7 @@ class captcha {
 	const fishh = 30;
 	const fullw = 468;
 	const fullh = 80;
-	const difficulty = 6;
+	const difficulty = 4;
 
 	private function fish() {
 

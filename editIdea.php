@@ -38,7 +38,7 @@ if (!$sess->isLoggedIn())
 	// Fill textfields with existing data.
 	echo'
 	<div id="ideaForms" class="IdeaAdd">
-		<form method="POST" action="AddIdea.php" enctype="multipart/form-data">
+		<form method="POST" action="editIdea.php" enctype="multipart/form-data">
 			*Idea name:<br>
 			<input type="text" id="IdeaName" name="IdeaName" value="'.$idea->Name.'"><br>
 			*Idea description:<br>

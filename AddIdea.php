@@ -77,6 +77,12 @@ if (!$sess->isLoggedIn())
 
 function moreimages() {
 
+	// Props to Taneli
+	var arrlen = document.getElementsByName('file[]').length;
+	if (arrlen >= 10) {
+		return;
+	}
+
 	var send = document.getElementById('addimages');
 	if (!send) return;
 

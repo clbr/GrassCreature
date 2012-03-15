@@ -9,6 +9,7 @@ class captcha {
 	const fishh = 30;
 	const fullw = 468;
 	const fullh = 80;
+	const difficulty = 6;
 
 	private function fish() {
 
@@ -62,7 +63,9 @@ class captcha {
 				$_SESSION['centery'] - imagesy($fish)/2,
 				0, 0, imagesx($fish), imagesy($fish));
 
-		for ($i = 0; $i < 7; $i++) {
+		$diff = self::difficulty;
+
+		for ($i = 0; $i < $diff; $i++) {
 			$tri = array();
 			for ($j = 0; $j < 6; $j+=2) {
 				$tri[$j] = rand(0, $w);

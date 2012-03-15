@@ -26,15 +26,15 @@ if (!$sess->isLoggedIn())
 	require_once('DatabaseOperation/idea.php');
 	require_once('uploadFile.php');
 
-	if (!isset($_POST['submitChanges'])) {	
+	if (!isset($_POST['submitChanges'])) {
 	// Fields are shown when the page loads, after submit is pressed, fields go away and a success message is shown instead.
-	
+
 	$ideaid = $_GET['ideaid'];
-	
+
 	// Gets the currently open idea's info.
 	$ideaData = getIdeaInfo($ideaid);
 	$idea = $ideaData->fetch_object();
-	
+
 	// Fill textfields with existing data.
 	echo'
 	<div id="ideaForms" class="IdeaAdd">
@@ -61,7 +61,7 @@ if (!$sess->isLoggedIn())
 		// Save old version to db...
 		saveVersion($idea->IdeaID, $idea->Version, $idea->Name, $idea->Description, $idea->RequestDate, $idea->Cost, $idea->AdditionalInfo,
 			$idea->BasedOn, $idea->Inventor);
-		
+
 		// and edit the idea with new data.
 		$ideaID = editIdea($_POST['IdeaName'], $_POST['desc'], $_POST['ReqDate'], $_POST['CostEst'], $_POST['AddInfo'], $_POST['BasedOn'],
 			$idea->Version, $sess->getUserID());

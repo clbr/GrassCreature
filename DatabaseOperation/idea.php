@@ -39,7 +39,7 @@
 		// Version incrementing has to be done by code, auto increment is no good here.
 		//$sql = "SELECT Version FROM Idea WHERE IdeaID = $ideaID";
 		//$version = $mysqli->query($sql) or die($mysqli->error);
-		
+
 		// ^ currently obsolete, since found a better way to get version...
 		$version++;
 
@@ -49,7 +49,7 @@
 		$stmt = $mysqli->prepare($sql);
 		$stmt->bind_param('ssiisissi', $name, $desc, $version, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);
 		$stmt->execute();
-		
+
 		// Return ID for images.
 		return $ideaID;
 	}
@@ -92,7 +92,7 @@
 
 	function getIdeaInfo($id) {
 		$mysqli = db_connect();
-		
+
 		$sql = "select * from Idea where IdeaID=$id";
 		$result = $mysqli->query($sql) or die($mysqli->error);
 		return $result;
@@ -138,13 +138,13 @@ function getIdea($id, $userID) {
 
 			"</table>\n" .
 			"</div>\n";
-		
+
 		// Edit button for created ideas.
 		if ($userID == $Inventor) {
 			// Send idea-id along page change.
-			echo "<a href='editIdea.php?ideaid=$id'>Edit idea</a>";	
-		}		
-		
+			echo "<a href='editIdea.php?ideaid=$id'>Edit idea</a>";
+		}
+
 	}
 	$db->close();
 }

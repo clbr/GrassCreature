@@ -50,7 +50,7 @@ if (!$sess->isLoggedIn())
 
 			Attach images:<br>
 			<div id=addimages>
-			<input type="file" name="file"></div>
+			<input type="file" name="file[]" onchange='moreimages()'></div>
 			<br>
 			<input type="submit" name="submitIdea" value="Submit idea">
 		</form>
@@ -83,7 +83,7 @@ function moreimages() {
 	var inp = document.createElement('input');
 	inp.type = 'file';
 	inp.name = 'file[]';
-	inp.onchange = 'moreimages()';
+	inp.onchange = moreimages;
 	send.appendChild(inp);
 }
 

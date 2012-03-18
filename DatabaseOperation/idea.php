@@ -43,8 +43,8 @@
 		// ^ currently obsolete, since found a better way to get version...
 		$version++;
 
-		$sql = "UPDATE Idea SET Name = ?, SET Description = ?, SET Version = ?, SET RequestDate = ?, SET Cost = ?, SET AdditionalInfo = ?,
-			SET BasedOn = ?, SET Inventor = ? WHERE IdeaID = $ideaID";
+		$sql = "UPDATE Idea SET Name = ?, Description = ?, Version = ?, RequestDate = ?, Cost = ?, AdditionalInfo = ?,
+			BasedOn = ?, Inventor = ? WHERE IdeaID = $ideaID";
 
 		$stmt = $mysqli->prepare($sql);
 		$stmt->bind_param('ssiisissi', $name, $desc, $version, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);
@@ -66,8 +66,8 @@
 		//$version = $mysqli->query($sql) or die($mysqli->error);
 		$version++;
 
-		$sql = "UPDATE Idea SET Name = ?, SET Description = ?, SET Version = ?, SET Status = ?, SET RequestDate = ?, SET Cost = ?, SET AdditionalInfo = ?,
-			SET BasedOn = ?, SET Inventor = ? WHERE IdeaID = $ideaID";
+		$sql = "UPDATE Idea SET Name = ?, Description = ?, Version = ?, Status = ?, RequestDate = ?, Cost = ?, AdditionalInfo = ?,
+			BasedOn = ?, Inventor = ? WHERE IdeaID = $ideaID";
 
 		$stmt = $mysqli->prepare($sql);
 		$stmt->bind_param('ssisiissi', $name, $desc, $version, $status, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);

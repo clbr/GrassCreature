@@ -20,14 +20,14 @@
 		return $just_added_id[0];
 	}
 
-	function saveVersion($ideaID, $version, $name, $desc, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID) {
+	function saveVersion($ideaID, $version, $status, $name, $desc, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID) {
 		// When updating idea, saves the old version of it.
 		$mysqli = db_connect();
 
 		$sql = "INSERT INTO Version (IdeaID, Name, Status, Description, Version, RequestDate, Cost, AdditionalInfo, BasedOn, Inventor) VALUES (
 			?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		$stmt = $mysqli->prepare($sql);
-		$stmt->bind_param('isssiiissis', $ideaID, $name, 'oldVersion' , $desc, $version, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);
+		$stmt->bind_param('isssisisii', $ideaID, $name, $status , $desc, $version, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);
 		$stmt->execute();
 	}
 
@@ -47,7 +47,7 @@
 			BasedOn = ?, Inventor = ? WHERE IdeaID = $ideaID";
 
 		$stmt = $mysqli->prepare($sql);
-		$stmt->bind_param('ssiisissi', $name, $desc, $version, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);
+		$stmt->bind_param('ssisisii', $name, $desc, $version, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);
 		$stmt->execute();
 
 		// Return ID for images.
@@ -70,7 +70,7 @@
 			BasedOn = ?, Inventor = ? WHERE IdeaID = $ideaID";
 
 		$stmt = $mysqli->prepare($sql);
-		$stmt->bind_param('ssisiissi', $name, $desc, $version, $status, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);
+		$stmt->bind_param('ssisiisii', $name, $desc, $version, $status, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);
 		$stmt->execute();
 	}
 

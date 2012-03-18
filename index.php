@@ -36,7 +36,9 @@
 	// Link for adding new ideas.
 	if ($sess->isLoggedIn()) {
 		echo "<div class=rightbox>" .
-		"<a href='AddIdea.php'>Add idea</a></div><p>\n";
+		"<a href='myIdeas.php'>My ideas</a><br>
+		<a href='AddIdea.php'>Add idea</a>
+		</div><p>\n";
 	} else {
 		echo "<div class=rightbox>" .
 		"<a href='register.php'>Register</a></div><p>\n";

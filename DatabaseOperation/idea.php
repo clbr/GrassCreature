@@ -90,10 +90,18 @@
 		$mysqli->close();
 	}
 
-	function getIdeaInfo($id) {
+	function getIdeaInfo($ideaID) {
 		$mysqli = db_connect();
 
-		$sql = "select * from Idea where IdeaID=$id";
+		$sql = "select * from Idea where IdeaID=$ideaID";
+		$result = $mysqli->query($sql) or die($mysqli->error);
+		return $result;
+	}
+	
+	function getMyIdeas($userID) {
+		$mysqli = db_connect();
+		// Could fetch amount of comments too and maybe rating.
+		$sql = "select IdeaID, Name, Status, AddingDate from Idea where Inventor=$userID AND Status = 'New' ORDER BY AddingDate DESC";
 		$result = $mysqli->query($sql) or die($mysqli->error);
 		return $result;
 	}

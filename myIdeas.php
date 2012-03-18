@@ -26,7 +26,7 @@ if (!$sess->isLoggedIn())
 	require_once('DatabaseOperation/idea.php');
 
 	$myIdeas = getMyIdeas($sess->getUserID());
-	
+
 	// First check if query result contains anything.
 	if ($myIdeas->num_rows > 0) {
 		echo "<table>";

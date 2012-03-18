@@ -101,7 +101,7 @@
 	function getMyIdeas($userID) {
 		$mysqli = db_connect();
 		// Could fetch amount of comments too and maybe rating.
-		$sql = "select IdeaID, Name, Status, AddingDate from Idea where Inventor=$userID AND Status = 'New' ORDER BY AddingDate DESC";
+		$sql = "select IdeaID, Name, Status, DATE_FORMAT(AddingDate, '%d.%m.%Y %H:%i:%s') AS AddingDate from Idea where Inventor=$userID AND Status = 'New' ORDER BY AddingDate DESC";
 		$result = $mysqli->query($sql) or die($mysqli->error);
 		return $result;
 	}

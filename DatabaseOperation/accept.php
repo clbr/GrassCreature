@@ -16,7 +16,7 @@ $sth->bind_result($id, $name, $desc);
 
 while ($sth->fetch()) {
    echo "<div class='accidea'>";
-   echo "<input type='checkbox' name='$id' value='false'  />";
+   echo "<input type='checkbox' name='chkbox' value='$id'  />";
    echo "$name";
    echo "$desc</div>";
 }
@@ -26,6 +26,11 @@ $mysqli->close();
 return $sth;
 
 }
+
+function acceptSelected() {
+
+}
+
 
 // How many new ideas?
 function countNewIdeas() {

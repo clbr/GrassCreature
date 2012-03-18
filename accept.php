@@ -20,8 +20,20 @@ require_once("DatabaseOperation/accept.php");
 <body>
 
 <?php
+echo $_POST['testi'];
 getUnaccepted();
 ?>
+
+<form method="post" action="accept.php">
+<input type="submit" name="Submit" value="Accept">
+</form>
+
+<button type="button" onclick="
+for (i = 0; i < document.getElementsByTagName('input').length; i++) {
+	$chkbox=document.getElementsByTagName('input');
+	if($chkbox[i].checked==true) $chkbox[i].checked = false;
+}
+">ACCEPT</button>
 
 </body>
 </html>

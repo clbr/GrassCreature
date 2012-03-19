@@ -35,7 +35,7 @@ $sess->mustBeLoggedIn();
 	$ideaData = getIdeaInfo($ideaid);
 	$idea = $ideaData->fetch_object();
 	
-	if ($sess->getUserID != $idea->Inventor) {
+	if ($sess->getUserID() != $idea->Inventor) {
 		echo "You can not edit ideas you have not created.";
 	}
 	else {

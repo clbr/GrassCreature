@@ -5,39 +5,96 @@ function advancedSearch() {
 
 $mysqli = db_connect();
 
-$date = $_POST['date'];
+$date = $_POST['date'];	
 
-if($date!=null){
+if($date!=null){	
  print"<table border=1>\n";
  print "<tr><td><strong>Idea name</strong></td><td><strong>Version</strong></td><td><strong>Description</strong></td><td><strong>
- Status</strong></td><td> <strong>RequestDate</strong></td><td><strong>Added On</strong></td><td><strong>Inventor</strong></td>
+ Status</strong></td><td> <strong>RequestDate</strong></td><td><strong>Added On</strong></td><td><strong>Addiotional Information</strong></td><td><strong>Inventor</strong></td>
  </tr>\n";}
+ 
 
-
-
-$tag1 = $_POST['tags'];
+$tag1 = $_POST['tags'];		
 	// Splitting the $tag1 string into pieces
 
 $pieces = explode(" ", $tag1);
 $count = count($pieces);
-
-
+$inventor1 = $_POST['inventor'];	
 
 	foreach($pieces as $keyword)
-	{
-
+	{	
+		
 	$keyword2 = "%".$keyword."%";
-
-
-
-	$sql = "SELECT Name, Version, LEFT(Description, 100), Status, RequestDate, AddingDate, Inventor
+	$keyword3 =	 "%".$keyword."%";
+		 						   				  
+if(empty($_POST['inventor']) && empty($_POST['tags'])){
+	$sql = "SELECT Name, Version, LEFT(Description, 100), Status, RequestDate, AddingDate, AdditionalInfo, Inventor
 						  FROM Idea
 						  WHERE Status= (?)
-						   AND Inventor LIKE CONCAT('%',(?),'%')
-						  AND Description LIKE CONCAT('%',(?),'%')
+						 						   
+						  ORDER BY AddingDate ";	
+						  $stmt = $mysqli->prepare($sql);	
+						  $stmt->bind_param("s",$status1);	
+						  }
+						
+						  
+if(empty($_POST['inventor']) && !empty($_POST['tags'])){
+	$sql = "SELECT Name, Version, LEFT(Description, 100), Status, RequestDate, AddingDate, AdditionalInfo, Inventor
+						  FROM Idea
+						  WHERE Status= (?)
+						  			   
+						  AND (Description LIKE CONCAT('%',(?),'%')	
+						   OR AdditionalInfo LIKE CONCAT('%',(?),'%')	)
+						  ORDER BY AddingDate ";	
+						  $stmt = $mysqli->prepare($sql);	
+						  $stmt->bind_param("sss", $status1, $keyword2, $keyword3);	
+						  }
+						  
+						  
+ if(!empty($_POST['inventor']) && empty($_POST['tags'])){
+	$sql = "SELECT Name, Version, LEFT(Description, 100), Status, RequestDate, AddingDate, AdditionalInfo, Inventor
+						  FROM Idea
+						  WHERE Status= (?)
+						  AND Inventor	= 
+						   				  (SELECT UserID FROM User WHERE Name LIKE CONCAT('%',(?),'%'))					   
+						  	
+						   
 						  ORDER BY AddingDate ";
+$stmt = $mysqli->prepare($sql);	
+$stmt->bind_param("ss",$status1, $inventor1);	
+
+						  }
+				
 
 
+
+
+
+				
+if(!empty($_POST['inventor']) && !empty($_POST['tags'])){
+	$sql = "SELECT Name, Version, LEFT(Description, 100), Status, RequestDate, AddingDate, AdditionalInfo, Inventor
+						  FROM Idea
+						  WHERE Status= (?)
+						  AND (Inventor	= 
+						   				  (SELECT UserID FROM User WHERE Name LIKE CONCAT('%',(?),'%'))		   
+						  AND
+										   
+						  Description LIKE CONCAT('%',(?),'%')
+
+							 AND AdditionalInfoLIKE CONCAT('%',(?),'%')	
+						  )	
+						   
+						  ORDER BY AddingDate ";
+$stmt = $mysqli->prepare($sql);	
+$stmt->bind_param("ssss",$status1, $inventor1, $keyword2, $keyword2);	
+						  
+						  }
+			  
+						  
+	
+				  
+		 			  
+						  
 	if ($date == "Newest")
 		{
 		$sql .= "DESC";
@@ -47,48 +104,73 @@ $count = count($pieces);
 		$sql .= "ASC";
 		}
 
-		$stmt = $mysqli->prepare($sql);
-
+		
+  
 	if (!$stmt) die ("NOOOOOO " . $mysqli->error);
 
+		$status1 = $_POST['status'];
+		
 
-$stmt->bind_param("sss",$status1, $inventor1, $keyword2);
 
-	$status1 = $_POST['status'];
-$inventor1 = $_POST['inventor'];
 
-$stmt->execute();
+ 		
 
-$stmt->bind_result($name, $version, $desc, $stat, $dateReq, $dateAdd, $inventor);
+
+$stmt->execute();		
+
+$stmt->bind_result($name, $version, $desc, $stat, $dateReq, $dateAdd, $addInfo, $inventor);
 
 $stmt->store_result();
 
 
 	while($stmt->fetch())
 	{
-
+	
 	$name3 = $name;
 	$version3 = $version;
     $desc3 = $desc;
     $status3 = $stat;
     $date3 = $dateReq;
 	$date4 = $dateAdd;
+	$addInfo4 = $addInfo;
 	$inventor3 = $inventor;
+	
+			
+	
+	$sql2 = "SELECT Name
+			FROM User
+			WHERE UserID = ?
+			";
+						  
+	$stmt2 = $mysqli->prepare($sql2);	
+	
+	$stmt2->bind_param("s",$inventor3);
 
-	print "<tr><td>$name3</td><td>$version3</td><td>$desc3</td><td>$status3</td><td>$date3</td><td>$date4</td><td>$inventor3</td>
+	$stmt2->execute();		
+
+$stmt2->bind_result($iName);
+
+$stmt2->store_result();
+	
+$stmt2->fetch();
+$inventor4=$iName;	
+
+	
+	
+	print "<tr><td>$name3</td><td>$version3</td><td>$desc3</td><td>$status3</td><td>$date3</td><td>$date4</td><td>$addInfo4</td><td>$inventor4</td>
 	</tr>\n";
 	}
-
+	
 
 }
-
-	print "</table>";
-
-
+	
+	print "</table>";	
+	
+	
 $stmt->close();
 
-$mysqli->close();
-
+$mysqli->close();	
+	
 
 }
 

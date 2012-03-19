@@ -6,7 +6,7 @@ function searchIdea() {
 $mysqli = db_connect();
 
 	
-$tag1 = $_POST['tags'];	
+$tag1 = $_POST['simpletext'];	
 
 // Splitting the $tag1 string into pieces
 

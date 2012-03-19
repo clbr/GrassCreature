@@ -15,6 +15,17 @@
 
 <body>
 
+<?php
+
+if (isset($_POST["simpletext"])) {
+
+	require_once("DatabaseOperation/Search_simple.php");
+	searchIdea();
+
+} else {
+
+?>
+
 <div id="ulko">
 
   <div id="banner">
@@ -24,7 +35,7 @@
   <div id="View" class="IdeaView">
 
 
-	<form action="ViewIdea5.php" name="SearchIdea" id="Search"  method="POST">
+	<form action="search.php" name="SearchIdea" id="Search"  method="POST">
 <select name="status">
 <option value="New" selected="selected">New</option>
 <option value="Active">Active</option>
@@ -45,6 +56,7 @@ error_reporting(E_ALL);
 require_once("DatabaseOperation/Search5.php");
 advancedSearch();
 
+}
 ?>
 
 <script src="js/js.js" type="text/javascript"></script>

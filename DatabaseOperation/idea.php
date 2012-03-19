@@ -54,6 +54,17 @@
 		return $ideaID;
 	}
 
+
+	// The inventor abandons his idea; it is marked abandoned
+	function abandonIdea($ideaID) {
+
+		$db = db_connect();
+
+		$db->query("UPDATE Idea SET Status = 'abandoned' WHERE IdeaID = $ideaID") or die($db->error);
+
+		$db->close();
+	}
+
 	function adminEditIdea($ideaID, $status, $name, $desc, $reqdate, $cost, $additionalInfo, $basedOn,$version, $inventorID) {
 		$mysqli = db_connect();
 
@@ -82,38 +93,47 @@
 		$mysqli->close();
 	}
 
-	function addVote($vote, $ideaID, $userID) {
-if($vote==-1||$vote==1) {
-	$mysqli = db_connect();
+function addVote($vote, $ideaID, $userID) {
 
-$sth = $mysqli->prepare("select COUNT(User_UserID) from Rating where Idea_IdeaID=?;");
-$sth->bind_param("s", $ideaID);
-$sth->execute();
-$sth->bind_result($user);
+	if($vote==-1||$vote==1) {
+		$mysqli = db_connect();
 
-if($user==0) {
+		$sth = $mysqli->prepare("select COUNT(User_UserID) from Rating where Idea_IdeaID=?;") or die($mysqli-error);
+		$sth->bind_param("s", $ideaID);
+		$sth->execute();
+		$sth->bind_result($user);
+		$sth->fetch();
 
-	$sth = $mysqli->prepare("INSERT INTO Rating (Rating, Idea_IdeaID, User_UserID) VALUES (?, ?, ?);");
-	$sth->bind_param("sss", $vote, $ideaID, $userID);
-	$sth->execute();
-	$mysqli->close();
-}
-}
+		if($user==0) {
 
+			$sth->close();
+
+			$sth = $mysqli->prepare("INSERT INTO Rating (Rating, Idea_IdeaID, User_UserID) VALUES (?, ?, ?);") or die($mysqli->error);
+			$sth->bind_param("sss", $vote, $ideaID, $userID);
+			$sth->execute();
+			$mysqli->close();
+		} else {
+			echo "<h3>You have already voted on this idea.</h3>\n";
+		}
 	}
+}
 
 function getVote($ideaID) {
-$mysqli = db_connect();
-$sth = $mysqli->prepare("select Rating from Rating where Idea_IdeaID=?;");
-$sth->bind_param("s", $ideaID);
-$sth->execute();
-$sth->bind_result($rating);
-$result=0;
-while ($sth->fetch()) {
-   $result+=$rating;
-}
 
-return $result;
+	$mysqli = db_connect();
+
+	$sth = $mysqli->prepare("select sum(Rating) from Rating where Idea_IdeaID=?;");
+	$sth->bind_param("i", $ideaID);
+	$sth->execute();
+
+	$sth->bind_result($rating);
+
+	$result=0;
+	if ($sth->fetch()) {
+		$result+=$rating;
+	}
+
+	return $result;
 
 }
 

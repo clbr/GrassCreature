@@ -39,6 +39,12 @@ $sess->mustBeLoggedIn();
 		echo "You can not edit ideas you have not created.";
 	}
 	else {
+		if (isset($_GET['abandon'])) {
+			abandonIdea($ideaid);
+			echo "<h2>Idea abandoned.</h2>";
+			return;
+		}
+
 		if (!isset($_POST['submitChanges'])) {
 		// Fields are shown when the page loads, after submit is pressed, fields go away and a success message is shown instead.
 
@@ -62,6 +68,7 @@ $sess->mustBeLoggedIn();
 				Attach image:<br>
 				<input type="file" name="file" id="file"><br>
 				<input type="submit" name="submitChanges" value="Submit changes">
+				<input type=button value="Abandon idea" onclick="edit_abandon()">
 			</form>
 		</div>';
 		}
@@ -82,6 +89,20 @@ $sess->mustBeLoggedIn();
 		}
 	}
 ?>
+
+<script type="text/javascript">
+
+function edit_abandon() {
+	var r = confirm("Are you absolutely sure?");
+	if (!r)
+		return;
+
+<?php
+	echo "window.location = 'editIdea.php?abandon=1&ideaid=$ideaid';"
+?>
+}
+
+</script>
 
 </body>
 </html>

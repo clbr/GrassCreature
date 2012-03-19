@@ -79,10 +79,9 @@ div#ulko{
 }
 
 div#banner {
-	color: green;
-	font-size:160%;
+	font-size:120%;
 	font-weight:bold;
-
+	margin: 1em;
 }
 
 div#Add{
@@ -266,3 +265,14 @@ iframe#main {
 #userdiv tr:hover {
 	background-image: url(../img/cloudbg.png);
 }
+
+/* Comments */
+
+div.comment {
+
+}
+
+hr.shortline { color: black; float: left; width: 20em; }
+
+
+

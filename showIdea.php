@@ -43,7 +43,7 @@ if (file_exists("userImages/$id")) {
 	$dir = opendir("userImages/$id");
 
 	// Read every filename in this directory
-	while (($file = readdir($dir)) != false) {
+	while (($file = readdir($dir))) {
 
 		// If the file starts with a dot, skip it
 		if (strncmp($file, ".", 1) == 0) continue;
@@ -61,6 +61,13 @@ if (file_exists("userImages/$id")) {
 	echo "</div>\n";
 }
 
+require_once("DatabaseOperation/comment.php");
+$comments = getComments($id);
+
+while ($comment = $comments->fetch_object()) {
+	echo "<div id=comment" + $comment->CommentID + " class='comment'>" . $comment->Date . "<br><hr class='shortline'><br>" .
+		$comment->Name . ", " . $comment->Company . "<br>" . $comment->Text . "<br></div>";
+}
 ?>
 
 

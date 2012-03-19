@@ -24,17 +24,17 @@ $sess->mustBeLoggedIn();
 	error_reporting(E_ALL);
 	require_once('DatabaseOperation/idea.php');
 	require_once('uploadFile.php');
-	
+
 	// TODO:
 	// - Create adminEditIdea.php where status can also be changed. (This page uses normal user's idea editin db function.)
 	// - RequestDate is currently printed in mySQL format.
-	
+
 	$ideaid = $_GET['ideaid'];
 
 	// Gets the currently open idea's info.
 	$ideaData = getIdeaInfo($ideaid);
 	$idea = $ideaData->fetch_object();
-	
+
 	if ($sess->getUserID() != $idea->Inventor) {
 		echo "You can not edit ideas you have not created.";
 	}

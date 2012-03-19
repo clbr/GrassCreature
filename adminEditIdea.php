@@ -46,7 +46,7 @@ $sess->mustBeLoggedIn();
 		// Note! in form action: send $ideaid in GET to this page itself.
 		echo'
 		<div id="ideaForms" class="IdeaAdd">
-			<form method="POST" action="editIdea.php?ideaid='.$ideaid.'" enctype="multipart/form-data">
+			<form method="POST" action="adminEditIdea.php?ideaid='.$ideaid.'" enctype="multipart/form-data">
 				*Idea name:<br>
 				<input type="text" id="IdeaName" name="IdeaName" value="'.$idea->Name.'"><br>
 				*Idea description:<br>

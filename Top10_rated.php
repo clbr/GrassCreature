@@ -1,0 +1,37 @@
+<?php
+error_reporting(E_ALL);
+
+// top 10 newest ideas
+function top10_rated()
+{
+//Connection to db and info request
+	require_once("DatabaseOperation/details.php");
+	$mysqli = db_connect();
+
+	$sql = "SELECT sum(Rating), Idea_IdeaID FROM Rating group by Idea_IdeaID ORDER BY sum(Rating) DESC limit 10";
+	$result = $mysqli->query($sql) or die($mysqli->error);
+	if($result)
+	{
+	//table creation and data insertion
+		echo"<table border=0 width='100%'>";
+		$result->data_seek(0);
+		$i=0;
+
+		while($i<10)
+		{
+			$row = $result->fetch_row();
+			if (!$row) break;
+
+			echo "<tr><td><a href='showIdea.php?id=$row[1]'>Nimi?</a></td>
+			<td>$row[0]</td>
+			</tr>\n";
+			$i++;
+		}
+		echo "</table>";
+		$result->close();
+	}
+	else{echo "Error";}
+	//disconnect
+	$mysqli->close();
+}
+?>

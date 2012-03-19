@@ -35,5 +35,29 @@ getUnaccepted();
 
 </form>
 
+<script type="text/javascript">
+
+function accept_selall() {
+	div = document.getElementById('accidea');
+	boxes = div.getElementsByTagName('input');
+	len = boxes.length;
+	but = document.getElementById('acc_toggle');
+
+	state = true;
+	if (but.value == 'Select all') {
+		but.value = 'Unselect all';
+	} else {
+		but.value = 'Select all';
+		state = false;
+	}
+
+	for (i = 0; i < len; i++) {
+		if (boxes[i].type != 'checkbox') continue;
+		boxes[i].checked = state;
+	}
+}
+
+</script>
+
 </body>
 </html>

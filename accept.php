@@ -23,11 +23,16 @@ require_once("DatabaseOperation/accept.php");
 <form method="post" action="accept.php">
 
 <?php
-acceptSelected();
+if(isset($_POST['Accept'])){
+	acceptSelected();
+} else if(isset($_POST['Delete'])){
+	deleteSelected();
+}
 getUnaccepted();
 ?>
 
-<input type="submit" name="Submit" value="Accept">
+<input type="submit" name="Accept" value="Accept">
+<input type="submit" name="Delete" value="Delete">
 </form>
 
 </body>

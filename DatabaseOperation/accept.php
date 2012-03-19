@@ -52,6 +52,34 @@ echo $amount . " ideas accepted";
 }
 }
 
+function deleteSelected() {
+
+$amount=0;
+if(isset($_POST['chkbox']))
+{
+        foreach($_POST['chkbox'] as $chkval) {
+                if(isset($chkval)) {
+$amount++;
+
+$mysqli = db_connect();
+
+$sth = $mysqli->prepare("DELETE FROM Idea WHERE IdeaID = ?;");
+
+$sth->bind_param("s", $chkval);
+
+$sth->execute();
+
+$mysqli->close();
+
+}
+
+        }
+echo $amount . " ideas deleted";
+}
+
+
+}
+
 
 // How many new ideas?
 function countNewIdeas() {

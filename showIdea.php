@@ -82,11 +82,10 @@ echo "<input type='button' value='Comment...' onclick=showCommentForm(" . $id . 
 
 /* Rating stuff */
 
-if(isset($_POST['Yes'])){
-addVote(1, $id, $uid);
-}
-else if(isset($_POST['No'])){
-addVote(-1, $id, $uid);
+if (isset($_POST['Yes'])) {
+	addVote(1, $id, $uid);
+} else if (isset($_POST['No'])) {
+	addVote(-1, $id, $uid);
 }
 
 

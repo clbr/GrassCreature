@@ -7,7 +7,7 @@
 		$mysqli = db_connect();
 
 		$sql = "INSERT INTO Idea (Name, Description, Version, RequestDate, Cost, AdditionalInfo, BasedOn, Inventor, Status, AddingDate) VALUES (
-			?, ?, ?, ?, ?, ?, ?, ?, 'New', NOW())";
+			?, ?, ?, ?, ?, ?, ?, ?, 'new', NOW())";
 		$stmt = $mysqli->prepare($sql);
 		$stmt->bind_param('ssisisii', $name, $desc, $version = 1, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);
 		$stmt->execute();
@@ -101,7 +101,7 @@
 	function getMyIdeas($userID) {
 		$mysqli = db_connect();
 		// Could fetch amount of comments too and maybe rating.
-		$sql = "select IdeaID, Name, Status, DATE_FORMAT(AddingDate, '%d.%m.%Y %H:%i:%s') AS AddingDate from Idea where Inventor=$userID AND Status = 'New' ORDER BY AddingDate DESC";
+		$sql = "select IdeaID, Name, Status, DATE_FORMAT(AddingDate, '%d.%m.%Y %H:%i:%s') AS AddingDate from Idea where Inventor=$userID ORDER BY AddingDate DESC";
 		$result = $mysqli->query($sql) or die($mysqli->error);
 		return $result;
 	}

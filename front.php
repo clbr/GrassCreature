@@ -22,6 +22,7 @@
 <?php
 
 require_once("DatabaseOperation/accept.php");
+require_once("Top10_10ideas.php");
 
 if ($sess->isAdmin()) {
 
@@ -39,15 +40,18 @@ if ($sess->isAdmin()) {
 ?>
 
 <div id=newestideas class=ideabox>
-Top 10 newest ideas here
+<h3>Top 10 newest ideas</h3>
+<?php
+top102();
+?>
 </div>
 
 <div id=bestideas class=ideabox>
-Top 10 best ideas here
+<h3>Top 10 best ideas</h3>
 </div>
 
 <div id=mostcommentedideas class=ideabox>
-Top 10 most commented ideas here
+<h3>Top 10 most commented ideas</h3>
 </div>
 
 

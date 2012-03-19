@@ -42,10 +42,15 @@ if (file_exists("userImages/$id")) {
 
 	$dir = opendir("userImages/$id");
 
+	// Read every filename in this directory
 	while (($file = readdir($dir)) != false) {
+
+		// If the file starts with a dot, skip it
 		if (strncmp($file, ".", 1) == 0) continue;
 
+		// In megabytes
 		$size = filesize("userImages/$id/$file") / 1024 / 1024.0;
+
 		echo "<a href='userImages/$id/$file' target=_blank>$file, ";
 		printf("%.3f", $size);
 		echo " MB</a><br>";

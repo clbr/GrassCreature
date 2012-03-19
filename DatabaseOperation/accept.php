@@ -14,12 +14,16 @@ $sth->execute();
 
 $sth->bind_result($id, $name, $desc);
 
+echo "<div class='accidea'>";
 while ($sth->fetch()) {
-   echo "<div class='accidea'>";
    echo "<input type='checkbox' name='chkbox[]' value='$id'  />";
-   echo "$name";
-   echo "$desc</div>";
+   echo "<a href='showIdea.php?id=$id'>$name, " .
+	"$desc</a><br>\n";
 }
+
+echo '<hr><input type="submit" name="Accept" value="Accept">' .
+	'<input type="submit" name="Delete" value="Delete">';
+echo "</div>\n";
 
 $mysqli->close();
 

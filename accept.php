@@ -30,8 +30,6 @@ if(isset($_POST['Accept'])){
 getUnaccepted();
 ?>
 
-<input type="submit" name="Accept" value="Accept">
-<input type="submit" name="Delete" value="Delete">
 </form>
 
 </body>

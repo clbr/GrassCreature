@@ -35,7 +35,7 @@ $id = $_GET["id"];
 				'<br><input type="button" value="Send!" onclick="sendComment(' + ideaid + ', ' + userid + ')">' +
 				'</form>');
 		}
-		
+
 		function sendComment(ideaid, userid) {
 			var call = 'sendComment';
 			var text = document.getElementById('commentText').value;
@@ -49,25 +49,19 @@ $id = $_GET["id"];
 				success: function(result)
 				{
 					var comment = JSON.parse(result);
-					
+
 					var string = "<div id='comment" + comment.Rand + "' class='comment' style='display:none'>" + comment.Date +
 					"<a href='showUser.php?id=" + userid + "'> " + comment.Name + "</a>";
-					
+
+					// This whole thing starting from "var string =.." is really only needed because of the "," here. Really.
 					if (comment.Company != "") {
 						string += ", " + comment.Company;
 					}
-					
+
 					string += "<br><hr class='shortline'><br>" + text + "<br></div>";
-					
+
 					$('#commentsArea').append(string);
 					$('#comment'+comment.Rand).hide().slideDown(1000).fadeIn(1000);
-						
-					/*$('#commentsArea').append(
-					"<div class='comment'>" + comment.Date +
-					"<a href='showUser.php?id=" + userid + "'> " + comment.Name + "</a>");
-					
-					 
-					$('#commentsArea').append("<br><hr class='shortline'><br>" + text + "<br></div>");*/
 				}
 			});
 		}

@@ -33,7 +33,20 @@ $id = $_GET["id"];
 				'<form method="post" action="text/javascript">' +
 				'<textarea id="commentText" rows="5" cols="42"></textarea>' +
 				'<br><input type="button" value="Send!" onclick="sendComment(' + ideaid + ', ' + userid + ')">' +
-				'</form>');
+				'<input type="button" value="Cancel" onclick=hideCommentForm()>' +
+				'</form>').hide().slideDown(1000).fadeIn(1000);
+
+			$('#cmtButton').slideUp(1000).fadeOut(1000);
+		}
+		
+		function hideCommentForm() {
+			$('#commentFormArea').slideUp(1000).fadeOut(1000, function()
+			{
+				// After both animations have ended (=1000ms has passed), empty formarea contents so that
+				// when pressing "Comment..." again the form isn't displayed twice.
+				$('#commentFormArea').empty();
+			});
+			$('#cmtButton').slideDown(1000).fadeIn(1000);			
 		}
 
 		function sendComment(ideaid, userid) {
@@ -121,32 +134,26 @@ while ($comment = $comments->fetch_object()) {
 }
 echo "</div>";
 
-if ($sess->isLoggedIn()) {
+echo "<input id='cmtButton' type='button' value='Comment...' onclick='showCommentForm(" . $id . ", " . $sess->getUserID() . ")'><div id='commentFormArea'></div>";
 
-	echo "<input type='button' value='Comment...' onclick='showCommentForm(" . $id .
-		", " . $sess->getUserID() . ")'><div id='commentFormArea'></div>";
+/* Rating stuff */
 
-	/* Rating stuff */
-
-	if (isset($_POST['Yes'])) {
-		addVote(1, $id, $uid);
-	} else if (isset($_POST['No'])) {
-		addVote(-1, $id, $uid);
-	}
-
+if (isset($_POST['Yes'])) {
+	addVote(1, $id, $uid);
+} else if (isset($_POST['No'])) {
+	addVote(-1, $id, $uid);
 }
+
 
 echo "<div id='rating'>";
 echo "Rating: " . getVote($id);
 echo "</div>";
 
-if ($sess->isLoggedIn()) {
 
-	echo "<form method='post' action='showIdea.php?id=$id'>\n";
-	echo "<button name='Yes'><img src='img/up.png' width=32 height=32></button>\n";
-	echo "<button name='No'><img src='img/down.png' width=32 height=32></button>\n";
-	echo "</form>\n";
-}
+echo "<form method='post' action='showIdea.php?id=$id'>\n";
+echo "<button name='Yes'><img src='img/up.png' width=32 height=32></button>\n";
+echo "<button name='No'><img src='img/down.png' width=32 height=32></button>\n";
+echo "</form>\n";
 
 ?>
 

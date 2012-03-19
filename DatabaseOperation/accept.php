@@ -14,7 +14,10 @@ $sth->execute();
 
 $sth->bind_result($id, $name, $desc);
 
-echo "<div class='accidea'>";
+echo "<div class='accidea' id='accidea'>";
+
+echo "<input type=button value='Select all' onclick='accept_selall()' id='acc_toggle'><hr>";
+
 while ($sth->fetch()) {
    echo "<input type='checkbox' name='chkbox[]' value='$id'  />";
    echo "<a href='showIdea.php?id=$id'>$name, " .

@@ -84,14 +84,28 @@
 
 	function addVote($vote, $ideaID, $userID) {
 $mysqli = db_connect();
-$sth = $mysqli->prepare("select Rating from Rating where Idea_IdeaID=?;");
-$sth->bind_param("s", $ideaID);
+$sth = $mysqli->prepare("INSERT INTO Rating (Rating, Idea_IdeaID, User_UserID) VALUES (?, ?, ?);");
+$sth->bind_param("sss", $vote, $ideaID, $userID);
 $sth->execute();
 $sth->bind_result($rating);
 echo $rating;
 $mysqli->close();
 
 	}
+
+function getVote($ideaID) {
+
+$sth = $mysqli->prepare("select Rating from Rating where Idea_IdeaID=?;");
+$sth->bind_param("s", $ideaID);
+$sth->execute();
+$sth->bind_result($rating);
+while ($sth->fetch()) {
+   echo $rating;
+}
+
+echo $rating;
+
+}
 
 	function getIdeaInfo($ideaID) {
 		$mysqli = db_connect();

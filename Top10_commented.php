@@ -1,9 +1,9 @@
 <?php
 error_reporting(E_ALL);
-//function top102()
-//{
+function top101()
+{
 //Connection to db and info request
-	require_once("details.php");
+	require_once("DatabaseOperation/details.php");
 	$mysqli=db_connect();
 	$sql = "SELECT Name, Inventor, Count(Comment.Idea_IdeaID=Idea.IdeaID) AS comments FROM Idea, Comment WHERE Comment.Idea_IdeaID=Idea.IdeaID";
 	$result = $mysqli->query($sql) or die($mysqli->error);
@@ -28,5 +28,5 @@ error_reporting(E_ALL);
 	else{echo "Error";}
 	//disconnect
 	$mysqli->close();
-//}
+}
 ?>

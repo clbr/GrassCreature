@@ -144,10 +144,15 @@ iframe#main {
 	padding: 0.5em;
 	margin: 1em;
 	background-image: url(../img/cloudbg.png);
+	text-align: center;
 
 	-webkit-border-radius: 8px;
 	-moz-border-radius: 8px;
 	border-radius: 8px;
+}
+
+.ideabox h3 {
+	margin-top: 0px;
 }
 
 #frontwelcome {

@@ -21,6 +21,10 @@ p, h1, form, button{
 	padding:0;
 }
 
+.center {
+	text-align: center;
+}
+
 .spacer{
 	clear:both;
 	height:1px;
@@ -205,8 +209,13 @@ iframe#main {
 }
 
 .accidea {
-	margin: auto;
-	width: 90em;
+	display: inline-block;
+	margin: 70px;
+}
+
+.accidea input {
+	margin-left: 1em;
+	margin-right: 1em;
 }
 
 #rightbar {

@@ -46,7 +46,7 @@ $sess->mustBeLoggedIn();
 		// Note! in form action: send $ideaid in GET to this page itself.
 		echo'
 		<div id="ideaForms" class="IdeaAdd">
-			<form method="POST" action="editIdea.php?ideaid='.$ideaid.'" enctype="multipart/form-data">
+			<form method="POST" action="adminEditIdea.php?ideaid='.$ideaid.'" enctype="multipart/form-data">
 				*Idea name:<br>
 				<input type="text" id="IdeaName" name="IdeaName" value="'.$idea->Name.'"><br>
 				*Idea description:<br>
@@ -60,7 +60,13 @@ $sess->mustBeLoggedIn();
 				Based on idea ID (if any):<br>
 				<input Name="BasedOn" rows="1" cols="20" value="'.$idea->BasedOn.'"><br>
 				Status:<br>
-				<input Name="IdeaStatus" rows="1" cols="20" value="'.$idea->Status.'"><br>
+				<select id="IdeaStatus">
+					<option value="Active">Active</option>
+					<option value="Closed">Closed</option>
+					<option value="In implementation">In implementation</option>
+					<option value="Implemented">Implemented</option>
+				</select>
+				<input Name="" rows="1" cols="20" value="'.$idea->Status.'"><br>
 				Attach image:<br>
 				<input type="file" name="file" id="file"><br>
 				<input type="submit" name="submitChanges" value="Submit changes">

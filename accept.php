@@ -27,11 +27,12 @@ if(isset($_POST['Accept'])){
 } else if(isset($_POST['Delete'])){
 	deleteSelected();
 }
+
+echo "<p>";
+
 getUnaccepted();
 ?>
 
-<input type="submit" name="Accept" value="Accept">
-<input type="submit" name="Delete" value="Delete">
 </form>
 
 </body>

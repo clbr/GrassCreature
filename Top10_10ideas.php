@@ -12,7 +12,7 @@ function top10_newest()
 	if($result)
 	{
 	//table creation and data insertion
-		echo"<table border=0>";
+		echo"<table border=0 width='100%'>";
 		$result->data_seek(0);
 		$i=0;
 		while($i<10)

@@ -10,13 +10,13 @@ function top10_commented()
 	if($result)
 	{
 	//table creation and data insertion
-		echo"<table border=0>";
+		echo"<table border=0 width='100%'>";
 		$result->data_seek(0);
 		$i=0;
 		while($i<10)
 		{
 			$row = $result->fetch_row();
-			if (!$row) return;
+			if (!$row) break;
 
 			echo"<tr><td><a href='showIdea.php?id=$row[1]'>$row[0]</a></td>
 			<td>$row[2] comments</td>

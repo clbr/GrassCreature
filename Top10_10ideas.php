@@ -5,7 +5,7 @@ function top102()
 //Connection to db and info request
 	require_once("DatabaseOperation/details.php");
 	$mysqli=db_connect();
-	$sql = "SELECT Name, Inventor, AddingDate FROM Idea ORDER BY AddingDate DESC";
+	$sql = "SELECT Name, Inventor, AddingDate FROM Idea ORDER BY AddingDate DESC limit 10";
 	$result = $mysqli->query($sql) or die($mysqli->error);
 	if($result)
 	{

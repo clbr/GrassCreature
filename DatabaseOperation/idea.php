@@ -122,14 +122,14 @@ function getVote($ideaID) {
 
 	$mysqli = db_connect();
 
-	$sth = $mysqli->prepare("select Rating from Rating where Idea_IdeaID=?;");
+	$sth = $mysqli->prepare("select sum(Rating) from Rating where Idea_IdeaID=?;");
 	$sth->bind_param("i", $ideaID);
 	$sth->execute();
 
 	$sth->bind_result($rating);
 
 	$result=0;
-	while ($sth->fetch()) {
+	if ($sth->fetch()) {
 		$result+=$rating;
 	}
 

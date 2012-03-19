@@ -6,7 +6,8 @@ function top10_commented()
 	require_once("DatabaseOperation/details.php");
 	$mysqli=db_connect();
 	$sql = "SELECT Name, IdeaID, Count(Comment.CommentID) AS comments FROM Idea, " .
-		"Comment WHERE Comment.Idea_IdeaID=Idea.IdeaID ORDER BY comments limit 10";
+		"Comment WHERE Comment.Idea_IdeaID=Idea.IdeaID group by IdeaID " .
+		"ORDER BY comments limit 10";
 	$result = $mysqli->query($sql) or die($mysqli->error);
 	if($result)
 	{

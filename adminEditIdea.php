@@ -60,7 +60,13 @@ $sess->mustBeLoggedIn();
 				Based on idea ID (if any):<br>
 				<input Name="BasedOn" rows="1" cols="20" value="'.$idea->BasedOn.'"><br>
 				Status:<br>
-				<input Name="IdeaStatus" rows="1" cols="20" value="'.$idea->Status.'"><br>
+				<select id="IdeaStatus">
+					<option value="Active">Active</option>
+					<option value="Closed">Closed</option>
+					<option value="In implementation">In implementation</option>
+					<option value="Implemented">Implemented</option>
+				</select>
+				<input Name="" rows="1" cols="20" value="'.$idea->Status.'"><br>
 				Attach image:<br>
 				<input type="file" name="file" id="file"><br>
 				<input type="submit" name="submitChanges" value="Submit changes">

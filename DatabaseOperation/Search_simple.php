@@ -1,14 +1,11 @@
 <?php
 /*error_reporting(E_ALL);*/
 require_once("details.php");
-function advancedSearch() {
+function searchIdea() {
 
 $mysqli = db_connect();
 
-$date = $_POST['date'];		
-
-$status1 = $_POST['status'];
-$inventor1 = $_POST['inventor'];
+	
 $tag1 = $_POST['tags'];	
 
 // Splitting the $tag1 string into pieces
@@ -16,11 +13,12 @@ $tag1 = $_POST['tags'];
 $pieces = explode(" ", $tag1);
 $count = count($pieces);
 
-if($date!=null){	
+	
  print"<table border=1>\n";
  print "<tr><td><strong>Idea name</strong></td><td><strong>Version</strong></td><td><strong>Description</strong></td><td><strong>
  Status</strong></td><td> <strong>RequestDate</strong></td><td><strong>Added On</strong></td><td><strong>Inventor</strong></td>
- </tr>\n";}
+ </tr>\n";
+
 
 	
 	foreach($pieces as $keyword)
@@ -30,9 +28,9 @@ if($date!=null){
 	
 	$sql = "SELECT Name, Version, LEFT(Description, 100), Status, RequestDate, AddingDate, Inventor
 						  FROM Idea
-						  WHERE Status= (?)
-						  AND Inventor LIKE CONCAT('%',(?),'%')
-						  AND Description LIKE CONCAT('%',(?),'%')
+						  WHERE Name LIKE CONCAT('%',(?),'%')
+						  OR Inventor LIKE CONCAT('%',(?),'%')
+						  OR Description LIKE CONCAT('%',(?),'%')
 						  ORDER BY RequestDate ";	
 
 	if ($date == "Newest")
@@ -49,15 +47,15 @@ if($date!=null){
 	if (!$stmt) die ("NOOOOOO " . $mysqli->error);
 	
 	
-$stmt->bind_param("sss",$status1, $inventor1, $keyword2);
+$stmt->bind_param("sss",$keyword2, $keyword2, $keyword2);
 	
 $stmt->execute();		
 
 $stmt->bind_result($name, $version, $desc, $stat, $dateReq, $dateAdd, $inventor);
 
 $stmt->store_result();
-			  
 
+	
 	while($stmt->fetch())
 	{
 	
@@ -72,12 +70,11 @@ $stmt->store_result();
 	print "<tr><td>$name3</td><td>$version3</td><td>$desc3</td><td>$status3</td><td>$date3</td><td>$date4</td><td>$inventor3</td>
 	</tr>\n";
 	}
-	
-
-}
-	
+		
+	}
+		
 	print "</table>";	
-	
+
 	
 $stmt->close();
 

@@ -39,7 +39,7 @@
 <?php
 error_reporting(E_ALL);
 require_once("Search5.php");
-searchIdea();
+advancedSearch();
 
 
 ?>

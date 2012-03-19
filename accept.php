@@ -27,6 +27,9 @@ if(isset($_POST['Accept'])){
 } else if(isset($_POST['Delete'])){
 	deleteSelected();
 }
+
+echo "<p>";
+
 getUnaccepted();
 ?>
 

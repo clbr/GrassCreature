@@ -102,6 +102,7 @@ function addVote($vote, $ideaID, $userID) {
 		$sth->bind_param("s", $ideaID);
 		$sth->execute();
 		$sth->bind_result($user);
+		$sth->fetch();
 
 		if($user==0) {
 
@@ -111,6 +112,8 @@ function addVote($vote, $ideaID, $userID) {
 			$sth->bind_param("sss", $vote, $ideaID, $userID);
 			$sth->execute();
 			$mysqli->close();
+		} else {
+			echo "<h3>You have already voted on this idea.</h3>\n";
 		}
 	}
 }

@@ -265,3 +265,14 @@ iframe#main {
 #userdiv tr:hover {
 	background-image: url(../img/cloudbg.png);
 }
+
+/* Comments */
+
+div.comment {
+
+}
+
+hr.shortline { color: black; float: left; width: 20em; }
+
+
+

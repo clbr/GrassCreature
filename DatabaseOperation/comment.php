@@ -25,7 +25,7 @@
 		$ideaID = 5; // normally id as paramater to this function.
 
 		// If there are column name collisions, use User.Name etc. instead.
-		$sql = "SELECT Date, Name, Company, Text FROM Comment LEFT OUTER JOIN User ON Comment.User_UserID = User.UserID WHERE Idea_IdeaID = $ideaID";
+		$sql = "SELECT Date, Name, Company, Text FROM Comment LEFT OUTER JOIN User ON Comment.UserID = User.UserID WHERE IdeaID = $ideaID";
 		$result = $mysqli->query($sql) or die($mysqli->error);
 
 		while ($obj = $result->fetch_object()) {

@@ -35,7 +35,11 @@ $uid = -1;
 if ($sess->isLoggedIn())
 	$uid = $sess->getUserID();
 
+/* Show the actual idea */
+
 getIdea($id, $uid, $sess->isAdmin());
+
+/* Attached images handling */
 
 if (file_exists("userImages/$id")) {
 	echo "<div id=attachments>\n";
@@ -62,6 +66,8 @@ if (file_exists("userImages/$id")) {
 	echo "</div>\n";
 }
 
+/* Comments listing and commenting */
+
 require_once("DatabaseOperation/comment.php");
 $comments = getComments($id);
 
@@ -71,6 +77,10 @@ while ($comment = $comments->fetch_object()) {
 	if ($comment->Company != "") { echo ", " . $comment->Company; } 
 	echo "<br><hr class='shortline'><br>" . $comment->Text . "<br></div>";
 }
+
+echo "<input type='button' value='Comment...' onclick=showCommentForm(" . $id . ")>";
+
+/* Rating stuff */
 
 if(isset($_POST['Yes'])){
 addVote(1, $id, $uid);

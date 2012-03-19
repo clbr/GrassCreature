@@ -123,7 +123,7 @@ function getVote($ideaID) {
 	$mysqli = db_connect();
 
 	$sth = $mysqli->prepare("select Rating from Rating where Idea_IdeaID=?;");
-	$sth->bind_param("s", $ideaID);
+	$sth->bind_param("i", $ideaID);
 	$sth->execute();
 
 	$sth->bind_result($rating);

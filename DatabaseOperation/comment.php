@@ -27,7 +27,7 @@
 		$mysqli = db_connect();
 
 		// If there are column name collisions, use User.Name etc. instead.
-		$sql = "SELECT CommentID, Date, Name, Company, Text FROM Comment LEFT OUTER JOIN User ON Comment.User_UserID = User.UserID WHERE Idea_IdeaID = $ideaID";
+		$sql = "SELECT CommentID, DATE_FORMAT(Date, '%d.%m.%Y %H:%i:%s') AS Date, Name, UserID, Company, Text FROM Comment LEFT OUTER JOIN User ON Comment.User_UserID = User.UserID WHERE Idea_IdeaID = $ideaID";
 		$result = $mysqli->query($sql) or die($mysqli->error);
 
 		return $result;

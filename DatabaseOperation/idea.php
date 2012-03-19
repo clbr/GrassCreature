@@ -159,7 +159,7 @@ function getIdea($id, $userID, $isAdmin) {
 		}
 		// Idea editing button for adminz. It is possible that both buttons are visible.
 		if ($isAdmin) {
-			echo "<a href='adminEditIdea.php?ideaid=$id'><br>Edit idea as admin</a>";
+			echo "<a href='adminEditIdea.php?ideaid=$id'><br>Edit idea as admin</a><br>";
 		}
 
 	}

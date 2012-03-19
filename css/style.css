@@ -267,13 +267,14 @@ iframe#main {
 	background-image: url(../img/cloudbg.png);
 }
 
-/* Comments */
+* Comments */
 
 div.comment {
-
+	margin-top: 2em;
+	border-radius:10px;
+	padding: 0.5em;
+	background-color: #FFB877;
+	width: 40%;
 }
 
-hr.shortline { color: black; float: left; width: 20em; }
-
-
-
+hr.shortline { color: black; float: left; width: 8.5em; }

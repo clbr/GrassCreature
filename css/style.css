@@ -79,10 +79,9 @@ div#ulko{
 }
 
 div#banner {
-	color: green;
-	font-size:160%;
+	font-size:120%;
 	font-weight:bold;
-
+	margin: 1em;
 }
 
 div#Add{

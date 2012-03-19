@@ -54,6 +54,17 @@
 		return $ideaID;
 	}
 
+
+	// The inventor abandons his idea; it is marked abandoned
+	function abandonIdea($ideaID) {
+
+		$db = db_connect();
+
+		$db->query("UPDATE Idea SET Status = 'abandoned' WHERE IdeaID = $ideaID") or die($db->error);
+
+		$db->close();
+	}
+
 	function adminEditIdea($ideaID, $status, $name, $desc, $reqdate, $cost, $additionalInfo, $basedOn,$version, $inventorID) {
 		$mysqli = db_connect();
 

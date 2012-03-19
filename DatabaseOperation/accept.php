@@ -16,7 +16,7 @@ $sth->bind_result($id, $name, $desc);
 
 while ($sth->fetch()) {
    echo "<div class='accidea'>";
-   echo "<input type='checkbox' name='chkbox' value='$id'  />";
+   echo "<input type='checkbox' name='chkbox[]' value='$id'  />";
    echo "$name";
    echo "$desc</div>";
 }
@@ -28,7 +28,28 @@ return $sth;
 }
 
 function acceptSelected() {
+$amount=0;
+if(isset($_POST['chkbox']))
+{
+	foreach($_POST['chkbox'] as $chkval) {
+		if(isset($chkval)) {
+$amount++;
 
+$mysqli = db_connect();
+
+$sth = $mysqli->prepare("update Idea set Status='active' where IdeaID=?;");
+
+$sth->bind_param("s", $chkval);
+
+$sth->execute();
+
+$mysqli->close();
+
+}
+
+	}
+echo $amount . " ideas accepted";
+}
 }
 
 

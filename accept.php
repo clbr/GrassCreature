@@ -20,22 +20,15 @@ require_once("DatabaseOperation/accept.php");
 
 <body>
 
+<form method="post" action="accept.php">
+
 <?php
-echo $_POST['ideaid'][0];
+acceptSelected();
 getUnaccepted();
 ?>
 
-<form method="post" action="accept.php">
 <input type="submit" name="Submit" value="Accept">
 </form>
-
-<button type="button" onclick="
-for (i = 0; i < document.getElementsByTagName('input').length; i++) {
-	$chkbox=document.getElementsByTagName('input');
-	if($chkbox[i].checked==true) $chkbox[i].checked = false;
-}
-$.post('accept.php', { 'ideaid[]': ['23', '15'] });
-">ACCEPT</button>
 
 </body>
 </html>

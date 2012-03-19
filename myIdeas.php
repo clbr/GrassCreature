@@ -1,8 +1,7 @@
 <?php require_once("session.php");
 
 // This page requires login.
-if (!$sess->isLoggedIn())
-	header("Location: index.php");
+$sess->mustBeLoggedIn();
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"

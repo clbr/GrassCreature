@@ -270,7 +270,11 @@ iframe#main {
 
 div.comment {
 	margin-top: 2em;
+
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
 	border-radius:10px;
+
 	padding: 0.5em;
 	background-color: #FFB877;
 	width: 40%;

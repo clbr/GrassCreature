@@ -28,7 +28,7 @@ $sess->mustBeLoggedIn();
 	// Fields are shown when the page loads, after submit is pressed, fields go away and a success message is shown instead.
 	?>
 	<div id="ideaForms" class="IdeaAdd">
-		<form method="POST" action="AddIdea.php" enctype="multipart/form-data">
+		<form method="POST" action="addIdea.php" enctype="multipart/form-data">
 			*Idea name:<br>
 			<input type="text" id="IdeaName" name="IdeaName"><br>
 

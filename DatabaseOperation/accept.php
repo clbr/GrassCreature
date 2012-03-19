@@ -21,8 +21,8 @@ while ($sth->fetch()) {
 	"$desc</a><br>\n";
 }
 
-echo '<hr><input type="submit" name="Accept" value="Accept">' .
-	'<input type="submit" name="Delete" value="Delete">';
+echo '<hr><div class=center><input type="submit" name="Accept" value="Accept">' .
+	'<input type="submit" name="Delete" value="Delete"></div>';
 echo "</div>\n";
 
 $mysqli->close();

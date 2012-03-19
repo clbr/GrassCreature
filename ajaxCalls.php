@@ -5,7 +5,7 @@
 	{
 		case 'sendComment':
 			require_once("DatabaseOperation/comment.php");
-			addComment ($_POST['ideaid'], $_POST['userid'], $_POST['comment']);
+			addComment($_POST['ideaid'], $_POST['userid'], $_POST['comment']);
 			break;
 	}
 ?>

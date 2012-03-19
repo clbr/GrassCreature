@@ -44,7 +44,7 @@ $id = $_GET["id"];
 			{
 				url: 'ajaxCalls.php',
 				type: 'POST',
-				data: 'call=' + call + '&ideaid=' + ideaid + '&userid=' + userid '&comment=' + comment,
+				data: 'call=' + call + '&ideaid=' + ideaid + '&userid=' + userid + '&comment=' + comment,
 
 				success: function(response)
 				{

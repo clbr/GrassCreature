@@ -3,7 +3,7 @@
 
 	require_once("details.php");
 
-	function addComment ($text, $commentorID, $ideaID) {
+	function addComment ($ideaID, $commentorID, $text) {
 		$mysqli = db_connect();
 
 		$sql = "INSERT INTO Comment (Text, User_UserID, Idea_IdeaID, Date) VALUES (?, ?, ?, NOW())";

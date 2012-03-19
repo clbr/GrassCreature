@@ -94,10 +94,10 @@ echo "Rating: " . getVote($id);
 echo "</div>";
 
 
-echo "<form method='post' action='showIdea.php?id=$id'>";
-echo "<input type='submit' name='Yes' value='Vote Up'>";
-echo "<input type='submit' name='No' value='Vote Down'>";
-echo "</form>";
+echo "<form method='post' action='showIdea.php?id=$id'>\n";
+echo "<button name='Yes'><img src='img/up.png' width=32 height=32></button>\n";
+echo "<button name='No'><img src='img/down.png' width=32 height=32></button>\n";
+echo "</form>\n";
 
 ?>
 

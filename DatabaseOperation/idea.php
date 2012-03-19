@@ -108,7 +108,7 @@
 
 // The following layer violation is explained by crappy PHP - no fetch_array etc
 // possible when using a parameterized query (!!)
-function getIdea($id, $userID) {
+function getIdea($id, $userID, $isAdmin) {
 
 	$db = db_connect();
 
@@ -149,10 +149,14 @@ function getIdea($id, $userID) {
 			"</table>\n" .
 			"</div>\n";
 
-		// Edit button for created ideas.
+		// Idea editin button for inventor.
 		if ($userID == $Inventor) {
 			// Send idea-id along page change.
 			echo "<a href='editIdea.php?ideaid=$id'>Edit idea</a>";
+		}
+		// Idea editing button for adminz. It is possible that both buttons are visible.
+		if ($isAdmin) {
+			echo "<a href='adminEditIdea.php?ideaid=$id'><br>Edit idea as admin</a>";
 		}
 
 	}

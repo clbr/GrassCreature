@@ -35,8 +35,8 @@ $sess->mustBeLoggedIn();
 	$ideaData = getIdeaInfo($ideaid);
 	$idea = $ideaData->fetch_object();
 	
-	if ($sess->getUserID() != $idea->Inventor) {
-		echo "You can not edit ideas you have not created.";
+	if (!$sess->isAdmin()) {
+		echo "You are not an admin.";
 	}
 	else {
 		if (!isset($_POST['submitChanges'])) {
@@ -59,6 +59,8 @@ $sess->mustBeLoggedIn();
 				<input Name="ReqDate" rows="1" cols="20" value="'.$idea->RequestDate.'"><br>
 				Based on idea ID (if any):<br>
 				<input Name="BasedOn" rows="1" cols="20" value="'.$idea->BasedOn.'"><br>
+				Status:<br>
+				<input Name="IdeaStatus" rows="1" cols="20" value="'.$idea->Status.'"><br>
 				Attach image:<br>
 				<input type="file" name="file" id="file"><br>
 				<input type="submit" name="submitChanges" value="Submit changes">
@@ -71,7 +73,7 @@ $sess->mustBeLoggedIn();
 				$idea->BasedOn, $idea->Inventor);
 
 			// and edit the idea with new data.
-			$ideaID = editIdea($ideaid, $_POST['IdeaName'], $_POST['desc'], $_POST['ReqDate'], $_POST['CostEst'], $_POST['AddInfo'], $_POST['BasedOn'],
+			$ideaID = adminEditIdea($ideaid,$_POST['IdeaStatus'], $_POST['IdeaName'], $_POST['desc'], $_POST['ReqDate'], $_POST['CostEst'], $_POST['AddInfo'], $_POST['BasedOn'],
 				$idea->Version, $sess->getUserID());
 
 			// Upload image if there are any. Uploads the image to a folder with the same name as the idea's id.

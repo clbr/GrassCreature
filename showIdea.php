@@ -34,7 +34,7 @@ $uid = -1;
 if ($sess->isLoggedIn())
 	$uid = $sess->getUserID();
 
-getIdea($id, $uid);
+getIdea($id, $uid, $sess->isAdmin());
 
 if (file_exists("userImages/$id")) {
 	echo "<div id=attachments>\n";

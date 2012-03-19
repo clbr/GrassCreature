@@ -98,14 +98,16 @@ function addVote($vote, $ideaID, $userID) {
 	if($vote==-1||$vote==1) {
 		$mysqli = db_connect();
 
-		$sth = $mysqli->prepare("select COUNT(User_UserID) from Rating where Idea_IdeaID=?;");
+		$sth = $mysqli->prepare("select COUNT(User_UserID) from Rating where Idea_IdeaID=?;") or die($mysqli-error);
 		$sth->bind_param("s", $ideaID);
 		$sth->execute();
 		$sth->bind_result($user);
 
 		if($user==0) {
 
-			$sth = $mysqli->prepare("INSERT INTO Rating (Rating, Idea_IdeaID, User_UserID) VALUES (?, ?, ?);");
+			$sth->close();
+
+			$sth = $mysqli->prepare("INSERT INTO Rating (Rating, Idea_IdeaID, User_UserID) VALUES (?, ?, ?);") or die($mysqli->error);
 			$sth->bind_param("sss", $vote, $ideaID, $userID);
 			$sth->execute();
 			$mysqli->close();

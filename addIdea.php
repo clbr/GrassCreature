@@ -67,6 +67,12 @@ $sess->mustBeLoggedIn();
 			uploadImages($ideaID);
 
 		echo "<br><br>Idea succesfully added with the ID: $ideaID.</div>";
+
+		// Wait 5 secs, then redirect to the newly added idea
+		echo "<script type=\"text/javascript\">
+			setTimeout(function() {
+			window.location = 'showIdea.php?id=$ideaID';
+			}, 5000);</script>";
 	}
 ?>
 

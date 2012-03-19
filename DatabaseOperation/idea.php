@@ -35,12 +35,6 @@
 		$mysqli = db_connect();
 
 		// Before editing all current info will be retrieved from db to textfields for user to edit.
-
-		// Version incrementing has to be done by code, auto increment is no good here.
-		//$sql = "SELECT Version FROM Idea WHERE IdeaID = $ideaID";
-		//$version = $mysqli->query($sql) or die($mysqli->error);
-
-		// ^ currently obsolete, since found a better way to get version...
 		$version++;
 
 		$sql = "UPDATE Idea SET Name = ?, Description = ?, Version = ?, RequestDate = ?, Cost = ?, AdditionalInfo = ?,
@@ -71,10 +65,6 @@
 		// Difference to normal editing: Can change status.
 
 		// Before editing all current info will be retrieved from db to textfields for user to edit.
-
-		// Version incrementing has to be done by code, auto increment is no good here.
-		//$sql = "SELECT Version FROM Idea WHERE IdeaID = $ideaID";
-		//$version = $mysqli->query($sql) or die($mysqli->error);
 		$version++;
 
 		$sql = "UPDATE Idea SET Name = ?, Description = ?, Version = ?, Status = ?, RequestDate = ?, Cost = ?, AdditionalInfo = ?,

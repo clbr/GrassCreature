@@ -38,17 +38,36 @@ $id = $_GET["id"];
 		
 		function sendComment(ideaid, userid) {
 			var call = 'sendComment';
-			var comment = document.getElementById('commentText').value;
+			var text = document.getElementById('commentText').value;
 
 			$.ajax(
 			{
 				url: 'ajaxCalls.php',
 				type: 'POST',
-				data: 'call=' + call + '&ideaid=' + ideaid + '&userid=' + userid + '&comment=' + comment,
+				data: 'call=' + call + '&ideaid=' + ideaid + '&userid=' + userid + '&comment=' + text,
 
-				success: function(response)
+				success: function(result)
 				{
-					$('#commentsArea').append('succeeeesss');
+					var comment = JSON.parse(result);
+					
+					var string = "<div id='comment" + comment.Rand + "' class='comment' style='display:none'>" + comment.Date +
+					"<a href='showUser.php?id=" + userid + "'> " + comment.Name + "</a>";
+					
+					if (comment.Company != "") {
+						string += ", " + comment.Company;
+					}
+					
+					string += "<br><hr class='shortline'><br>" + text + "<br></div>";
+					
+					$('#commentsArea').append(string);
+					$('#comment'+comment.Rand).hide().slideDown(1000).fadeIn(1000);
+						
+					/*$('#commentsArea').append(
+					"<div class='comment'>" + comment.Date +
+					"<a href='showUser.php?id=" + userid + "'> " + comment.Name + "</a>");
+					
+					 
+					$('#commentsArea').append("<br><hr class='shortline'><br>" + text + "<br></div>");*/
 				}
 			});
 		}

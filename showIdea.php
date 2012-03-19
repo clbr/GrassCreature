@@ -29,14 +29,23 @@ $id = $_GET["id"];
 	<script type="text/JavaScript">
 
 		function showCommentForm(ideaid, userid) {
-			$('#commentFormArea').append(
-				'<form method="post" action="text/javascript">' +
-				'<textarea id="commentText" rows="5" cols="42"></textarea>' +
-				'<br><input type="button" value="Send!" onclick="sendComment(' + ideaid + ', ' + userid + ')">' +
-				'<input type="button" value="Cancel" onclick=hideCommentForm()>' +
-				'</form>').hide().slideDown(1000).fadeIn(1000);
+			if (userid != -1) {
+				$('#commentFormArea').append(
+					'<form method="post" action="text/javascript">' +
+					'<textarea id="commentText" rows="5" cols="42"></textarea>' +
+					'<br><input type="button" value="Send!" onclick="sendComment(' + ideaid + ', ' + userid + ')">' +
+					'<input type="button" value="Cancel" onclick=hideCommentForm()>' +
+					'</form>').hide().slideDown(1000).fadeIn(1000);
 
-			$('#cmtButton').slideUp(1000).fadeOut(1000);
+				$('#cmtButton').slideUp(1000).fadeOut(1000);
+			}
+			else {
+				$('#commentFormArea').append(
+					'<div style="padding:1em">Only registered people are allowed to comment. Log in or '+
+					'<a href="register.php">register.</a></div>').hide().slideDown(1000).fadeIn(1000);
+
+				$('#cmtButton').slideUp(1000).fadeOut(1000);
+			}
 		}
 		
 		function hideCommentForm() {
@@ -134,7 +143,11 @@ while ($comment = $comments->fetch_object()) {
 }
 echo "</div>";
 
-echo "<input id='cmtButton' type='button' value='Comment...' onclick='showCommentForm(" . $id . ", " . $sess->getUserID() . ")'><div id='commentFormArea'></div>";
+if ($sess->isLoggedIn()) 
+	echo "<input id='cmtButton' type='button' value='Comment...' onclick='showCommentForm(" . $id . ", " . $sess->getUserID() . ")'><div id='commentFormArea'></div>";
+else
+	echo "<input id='cmtButton' type='button' value='Comment...' onclick='showCommentForm(" . -1 . ", " . -1 . ")'><div id='commentFormArea'></div>";
+
 
 /* Rating stuff */
 
@@ -149,11 +162,12 @@ echo "<div id='rating'>";
 echo "Rating: " . getVote($id);
 echo "</div>";
 
-
-echo "<form method='post' action='showIdea.php?id=$id'>\n";
-echo "<button name='Yes'><img src='img/up.png' width=32 height=32></button>\n";
-echo "<button name='No'><img src='img/down.png' width=32 height=32></button>\n";
-echo "</form>\n";
+if ($sess->isLoggedIn()) {
+	echo "<form method='post' action='showIdea.php?id=$id'>\n";
+	echo "<button name='Yes'><img src='img/up.png' width=32 height=32></button>\n";
+	echo "<button name='No'><img src='img/down.png' width=32 height=32></button>\n";
+	echo "</form>\n";
+}
 
 ?>
 

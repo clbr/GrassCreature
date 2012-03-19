@@ -82,12 +82,15 @@
 		$mysqli->close();
 	}
 
-	function addVote($rating, $ideaID, $userID) {
-		$mysqli = db_connect();
+	function addVote($vote, $ideaID, $userID) {
+$mysqli = db_connect();
+$sth = $mysqli->prepare("select Rating from Rating where Idea_IdeaID=?;");
+$sth->bind_param("s", $ideaID);
+$sth->execute();
+$sth->bind_result($rating);
+echo $rating;
+$mysqli->close();
 
-		$sql = "INSERT INTO Rating (Rating, Idea_IdeaID, User_UserID) VALUES ($rating, $ideaID, $userID)";
-		$mysqli->query($sql) or die($mysqli->error);
-		$mysqli->close();
 	}
 
 	function getIdeaInfo($ideaID) {
@@ -101,7 +104,7 @@
 	function getMyIdeas($userID) {
 		$mysqli = db_connect();
 		// Could fetch amount of comments too and maybe rating.
-		$sql = "select IdeaID, Name, Status, DATE_FORMAT(AddingDate, '%d.%m.%Y %H:%i:%s') AS AddingDate from Idea where Inventor=$userID and Status='active' ORDER BY AddingDate DESC";
+		$sql = "select IdeaID, Name, Status, DATE_FORMAT(AddingDate, '%d.%m.%Y %H:%i:%s') AS AddingDate from Idea where Inventor=$userID ORDER BY AddingDate DESC";
 		$result = $mysqli->query($sql) or die($mysqli->error);
 		return $result;
 	}

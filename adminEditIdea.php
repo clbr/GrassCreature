@@ -35,8 +35,8 @@ $sess->mustBeLoggedIn();
 	$ideaData = getIdeaInfo($ideaid);
 	$idea = $ideaData->fetch_object();
 	
-	if ($sess->getUserID() != $idea->Inventor) {
-		echo "You can not edit ideas you have not created.";
+	if (!$sess->isAdmin()) {
+		echo "You are not an admin.";
 	}
 	else {
 		if (!isset($_POST['submitChanges'])) {
@@ -46,7 +46,7 @@ $sess->mustBeLoggedIn();
 		// Note! in form action: send $ideaid in GET to this page itself.
 		echo'
 		<div id="ideaForms" class="IdeaAdd">
-			<form method="POST" action="editIdea.php?ideaid='.$ideaid.'" enctype="multipart/form-data">
+			<form method="POST" action="adminEditIdea.php?ideaid='.$ideaid.'" enctype="multipart/form-data">
 				*Idea name:<br>
 				<input type="text" id="IdeaName" name="IdeaName" value="'.$idea->Name.'"><br>
 				*Idea description:<br>
@@ -59,6 +59,13 @@ $sess->mustBeLoggedIn();
 				<input Name="ReqDate" rows="1" cols="20" value="'.$idea->RequestDate.'"><br>
 				Based on idea ID (if any):<br>
 				<input Name="BasedOn" rows="1" cols="20" value="'.$idea->BasedOn.'"><br>
+				Status:<br>
+				<select id="IdeaStatus">
+					<option value="Active" ' if ($idea->Status == 'active') { echo 'selected="selected"' }'>Active</option>
+					<option value="Closed" ' if ($idea->Status == 'closed') { echo 'selected="selected"' }'>Closed</option>
+					<option value="In implementation" ' if ($idea->Status == 'in implementation') { echo 'selected="selected"' }'>In implementation</option>
+					<option value="Implemented" ' if ($idea->Status == 'implementation') { echo 'selected="selected"' }'>Implemented</option>
+				</select>				
 				Attach image:<br>
 				<input type="file" name="file" id="file"><br>
 				<input type="submit" name="submitChanges" value="Submit changes">
@@ -71,7 +78,7 @@ $sess->mustBeLoggedIn();
 				$idea->BasedOn, $idea->Inventor);
 
 			// and edit the idea with new data.
-			$ideaID = editIdea($ideaid, $_POST['IdeaName'], $_POST['desc'], $_POST['ReqDate'], $_POST['CostEst'], $_POST['AddInfo'], $_POST['BasedOn'],
+			$ideaID = adminEditIdea($ideaid,$_POST['IdeaStatus'], $_POST['IdeaName'], $_POST['desc'], $_POST['ReqDate'], $_POST['CostEst'], $_POST['AddInfo'], $_POST['BasedOn'],
 				$idea->Version, $sess->getUserID());
 
 			// Upload image if there are any. Uploads the image to a folder with the same name as the idea's id.

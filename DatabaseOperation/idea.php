@@ -7,7 +7,7 @@
 		$mysqli = db_connect();
 
 		$sql = "INSERT INTO Idea (Name, Description, Version, RequestDate, Cost, AdditionalInfo, BasedOn, Inventor, Status, AddingDate) VALUES (
-			?, ?, ?, ?, ?, ?, ?, ?, 'New', NOW())";
+			?, ?, ?, ?, ?, ?, ?, ?, 'new', NOW())";
 		$stmt = $mysqli->prepare($sql);
 		$stmt->bind_param('ssisisii', $name, $desc, $version = 1, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);
 		$stmt->execute();
@@ -101,14 +101,14 @@
 	function getMyIdeas($userID) {
 		$mysqli = db_connect();
 		// Could fetch amount of comments too and maybe rating.
-		$sql = "select IdeaID, Name, Status, DATE_FORMAT(AddingDate, '%d.%m.%Y %H:%i:%s') AS AddingDate from Idea where Inventor=$userID AND Status = 'New' ORDER BY AddingDate DESC";
+		$sql = "select IdeaID, Name, Status, DATE_FORMAT(AddingDate, '%d.%m.%Y %H:%i:%s') AS AddingDate from Idea where Inventor=$userID ORDER BY AddingDate DESC";
 		$result = $mysqli->query($sql) or die($mysqli->error);
 		return $result;
 	}
 
 // The following layer violation is explained by crappy PHP - no fetch_array etc
 // possible when using a parameterized query (!!)
-function getIdea($id, $userID) {
+function getIdea($id, $userID, $isAdmin) {
 
 	$db = db_connect();
 
@@ -149,10 +149,14 @@ function getIdea($id, $userID) {
 			"</table>\n" .
 			"</div>\n";
 
-		// Edit button for created ideas.
+		// Idea editin button for inventor.
 		if ($userID == $Inventor) {
 			// Send idea-id along page change.
 			echo "<a href='editIdea.php?ideaid=$id'>Edit idea</a>";
+		}
+		// Idea editing button for adminz. It is possible that both buttons are visible.
+		if ($isAdmin) {
+			echo "<a href='adminEditIdea.php?ideaid=$id'><br>Edit idea as admin</a>";
 		}
 
 	}

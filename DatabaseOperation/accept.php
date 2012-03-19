@@ -14,12 +14,19 @@ $sth->execute();
 
 $sth->bind_result($id, $name, $desc);
 
+echo "<div class='accidea' id='accidea'>";
+
+echo "<input type=button value='Select all' onclick='accept_selall()' id='acc_toggle'><hr>";
+
 while ($sth->fetch()) {
-   echo "<div class='accidea'>";
-   echo "<input type='checkbox' name='chkbox' value='$id'  />";
-   echo "$name";
-   echo "$desc</div>";
+   echo "<input type='checkbox' name='chkbox[]' value='$id'  />";
+   echo "<a href='showIdea.php?id=$id'>$name, " .
+	"$desc</a><br>\n";
 }
+
+echo '<hr><div class=center><input type="submit" name="Accept" value="Accept">' .
+	'<input type="submit" name="Delete" value="Delete"></div>';
+echo "</div>\n";
 
 $mysqli->close();
 
@@ -28,6 +35,55 @@ return $sth;
 }
 
 function acceptSelected() {
+$amount=0;
+if(isset($_POST['chkbox']))
+{
+	foreach($_POST['chkbox'] as $chkval) {
+		if(isset($chkval)) {
+$amount++;
+
+$mysqli = db_connect();
+
+$sth = $mysqli->prepare("update Idea set Status='active' where IdeaID=?;");
+
+$sth->bind_param("s", $chkval);
+
+$sth->execute();
+
+$mysqli->close();
+
+}
+
+	}
+echo $amount . " ideas accepted";
+}
+}
+
+function deleteSelected() {
+
+$amount=0;
+if(isset($_POST['chkbox']))
+{
+        foreach($_POST['chkbox'] as $chkval) {
+                if(isset($chkval)) {
+$amount++;
+
+$mysqli = db_connect();
+
+$sth = $mysqli->prepare("DELETE FROM Idea WHERE IdeaID = ?;");
+
+$sth->bind_param("s", $chkval);
+
+$sth->execute();
+
+$mysqli->close();
+
+}
+
+        }
+echo $amount . " ideas deleted";
+}
+
 
 }
 

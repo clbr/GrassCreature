@@ -45,6 +45,15 @@ class sess {
 
 		return $_SESSION["userID"];
 	}
+
+	function mustBeLoggedIn() {
+		if (!$this->isLoggedIn()) {
+			echo "<script type=\"text/javascript\">" .
+			"alert(\"You need to be logged in\"); window.history.back();" .
+			"</script>";
+			die();
+		}
+	}
 }
 
 $sess = new sess;

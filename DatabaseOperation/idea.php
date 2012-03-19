@@ -106,6 +106,8 @@
 		return $result;
 	}
 
+// The following layer violation is explained by crappy PHP - no fetch_array etc
+// possible when using a parameterized query (!!)
 function getIdea($id, $userID) {
 
 	$db = db_connect();

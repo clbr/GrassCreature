@@ -83,27 +83,28 @@
 	}
 
 	function addVote($vote, $ideaID, $userID) {
-$mysqli = db_connect();
-$sth = $mysqli->prepare("INSERT INTO Rating (Rating, Idea_IdeaID, User_UserID) VALUES (?, ?, ?);");
-$sth->bind_param("sss", $vote, $ideaID, $userID);
-$sth->execute();
-$sth->bind_result($rating);
-echo $rating;
-$mysqli->close();
+if($vote==-1||$vote==1) {
+	$mysqli = db_connect();
+	$sth = $mysqli->prepare("INSERT INTO Rating (Rating, Idea_IdeaID, User_UserID) VALUES (?, ?, ?);");
+	$sth->bind_param("sss", $vote, $ideaID, $userID);
+	$sth->execute();
+	$mysqli->close();
+}
 
 	}
 
 function getVote($ideaID) {
-
+$mysqli = db_connect();
 $sth = $mysqli->prepare("select Rating from Rating where Idea_IdeaID=?;");
 $sth->bind_param("s", $ideaID);
 $sth->execute();
 $sth->bind_result($rating);
+$result=0;
 while ($sth->fetch()) {
-   echo $rating;
+   $result+=$rating;
 }
 
-echo $rating;
+return $result;
 
 }
 

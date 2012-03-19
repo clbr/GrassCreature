@@ -15,7 +15,6 @@ require_once("DatabaseOperation/accept.php");
 	<link rel="icon" href="favicon.ico" type="image/x-icon">
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-  	<script src="http://code.jquery.com/jquery-latest.js"></script>
 </head>
 
 <body>

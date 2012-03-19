@@ -3,16 +3,16 @@ error_reporting(E_ALL);
 function top101()
 {
 //Connection to db and info request
-	require_once("DatabaseOperation/details.php");
+	require_once("DatabaseOperations/details.php");
 	$mysqli=db_connect();
-	$sql = "SELECT Name, Inventor, Count(Comment.Idea_IdeaID=Idea.IdeaID) AS comments FROM Idea, Comment WHERE Comment.Idea_IdeaID=Idea.IdeaID";
+	$sql = "SELECT Name, Inventor, Count(Comment.CommentID) AS comments FROM Idea, Comment WHERE Comment.Idea_IdeaID=Idea.IdeaID ORDER BY comments";
 	$result = $mysqli->query($sql) or die($mysqli->error);
 	if($result)
 	{
 	//table creation and data insertion
 		echo"<table border='1'>";
 		$result->data_seek(0);
-		echo"<tr><td>Name</td><td>Link</td><td>Accepted date</td></tr>\n";
+		echo"<tr><td>Idea name</td><td>number of comments</td></tr>\n";
 		$i=0;
 		while($i<10)
 		{

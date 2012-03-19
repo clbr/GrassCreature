@@ -88,8 +88,8 @@ function addVote($vote, $ideaID, $userID) {
 	if($vote==-1||$vote==1) {
 		$mysqli = db_connect();
 
-		$sth = $mysqli->prepare("select COUNT(User_UserID) from Rating where Idea_IdeaID=?;") or die($mysqli-error);
-		$sth->bind_param("s", $ideaID);
+		$sth = $mysqli->prepare("select COUNT(User_UserID) from Rating where Idea_IdeaID=? and User_UserID=?;") or die($mysqli-error);
+		$sth->bind_param("ii", $ideaID, $userID);
 		$sth->execute();
 		$sth->bind_result($user);
 		$sth->fetch();

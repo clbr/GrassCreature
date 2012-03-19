@@ -121,26 +121,32 @@ while ($comment = $comments->fetch_object()) {
 }
 echo "</div>";
 
-echo "<input type='button' value='Comment...' onclick='showCommentForm(" . $id . ", " . $sess->getUserID() . ")'><div id='commentFormArea'></div>";
+if ($sess->isLoggedIn()) {
 
-/* Rating stuff */
+	echo "<input type='button' value='Comment...' onclick='showCommentForm(" . $id .
+		", " . $sess->getUserID() . ")'><div id='commentFormArea'></div>";
 
-if (isset($_POST['Yes'])) {
-	addVote(1, $id, $uid);
-} else if (isset($_POST['No'])) {
-	addVote(-1, $id, $uid);
+	/* Rating stuff */
+
+	if (isset($_POST['Yes'])) {
+		addVote(1, $id, $uid);
+	} else if (isset($_POST['No'])) {
+		addVote(-1, $id, $uid);
+	}
+
 }
-
 
 echo "<div id='rating'>";
 echo "Rating: " . getVote($id);
 echo "</div>";
 
+if ($sess->isLoggedIn()) {
 
-echo "<form method='post' action='showIdea.php?id=$id'>\n";
-echo "<button name='Yes'><img src='img/up.png' width=32 height=32></button>\n";
-echo "<button name='No'><img src='img/down.png' width=32 height=32></button>\n";
-echo "</form>\n";
+	echo "<form method='post' action='showIdea.php?id=$id'>\n";
+	echo "<button name='Yes'><img src='img/up.png' width=32 height=32></button>\n";
+	echo "<button name='No'><img src='img/down.png' width=32 height=32></button>\n";
+	echo "</form>\n";
+}
 
 ?>
 

@@ -42,7 +42,7 @@ if ($sess->isAdmin()) {
 <div id=newestideas class=ideabox>
 <h3>Top 10 newest ideas</h3>
 <?php
-top102();
+top10_newest();
 ?>
 </div>
 

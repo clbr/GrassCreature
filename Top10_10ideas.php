@@ -2,7 +2,7 @@
 error_reporting(E_ALL);
 
 // top 10 newest ideas
-function top102()
+function top10_newest()
 {
 //Connection to db and info request
 	require_once("DatabaseOperation/details.php");

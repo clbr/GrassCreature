@@ -50,7 +50,7 @@ if (!$sess->isLoggedIn())
 
 			Attach images:<br>
 			<div id=addimages>
-			<input type="file" name="file"></div>
+			<input type="file" name="file[]" onchange='moreimages()'></div>
 			<br>
 			<input type="submit" name="submitIdea" value="Submit idea">
 		</form>
@@ -58,13 +58,16 @@ if (!$sess->isLoggedIn())
 	<?php
 	}
 	else {
-		$ideaID = addIdea($_POST['IdeaName'], $_POST['desc'], $_POST['ReqDate'], $_POST['CostEst'], $_POST['AddInfo'], $_POST['BasedOn'], $sess->getUserID());
+		echo "<div class='IdeaAdd'>";
+
+		$ideaID = addIdea($_POST['IdeaName'], $_POST['desc'], $_POST['ReqDate'], $_POST['CostEst'],
+			$_POST['AddInfo'], $_POST['BasedOn'], $sess->getUserID());
 
 		// Upload image if there are any.
-		if (!$_FILES['file']['size'] == 0)
-			uploadImage($ideaID);
+		if ($_FILES['file']['size'][0] != 0)
+			uploadImages($ideaID);
 
-		echo "<div class='IdeaAdd'>Idea succesfully added with the ID: $ideaID.</div>";
+		echo "<br><br>Idea succesfully added with the ID: $ideaID.</div>";
 	}
 ?>
 
@@ -73,6 +76,12 @@ if (!$sess->isLoggedIn())
 <script type="text/javascript">
 
 function moreimages() {
+
+	// Props to Taneli
+	var arrlen = document.getElementsByName('file[]').length;
+	if (arrlen >= 10) {
+		return;
+	}
 
 	var send = document.getElementById('addimages');
 	if (!send) return;
@@ -83,7 +92,7 @@ function moreimages() {
 	var inp = document.createElement('input');
 	inp.type = 'file';
 	inp.name = 'file[]';
-	inp.onchange = 'moreimages()';
+	inp.onchange = moreimages;
 	send.appendChild(inp);
 }
 

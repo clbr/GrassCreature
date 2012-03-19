@@ -15,13 +15,27 @@ require_once("DatabaseOperation/accept.php");
 	<link rel="icon" href="favicon.ico" type="image/x-icon">
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+  	<script src="http://code.jquery.com/jquery-latest.js"></script>
 </head>
 
 <body>
 
 <?php
+echo $_POST['ideaid'][0];
 getUnaccepted();
 ?>
+
+<form method="post" action="accept.php">
+<input type="submit" name="Submit" value="Accept">
+</form>
+
+<button type="button" onclick="
+for (i = 0; i < document.getElementsByTagName('input').length; i++) {
+	$chkbox=document.getElementsByTagName('input');
+	if($chkbox[i].checked==true) $chkbox[i].checked = false;
+}
+$.post('accept.php', { 'ideaid[]': ['23', '15'] });
+">ACCEPT</button>
 
 </body>
 </html>

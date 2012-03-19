@@ -25,20 +25,25 @@ if (!$sess->isLoggedIn())
 	error_reporting(E_ALL);
 	require_once('DatabaseOperation/idea.php');
 	require_once('uploadFile.php');
-
-	if (!isset($_POST['submitChanges'])) {	
-	// Fields are shown when the page loads, after submit is pressed, fields go away and a success message is shown instead.
+	
+	// TODO:
+	// - Create adminEditIdea.php where status can also be changed. (This page uses normal user's idea editin db function.)
+	// - RequestDate is currently printed in mySQL format.
 	
 	$ideaid = $_GET['ideaid'];
-	
+
 	// Gets the currently open idea's info.
 	$ideaData = getIdeaInfo($ideaid);
 	$idea = $ideaData->fetch_object();
-	
+
+	if (!isset($_POST['submitChanges'])) {
+	// Fields are shown when the page loads, after submit is pressed, fields go away and a success message is shown instead.
+
 	// Fill textfields with existing data.
+	// Note! in form action: send $ideaid in GET to this page itself.
 	echo'
 	<div id="ideaForms" class="IdeaAdd">
-		<form method="POST" action="AddIdea.php" enctype="multipart/form-data">
+		<form method="POST" action="editIdea.php?ideaid='.$ideaid.'" enctype="multipart/form-data">
 			*Idea name:<br>
 			<input type="text" id="IdeaName" name="IdeaName" value="'.$idea->Name.'"><br>
 			*Idea description:<br>
@@ -59,11 +64,11 @@ if (!$sess->isLoggedIn())
 	}
 	else {
 		// Save old version to db...
-		saveVersion($idea->IdeaID, $idea->Version, $idea->Name, $idea->Description, $idea->RequestDate, $idea->Cost, $idea->AdditionalInfo,
+		saveVersion($idea->IdeaID, $idea->Version, $idea->Status, $idea->Name, $idea->Description, $idea->RequestDate, $idea->Cost, $idea->AdditionalInfo,
 			$idea->BasedOn, $idea->Inventor);
-		
+
 		// and edit the idea with new data.
-		$ideaID = editIdea($_POST['IdeaName'], $_POST['desc'], $_POST['ReqDate'], $_POST['CostEst'], $_POST['AddInfo'], $_POST['BasedOn'],
+		$ideaID = editIdea($ideaid, $_POST['IdeaName'], $_POST['desc'], $_POST['ReqDate'], $_POST['CostEst'], $_POST['AddInfo'], $_POST['BasedOn'],
 			$idea->Version, $sess->getUserID());
 
 		// Upload image if there are any. Uploads the image to a folder with the same name as the idea's id.

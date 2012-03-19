@@ -20,14 +20,14 @@
 		return $just_added_id[0];
 	}
 
-	function saveVersion($ideaID, $version, $name, $desc, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID) {
+	function saveVersion($ideaID, $version, $status, $name, $desc, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID) {
 		// When updating idea, saves the old version of it.
 		$mysqli = db_connect();
 
 		$sql = "INSERT INTO Version (IdeaID, Name, Status, Description, Version, RequestDate, Cost, AdditionalInfo, BasedOn, Inventor) VALUES (
 			?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		$stmt = $mysqli->prepare($sql);
-		$stmt->bind_param('isssiiissis', $ideaID, $name, 'oldVersion' , $desc, $version, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);
+		$stmt->bind_param('isssisisii', $ideaID, $name, $status , $desc, $version, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);
 		$stmt->execute();
 	}
 
@@ -39,17 +39,17 @@
 		// Version incrementing has to be done by code, auto increment is no good here.
 		//$sql = "SELECT Version FROM Idea WHERE IdeaID = $ideaID";
 		//$version = $mysqli->query($sql) or die($mysqli->error);
-		
+
 		// ^ currently obsolete, since found a better way to get version...
 		$version++;
 
-		$sql = "UPDATE Idea SET Name = ?, SET Description = ?, SET Version = ?, SET RequestDate = ?, SET Cost = ?, SET AdditionalInfo = ?,
-			SET BasedOn = ?, SET Inventor = ? WHERE IdeaID = $ideaID";
+		$sql = "UPDATE Idea SET Name = ?, Description = ?, Version = ?, RequestDate = ?, Cost = ?, AdditionalInfo = ?,
+			BasedOn = ?, Inventor = ? WHERE IdeaID = $ideaID";
 
 		$stmt = $mysqli->prepare($sql);
-		$stmt->bind_param('ssiisissi', $name, $desc, $version, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);
+		$stmt->bind_param('ssisisii', $name, $desc, $version, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);
 		$stmt->execute();
-		
+
 		// Return ID for images.
 		return $ideaID;
 	}
@@ -66,11 +66,11 @@
 		//$version = $mysqli->query($sql) or die($mysqli->error);
 		$version++;
 
-		$sql = "UPDATE Idea SET Name = ?, SET Description = ?, SET Version = ?, SET Status = ?, SET RequestDate = ?, SET Cost = ?, SET AdditionalInfo = ?,
-			SET BasedOn = ?, SET Inventor = ? WHERE IdeaID = $ideaID";
+		$sql = "UPDATE Idea SET Name = ?, Description = ?, Version = ?, Status = ?, RequestDate = ?, Cost = ?, AdditionalInfo = ?,
+			BasedOn = ?, Inventor = ? WHERE IdeaID = $ideaID";
 
 		$stmt = $mysqli->prepare($sql);
-		$stmt->bind_param('ssisiissi', $name, $desc, $version, $status, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);
+		$stmt->bind_param('ssisiisii', $name, $desc, $version, $status, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);
 		$stmt->execute();
 	}
 
@@ -90,14 +90,24 @@
 		$mysqli->close();
 	}
 
-	function getIdeaInfo($id) {
+	function getIdeaInfo($ideaID) {
 		$mysqli = db_connect();
-		
-		$sql = "select * from Idea where IdeaID=$id";
+
+		$sql = "select * from Idea where IdeaID=$ideaID";
+		$result = $mysqli->query($sql) or die($mysqli->error);
+		return $result;
+	}
+	
+	function getMyIdeas($userID) {
+		$mysqli = db_connect();
+		// Could fetch amount of comments too and maybe rating.
+		$sql = "select IdeaID, Name, Status, DATE_FORMAT(AddingDate, '%d.%m.%Y %H:%i:%s') AS AddingDate from Idea where Inventor=$userID AND Status = 'New' ORDER BY AddingDate DESC";
 		$result = $mysqli->query($sql) or die($mysqli->error);
 		return $result;
 	}
 
+// The following layer violation is explained by crappy PHP - no fetch_array etc
+// possible when using a parameterized query (!!)
 function getIdea($id, $userID) {
 
 	$db = db_connect();
@@ -138,13 +148,13 @@ function getIdea($id, $userID) {
 
 			"</table>\n" .
 			"</div>\n";
-		
+
 		// Edit button for created ideas.
 		if ($userID == $Inventor) {
 			// Send idea-id along page change.
-			echo "<a href='editIdea.php?ideaid=$id'>Edit idea</a>";	
-		}		
-		
+			echo "<a href='editIdea.php?ideaid=$id'>Edit idea</a>";
+		}
+
 	}
 	$db->close();
 }

@@ -7,7 +7,7 @@ function top102()
 //Connection to db and info request
 	require_once("DatabaseOperation/details.php");
 	$mysqli = db_connect();
-	$sql = "SELECT Name, IdeaID, AddingDate FROM Idea ORDER BY AddingDate DESC limit 10";
+	$sql = "SELECT Name, IdeaID, date_format(AddingDate, '%a %D, %M %Y') FROM Idea ORDER BY AddingDate DESC limit 10";
 	$result = $mysqli->query($sql) or die($mysqli->error);
 	if($result)
 	{

@@ -115,7 +115,7 @@ return $result;
 		$result = $mysqli->query($sql) or die($mysqli->error);
 		return $result;
 	}
-	
+
 	function getMyIdeas($userID) {
 		$mysqli = db_connect();
 		// Could fetch amount of comments too and maybe rating.
@@ -174,7 +174,7 @@ function getIdea($id, $userID, $isAdmin) {
 		}
 		// Idea editing button for adminz. It is possible that both buttons are visible.
 		if ($isAdmin) {
-			echo "<a href='adminEditIdea.php?ideaid=$id'><br>Edit idea as admin</a>";
+			echo "<a href='adminEditIdea.php?ideaid=$id'><br>Edit idea as admin</a><br>";
 		}
 
 	}

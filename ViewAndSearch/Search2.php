@@ -11,10 +11,10 @@ if (mysqli_connect_errno()) {
 		$status1 = $_POST["status"];
 		$inventor1 = $_POST["inventor"];
 		$date = $_POST["date"];
-		
-		
+
+
 		if($date == "Newest"){
-		
+
 			if($inventor1!=NULL){
 			$sql = "SELECT Name, Description, Status, RequestDate, Inventor
 			FROM Idea
@@ -22,7 +22,7 @@ if (mysqli_connect_errno()) {
 			AND Inventor='$inventor1'
 			ORDER BY RequestDate
 			";}
-		
+
 			else{
 			$sql = "SELECT Name, Description, Status, RequestDate, Inventor
 			FROM Idea
@@ -30,7 +30,7 @@ if (mysqli_connect_errno()) {
 			ORDER BY RequestDate
 			";}
 		}
-		else 
+		else
 		{
 		if($inventor1!=NULL){
 			$sql = "SELECT Name, Description, Status, RequestDate desc, Inventor
@@ -39,7 +39,7 @@ if (mysqli_connect_errno()) {
 			AND Inventor='$inventor1'
 			ORDER BY RequestDate DESC
 			";}
-		
+
 			else{
 			$sql = "SELECT Name, Description, Status, RequestDate, Inventor
 			FROM Idea
@@ -47,10 +47,10 @@ if (mysqli_connect_errno()) {
 			ORDER BY RequestDate DESC
 			";}
 		}
-		
-		
-					
-		
+
+
+
+
 $result = $mysqli->query($sql);
 
 $mysqli->close();

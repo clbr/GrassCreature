@@ -66,8 +66,10 @@ require_once("DatabaseOperation/comment.php");
 $comments = getComments($id);
 
 while ($comment = $comments->fetch_object()) {
-	echo "<div id=comment" + $comment->CommentID + " class='comment'>" . $comment->Date . "<br><hr class='shortline'><br>" .
-		$comment->Name . ", " . $comment->Company . "<br>" . $comment->Text . "<br></div>";
+	echo "<div id=comment" . $comment->CommentID . " class='comment'>" . $comment->Date . " " .
+	"<a href='showUser.php?id=" . $comment->UserID . "'>" . $comment->Name . "</a>";
+	if ($comment->Company != "") { echo ", " . $comment->Company; } 
+	echo "<br><hr class='shortline'><br>" . $comment->Text . "<br></div>";
 }
 
 if(isset($_POST['Yes'])){

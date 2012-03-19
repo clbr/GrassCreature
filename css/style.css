@@ -269,10 +269,15 @@ iframe#main {
 /* Comments */
 
 div.comment {
+	margin-top: 2em;
 
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius:10px;
+
+	padding: 0.5em;
+	background-color: #FFB877;
+	width: 40%;
 }
 
-hr.shortline { color: black; float: left; width: 20em; }
-
-
-
+hr.shortline { color: black; float: left; width: 8.5em; }

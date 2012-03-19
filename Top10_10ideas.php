@@ -3,7 +3,7 @@ error_reporting(E_ALL);
 function top102()
 {
 //Connection to db and info request
-	require_once("details.php");
+	require_once("DatabaseOperation/details.php");
 	$mysqli=db_connect();
 	$sql = "SELECT Name, Inventor, AddingDate FROM Idea ORDER BY AddingDate DESC";
 	$result = $mysqli->query($sql) or die($mysqli->error);

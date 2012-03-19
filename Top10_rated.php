@@ -16,10 +16,13 @@ function top10_rated()
 		echo"<table border=0 width='100%'>";
 		$result->data_seek(0);
 		$i=0;
+
 		while($i<10)
 		{
-		$row = $result->fetch_row();
-			echo"<tr><td><a href='showIdea.php?id=$row[1]'>$row[0]</a></td>
+			$row = $result->fetch_row();
+			if (!$row) break;
+
+			echo "<tr><td><a href='showIdea.php?id=$row[1]'>Nimi?</a></td>
 			<td>$row[0]</td>
 			</tr>\n";
 			$i++;

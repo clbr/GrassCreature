@@ -1,9 +1,9 @@
 <?php
 error_reporting(E_ALL);
-function top101()
+function top10_commented()
 {
 //Connection to db and info request
-	require_once("DatabaseOperations/details.php");
+	require_once("DatabaseOperation/details.php");
 	$mysqli=db_connect();
 	$sql = "SELECT Name, Inventor, Count(Comment.CommentID) AS comments FROM Idea, Comment WHERE Comment.Idea_IdeaID=Idea.IdeaID ORDER BY comments";
 	$result = $mysqli->query($sql) or die($mysqli->error);

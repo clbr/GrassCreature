@@ -36,6 +36,26 @@ if ($sess->isLoggedIn())
 
 getIdea($id, $uid);
 
+if (file_exists("userImages/$id")) {
+	echo "<div id=attachments>\n";
+	echo "<h3>Attachments:</h3>\n";
+
+	$dir = opendir("userImages/$id");
+
+	while (($file = readdir($dir)) != false) {
+		if (strncmp($file, ".", 1) == 0) continue;
+
+		$size = filesize("userImages/$id/$file") / 1024 / 1024.0;
+		echo "<a href='userImages/$id/$file' target=_blank>$file, ";
+		printf("%.3f", $size);
+		echo " MB</a><br>";
+	}
+
+	closedir($dir);
+
+	echo "</div>\n";
+}
+
 ?>
 
 

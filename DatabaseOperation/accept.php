@@ -31,7 +31,20 @@ function acceptSelected() {
 if(isset($_POST['chkbox']))
 {
 	foreach($_POST['chkbox'] as $chkval) {
-		if(isset($chkval)) echo "SAASTA";
+		if(isset($chkval)) {
+
+$mysqli = db_connect();
+
+$sth = $mysqli->prepare("update Idea set Status='active' where IdeaID=?;");
+
+$sth->bind_param("s", $chkval);
+
+$sth->execute();
+
+$mysqli->close();
+
+}
+
 	}
 }
 }

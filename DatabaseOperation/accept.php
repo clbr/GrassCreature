@@ -16,7 +16,7 @@ $sth->bind_result($id, $name, $desc);
 
 while ($sth->fetch()) {
    echo "<div class='accidea'>";
-   echo "<input type='checkbox' name='chkbox' value='$id'  />";
+   echo "<input type='checkbox' name='chkbox[]' value='$id'  />";
    echo "$name";
    echo "$desc</div>";
 }
@@ -28,7 +28,12 @@ return $sth;
 }
 
 function acceptSelected() {
-
+if(isset($_POST['chkbox']))
+{
+	foreach($_POST['chkbox'] as $chkval) {
+		if(isset($chkval)) echo "SAASTA";
+	}
+}
 }
 
 

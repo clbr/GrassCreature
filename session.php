@@ -32,7 +32,7 @@ class sess {
 			echo "<form action=login.php method=post>\n";
 			echo "\t\tLogged in as $uname";
 			if ($this->isAdmin()) echo ", administrator\n";
-			echo "\t\t<input type=submit name=logout value=\"Log out\">\n";
+			echo " <input type=submit name=logout value=\"Log out\">\n";
 			echo "\t</form>\n";
 		} else {
 			echo "<input type=button name=login value=\"Log in\" onclick=\"showlogin()\">";

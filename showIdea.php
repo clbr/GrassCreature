@@ -25,6 +25,34 @@ $id = $_GET["id"];
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 	<base target=main>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js" type="text/JavaScript"></script>
+	<script type="text/JavaScript">
+
+		function showCommentForm(ideaid, userid) {
+			$('#commentFormArea').append(
+				'<form method="post" action="text/javascript">' +
+				'<textarea id="commentText" rows="5" cols="42"></textarea>' +
+				'<br><input type="button" value="Send!" onclick="sendComment(' + ideaid + ', ' + userid + ')">' +
+				'</form>');
+		}
+		
+		function sendComment(ideaid, userid) {
+			var call = 'sendComment';
+			var comment = document.getElementById('commentText').value;
+
+			$.ajax(
+			{
+				url: 'ajaxCalls.php',
+				type: 'POST',
+				data: 'call=' + call + '&ideaid=' + ideaid + '&userid=' + userid '&comment=' + comment,
+
+				success: function(response)
+				{
+					$('#commentsArea').append('succeeeesss');
+				}
+			});
+		}
+	</script>
 </head>
 
 <body>
@@ -71,14 +99,16 @@ if (file_exists("userImages/$id")) {
 require_once("DatabaseOperation/comment.php");
 $comments = getComments($id);
 
+echo "<div id='commentsArea'>";
 while ($comment = $comments->fetch_object()) {
 	echo "<div id=comment" . $comment->CommentID . " class='comment'>" . $comment->Date . " " .
 	"<a href='showUser.php?id=" . $comment->UserID . "'>" . $comment->Name . "</a>";
 	if ($comment->Company != "") { echo ", " . $comment->Company; } 
 	echo "<br><hr class='shortline'><br>" . $comment->Text . "<br></div>";
 }
+echo "</div>";
 
-echo "<input type='button' value='Comment...' onclick=showCommentForm(" . $id . ")>";
+echo "<input type='button' value='Comment...' onclick='showCommentForm(" . $id . ", " . $sess->getUserID() . ")'><div id='commentFormArea'></div>";
 
 /* Rating stuff */
 

@@ -1,4 +1,5 @@
 <?php require_once("session.php");
+require_once("DatabaseOperation/idea.php");
 
 if (!isset($_GET["id"])) {
 	echo "<script type=\"text/javascript\">" .
@@ -68,8 +69,26 @@ while ($comment = $comments->fetch_object()) {
 	echo "<div id=comment" + $comment->CommentID + " class='comment'>" . $comment->Date . "<br><hr class='shortline'><br>" .
 		$comment->Name . ", " . $comment->Company . "<br>" . $comment->Text . "<br></div>";
 }
-?>
 
+if(isset($_POST['Yes'])){
+addVote(1, $id, $uid);
+}
+else if(isset($_POST['No'])){
+addVote(-1, $id, $uid);
+}
+
+
+echo "<div id='rating'>";
+echo "Rating: " . getVote($id);
+echo "</div>";
+
+
+echo "<form method='post' action='showIdea.php?id=$id'>";
+echo "<input type='submit' name='Yes' value='Vote Up'>";
+echo "<input type='submit' name='No' value='Vote Down'>";
+echo "</form>";
+
+?>
 
 <script src="js/js.js" type="text/javascript"></script>
 </body>

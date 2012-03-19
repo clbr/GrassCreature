@@ -114,7 +114,7 @@ echo $rating;
 		$result = $mysqli->query($sql) or die($mysqli->error);
 		return $result;
 	}
-	
+
 	function getMyIdeas($userID) {
 		$mysqli = db_connect();
 		// Could fetch amount of comments too and maybe rating.

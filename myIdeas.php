@@ -37,7 +37,7 @@ $sess->mustBeLoggedIn();
 	}
 	else {
 		echo "You have not added any ideas yet.";
-	}	
+	}
 ?>
 
 </body>

@@ -12,7 +12,7 @@
 
 		$stmt->execute();
 	}
-	
+
 	function deleteComment ($commentID) {
 		$mysqli = db_connect();
 

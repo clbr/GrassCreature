@@ -143,19 +143,19 @@ while ($comment = $comments->fetch_object()) {
 }
 echo "</div>";
 
-if ($sess->isLoggedIn()) 
+if ($sess->isLoggedIn()) {
 	echo "<input id='cmtButton' type='button' value='Comment...' onclick='showCommentForm(" . $id . ", " . $sess->getUserID() . ")'><div id='commentFormArea'></div>";
-else
+
+	/* Rating stuff */
+
+	if (isset($_POST['Yes'])) {
+		addVote(1, $id, $uid);
+	} else if (isset($_POST['No'])) {
+		addVote(-1, $id, $uid);
+	}
+
+} else
 	echo "<input id='cmtButton' type='button' value='Comment...' onclick='showCommentForm(" . -1 . ", " . -1 . ")'><div id='commentFormArea'></div>";
-
-
-/* Rating stuff */
-
-if (isset($_POST['Yes'])) {
-	addVote(1, $id, $uid);
-} else if (isset($_POST['No'])) {
-	addVote(-1, $id, $uid);
-}
 
 
 echo "<div id='rating'>";

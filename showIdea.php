@@ -39,6 +39,26 @@ if ($sess->isLoggedIn())
 
 getIdea($id, $uid, $sess->isAdmin());
 
+/* Ratings */
+echo "<div id='rating'>";
+if ($sess->isLoggedIn()) {
+	echo "<form method='post' action='showIdea.php?id=$id'>\n";
+	echo "<button name='Yes'><img src='img/up.png' width=32 height=32></button>\n";
+	echo "<button name='No'><img src='img/down.png' width=32 height=32></button>\n";
+	echo "</form>\n";
+
+	/* Rating stuff */
+
+	if (isset($_POST['Yes'])) {
+		addVote(1, $id, $uid);
+	} else if (isset($_POST['No'])) {
+		addVote(-1, $id, $uid);
+	}
+
+}
+echo "Rating: " . getVote($id);
+echo "</div>";
+
 /* Attached images handling */
 
 if (file_exists("userImages/$id")) {
@@ -83,28 +103,9 @@ echo "</div>";
 if ($sess->isLoggedIn()) {
 	echo "<input id='cmtButton' type='button' value='Comment...' onclick='showCommentForm(" . $id . ", " . $sess->getUserID() . ")'><div id='commentFormArea'></div>";
 
-	/* Rating stuff */
-
-	if (isset($_POST['Yes'])) {
-		addVote(1, $id, $uid);
-	} else if (isset($_POST['No'])) {
-		addVote(-1, $id, $uid);
-	}
-
 } else
 	echo "<input id='cmtButton' type='button' value='Comment...' onclick='showCommentForm(" . -1 . ", " . -1 . ")'><div id='commentFormArea'></div>";
 
-
-echo "<div id='rating'>";
-echo "Rating: " . getVote($id);
-echo "</div>";
-
-if ($sess->isLoggedIn()) {
-	echo "<form method='post' action='showIdea.php?id=$id'>\n";
-	echo "<button name='Yes'><img src='img/up.png' width=32 height=32></button>\n";
-	echo "<button name='No'><img src='img/down.png' width=32 height=32></button>\n";
-	echo "</form>\n";
-}
 
 ?>
 

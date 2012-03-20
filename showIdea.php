@@ -25,69 +25,6 @@ $id = $_GET["id"];
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 	<base target=main>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js" type="text/JavaScript"></script>
-	<script type="text/JavaScript">
-
-		function showCommentForm(ideaid, userid) {
-			if (userid != -1) {
-				$('#commentFormArea').append(
-					'<form method="post" action="text/javascript">' +
-					'<textarea id="commentText" rows="5" cols="42"></textarea>' +
-					'<br><input type="button" value="Send!" onclick="sendComment(' + ideaid + ', ' + userid + ')">' +
-					'<input type="button" value="Cancel" onclick=hideCommentForm()>' +
-					'</form>').hide().slideDown(1000).fadeIn(1000);
-
-				$('#cmtButton').slideUp(1000).fadeOut(1000);
-			}
-			else {
-				$('#commentFormArea').append(
-					'<div style="padding:1em">Only registered people are allowed to comment. Log in or '+
-					'<a href="register.php">register.</a></div>').hide().slideDown(1000).fadeIn(1000);
-
-				$('#cmtButton').slideUp(1000).fadeOut(1000);
-			}
-		}
-		
-		function hideCommentForm() {
-			$('#commentFormArea').slideUp(1000).fadeOut(1000, function()
-			{
-				// After both animations have ended (=1000ms has passed), empty formarea contents so that
-				// when pressing "Comment..." again the form isn't displayed twice.
-				$('#commentFormArea').empty();
-			});
-			$('#cmtButton').slideDown(1000).fadeIn(1000);			
-		}
-
-		function sendComment(ideaid, userid) {
-			var call = 'sendComment';
-			var text = document.getElementById('commentText').value;
-
-			$.ajax(
-			{
-				url: 'ajaxCalls.php',
-				type: 'POST',
-				data: 'call=' + call + '&ideaid=' + ideaid + '&userid=' + userid + '&comment=' + text,
-
-				success: function(result)
-				{
-					var comment = JSON.parse(result);
-
-					var string = "<div id='comment" + comment.Rand + "' class='comment' style='display:none'>" + comment.Date +
-					"<a href='showUser.php?id=" + userid + "'> " + comment.Name + "</a>";
-
-					// This whole thing starting from "var string =.." is really only needed because of the "," here. Really.
-					if (comment.Company != "") {
-						string += ", " + comment.Company;
-					}
-
-					string += "<br><hr class='shortline'><br>" + text + "<br></div>";
-
-					$('#commentsArea').append(string);
-					$('#comment'+comment.Rand).hide().slideDown(1000).fadeIn(1000);
-				}
-			});
-		}
-	</script>
 </head>
 
 <body>
@@ -172,5 +109,64 @@ if ($sess->isLoggedIn()) {
 ?>
 
 <script src="js/js.js" type="text/javascript"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js" type="text/JavaScript"></script>
+<script type="text/JavaScript">
+
+	function showCommentForm(ideaid, userid) {
+		if (userid != -1) {
+			$('#commentFormArea').append(
+				'<form method="post" action="text/javascript">' +
+				'<textarea id="commentText" rows="5" cols="42"></textarea>' +
+				'<br><input type="button" value="Send!" onclick="sendComment(' + ideaid + ', ' + userid + ')">' +
+				'<input type="button" value="Cancel" onclick=hideCommentForm()>' +
+				'</form>').hide().slideDown(1000).fadeIn(1000);
+
+			$('#cmtButton').slideUp(1000).fadeOut(1000);
+		} else {
+			$('#commentFormArea').append(
+				'<div style="padding:1em">Only registered people are allowed to comment. Log in or '+
+				'<a href="register.php">register.</a></div>').hide().slideDown(1000).fadeIn(1000);
+
+			$('#cmtButton').slideUp(1000).fadeOut(1000);
+		}
+	}
+
+	function hideCommentForm() {
+		$('#commentFormArea').slideUp(1000).fadeOut(1000, function()
+		{
+			// After both animations have ended (=1000ms has passed), empty formarea contents so that
+			// when pressing "Comment..." again the form isn't displayed twice.
+			$('#commentFormArea').empty();
+		});
+		$('#cmtButton').slideDown(1000).fadeIn(1000);
+	}
+
+	function sendComment(ideaid, userid) {
+		var call = 'sendComment';
+		var text = document.getElementById('commentText').value;
+
+		$.ajax(
+		{
+			url: 'ajaxCalls.php',
+			type: 'POST',
+			data: 'call=' + call + '&ideaid=' + ideaid + '&userid=' + userid + '&comment=' + text,
+				success: function(result)
+			{
+				var comment = JSON.parse(result);
+					var string = "<div id='comment" + comment.Rand + "' class='comment' style='display:none'>" + comment.Date +
+				"<a href='showUser.php?id=" + userid + "'> " + comment.Name + "</a>";
+					// This whole thing starting from "var string =.." is really only needed because of the "," here. Really.
+				if (comment.Company != "") {
+					string += ", " + comment.Company;
+				}
+
+				string += "<br><hr class='shortline'><br>" + text + "<br></div>";
+
+				$('#commentsArea').append(string);
+				$('#comment'+comment.Rand).hide().slideDown(1000).fadeIn(1000);
+			}
+		});
+	}
+</script>
 </body>
 </html>

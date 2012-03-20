@@ -40,7 +40,7 @@ if ($sess->isLoggedIn())
 getIdea($id, $uid, $sess->isAdmin());
 
 /* Ratings */
-echo "<div id='rating'>";
+echo "<div id='rating' class=ideabox>";
 if ($sess->isLoggedIn()) {
 	echo "<form method='post' action='showIdea.php?id=$id'>\n";
 	echo "<button name='Yes'><img src='img/up.png' width=32 height=32></button>\n";
@@ -57,7 +57,7 @@ if ($sess->isLoggedIn()) {
 
 }
 echo "Rating: " . getVote($id);
-echo "</div>";
+echo "</div>\n";
 
 /* Attached images handling */
 
@@ -96,9 +96,9 @@ while ($comment = $comments->fetch_object()) {
 	echo "<div id=comment" . $comment->CommentID . " class='comment'>" . $comment->Date . " " .
 	"<a href='showUser.php?id=" . $comment->UserID . "'>" . $comment->Name . "</a>";
 	if ($comment->Company != "") { echo ", " . $comment->Company; } 
-	echo "<br><hr class='shortline'><br>" . $comment->Text . "<br></div>";
+	echo "<br><hr class='shortline'><br>" . $comment->Text . "<br></div>\n";
 }
-echo "</div>";
+echo "</div>\n";
 
 if ($sess->isLoggedIn()) {
 	echo "<input id='cmtButton' type='button' value='Comment...' onclick='showCommentForm(" . $id . ", " . $sess->getUserID() . ")'><div id='commentFormArea'></div>";

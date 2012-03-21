@@ -327,3 +327,6 @@ hr.shortline {
 .indent {
 	margin-left: 4em;
 }
+
+#followIdeaButton { background-color:#FFAF66; width:8em; padding:0.5em; border-radius:10px; }
+#followIdeaButton:hover { background-color: #FFBF85; cursor: pointer; }

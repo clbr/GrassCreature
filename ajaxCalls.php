@@ -7,5 +7,9 @@
 			require_once("DatabaseOperation/comment.php");
 			addComment($_POST['ideaid'], $_POST['userid'], $_POST['comment']);
 			break;
+		case 'userFollowIdea':
+			require_once("DatabaseOperation/idea.php");
+			userFollowIdea($_POST['ideaid'], $_POST['userid']);
+			break;
 	}
 ?>

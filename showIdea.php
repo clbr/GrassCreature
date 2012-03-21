@@ -83,7 +83,7 @@ if (file_exists("userImages/$id")) {
 
 	closedir($dir);
 
-	echo "</div>\n";
+	echo "</div><br>\n";
 }
 
 /* Comments listing and commenting */

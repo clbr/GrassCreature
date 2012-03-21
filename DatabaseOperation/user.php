@@ -42,8 +42,6 @@ function getUser($id, $isLoggedIn) {
 	// Only show ideas to logged in users
 	if ($isLoggedIn) {
 
-		echo "<br><br>\n";
-
 		$st = $db->prepare("select IdeaID, Name from Idea where Inventor = ?");
 		$st->bind_param("i", $id);
 
@@ -51,16 +49,27 @@ function getUser($id, $isLoggedIn) {
 
 		$st->bind_result($ideaid, $ideaname);
 
-		echo "<table border=0>\n" .
-			"<tr><th>Ideas added by $name</th></tr>";
+		$st->store_result();
+		$rows = $st->num_rows;
 
-		while ($st->fetch()) {
+		if ($rows > 0) {
 
-			echo "\t<tr><td><a href=\"showIdea.php?id=$ideaid\">$ideaname</a></td></tr>\n";
+			echo "<br><hr><br>\n";
 
+			echo "<table border=0 width='100%'>\n" .
+				"<tr><th>Ideas added by $name</th></tr>";
+
+			for ($i = 1; $st->fetch(); $i++) {
+
+				$last = "";
+				if ($i == $rows)
+					$last = "class=bottom";
+
+				echo "\t<tr><td $last><a href=\"showIdea.php?id=$ideaid\">$ideaname</a></td></tr>\n";
+			}
+
+			echo "</table>\n";
 		}
-
-		echo "</table>\n";
 	}
 
 	echo "</div>\n";

@@ -5,7 +5,9 @@ function advancedSearch() {
 
 $mysqli = db_connect();
 
-$date = $_POST['date'];
+$date = null;
+if (isset($_POST['date']))
+	$date = $_POST['date'];
 
 if($date!=null){
  print"<table border=1>\n";
@@ -13,15 +15,22 @@ if($date!=null){
  Status</strong></td><td> <strong>RequestDate</strong></td><td><strong>Added On</strong></td><td><strong>Addiotional Information</strong></td><td><strong>Inventor</strong></td>
  </tr>\n";}
 
+if (isset($_POST['tags']))
+	$tag1 = $_POST['tags'];
+else
+	$tag1 = null;
 
-$tag1 = $_POST['tags'];
-	// Splitting the $tag1 string into pieces
+// Splitting the $tag1 string into pieces
 
 $pieces = explode(" ", $tag1);
 $count = count($pieces);
-$inventor1 = $_POST['inventor'];
-$status1 = $_POST['status'];
-	foreach($pieces as $keyword)
+
+if (isset($_POST['inventor']))
+	$inventor1 = $_POST['inventor'];
+if (isset($_POST['status']))
+	$status1 = $_POST['status'];
+
+foreach($pieces as $keyword)
 	{
 
 	$keyword2 = "%".$keyword."%";

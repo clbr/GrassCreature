@@ -42,6 +42,10 @@
 		echo "<div class=rightbox>" .
 		"<a href='myIdeas.php'>My ideas</a>" .
 		"</div><p>\n";
+
+		echo "<div class=rightbox>" .
+		"<a href='adminGroups.php'>Manage groups</a>" .
+		"</div><p>\n";
 	} else {
 		echo "<div class=rightbox>" .
 		"<a href='register.php'>Register</a></div><p>\n";

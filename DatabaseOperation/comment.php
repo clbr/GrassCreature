@@ -18,7 +18,7 @@
 			// the comment immediately without reloading the whole page.
 			$sql = "SELECT DATE_FORMAT(NOW(), '%d.%m.%Y %H:%i:%s') AS Date, Name, Company, DATE_FORMAT(NOW(), '%H%i%s') AS Rand
 				FROM User
-				WHERE UserID = :UserID";	
+				WHERE UserID = :UserID";
 			$stmt = $pdo->prepare($sql);
 			$stmt->bindParam(':UserID', $commentorID);
 			$stmt->execute();
@@ -27,7 +27,7 @@
 			$result = $stmt->fetch(PDO::FETCH_OBJ);
 
 			//echo "<pre>"; var_dump(json_encode($result)); echo "</pre>";
-			echo json_encode($result);	
+			echo json_encode($result);
 		}
 		catch (PDOException $err)
 		{

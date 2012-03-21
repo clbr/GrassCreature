@@ -12,6 +12,17 @@ require_once("DatabaseOperation/idea.php");
 
 $id = $_GET["id"];
 
+if ($sess->isAdmin()) {
+	require_once("DatabaseOperation/accept.php");
+
+	/* Admin delete/accept actions */
+	if (isset($_POST["accept"])) {
+		acceptIdea($id);
+	} else if (isset($_POST["delete"])) {
+		deleteIdea($id);
+	}
+}
+
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -95,7 +106,7 @@ echo "<div id='commentsArea'>";
 while ($comment = $comments->fetch_object()) {
 	echo "<div id=comment" . $comment->CommentID . " class='comment'>" . $comment->Date . " " .
 	"<a href='showUser.php?id=" . $comment->UserID . "' name=" . $comment->CommentID . ">" . $comment->Name . "</a>";
-	if ($comment->Company != "") { echo ", " . $comment->Company; } 
+	if ($comment->Company != "") { echo ", " . $comment->Company; }
 	echo "<br><hr class='shortline'><p class=clear>" . $comment->Text . "</p></div>\n";
 }
 echo "</div>\n";

@@ -38,7 +38,19 @@ function acceptIdea($id) {
 
 	$mysqli = db_connect();
 
-	$sth = $mysqli->prepare("update Idea set Status='active' where IdeaID=?;");
+	$sth = $mysqli->prepare("update Idea set Status='active' where IdeaID=?;") or die($mysqli->error);
+
+	$sth->bind_param("i", $id);
+	$sth->execute();
+
+	$mysqli->close();
+}
+
+function deleteIdea($id) {
+
+	$mysqli = db_connect();
+
+	$sth = $mysqli->prepare("DELETE FROM Idea WHERE IdeaID = ?;") or die($mysqli->error);
 
 	$sth->bind_param("i", $id);
 	$sth->execute();
@@ -72,15 +84,7 @@ if(isset($_POST['chkbox']))
                 if(isset($chkval)) {
 $amount++;
 
-$mysqli = db_connect();
-
-$sth = $mysqli->prepare("DELETE FROM Idea WHERE IdeaID = ?;");
-
-$sth->bind_param("s", $chkval);
-
-$sth->execute();
-
-$mysqli->close();
+deleteIdea($chkval);
 
 }
 

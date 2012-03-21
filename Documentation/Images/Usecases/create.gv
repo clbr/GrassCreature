@@ -1,0 +1,17 @@
+digraph g {
+
+	a1 [label="User wants to\nregister an account"]
+	a2 [label="Clicks register-button"]
+	a3 [label="User fills the\nrequired information"]
+	a4 [label="User solves the captcha"]
+	a5 [label="The information is checked"]
+	a6 [label="Success"]
+	a7 [label="User is informed of\nwhat is wrong"]
+
+
+	a1 -> a2 -> a3 -> a4 -> a5 -> a6
+	a5 -> a7 [color = red, label="Something wrong"]
+	a7 -> a3 [color = red]
+
+	{ rank=same; a5 a7 }
+}

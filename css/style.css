@@ -165,6 +165,19 @@ iframe#main {
 	border-radius: 8px;
 }
 
+.ideaboxtrans {
+	border: 2px groove #4b7daa;
+	display: inline-block;
+	clear: both;
+	padding: 0.5em;
+	margin: 1em;
+	text-align: center;
+
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+}
+
 .ideabox h3 {
 	margin-top: 0px;
 }
@@ -198,6 +211,7 @@ iframe#main {
 
 #ideadiv {
 	margin: 2em;
+	max-width: 50%;
 }
 
 #ideadiv td {
@@ -205,9 +219,12 @@ iframe#main {
 	border-bottom: 1px solid;
 }
 
+#ideadiv td.bottom {
+	border-bottom: 0px;
+}
+
 #ideadiv table {
 	border-collapse: collapse;
-	max-width: 50%;
 }
 
 #ideadiv tr:hover {

@@ -165,7 +165,7 @@ function getIdea($id, $userID, $isAdmin) {
 		$st->bind_result($uname);
 		$st->fetch();
 
-		echo "<div id=ideadiv>\n" .
+		echo "<div id=ideadiv class=ideaboxtrans>\n" .
 			"<input type=hidden name=id value=$ID>\n" .
 			"<table border=0>\n" .
 
@@ -179,12 +179,12 @@ function getIdea($id, $userID, $isAdmin) {
 
 		echo "\t<tr><td>Requested date</td><td>$ReqDate</td></tr>\n" .
 			"\t<tr><td>Added date</td><td>$AddDate</td></tr>\n" .
-			"\t<tr><td>Inventor</td><td><a href=\"showUser.php?id=$Inventor\">$uname</a></td></tr>\n" .
+			"\t<tr><td class=bottom>Inventor</td><td class=bottom><a href=\"showUser.php?id=$Inventor\">$uname</a></td></tr>\n" .
 
 //			"\t<tr><td></td><td></td></tr>\n" .
 
 			"</table>\n" .
-			"</div>\n";
+			"</div><p>\n";
 
 		// Idea editin button for inventor.
 		if ($userID == $Inventor) {

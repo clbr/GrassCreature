@@ -4,6 +4,11 @@ body{
 	padding-bottom: 5em;
 }
 
+body.lining {
+	margin-top: 6em;
+	margin-left: 2em;
+}
+
 a:hover {
 	text-decoration: none;
 }

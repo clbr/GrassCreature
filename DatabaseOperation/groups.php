@@ -33,7 +33,7 @@ function getGroups($userid, $isadmin) {
 
 	} else {
 
-		$st = $db->prepare("select Name, Description, GroupID from UserGroup, User_has_Group where User_UserID = ? and Group_GroupID = GroupID") or die($db->error);
+		$st = $db->prepare("select Name, Description, GroupID from UserGroup inner join User_has_Group on Group_GroupID = GroupID where User_UserID = ?") or die($db->error);
 
 		$st->bind_param("i", $userid);
 		$st->execute();

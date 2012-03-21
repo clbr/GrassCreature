@@ -15,14 +15,24 @@ function getUser($id, $isLoggedIn) {
 	$st->bind_result($name, $co, $coadd);
 	if ($st->fetch()) {
 
+		$last = "";
+
+		if (empty($co) && empty($coadd))
+			$last = "class=bottom";
+
 		echo "<div id=userdiv class=ideaboxtrans>\n" .
 			"<input type=hidden name=id value=$id>\n" .
 			"<table border=0 width='100%'>\n" .
 
-			"\t<tr><td>Name</td><td>$name</td></tr>\n";
+			"\t<tr><td $last>Name</td><td $last>$name</td></tr>\n";
 
-		if (!empty($co)) echo "\t<tr><td>Company</td><td>$co</td></tr>\n";
-		if (!empty($coadd)) echo "\t<tr><td>Additional company info</td><td>$coadd</td></tr>\n";
+		$last = "";
+
+		if (empty($coadd))
+			$last = "class=bottom";
+
+		if (!empty($co)) echo "\t<tr><td $last>Company</td><td $last>$co</td></tr>\n";
+		if (!empty($coadd)) echo "\t<tr><td class=bottom>Additional company info</td><td class=bottom>$coadd</td></tr>\n";
 
 		echo "</table>\n";
 

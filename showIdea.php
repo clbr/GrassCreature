@@ -70,6 +70,10 @@ if ($sess->isLoggedIn()) {
 echo "Rating: " . getVote($id);
 echo "</div>\n";
 
+if ($sess->isLoggedIn()) {
+	echo "<div id='followIdeaButton' onclick=userFollowIdea(" . $id . ", " . $sess->getUserID() . ")>Follow this idea</div>";
+}
+
 /* Attached images handling */
 
 if (file_exists("userImages/$id")) {
@@ -162,12 +166,12 @@ if ($sess->isLoggedIn()) {
 			url: 'ajaxCalls.php',
 			type: 'POST',
 			data: 'call=' + call + '&ideaid=' + ideaid + '&userid=' + userid + '&comment=' + text,
-				success: function(result)
+			success: function(result)
 			{
 				var comment = JSON.parse(result);
-					var string = "<div id='comment" + comment.Rand + "' class='comment' style='display:none'>" + comment.Date +
-				"<a href='showUser.php?id=" + userid + "'> " + comment.Name + "</a>";
-					// This whole thing starting from "var string =.." is really only needed because of the "," here. Really.
+				var string = "<div id='comment" + comment.Rand + "' class='comment' style='display:none'>" + comment.Date +
+					"<a href='showUser.php?id=" + userid + "'> " + comment.Name + "</a>";
+				// This whole thing starting from "var string =.." is really only needed because of the "," here. Really.
 				if (comment.Company != "") {
 					string += ", " + comment.Company;
 				}
@@ -178,6 +182,22 @@ if ($sess->isLoggedIn()) {
 				$('#comment'+comment.Rand).hide().slideDown(1000).fadeIn(1000);
 			}
 		});
+		
+		function userFollowIdea(ideaid, userid) {
+			var call = 'userFollowIdea';
+
+			$.ajax(
+			{
+				url: 'ajaxCalls.php',
+				type: 'POST',
+				data: 'call=' + call + '&ideaid=' + ideaid + '&userid=',
+				
+				success: function(result)
+				{
+				
+				}
+			}
+		}
 	}
 </script>
 </body>

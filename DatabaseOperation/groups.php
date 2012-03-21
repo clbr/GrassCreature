@@ -53,7 +53,7 @@ function getGroups($userid, $isadmin) {
 
 			$mem = $db->query("select count(User_UserID) from User_has_Group where Group_GroupID = $gid") or die ($db->error);
 			if ($row = $mem->fetch_row()) {
-				echo "$name";
+				echo "$row[0]";
 			}
 			echo "</td></tr>\n";
 		}
@@ -73,7 +73,7 @@ function addGroup($name, $desc, $uid) {
 	$st = $db->prepare("insert into UserGroup (Name, Description) values (?, ?)") or die($db->error);
 
 	$st->bind_param("ss", $name, $desc);
-	$st->execute();
+	if (!$st->execute()) die($db->error);
 	$st->close();
 
 	// Query the id
@@ -82,7 +82,7 @@ function addGroup($name, $desc, $uid) {
 	$st->bind_param("s", $name);
 	$st->execute();
 	$st->bind_result($gid);
-	$st->fetch();
+	if (!$st->fetch()) return;
 	$st->close();
 
 	// Add me as a member

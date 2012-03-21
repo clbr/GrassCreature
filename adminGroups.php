@@ -94,7 +94,7 @@ function groupedit() {
 	}
 
 	if (i == len) {
-		alert("Please select at least one group");
+		alert("Please select a group");
 		return;
 	}
 

@@ -320,3 +320,7 @@ hr.shortline {
 .clear {
 	clear: both;
 }
+
+#rating button {
+	margin-bottom: 1em;
+}

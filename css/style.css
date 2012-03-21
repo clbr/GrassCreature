@@ -288,3 +288,7 @@ div.comment {
 }
 
 hr.shortline { color: black; float: left; width: 8.5em; }
+
+.clear {
+	clear: both;
+}

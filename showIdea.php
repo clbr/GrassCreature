@@ -96,7 +96,7 @@ while ($comment = $comments->fetch_object()) {
 	echo "<div id=comment" . $comment->CommentID . " class='comment'>" . $comment->Date . " " .
 	"<a href='showUser.php?id=" . $comment->UserID . "'>" . $comment->Name . "</a>";
 	if ($comment->Company != "") { echo ", " . $comment->Company; } 
-	echo "<br><hr class='shortline'><br>" . $comment->Text . "<br></div>\n";
+	echo "<br><hr class='shortline'><p class=clear>" . $comment->Text . "</p></div>\n";
 }
 echo "</div>\n";
 

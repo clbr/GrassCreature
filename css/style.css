@@ -325,3 +325,7 @@ hr.shortline {
 .indent {
 	margin-left: 4em;
 }
+
+#groupsdiv {
+	padding: 1em;
+}

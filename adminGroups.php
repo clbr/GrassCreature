@@ -10,7 +10,7 @@ if (isset($_POST["name"])) {
 	if (isset($_POST["desc"]))
 		$desc = $_POST["desc"];
 
-	addGroup($name, $desc, $sess->getUserID());
+	addGroup($_POST["name"], $desc, $sess->getUserID());
 
 } else if (isset($_POST["chk"])) {
 

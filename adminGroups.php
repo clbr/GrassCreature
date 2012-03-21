@@ -30,12 +30,24 @@ else
 ?>
 </h2>
 
+<form action=adminGroups.php method=post class=indent>
+
+<input type=button name=add value="Create new group">
+<input type=button name=remove value="Delete group">
+<input type=button name=members value="Edit group members">
+
+<div id=groupsdiv>
+
+</div>
+
 <?php
 
 require_once("DatabaseOperation/groups.php");
 getGroups($sess->getUserID(), $sess->isAdmin());
 
 ?>
+
+</form>
 
 
 <script src="js/js.js" type="text/javascript"></script>

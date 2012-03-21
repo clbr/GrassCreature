@@ -2,6 +2,8 @@
 
 $sess->mustBeLoggedIn();
 
+
+
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -32,11 +34,12 @@ else
 
 <form action=adminGroups.php method=post class=indent>
 
-<input type=button name=add value="Create new group">
-<input type=button name=remove value="Delete group">
-<input type=button name=members value="Edit group members">
+<input type=button name=add value="Create new group" onclick='groupadd()''>
+<input type=button name=remove value="Delete group" onclick='groupdel()'>
+<input type=button name=members value="Edit group members" onclick='groupedit()'>
 
-<div id=groupsdiv>
+<p>
+<div id=groupsdiv class="center" style="display:inline-block;">
 
 </div>
 <br>
@@ -50,7 +53,55 @@ getGroups($sess->getUserID(), $sess->isAdmin());
 
 </form>
 
+<script type="text/javascript">
 
+var gdiv = document.getElementById('groupsdiv');
+
+function groupadd() {
+	gdiv.innerHTML = "<table border=0>" +
+				"<tr><td>Name:</td><td><input type=text name=name size=20></td></tr>" +
+				"<tr><td>Description:</td><td><input type=text name=desc size=20></td></tr>" +
+				"</table>" +
+				"<input type=submit value=Send>";
+}
+
+function groupdel() {
+
+	var boxes = document.getElementsByName('chk[]');
+	var len = boxes.length;
+
+	for (i = 0; i < len; i++) {
+		if (boxes[i].checked == true)
+			break;
+	}
+
+	if (i == len) {
+		alert("Please select at least one group");
+		return;
+	}
+
+	boxes[0].form.submit();
+}
+
+function groupedit() {
+
+	var boxes = document.getElementsByName('chk[]');
+	var len = boxes.length;
+
+	for (i = 0; i < len; i++) {
+		if (boxes[i].checked == true)
+			break;
+	}
+
+	if (i == len) {
+		alert("Please select at least one group");
+		return;
+	}
+
+	window.location = 'editGroup.php?id=' + boxes[i].value;
+}
+
+</script>
 <script src="js/js.js" type="text/javascript"></script>
 </body>
 </html>

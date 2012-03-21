@@ -2,7 +2,23 @@
 
 $sess->mustBeLoggedIn();
 
+require_once("DatabaseOperation/groups.php");
 
+if (isset($_POST["name"])) {
+
+	$desc = "";
+	if (isset($_POST["desc"]))
+		$desc = $_POST["desc"];
+
+	addGroup($name, $desc, $sess->getUserID());
+
+} else if (isset($_POST["chk"])) {
+
+	foreach ($_POST["chk"] as $chval) {
+		if (isset($chval))
+			deleteGroup($chval);
+	}
+}
 
 ?>
 
@@ -46,7 +62,6 @@ else
 
 <?php
 
-require_once("DatabaseOperation/groups.php");
 getGroups($sess->getUserID(), $sess->isAdmin());
 
 ?>

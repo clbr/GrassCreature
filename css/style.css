@@ -216,7 +216,6 @@ iframe#main {
 }
 
 #ideadiv td {
-	padding: 5px;
 	border-bottom: 1px solid;
 }
 
@@ -226,10 +225,6 @@ iframe#main {
 
 #userdiv td.bottom {
 	border-bottom: 0px;
-}
-
-#ideadiv table {
-	border-collapse: collapse;
 }
 
 #idealeft {
@@ -282,16 +277,19 @@ iframe#main {
 }
 
 #userdiv td, th {
-	padding: 5px;
 	border-bottom: 1px solid;
-}
-
-#userdiv table {
-	border-collapse: collapse;
 }
 
 table.highlight tr:hover {
 	background-image: url(../img/cloudbg.png);
+}
+
+table.highlight {
+	border-collapse: collapse;
+}
+
+table.highlight td, table.highlight th {
+	padding: 0.5em;
 }
 
 /* Comments */

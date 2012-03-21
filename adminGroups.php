@@ -39,6 +39,7 @@ else
 <div id=groupsdiv>
 
 </div>
+<br>
 
 <?php
 

@@ -107,7 +107,7 @@ function top10_latest_comments()
 //Connection to db and info request
 	require_once("DatabaseOperation/details.php");
 	$mysqli = db_connect();
-	$sql = "SELECT Name, IdeaID, date_format(Date, '%a %D %H:%i, %M %Y') FROM Idea, Comment WHERE Comment.Idea_IdeaID=Idea.IdeaID " .
+	$sql = "SELECT Name, IdeaID, date_format(Date, '%a %D %H:%i, %M %Y'), CommentID FROM Idea, Comment WHERE Comment.Idea_IdeaID=Idea.IdeaID " .
 		"ORDER BY date desc limit 10";
 	$result = $mysqli->query($sql) or die($mysqli->error);
 	if($result)
@@ -119,7 +119,7 @@ function top10_latest_comments()
 		while($i<10)
 		{
 		$row = $result->fetch_row();
-			echo"<tr><td><a href='showIdea.php?id=$row[1]'>$row[0]</a></td>
+			echo"<tr><td><a href='showIdea.php?id=$row[1]#$row[3]'>$row[0]</a></td>
 			<td>$row[2]</td>
 			</tr>\n";
 			$i++;

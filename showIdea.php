@@ -94,7 +94,7 @@ $comments = getComments($id);
 echo "<div id='commentsArea'>";
 while ($comment = $comments->fetch_object()) {
 	echo "<div id=comment" . $comment->CommentID . " class='comment'>" . $comment->Date . " " .
-	"<a href='showUser.php?id=" . $comment->UserID . "'>" . $comment->Name . "</a>";
+	"<a href='showUser.php?id=" . $comment->UserID . "' name=" . $comment->CommentID . ">" . $comment->Name . "</a>";
 	if ($comment->Company != "") { echo ", " . $comment->Company; } 
 	echo "<br><hr class='shortline'><p class=clear>" . $comment->Text . "</p></div>\n";
 }

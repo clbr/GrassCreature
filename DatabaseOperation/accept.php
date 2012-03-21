@@ -53,7 +53,8 @@ function deleteIdea($id) {
 	$sth = $mysqli->prepare("DELETE FROM Idea WHERE IdeaID = ?;") or die($mysqli->error);
 
 	$sth->bind_param("i", $id);
-	$sth->execute();
+	$ret = $sth->execute();
+	if (!$ret) die($mysqli->error);
 
 	$mysqli->close();
 }

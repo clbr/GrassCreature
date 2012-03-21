@@ -30,6 +30,14 @@ else
 ?>
 </h2>
 
+<?php
+
+require_once("DatabaseOperation/groups.php");
+getGroups($sess->getUserID(), $sess->isAdmin());
+
+?>
+
+
 <script src="js/js.js" type="text/javascript"></script>
 </body>
 </html>

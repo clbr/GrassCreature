@@ -8,7 +8,7 @@ function top10_rated()
 	require_once("DatabaseOperation/details.php");
 	$mysqli = db_connect();
 
-	$sql = "SELECT sum(Rating), Idea_IdeaID FROM Rating group by Idea_IdeaID ORDER BY sum(Rating) DESC limit 10";
+	$sql = "SELECT sum(Rating), Idea_IdeaID, Name FROM Rating inner join Idea on IdeaID = Idea_IdeaID group by Idea_IdeaID ORDER BY sum(Rating) DESC limit 10";
 	$result = $mysqli->query($sql) or die($mysqli->error);
 	if($result)
 	{
@@ -22,7 +22,7 @@ function top10_rated()
 			$row = $result->fetch_row();
 			if (!$row) break;
 
-			echo "<tr><td><a href='showIdea.php?id=$row[1]'>Nimi?</a></td>
+			echo "<tr><td><a href='showIdea.php?id=$row[1]'>$row[2]</a></td>
 			<td>$row[0]</td>
 			</tr>\n";
 			$i++;

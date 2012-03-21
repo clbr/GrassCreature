@@ -12,6 +12,17 @@ require_once("DatabaseOperation/idea.php");
 
 $id = $_GET["id"];
 
+if ($sess->isAdmin()) {
+	require_once("DatabaseOperation/accept.php");
+
+	/* Admin delete/accept actions */
+	if (isset($_POST["accept"])) {
+		acceptIdea($id);
+	} else if (isset($_POST["delete"])) {
+		deleteIdea($id);
+	}
+}
+
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"

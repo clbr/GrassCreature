@@ -27,7 +27,7 @@
 
 	<div id=frontsearch class=rightbox>
 	<form method=post action="search.php" target=main>
-		<input type=text size=18 name=simpletext> <input type=submit value=Go><br>
+		<input type=text size=18 name=simpletext> <input type=submit value=Go style="width: 2.5em;"><br>
 		<a href="search.php">Advanced search</a>
 	</form>
 	</div><p>

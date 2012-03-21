@@ -183,18 +183,19 @@ function getIdea($id, $userID, $isAdmin) {
 
 //			"\t<tr><td></td><td></td></tr>\n" .
 
-			"</table>\n" .
-			"</div><p>\n";
+			"</table>\n";
 
 		// Idea editin button for inventor.
 		if ($userID == $Inventor) {
 			// Send idea-id along page change.
-			echo "<a href='editIdea.php?ideaid=$id'>Edit idea</a>";
+			echo "<hr><a href='editIdea.php?ideaid=$id'>Edit idea</a>";
 		}
 		// Idea editing button for adminz. It is possible that both buttons are visible.
 		if ($isAdmin) {
-			echo "<a href='adminEditIdea.php?ideaid=$id'><br>Edit idea as admin</a><br>";
+			echo "<hr><a href='adminEditIdea.php?ideaid=$id'><br>Edit idea as admin</a><br>";
 		}
+
+		echo "</div><p>\n";
 
 	}
 	$db->close();

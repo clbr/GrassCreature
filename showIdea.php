@@ -27,7 +27,7 @@ $id = $_GET["id"];
 	<base target=main>
 </head>
 
-<body>
+<body class=lining>
 
 <?php
 

@@ -18,7 +18,7 @@ $sess->mustBeLoggedIn();
 	<script src="js/js.js" type="text/javascript"></script>
 </head>
 
-<body>
+<body class=lining>
 
 <?php
 	error_reporting(E_ALL);

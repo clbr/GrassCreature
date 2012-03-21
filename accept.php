@@ -17,7 +17,7 @@ require_once("DatabaseOperation/accept.php");
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 </head>
 
-<body>
+<body class=lining>
 
 <form method="post" action="accept.php">
 

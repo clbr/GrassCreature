@@ -60,6 +60,13 @@ top10_commented();
 ?>
 </div>
 
+<div id=lastcommentedideas class=ideabox>
+<h3>Top 10 newest comments</h3>
+<?php
+top10_latest_comments();
+?>
+</div>
+
 
 <script src="js/js.js" type="text/javascript"></script>
 </body>

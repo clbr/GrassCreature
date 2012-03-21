@@ -224,6 +224,10 @@ iframe#main {
 	border-bottom: 0px;
 }
 
+#userdiv td.bottom {
+	border-bottom: 0px;
+}
+
 #ideadiv table {
 	border-collapse: collapse;
 }
@@ -288,7 +292,6 @@ iframe#main {
 
 #userdiv table {
 	border-collapse: collapse;
-	max-width: 50%;
 }
 
 #userdiv tr:hover {

@@ -83,7 +83,7 @@ if (file_exists("userImages/$id")) {
 
 	closedir($dir);
 
-	echo "</div>\n";
+	echo "</div><br>\n";
 }
 
 /* Comments listing and commenting */
@@ -161,7 +161,7 @@ if ($sess->isLoggedIn()) {
 					string += ", " + comment.Company;
 				}
 
-				string += "<br><hr class='shortline'><br>" + text + "<br></div>";
+				string += "<br><hr class='shortline'><p class=clear>" + text + "</p></div>";
 
 				$('#commentsArea').append(string);
 				$('#comment'+comment.Rand).hide().slideDown(1000).fadeIn(1000);

@@ -15,14 +15,24 @@ function getUser($id, $isLoggedIn) {
 	$st->bind_result($name, $co, $coadd);
 	if ($st->fetch()) {
 
-		echo "<div id=userdiv>\n" .
+		$last = "";
+
+		if (empty($co) && empty($coadd))
+			$last = "class=bottom";
+
+		echo "<div id=userdiv class=ideaboxtrans>\n" .
 			"<input type=hidden name=id value=$id>\n" .
-			"<table border=0>\n" .
+			"<table border=0 width='100%'>\n" .
 
-			"\t<tr><td>Name</td><td>$name</td></tr>\n";
+			"\t<tr><td $last>Name</td><td $last>$name</td></tr>\n";
 
-		if (!empty($co)) echo "\t<tr><td>Company</td><td>$co</td></tr>\n";
-		if (!empty($coadd)) echo "\t<tr><td>Additional company info</td><td>$coadd</td></tr>\n";
+		$last = "";
+
+		if (empty($coadd))
+			$last = "class=bottom";
+
+		if (!empty($co)) echo "\t<tr><td $last>Company</td><td $last>$co</td></tr>\n";
+		if (!empty($coadd)) echo "\t<tr><td class=bottom>Additional company info</td><td class=bottom>$coadd</td></tr>\n";
 
 		echo "</table>\n";
 
@@ -32,8 +42,6 @@ function getUser($id, $isLoggedIn) {
 	// Only show ideas to logged in users
 	if ($isLoggedIn) {
 
-		echo "<br><br>\n";
-
 		$st = $db->prepare("select IdeaID, Name from Idea where Inventor = ?");
 		$st->bind_param("i", $id);
 
@@ -41,16 +49,27 @@ function getUser($id, $isLoggedIn) {
 
 		$st->bind_result($ideaid, $ideaname);
 
-		echo "<table border=0>\n" .
-			"<tr><th>Ideas added by $name</th></tr>";
+		$st->store_result();
+		$rows = $st->num_rows;
 
-		while ($st->fetch()) {
+		if ($rows > 0) {
 
-			echo "\t<tr><td><a href=\"showIdea.php?id=$ideaid\">$ideaname</a></td></tr>\n";
+			echo "<br><hr><br>\n";
 
+			echo "<table border=0 width='100%'>\n" .
+				"<tr><th>Ideas added by $name</th></tr>";
+
+			for ($i = 1; $st->fetch(); $i++) {
+
+				$last = "";
+				if ($i == $rows)
+					$last = "class=bottom";
+
+				echo "\t<tr><td $last><a href=\"showIdea.php?id=$ideaid\">$ideaname</a></td></tr>\n";
+			}
+
+			echo "</table>\n";
 		}
-
-		echo "</table>\n";
 	}
 
 	echo "</div>\n";

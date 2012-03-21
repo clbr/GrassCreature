@@ -13,7 +13,7 @@
 	<base target=main>
 </head>
 
-<body>
+<body class=lining>
 
 
 <h1 id=frontwelcome>Welcome to the Ideabank!</h1>

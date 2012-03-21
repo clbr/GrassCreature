@@ -7,6 +7,7 @@ body{
 body.lining {
 	margin-top: 6em;
 	margin-left: 2em;
+	padding-right: 20%;
 }
 
 a:hover {
@@ -189,7 +190,6 @@ iframe#main {
 
 #frontwelcome {
 	margin-left: 2em;
-	margin-top: 2em;
 	margin-bottom: 1em;
 }
 

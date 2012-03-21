@@ -330,5 +330,5 @@ hr.shortline {
 	padding: 1em;
 }
 
-#followIdeaButton { background-color:#FFAF66; width:8em; padding:0.5em; border-radius:10px; }
+#followIdeaButton { background-color:#FFAF66; padding: 0.6em; border-radius:10px; }
 #followIdeaButton:hover { background-color: #FFBF85; cursor: pointer; }

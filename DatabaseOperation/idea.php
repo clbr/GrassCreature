@@ -208,4 +208,26 @@ function getIdea($id, $userID, $isAdmin) {
 	$db->close();
 }
 
+function userFollowIdea($ideaID, $userID) {
+	$mysqli = db_connect();
+
+	$sql = "INSERT INTO Idea_has_follower(FollowerID, Followed_IdeaID) VALUES(?, ?)";
+	$stmt = $mysqli->prepare($sql);
+	$stmt->bind_param('ii', $userID, $ideaID);
+	$stmt->execute();
+}
+
+function userIsFollowingIdea($ideaID, $userID) {
+	$mysqli = db_connect();
+
+	$sql = "SELECT EXISTS(SELECT 1 FROM Idea_has_follower WHERE FollowerID = ? AND Followed_IdeaID = ?)";
+	$stmt = $mysqli->prepare($sql);
+	$stmt->bind_param('ii', $userID, $ideaID);
+	$stmt->execute();
+	$stmt->bind_result($result);
+	$stmt->fetch();
+	
+	return $result;
+}
+
 ?>

@@ -71,7 +71,10 @@ echo "Rating: " . getVote($id);
 echo "</div>\n";
 
 if ($sess->isLoggedIn()) {
-	echo "<div id='followIdeaButton' onclick=userFollowIdea(" . $id . ", " . $sess->getUserID() . ")>Follow this idea</div>";
+	if (userIsFollowingIdea($id,  $sess->getUserID()))
+		echo "<span id='followIdeaButton' style='background-color:#66FF66; cursor:default'>You are following this idea.</span>";
+	else
+		echo "<span id='followIdeaButton' onclick='userFollowIdea(" . $id . ", " . $sess->getUserID() . ")'>Follow this idea</span>";
 }
 
 /* Attached images handling */
@@ -182,22 +185,25 @@ if ($sess->isLoggedIn()) {
 				$('#comment'+comment.Rand).hide().slideDown(1000).fadeIn(1000);
 			}
 		});
+	}
 		
-		function userFollowIdea(ideaid, userid) {
-			var call = 'userFollowIdea';
+	function userFollowIdea(ideaid, userid) {
+		var call = 'userFollowIdea';
 
-			$.ajax(
+		$.ajax(
+		{
+			url: 'ajaxCalls.php',
+			type: 'POST',
+			data: 'call=' + call + '&ideaid=' + ideaid + '&userid=' + userid,
+			
+			success: function(response)
 			{
-				url: 'ajaxCalls.php',
-				type: 'POST',
-				data: 'call=' + call + '&ideaid=' + ideaid + '&userid=',
-				
-				success: function(result)
+				$('#followIdeaButton').empty().fadeOut(500, function()
 				{
-				
-				}
+					$('#followIdeaButton').append("You are now following this idea.").css('background-color', '#66FF66').fadeIn(1000);
+				});
 			}
-		}
+		});
 	}
 </script>
 </body>

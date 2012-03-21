@@ -34,28 +34,32 @@ return $sth;
 
 }
 
+function acceptIdea($id) {
+
+	$mysqli = db_connect();
+
+	$sth = $mysqli->prepare("update Idea set Status='active' where IdeaID=?;");
+
+	$sth->bind_param("i", $id);
+	$sth->execute();
+
+	$mysqli->close();
+}
+
 function acceptSelected() {
 $amount=0;
 if(isset($_POST['chkbox']))
 {
 	foreach($_POST['chkbox'] as $chkval) {
 		if(isset($chkval)) {
-$amount++;
+			$amount++;
 
-$mysqli = db_connect();
+			acceptIdea($chkval);
 
-$sth = $mysqli->prepare("update Idea set Status='active' where IdeaID=?;");
-
-$sth->bind_param("s", $chkval);
-
-$sth->execute();
-
-$mysqli->close();
-
-}
-
+		}
 	}
-echo $amount . " ideas accepted";
+
+	echo $amount . " ideas accepted";
 }
 }
 

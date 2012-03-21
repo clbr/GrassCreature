@@ -1,4 +1,8 @@
-<?php require_once("session.php"); ?>
+<?php require_once("session.php");
+
+$sess->mustBeLoggedIn();
+
+?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
   "http://www.w3.org/TR/html4/loose.dtd">
@@ -16,6 +20,15 @@
 <body class=lining>
 
 
+
+<h2>
+<?php
+if ($sess->isAdmin())
+	echo "Manage all groups";
+else
+	echo "Manage your groups";
+?>
+</h2>
 
 <script src="js/js.js" type="text/javascript"></script>
 </body>

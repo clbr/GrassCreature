@@ -167,7 +167,7 @@ function getIdea($id, $userID, $isAdmin) {
 
 		echo "<div id=ideadiv class=ideaboxtrans>\n" .
 			"<input type=hidden name=id value=$ID>\n" .
-			"<table border=0>\n" .
+			"<table border=0 class=highlight>\n" .
 
 			"\t<tr><td>Name</td><td>$Name</td></tr>\n" .
 			"\t<tr><td>Description</td><td>$Description</td></tr>\n" .

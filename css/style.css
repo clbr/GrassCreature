@@ -232,10 +232,6 @@ iframe#main {
 	border-collapse: collapse;
 }
 
-#ideadiv tr:hover {
-	background-image: url(../img/cloudbg.png);
-}
-
 #idealeft {
 	min-width: 9em;
 }
@@ -294,7 +290,7 @@ iframe#main {
 	border-collapse: collapse;
 }
 
-#userdiv tr:hover {
+table.highlight tr:hover {
 	background-image: url(../img/cloudbg.png);
 }
 

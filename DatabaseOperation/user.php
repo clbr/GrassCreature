@@ -22,7 +22,7 @@ function getUser($id, $isLoggedIn) {
 
 		echo "<div id=userdiv class=ideaboxtrans>\n" .
 			"<input type=hidden name=id value=$id>\n" .
-			"<table border=0 width='100%'>\n" .
+			"<table border=0 width='100%' class=highlight>\n" .
 
 			"\t<tr><td $last>Name</td><td $last>$name</td></tr>\n";
 
@@ -56,7 +56,7 @@ function getUser($id, $isLoggedIn) {
 
 			echo "<br><hr><br>\n";
 
-			echo "<table border=0 width='100%'>\n" .
+			echo "<table border=0 width='100%' class=highlight>\n" .
 				"<tr><th>Ideas added by $name</th></tr>";
 
 			for ($i = 1; $st->fetch(); $i++) {

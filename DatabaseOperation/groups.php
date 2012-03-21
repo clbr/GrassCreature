@@ -14,7 +14,7 @@ function getGroups($userid, $isadmin) {
 		if ($st->num_rows < 1)
 			return;
 
-		echo "<table border=1 class=highlight_tbl>\n";
+		echo "<table border=1 class=highlight>\n";
 		echo "<tr><th>Name</th><th>Description</th><th>Members</th></tr>\n";
 
 		while ($row = $st->fetch_row()) {

@@ -327,3 +327,7 @@ hr.shortline {
 #rating button {
 	margin-bottom: 1em;
 }
+
+.indent {
+	margin-left: 4em;
+}

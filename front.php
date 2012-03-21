@@ -22,9 +22,7 @@
 <?php
 
 require_once("DatabaseOperation/accept.php");
-require_once("Top10_10ideas.php");
-require_once("Top10_commented.php");
-require_once("Top10_rated.php");
+require_once("Top10.php");
 
 if ($sess->isAdmin()) {
 

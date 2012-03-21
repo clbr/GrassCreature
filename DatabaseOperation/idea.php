@@ -192,7 +192,14 @@ function getIdea($id, $userID, $isAdmin) {
 		}
 		// Idea editing button for adminz. It is possible that both buttons are visible.
 		if ($isAdmin) {
-			echo "<hr><a href='adminEditIdea.php?ideaid=$id'><br>Edit idea as admin</a><br>";
+			echo "<hr><a href='adminEditIdea.php?ideaid=$id'><br>Edit idea as admin</a><br><br>";
+			echo "<form method=post action=showIdea.php?id=$id>";
+
+			if ($Status == 'new')
+				echo "<input type=submit name=accept value='Accept this idea'>";
+
+			echo "<input type=submit name=delete value='Delete this idea'>";
+			echo "</form>";
 		}
 
 		echo "</div><p>\n";

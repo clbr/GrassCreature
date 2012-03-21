@@ -20,7 +20,7 @@ $tag1 = $_POST['tags'];
 $pieces = explode(" ", $tag1);
 $count = count($pieces);
 $inventor1 = $_POST['inventor'];	
-
+$status1 = $_POST['status'];
 	foreach($pieces as $keyword)
 	{	
 		
@@ -35,6 +35,7 @@ if(empty($_POST['inventor']) && empty($_POST['tags'])){
 						  ORDER BY AddingDate ";	
 						  $stmt = $mysqli->prepare($sql);	
 						  $stmt->bind_param("s",$status1);	
+
 						  }
 						
 						  
@@ -61,32 +62,30 @@ if(empty($_POST['inventor']) && !empty($_POST['tags'])){
 						   
 						  ORDER BY AddingDate ";
 $stmt = $mysqli->prepare($sql);	
+
 $stmt->bind_param("ss",$status1, $inventor1);	
+  }
+	
 
-						  }
-				
-
-
-
-
-
-				
+	
 if(!empty($_POST['inventor']) && !empty($_POST['tags'])){
 	$sql = "SELECT Name, Version, LEFT(Description, 100), Status, RequestDate, AddingDate, AdditionalInfo, Inventor
-						  FROM Idea
-						  WHERE Status= (?)
-						  AND (Inventor	= 
+						FROM Idea
+						WHERE Status= (?)
+						  AND Inventor	= 
 						   				  (SELECT UserID FROM User WHERE Name LIKE CONCAT('%',(?),'%'))		   
 						  AND
-										   
+								(		   
 						  Description LIKE CONCAT('%',(?),'%')
 
-							 AND AdditionalInfoLIKE CONCAT('%',(?),'%')	
-						  )	
+							OR 
+							
+							AdditionalInfo LIKE CONCAT('%',(?),'%') 	
+												  	)
 						   
 						  ORDER BY AddingDate ";
 $stmt = $mysqli->prepare($sql);	
-$stmt->bind_param("ssss",$status1, $inventor1, $keyword2, $keyword2);	
+$stmt->bind_param("ssss", $status1, $inventor1, $keyword2, $keyword3);	
 						  
 						  }
 			  
@@ -108,7 +107,7 @@ $stmt->bind_param("ssss",$status1, $inventor1, $keyword2, $keyword2);
   
 	if (!$stmt) die ("NOOOOOO " . $mysqli->error);
 
-		$status1 = $_POST['status'];
+		
 		
 
 

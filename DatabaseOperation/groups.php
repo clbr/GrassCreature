@@ -15,10 +15,12 @@ function getGroups($userid, $isadmin) {
 			return;
 
 		echo "<table border=0 class='highlight center'>\n";
-		echo "<tr><th>Name</th><th>Description</th><th>Members</th></tr>\n";
+		echo "<tr><th></th><th>Name</th><th>Description</th><th>Members</th></tr>\n";
 
 		while ($row = $st->fetch_row()) {
-			echo "<tr><td>$row[0]</td><td>$row[1]</td><td>";
+			echo "<tr><td>";
+			echo "<input type=checkbox name='chk[]' value=$row[2]>";
+			echo "</td><td>$row[0]</td><td>$row[1]</td><td>";
 
 			$mem = $db->query("select count(User_UserID) from User_has_Group where Group_GroupID = $row[2]") or die ($db->error);
 			if ($row = $mem->fetch_row()) {

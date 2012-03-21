@@ -291,6 +291,7 @@ hr.shortline {
 	color: black;
 	float: left;
 	width: 8.5em;
+	margin-left: 2em;
 }
 
 .clear {

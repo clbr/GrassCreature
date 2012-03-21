@@ -15,9 +15,9 @@ function getUser($id, $isLoggedIn) {
 	$st->bind_result($name, $co, $coadd);
 	if ($st->fetch()) {
 
-		echo "<div id=userdiv>\n" .
+		echo "<div id=userdiv class=ideaboxtrans>\n" .
 			"<input type=hidden name=id value=$id>\n" .
-			"<table border=0>\n" .
+			"<table border=0 width='100%'>\n" .
 
 			"\t<tr><td>Name</td><td>$name</td></tr>\n";
 

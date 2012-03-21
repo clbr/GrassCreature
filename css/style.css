@@ -287,7 +287,11 @@ div.comment {
 	width: 40%;
 }
 
-hr.shortline { color: black; float: left; width: 8.5em; }
+hr.shortline {
+	color: black;
+	float: left;
+	width: 8.5em;
+}
 
 .clear {
 	clear: both;

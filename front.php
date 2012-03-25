@@ -23,17 +23,44 @@
 			data: 'call=' + call + '&userid=' + userid,
 			success: function(response)
 			{
-				var idea = JSON.parse(response);
-				if (idea.length > 0) {
-					for (i in idea) {
-						document.getElementById("followedIdeas").innerHTML += "Idea <a href='showIdea.php?id=" + idea[i].ideaID + "'>" + idea[i].ideaname + "</a> has " + idea[i].comments + " new comment(s).<br>";
-					}
+				var ideas = JSON.parse(response);
+				
+				if (ideas.length > 0) {
+					var count = 0;
+					for (i in ideas)
+						count += ideas[i].comments;
+					
+					var notify = "Your followed ideas have <b><span style='color:#248F24'>" + count + "</span></b> new comments in " +
+					"<b><span style='color:#248F24'>" + ideas.length + "</span></b> ";
+					
+					if (ideas.length == 1)
+						notify += "idea.";
+					else
+						notify += "different ideas.";
+					
+					document.getElementById("followedIdeas").innerHTML = notify;
+					
+					$('#followedIdeas').click(function()
+					{
+						showFollowedIdeaComents(ideas);
+					});
 				}
-
-				//$('#commentsArea').append(string);
-				//$('#comment'+comment.Rand).hide().slideDown(1000).fadeIn(1000);
 			}
 		});
+	}
+	
+	function showFollowedIdeaComents(ideas) {
+		$('#followedIdeas').fadeOut(200, function()
+		{
+			$('#followedIdeas').empty().css('cursor', 'auto');
+			
+			for (i in ideas) {
+			document.getElementById("followedIdeas").innerHTML += "Idea <a href='showIdea.php?id=" + ideas[i].ideaID + "'>" + ideas[i].ideaname +
+			"</a> has " + ideas[i].comments + " new comments.<br>";
+			}
+			
+			$('#followedIdeas').fadeIn(500);
+		});		
 	}
 </script>
 </head>

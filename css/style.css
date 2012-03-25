@@ -330,5 +330,24 @@ hr.shortline {
 	padding: 1em;
 }
 
-#followIdeaButton { background-color:#FFAF66; padding: 0.6em; border-radius:10px; }
-#followIdeaButton:hover { background-color: #FFBF85; cursor: pointer; }
+#followIdeaButton {
+	background-color:#FFAF66;	
+	border-radius:10px;
+	padding: 0.6em;
+}
+
+#followIdeaButton:hover {
+	background-color: #FFBF85;
+	cursor: pointer;
+}
+
+#followedIdeas {
+	background-color:#FFAF66;	
+	border: 1px solid blue; 
+	border-radius: 10px;
+	padding: 0.6em;
+	width: 30%;
+}
+
+#followedIdeas:hover { cursor: pointer; }
+

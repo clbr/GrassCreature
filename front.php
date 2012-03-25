@@ -11,6 +11,31 @@
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 	<base target=main>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js" type="text/JavaScript"></script>
+	<script type="text/JavaScript">
+	function showFollowedIdeas(userid) {
+		var call = 'followedIdeas';
+
+		$.ajax(
+		{
+			url: 'ajaxCalls.php',
+			type: 'POST',
+			data: 'call=' + call + '&userid=' + userid,
+			success: function(response)
+			{
+				var idea = JSON.parse(response);
+				if (idea.length > 0) {
+					for (i in idea) {
+						document.getElementById("followedIdeas").innerHTML += "Idea <a href='showIdea.php?id=" + idea[i].ideaID + "'>" + idea[i].ideaname + "</a> has " + idea[i].comments + " new comment(s).<br>";
+					}
+				}
+
+				//$('#commentsArea').append(string);
+				//$('#comment'+comment.Rand).hide().slideDown(1000).fadeIn(1000);
+			}
+		});
+	}
+</script>
 </head>
 
 <body class=lining>
@@ -20,6 +45,7 @@
 
 
 <?php
+echo '<script type="text/JavaScript">showFollowedIdeas(' . $sess->getUserID() . ');</script>';
 
 require_once("DatabaseOperation/accept.php");
 require_once("Top10.php");
@@ -36,6 +62,10 @@ if ($sess->isAdmin()) {
 	}
 
 }
+
+//require_once("DatabaseOperation/idea.php");
+echo "<div id=followedIdeas></div>";
+//getNewComments($sess->getUserID());
 
 ?>
 
@@ -69,5 +99,6 @@ top10_latest_comments();
 
 
 <script src="js/js.js" type="text/javascript"></script>
+
 </body>
 </html>

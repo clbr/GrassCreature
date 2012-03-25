@@ -255,23 +255,42 @@ function getNewComments($userID) {
 	try {
 		$pdo = pdo_connect();
 		
+		// Get all the ideas that the user is following.
 		$sql = "SELECT Followed_IdeaID
-			FROM Idea_has_follower
+			FROM Idea_has_follower			
 			WHERE FollowerID = :UserID";
 		$stmt = $pdo->prepare($sql);
 		$stmt->bindParam(':UserID', $userID);
-		$stmt->execute();	
+		$stmt->execute();
 		
+		// Ideas with new comments, duh!
+		$iwnc;
+		
+		// Check which of the followed ideas have had new comments since last viewing the idea.
 		while ($followed_idea = $stmt->fetch(PDO::FETCH_OBJ)) {
-			$sql = "SELECT COUNT() FROM Comment WHERE Idea_IdeaID = :Followed_idea AND CommentID > (SELECT Last_CommentID FROM Idea_has_follower WHERE FollowerID = :UserID AND Followed_IdeaID = :Followed_idea)";
+			//echo $followed_idea->Followed_IdeaID . " ";
+			$sql = "SELECT COUNT(CommentID) AS Count, Name
+				FROM Comment
+				LEFT OUTER JOIN Idea
+				ON Comment.Idea_IdeaID = Idea.IdeaID
+				WHERE Idea_IdeaID = :Followed_idea AND CommentID >
+					(SELECT Last_CommentID
+					FROM Idea_has_follower
+					WHERE FollowerID = :UserID AND Followed_IdeaID = :Followed_idea)";
 			$stmt2 = $pdo->prepare($sql);
 			$stmt2->bindParam(':Followed_idea', $followed_idea->Followed_IdeaID);
 			$stmt2->bindParam(':UserID', $userID);
 			$stmt2->execute();
+			
+			$newcomments = $stmt2->fetch(PDO::FETCH_OBJ);
+			//echo $newcomments->Count . "<br>";			
+			if ($newcomments->Count > 0)
+				$iwnc[] = array('ideaID' => (int)$followed_idea->Followed_IdeaID, 'ideaname' => $newcomments->Name, 'comments' => (int)$newcomments->Count);
 		}
-//SELECT COUNT(*) FROM Comment WHERE Idea_IdeaID = 105 AND CommentID > (SELECT Last_CommentID FROM Idea_has_follower WHERE FollowerID = 21 AND Followed_IdeaID = 105);
+
 		$pdo = null; // Close connection.
-		//echo "<pre>"; var_dump(json_encode($result)); echo "</pre>";
+		//echo "<pre>"; var_dump(json_encode($iwnc)); echo "</pre><br>";
+		echo json_encode($iwnc);
 	}
 	catch (PDOException $err) {
 		echo $err;

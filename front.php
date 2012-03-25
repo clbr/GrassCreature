@@ -72,7 +72,7 @@
 
 
 <?php
-echo '<script type="text/JavaScript">showFollowedIdeas(' . $sess->getUserID() . ');</script>';
+
 
 require_once("DatabaseOperation/accept.php");
 require_once("Top10.php");
@@ -90,9 +90,11 @@ if ($sess->isAdmin()) {
 
 }
 
-//require_once("DatabaseOperation/idea.php");
-echo "<div id=followedIdeas></div>";
-//getNewComments($sess->getUserID());
+// Followed idea stuffs here.
+if ($sess->isLoggedIn()) {
+	echo '<script type="text/JavaScript">showFollowedIdeas(' . $sess->getUserID() . ');</script>';
+	echo "<div id=followedIdeas></div>";
+}
 
 ?>
 

@@ -71,10 +71,12 @@ echo "Rating: " . getVote($id);
 echo "</div>\n";
 
 if ($sess->isLoggedIn()) {
-	if (userIsFollowingIdea($id,  $sess->getUserID()))
+	if (userIsFollowingIdea($id,  $sess->getUserID())) {
 		echo "<span id='followIdeaButton' style='background-color:#66FF66; cursor:default'>You are following this idea.</span>";
+		setLastSeenComment($id,  $sess->getUserID());
+	}
 	else
-		echo "<span id='followIdeaButton' onclick='userFollowIdea(" . $id . ", " . $sess->getUserID() . ")'>Follow this idea</span>";
+		echo "<span id='followIdeaButton' onclick='userFollowIdea(" . $id . ", " . $sess->getUserID() . ", " . 5 . ")'>Follow this idea</span>";
 }
 
 /* Attached images handling */

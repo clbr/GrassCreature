@@ -210,10 +210,16 @@ function getIdea($id, $userID, $isAdmin) {
 
 function userFollowIdea($ideaID, $userID) {
 	$mysqli = db_connect();
-
-	$sql = "INSERT INTO Idea_has_follower(FollowerID, Followed_IdeaID) VALUES(?, ?)";
+	
+	$sql = "INSERT INTO Idea_has_follower(FollowerID, Followed_IdeaID, Last_CommentID)
+		VALUES(?, ?,
+		(SELECT CommentID
+		FROM Comment
+		WHERE Idea_IdeaID = ?
+		ORDER BY CommentID DESC
+		LIMIT 1))";
 	$stmt = $mysqli->prepare($sql);
-	$stmt->bind_param('ii', $userID, $ideaID);
+	$stmt->bind_param('iii', $userID, $ideaID, $ideaID);
 	$stmt->execute();
 }
 
@@ -228,6 +234,48 @@ function userIsFollowingIdea($ideaID, $userID) {
 	$stmt->fetch();
 	
 	return $result;
+}
+
+function setLastSeenComment($ideaID, $userID) {
+	$mysqli = db_connect();
+	
+	$sql = "UPDATE Idea_has_follower SET Last_CommentID =
+		(SELECT CommentID
+		FROM Comment
+		WHERE Idea_IdeaID = ?
+		ORDER BY CommentID DESC
+		LIMIT 1)
+		WHERE FollowerID = ? AND Followed_IdeaID = ?";
+	$stmt = $mysqli->prepare($sql);
+	$stmt->bind_param('iii', $ideaID, $userID, $ideaID);
+	$stmt->execute();
+}
+
+function getNewComments($userID) {
+	try {
+		$pdo = pdo_connect();
+		
+		$sql = "SELECT Followed_IdeaID
+			FROM Idea_has_follower
+			WHERE FollowerID = :UserID";
+		$stmt = $pdo->prepare($sql);
+		$stmt->bindParam(':UserID', $userID);
+		$stmt->execute();	
+		
+		while ($followed_idea = $stmt->fetch(PDO::FETCH_OBJ)) {
+			$sql = "SELECT COUNT() FROM Comment WHERE Idea_IdeaID = :Followed_idea AND CommentID > (SELECT Last_CommentID FROM Idea_has_follower WHERE FollowerID = :UserID AND Followed_IdeaID = :Followed_idea)";
+			$stmt2 = $pdo->prepare($sql);
+			$stmt2->bindParam(':Followed_idea', $followed_idea->Followed_IdeaID);
+			$stmt2->bindParam(':UserID', $userID);
+			$stmt2->execute();
+		}
+//SELECT COUNT(*) FROM Comment WHERE Idea_IdeaID = 105 AND CommentID > (SELECT Last_CommentID FROM Idea_has_follower WHERE FollowerID = 21 AND Followed_IdeaID = 105);
+		$pdo = null; // Close connection.
+		//echo "<pre>"; var_dump(json_encode($result)); echo "</pre>";
+	}
+	catch (PDOException $err) {
+		echo $err;
+	}
 }
 
 ?>

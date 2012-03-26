@@ -94,8 +94,46 @@ getIdeaPermissions($id);
 function addgrp() {
 
 	var div = document.getElementById('addgrpdiv');
-	div.innerHTML = '<input type=text size=15 name=group> <input type=submit name=add value=Add>';
+	div.innerHTML = '<input type=text size=15 name=group id=grptext> <input type=submit name=add value=Add>' +
+			'<br><select onchange="pickgrp()" id=selectgroups></select>';
 
+	document.getElementById('grptext').focus();
+
+	perms_ajaxy();
+}
+
+function pickgrp() {
+
+	var t = document.getElementById('grptext');
+	var s = document.getElementById('selectgroups');
+	t.value = s.options[s.selectedIndex].text;
+}
+
+function perms_ajaxy() {
+
+	var x = new XMLHttpRequest();
+
+	var dest = document.getElementById('selectgroups');
+
+	x.open("POST", "ajaxCalls.php", true);
+
+	x.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	x.setRequestHeader("Content-length", 11);
+	x.setRequestHeader("Connection", "close");
+
+	x.onreadystatechange = function() {
+		if (x.readyState == 4) {
+			var str = x.responseText.split('\n');
+			var len = str.length;
+
+			for (var i = 0; i < len; i++) if(str[i].length > 1)
+				dest.options[dest.options.length] = new Option(str[i]);
+		}
+	}
+
+	x.send('call=groups');
+
+	dest.innerHTML = "<img src=\"img/loading.gif\" width=16 height=16>";
 }
 
 </script>

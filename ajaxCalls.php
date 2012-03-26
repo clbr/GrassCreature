@@ -22,5 +22,9 @@
 			require_once("DatabaseOperation/idea.php");
 			getNewComments($_POST['userid']);
 			break;
+		case 'groups':
+			require_once("DatabaseOperation/groups.php");
+			listGroups();
+			break;
 	}
 ?>

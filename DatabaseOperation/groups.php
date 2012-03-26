@@ -119,4 +119,20 @@ function deleteGroup($id) {
 	$db->close();
 }
 
+function getGroupName($id) {
+
+	$db = db_connect();
+
+	$st = $db->prepare("select Name from UserGroup where GroupID = ?") or die($db->error);
+	$st->bind_param("i", $id);
+	$st->execute();
+
+	$st->bind_result($name);
+	$st->fetch() or die("Fetch error");
+
+	$db->close();
+
+	return $name;
+}
+
 ?>

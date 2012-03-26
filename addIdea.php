@@ -51,6 +51,11 @@ $sess->mustBeLoggedIn();
 			<div id=addimages>
 			<input type="file" name="file[]" onchange='moreimages()'></div>
 			<br>
+			<input type=radio name=permissions value=opentoall checked> Viewable by all
+			<input type=radio name=permissions value=restrict> Specify permissions
+			<br>
+
+			<br>
 			<input type=button name="submitIdea" value="Submit idea" onclick='addidea_check()'>
 		</form>
 	</div>

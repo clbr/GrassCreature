@@ -12,6 +12,14 @@ if (!isset($_GET["id"])) {
 $id = $_GET["id"];
 
 require_once("DatabaseOperation/idea.php");
+
+if (!$sess->isAdmin() && getIdeaInventor($id) != $sess->getUserID()) {
+	echo "<script type=\"text/javascript\">" .
+		"alert(\"You don't have rights to edit the permissions of this idea.\"); window.history.back();" .
+		"</script>";
+	return;
+}
+
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -35,6 +43,23 @@ echo getIdeaName($id);
 ?>
 </h2>
 
+<?php
+echo "<form id=permform method=post action='perms.php?id=$id'>";
+?>
+
+<input type=button name=addgroup value="Add group to permission list" onclick='addgrp()'>
+<input type=hidden name=group>
+<input type=submit name=save value="Save">
+<br><br>
+
+<?php
+getIdeaPermissions($id);
+?>
+
+<br><br>
+<input type=submit name=save value="Save">
+
+</form>
 
 <script src="js/js.js" type="text/javascript"></script>
 </body>

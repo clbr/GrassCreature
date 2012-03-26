@@ -22,6 +22,10 @@
 			$st = $mysqli->prepare("insert into Idea_has_Group (Idea_IdeaID, Group_GroupID, CanView) values (?, 0, false)") or die($mysqli->error);
 			$st->bind_param("i", $just_added_id[0]);
 			$st->execute() or die($mysqli->error);
+		} else { // Mark everyone as 'can view'
+			$st = $mysqli->prepare("insert into Idea_has_Group (Idea_IdeaID, Group_GroupID, CanView, CanComment) values (?, 0, true, false)") or die($mysqli->error);
+			$st->bind_param("i", $just_added_id[0]);
+			$st->execute() or die($mysqli->error);
 		}
 
 		return $just_added_id[0];
@@ -155,6 +159,21 @@ function getIdeaName($id) {
 	$db = db_connect();
 
 	$st = $db->prepare("select Name from Idea where IdeaID = ?") or die($db->error);
+	$st->bind_param("i", $id);
+	$st->execute();
+	$st->bind_result($name);
+	$st->fetch();
+
+	$db->close();
+
+	return $name;
+}
+
+function getIdeaInventor($id) {
+
+	$db = db_connect();
+
+	$st = $db->prepare("select Inventor from Idea where IdeaID = ?") or die($db->error);
 	$st->bind_param("i", $id);
 	$st->execute();
 	$st->bind_result($name);
@@ -329,6 +348,48 @@ function getNewComments($userID) {
 	catch (PDOException $err) {
 		echo $err;
 	}
+}
+
+function getIdeaPermissions($id) {
+
+	$db = db_connect();
+
+	$st = $db->prepare("select Name, CanComment, CanView, CanEdit, Group_GroupID from Idea_has_Group inner join UserGroup on GroupID = Group_GroupID where Idea_IdeaID = ?") or die($db->error);
+	$st->bind_param("i", $id);
+	$st->execute();
+	$st->bind_result($name, $comment, $view, $edit, $gid);
+
+	$st->store_result();
+	if ($st->num_rows < 1)
+		return;
+
+	echo "<table border=0 class='highlight center'>\n";
+	echo "<tr><th>Group</th><th>Can comment</th><th>Can view</th><th>Can edit</th></tr>\n";
+
+	while ($st->fetch()) {
+		if ($gid == 0) { // We hijack the admin group for 'everyone' as admins can do everything
+			echo "<tr><td>Everyone</td>";
+		} else {
+			echo "<tr><td>$name</td>";
+		}
+
+		echo "<td><input type=checkbox name='comment[]' value=$gid ";
+
+		if ($comment) echo "checked";
+		echo "></td><td><input type=checkbox name='view[]' value=$gid ";
+
+		if ($view) echo "checked";
+		echo "></td><td><input type=checkbox name='edit[]' value=$gid ";
+
+		if ($edit) echo "checked";
+		echo "></td></tr>\n";
+	}
+
+	echo "</table>\n";
+
+	$db->close();
+
+	return $name;
 }
 
 ?>

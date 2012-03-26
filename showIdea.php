@@ -72,7 +72,7 @@ echo "</div>\n";
 
 if ($sess->isLoggedIn()) {
 	if (userIsFollowingIdea($id,  $sess->getUserID())) {
-		echo "<span id='followIdeaButton' onmouseover='stopFollowingIdea(" . $id . ", " . $sess->getUserID() . ")' style='background-color:#66FF66;'>You are following this idea.</span>";
+		echo "<span id='followIdeaButton' onmouseover='stopFollowing(" . $id . ", " . $sess->getUserID() . ")' style='background-color:#66FF66;'>You are following this idea.</span>";
 		setLastSeenComment($id,  $sess->getUserID());
 	}
 	else
@@ -188,7 +188,7 @@ if ($sess->isLoggedIn()) {
 			}
 		});
 	}
-		
+	
 	function userFollowIdea(ideaid, userid) {
 		var call = 'userFollowIdea';
 
@@ -203,36 +203,45 @@ if ($sess->isLoggedIn()) {
 				$('#followIdeaButton').empty().fadeOut(500, function()
 				{
 					$('#followIdeaButton').append("You are now following this idea.").css('background-color', '#66FF66').fadeIn(1000);
+					
+					$('#followIdeaButton').hover(function()
+					{
+						stopFollowing(ideaid, userid) 
+					});	
 				});
 			}
 		});
 	}
 	
-	function stopFollowingIdea(ideaid, userid) {
+	function stopFollowing(ideaid, userid) {
 		$('#followIdeaButton').text("Stop following this idea?").css('background-color', '#FF4D4D').fadeIn(1000);
-		
-		$('#followIdeaButton').click(function()
-		{
-			var call = 'stopFollowingIdea';
-			$('#followIdeaButton').text("Stopping...").css('background-color', '#FF4D4D')
-			
-			$.ajax(
-			{
-				url: 'ajaxCalls.php',
-				type: 'POST',
-				data: 'call=' + call + '&ideaid=' + ideaid + '&userid=' + userid,
-				
-				success: ()
-				{					
-					window.location = 'showIdea.php?id='+ideaid;					
-				}
-			});
-		})
-		
-		// Mouseout -> change outlook back as it was.
+
 		$('#followIdeaButton').mouseout(function()
 		{
 			$('#followIdeaButton').text("You are following this idea.").css('background-color', '#66FF66');
+		});
+		
+		$('#followIdeaButton').click(function()
+		{
+			$('#followIdeaButton').text("Stopping...").css('background-color', '#FF4D4D');
+			 stopFollowingIdea(ideaid, userid);
+		});
+	}
+	
+	function stopFollowingIdea(ideaid, userid) {
+		var call = 'stopFollowingIdea';
+		
+		$.ajax(
+		{
+			url: 'ajaxCalls.php',
+			type: 'POST',
+			data: 'call=' + call + '&ideaid=' + ideaid + '&userid=' + userid,
+			
+			// Reload page.
+			success: function(response)
+			{					
+				window.location = 'showIdea.php?id='+ideaid;					
+			}
 		});
 	}
 </script>

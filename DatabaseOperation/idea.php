@@ -350,7 +350,6 @@ function getNewComments($userID) {
 	}
 }
 
-<<<<<<< HEAD:DatabaseOperation/idea.php
 function getCategory() {
 
 $result = array();
@@ -364,9 +363,8 @@ array_push($result, $row[0]);
 
         return $result;
 
+}
 
-
-=======
 function getIdeaPermissions($id) {
 
 	$db = db_connect();
@@ -438,7 +436,6 @@ function setPerms($id, $gid, $comment, $view, $edit) {
 	$st->execute();
 
 	$db->close();
->>>>>>> 4f54cb9dcb988e94f57a7b2fe1841ab69b09c804:DatabaseOperation/idea.php
 }
 
 ?>

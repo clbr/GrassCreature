@@ -20,6 +20,22 @@ if (!$sess->isAdmin() && getIdeaInventor($id) != $sess->getUserID()) {
 	return;
 }
 
+// Permissions checked. Post checks
+
+if (isset($_POST["add"]) && isset($_POST["group"])) {
+
+	addPermGroup($_POST["group"], $id);
+
+} else if (isset($_POST["save"])) {
+
+	$len = count($_POST["comment"]);
+
+	for ($i = 0; $i < $len; $i++) {
+		echo "setPerms()";
+	}
+
+}
+
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -51,6 +67,8 @@ echo "<form id=permform method=post action='perms.php?id=$id'>";
 <input type=hidden name=group>
 <input type=submit name=save value="Save">
 <br><br>
+<div id=addgrpdiv></div>
+<br><br>
 
 <?php
 getIdeaPermissions($id);
@@ -62,5 +80,15 @@ getIdeaPermissions($id);
 </form>
 
 <script src="js/js.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+function addgrp() {
+
+	var div = document.getElementById('addgrpdiv');
+	div.innerHTML = '<input type=text size=15 name=group> <input type=submit name=add value=Add>';
+
+}
+
+</script>
 </body>
 </html>

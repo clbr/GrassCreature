@@ -392,4 +392,35 @@ function getIdeaPermissions($id) {
 	return $name;
 }
 
+function addPermGroup($grp, $id) {
+
+	$db = db_connect();
+
+	$st = $db->prepare("select GroupID from UserGroup where Name = ?") or die($db->error);
+	$st->bind_param("s", $grp);
+	$st->execute();
+	$st->bind_result($gid);
+
+	$st->fetch() or die("Fetch error");
+	$st->close();
+
+
+	$st = $db->prepare("insert into Idea_has_Group (Idea_IdeaID, Group_GroupID, CanComment, CanView, CanEdit) values (?, ?, false, false, false)") or die($db->error);
+	$st->bind_param("ii", $id, $gid);
+	$st->execute();
+
+	$db->close();
+}
+
+function setPerms($id, $gid, $comment, $view, $edit) {
+
+	$db = db_connect();
+
+	$st = $db->prepare("update Idea_has_Group set CanComment=?, CanView=s, CanEdit=s where Idea_IdeaID=? and Group_GroupID = ?") or die($db->error);
+	$st->bind_param("sssii", $comment, $view, $edit, $id, $gid);
+	$st->execute();
+
+	$db->close();
+}
+
 ?>

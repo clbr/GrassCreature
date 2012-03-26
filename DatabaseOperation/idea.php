@@ -2,7 +2,7 @@
 	error_reporting(E_ALL);
 	require_once("details.php");
 
-	function addIdea($name, $desc, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID) {
+	function addIdea($name, $desc, $reqdate, $cost, $additionalInfo, $basedOn, $perms, $inventorID) {
 		// Add entirely new idea.
 		$mysqli = db_connect();
 
@@ -11,11 +11,18 @@
 		$stmt = $mysqli->prepare($sql);
 		$stmt->bind_param('ssisisii', $name, $desc, $version = 1, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);
 		$stmt->execute();
+		$stmt->close();
 
 		// Return the id of the just created idea. Will be used for uploaded image location.
 		$sql = "SELECT LAST_INSERT_ID()";
 		if ($result = $mysqli->query($sql) or die($mysqli->error))
 			$just_added_id = $result->fetch_row();
+
+		if ($perms == 'restrict') {
+			$st = $mysqli->prepare("insert into Idea_has_Group (Idea_IdeaID, Group_GroupID, CanView) values (?, 0, false)") or die($mysqli->error);
+			$st->bind_param("i", $just_added_id[0]);
+			$st->execute() or die($mysqli->error);
+		}
 
 		return $just_added_id[0];
 	}
@@ -143,6 +150,21 @@ function getVote($ideaID) {
 		return $result;
 	}
 
+function getIdeaName($id) {
+
+	$db = db_connect();
+
+	$st = $db->prepare("select Name from Idea where IdeaID = ?") or die($db->error);
+	$st->bind_param("i", $id);
+	$st->execute();
+	$st->bind_result($name);
+	$st->fetch();
+
+	$db->close();
+
+	return $name;
+}
+
 // The following layer violation is explained by crappy PHP - no fetch_array etc
 // possible when using a parameterized query (!!)
 function getIdea($id, $userID, $isAdmin) {
@@ -189,10 +211,14 @@ function getIdea($id, $userID, $isAdmin) {
 		if ($userID == $Inventor) {
 			// Send idea-id along page change.
 			echo "<hr><a href='editIdea.php?ideaid=$id'>Edit idea</a>";
+			echo " &diams; ";
+			echo "<a href='perms.php?id=$id'>Edit permissions</a>";
 		}
 		// Idea editing button for adminz. It is possible that both buttons are visible.
 		if ($isAdmin) {
 			echo "<hr><a href='adminEditIdea.php?ideaid=$id'><br>Edit idea as admin</a><br><br>";
+			echo " &diams; ";
+			echo "<a href='perms.php?id=$id'>Edit permissions</a>";
 			echo "<form method=post action=showIdea.php?id=$id>";
 
 			if ($Status == 'new')

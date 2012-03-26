@@ -425,6 +425,16 @@ function addPermGroup($grp, $id) {
 	$st->close();
 
 
+	$st = $db->prepare("select Idea_IdeaID from Idea_has_Group where Idea_IdeaID = ? and Group_GroupID = ?") or die($db->error);
+	$st->bind_param("ii", $id, $gid);
+	$st->execute();
+
+	$st->store_result();
+	if ($st->num_rows > 0)
+		return;
+
+	$st->close();
+
 	$st = $db->prepare("insert into Idea_has_Group (Idea_IdeaID, Group_GroupID, CanComment, CanView, CanEdit) values (?, ?, false, false, false)") or die($db->error);
 	$st->bind_param("ii", $id, $gid);
 	$st->execute();

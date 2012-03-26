@@ -66,7 +66,7 @@ $sess->mustBeLoggedIn();
 				Based on idea ID (if any):<br>
 				<input Name="BasedOn" rows="1" cols="20" value="'.$idea->BasedOn.'"><br>
 				Attach image:<br>
-				<input type="file" name="file[]" id="file"><br>
+				<input type="file" name="file" id="file"><br>
 				<input type="submit" name="submitChanges" value="Submit changes">
 				<input type=button value="Abandon idea" onclick="edit_abandon()">
 			</form>
@@ -82,8 +82,8 @@ $sess->mustBeLoggedIn();
 				$idea->Version, $sess->getUserID());
 
 			// Upload image if there are any. Uploads the image to a folder with the same name as the idea's id.
-			if ($_FILES['file']['size'][0] != "0")
-				uploadImages($ideaID);
+			if (!$_FILES['file']['type'] == "")
+				uploadImage($ideaID);
 
 			echo "<div class='IdeaEdit'>Idea with id ".$idea->IdeaID." succesfully edited.</div>";
 		}

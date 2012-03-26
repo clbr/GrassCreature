@@ -14,10 +14,6 @@
 			require_once("DatabaseOperation/idea.php");
 			userFollowIdea($_POST['ideaid'], $_POST['userid']);
 			break;
-		case 'stopFollowingIdea':
-			require_once("DatabaseOperation/idea.php");
-			stopFollowingIdea($_POST['ideaid'], $_POST['userid']);
-			break;	
 		case 'followedIdeas':
 			require_once("DatabaseOperation/idea.php");
 			getNewComments($_POST['userid']);

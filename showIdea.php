@@ -72,11 +72,11 @@ echo "</div>\n";
 
 if ($sess->isLoggedIn()) {
 	if (userIsFollowingIdea($id,  $sess->getUserID())) {
-		echo "<span id='followIdeaButton' onmouseover='stopFollowing(" . $id . ", " . $sess->getUserID() . ")' style='background-color:#66FF66;'>You are following this idea.</span>";
+		echo "<span id='followIdeaButton' style='background-color:#66FF66; cursor:default'>You are following this idea.</span>";
 		setLastSeenComment($id,  $sess->getUserID());
 	}
 	else
-		echo "<span id='followIdeaButton' onclick='userFollowIdea(" . $id . ", " . $sess->getUserID() . ")'>Follow this idea</span>";
+		echo "<span id='followIdeaButton' onclick='userFollowIdea(" . $id . ", " . $sess->getUserID() . ", " . 5 . ")'>Follow this idea</span>";
 }
 
 /* Attached images handling */
@@ -153,7 +153,8 @@ if ($sess->isLoggedIn()) {
 	}
 
 	function hideCommentForm() {
-		$('#commentFormArea').slideUp(1000).fadeOut(1000, function() {
+		$('#commentFormArea').slideUp(1000).fadeOut(1000, function()
+		{
 			// After both animations have ended (=1000ms has passed), empty formarea contents so that
 			// when pressing "Comment..." again the form isn't displayed twice.
 			$('#commentFormArea').empty();
@@ -162,77 +163,47 @@ if ($sess->isLoggedIn()) {
 	}
 
 	function sendComment(ideaid, userid) {
-		var call = 'sendComment';		
+		var call = 'sendComment';
 		var text = document.getElementById('commentText').value;
 
-		$.ajax({
+		$.ajax(
+		{
 			url: 'ajaxCalls.php',
 			type: 'POST',
 			data: 'call=' + call + '&ideaid=' + ideaid + '&userid=' + userid + '&comment=' + text,
-			success: function(result) {
+			success: function(result)
+			{
 				var comment = JSON.parse(result);
 				var string = "<div id='comment" + comment.Rand + "' class='comment' style='display:none'>" + comment.Date +
 					"<a href='showUser.php?id=" + userid + "'> " + comment.Name + "</a>";
-
 				// This whole thing starting from "var string =.." is really only needed because of the "," here. Really.
 				if (comment.Company != "") {
 					string += ", " + comment.Company;
 				}
 
 				string += "<br><hr class='shortline'><p class=clear>" + text + "</p></div>";
-				
+
 				$('#commentsArea').append(string);
 				$('#comment'+comment.Rand).hide().slideDown(1000).fadeIn(1000);
 			}
 		});
 	}
-	
+		
 	function userFollowIdea(ideaid, userid) {
 		var call = 'userFollowIdea';
 
-		$.ajax( {
+		$.ajax(
+		{
 			url: 'ajaxCalls.php',
 			type: 'POST',
 			data: 'call=' + call + '&ideaid=' + ideaid + '&userid=' + userid,
 			
-			success: function(response) {
-				$('#followIdeaButton').empty().fadeOut(500, function() {
+			success: function(response)
+			{
+				$('#followIdeaButton').empty().fadeOut(500, function()
+				{
 					$('#followIdeaButton').append("You are now following this idea.").css('background-color', '#66FF66').fadeIn(1000);
-
-					// This is necessary to get interactivity immediately after starting to follow idea.
-					$('#followIdeaButton').hover(function() {
-						stopFollowing(ideaid, userid) 
-					});	
 				});
-			}
-		});
-	}
-	
-	// This function has highlights and whatnot, button effects and interactivity for stopping idea following.
-	function stopFollowing(ideaid, userid) {
-		$('#followIdeaButton').text("Stop following this idea?").css('background-color', '#FF4D4D').fadeIn(1000);
-
-		$('#followIdeaButton').mouseout(function() {
-			$('#followIdeaButton').text("You are following this idea.").css('background-color', '#66FF66');
-		});
-
-		$('#followIdeaButton').click(function() {
-			 stopFollowingIdea(ideaid, userid);
-		});
-	}
-	
-	// This function does the actual removal for following idea.
-	function stopFollowingIdea(ideaid, userid) {
-		var call = 'stopFollowingIdea';
-
-		$.ajax({
-			url: 'ajaxCalls.php',
-			type: 'POST',
-			data: 'call=' + call + '&ideaid=' + ideaid + '&userid=' + userid,
-
-			// Reload page.
-			success: function(response) {					
-				window.location = 'showIdea.php?id='+ideaid;					
 			}
 		});
 	}

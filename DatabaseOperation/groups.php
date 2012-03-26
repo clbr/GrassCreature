@@ -98,6 +98,25 @@ function addGroup($name, $desc, $uid) {
 
 function deleteGroup($id) {
 
+	$db = db_connect();
+
+	$st = $db->prepare("select count(User_UserID) from User_has_Group where Group_GroupID = ?") or die($db->error);
+	$st->bind_param("i", $id);
+	$st->execute();
+
+	$st->bind_result($num);
+	$st->fetch() or die("Fetch error");
+
+	if ($num > 0)
+		die("Can't remove group with members");
+
+	$st->close();
+
+	$st = $db->prepare("delete from UserGroup where GroupID = ?") or die($db->error);
+	$st->bind_param("i", $id);
+	$st->execute();
+
+	$db->close();
 }
 
 ?>

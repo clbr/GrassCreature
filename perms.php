@@ -12,6 +12,14 @@ if (!isset($_GET["id"])) {
 $id = $_GET["id"];
 
 require_once("DatabaseOperation/idea.php");
+
+if (!$sess->isAdmin() && getIdeaInventor($id) != $sess->getUserID()) {
+	echo "<script type=\"text/javascript\">" .
+		"alert(\"You don't have rights to edit the permissions of this idea.\"); window.history.back();" .
+		"</script>";
+	return;
+}
+
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"

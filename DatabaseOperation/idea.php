@@ -22,8 +22,8 @@
 			$st = $mysqli->prepare("insert into Idea_has_Group (Idea_IdeaID, Group_GroupID, CanView) values (?, 0, false)") or die($mysqli->error);
 			$st->bind_param("i", $just_added_id[0]);
 			$st->execute() or die($mysqli->error);
-		} else { // Mark everyone as 'can view'
-			$st = $mysqli->prepare("insert into Idea_has_Group (Idea_IdeaID, Group_GroupID, CanView, CanComment) values (?, 0, true, false)") or die($mysqli->error);
+		} else { // Mark everyone as 'can view, comment', the defaults
+			$st = $mysqli->prepare("insert into Idea_has_Group (Idea_IdeaID, Group_GroupID) values (?, 0)") or die($mysqli->error);
 			$st->bind_param("i", $just_added_id[0]);
 			$st->execute() or die($mysqli->error);
 		}

@@ -150,6 +150,21 @@ function getVote($ideaID) {
 		return $result;
 	}
 
+function getIdeaName($id) {
+
+	$db = db_connect();
+
+	$st = $db->prepare("select Name from Idea where IdeaID = ?") or die($db->error);
+	$st->bind_param("i", $id);
+	$st->execute();
+	$st->bind_result($name);
+	$st->fetch();
+
+	$db->close();
+
+	return $name;
+}
+
 // The following layer violation is explained by crappy PHP - no fetch_array etc
 // possible when using a parameterized query (!!)
 function getIdea($id, $userID, $isAdmin) {

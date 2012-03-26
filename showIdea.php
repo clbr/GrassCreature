@@ -180,7 +180,7 @@ if ($sess->isLoggedIn()) {
 				}
 
 				string += "<br><hr class='shortline'><p class=clear>" + text + "</p></div>";
-
+				
 				$('#commentsArea').append(string);
 				$('#comment'+comment.Rand).hide().slideDown(1000).fadeIn(1000);
 			}

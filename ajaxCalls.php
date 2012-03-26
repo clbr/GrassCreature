@@ -6,7 +6,8 @@
 		case 'sendComment':
 			require_once("DatabaseOperation/comment.php");
 			require_once("DatabaseOperation/idea.php");
-			addComment($_POST['ideaid'], $_POST['userid'], $_POST['comment']);
+			$comment = htmlspecialchars($_POST['comment']);
+			addComment($_POST['ideaid'], $_POST['userid'], $comment);
 			setLastSeenComment($_POST['ideaid'], $_POST['userid']);
 			break;
 		case 'userFollowIdea':

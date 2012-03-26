@@ -378,23 +378,28 @@ function getIdeaPermissions($id) {
 	if ($st->num_rows < 1)
 		return;
 
+	echo "<input type=hidden name=totalgroups value=$st->num_rows>\n";
+
 	echo "<table border=0 class='highlight center'>\n";
 	echo "<tr><th>Group</th><th>Can comment</th><th>Can view</th><th>Can edit</th></tr>\n";
 
 	while ($st->fetch()) {
+
+		echo "<input type=hidden name='groups[]' value=$gid>";
+
 		if ($gid == 0) { // We hijack the admin group for 'everyone' as admins can do everything
 			echo "<tr><td>Everyone</td>";
 		} else {
 			echo "<tr><td>$name</td>";
 		}
 
-		echo "<td><input type=checkbox name='comment[]' value=$gid ";
+		echo "<td><input type=checkbox name='comment$gid' ";
 
 		if ($comment) echo "checked";
-		echo "></td><td><input type=checkbox name='view[]' value=$gid ";
+		echo "></td><td><input type=checkbox name='view$gid' ";
 
 		if ($view) echo "checked";
-		echo "></td><td><input type=checkbox name='edit[]' value=$gid ";
+		echo "></td><td><input type=checkbox name='edit$gid' ";
 
 		if ($edit) echo "checked";
 		echo "></td></tr>\n";
@@ -431,8 +436,8 @@ function setPerms($id, $gid, $comment, $view, $edit) {
 
 	$db = db_connect();
 
-	$st = $db->prepare("update Idea_has_Group set CanComment=?, CanView=s, CanEdit=s where Idea_IdeaID=? and Group_GroupID = ?") or die($db->error);
-	$st->bind_param("sssii", $comment, $view, $edit, $id, $gid);
+	$st = $db->prepare("update Idea_has_Group set CanComment=?, CanView=?, CanEdit=? where Idea_IdeaID=? and Group_GroupID = ?") or die($db->error);
+	$st->bind_param("iiiii", $comment, $view, $edit, $id, $gid);
 	$st->execute();
 
 	$db->close();

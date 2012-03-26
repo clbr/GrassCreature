@@ -28,10 +28,19 @@ if (isset($_POST["add"]) && isset($_POST["group"])) {
 
 } else if (isset($_POST["save"])) {
 
-	$len = count($_POST["comment"]);
+	$len = $_POST["totalgroups"];
 
 	for ($i = 0; $i < $len; $i++) {
-		echo "setPerms()";
+		$gid = $_POST["groups"][$i];
+		$comment = 0;
+		$view = 0;
+		$edit = 0;
+
+		if (isset($_POST["comment" . $gid])) $comment = 1;
+		if (isset($_POST["edit" . $gid])) $edit = 1;
+		if (isset($_POST["view" . $gid])) $view = 1;
+
+		setPerms($id, $gid, $comment, $view, $edit);
 	}
 
 }

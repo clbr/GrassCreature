@@ -20,7 +20,7 @@ function getGroups($userid, $isadmin) {
 		while ($row = $st->fetch_row()) {
 			echo "<tr><td>";
 			echo "<input type=checkbox name='chk[]' value=$row[2]>";
-			echo "</td><td>$row[0]</td><td>$row[1]</td><td>";
+			echo "</td><td><a href='editGroup.php?id=$row[2]'>$row[0]</a></td><td>$row[1]</td><td>";
 
 			$mem = $db->query("select count(User_UserID) from User_has_Group where Group_GroupID = $row[2]") or die ($db->error);
 			if ($row = $mem->fetch_row()) {
@@ -49,7 +49,7 @@ function getGroups($userid, $isadmin) {
 		while ($st->fetch()) {
 			echo "<tr><td>";
 			echo "<input type=checkbox name='chk[]' value=$gid>";
-			echo "</td><td>$name</td><td>$desc</td><td>";
+			echo "</td><td><a href='editGroup.php?id=$gid'>$name</a></td><td>$desc</td><td>";
 
 			$mem = $db->query("select count(User_UserID) from User_has_Group where Group_GroupID = $gid") or die ($db->error);
 			if ($row = $mem->fetch_row()) {

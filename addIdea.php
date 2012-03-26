@@ -57,6 +57,7 @@ $sess->mustBeLoggedIn();
 			Attach images:<br>
 			<div id=addimages>
 			<input type="file" name="file[]" onchange='moreimages()'></div>
+<<<<<<< HEAD:addIdea.php
 			
 
 			Category:<br>
@@ -104,6 +105,14 @@ $i++;
 
 
 
+=======
+			<br>
+			<input type=radio name=permissions value=opentoall checked> Viewable by all
+			<input type=radio name=permissions value=restrict> Specify permissions
+			<br>
+
+			<br>
+>>>>>>> 4f54cb9dcb988e94f57a7b2fe1841ab69b09c804:addIdea.php
 			<input type=button name="submitIdea" value="Submit idea" onclick='addidea_check()'>
 		</form>
 	</div>
@@ -113,13 +122,15 @@ $i++;
 		echo "<div class='IdeaAdd'>";
 
 		$ideaID = addIdea($_POST['IdeaName'], $_POST['desc'], $_POST['ReqDate'], $_POST['CostEst'],
-			$_POST['AddInfo'], $_POST['BasedOn'], $sess->getUserID());
+			$_POST['AddInfo'], $_POST['BasedOn'], $_POST['permissions'], $sess->getUserID());
 
 		// Upload image if there are any.
 		if ($_FILES['file']['size'][0] != 0)
 			uploadImages($ideaID);
 
-		echo "<br><br>Idea succesfully added with the ID: $ideaID.</div>";
+		echo "<br><br>Idea succesfully added with the ID: $ideaID.<hr>";
+		if ($_POST["permissions"] == "restrict") echo "The idea is only visible to you currently. <a href='perms.php?id=$ideaID'>Edit permissions here.</a>";
+		echo "</div>\n";
 
 		// Wait 5 secs, then redirect to the newly added idea
 		echo "<script type=\"text/javascript\">

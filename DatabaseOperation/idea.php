@@ -2,7 +2,7 @@
 	error_reporting(E_ALL);
 	require_once("details.php");
 
-	function addIdea($name, $desc, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID) {
+	function addIdea($name, $desc, $reqdate, $cost, $additionalInfo, $basedOn, $perms, $inventorID) {
 		// Add entirely new idea.
 		$mysqli = db_connect();
 
@@ -11,11 +11,22 @@
 		$stmt = $mysqli->prepare($sql);
 		$stmt->bind_param('ssisisii', $name, $desc, $version = 1, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);
 		$stmt->execute();
+		$stmt->close();
 
 		// Return the id of the just created idea. Will be used for uploaded image location.
 		$sql = "SELECT LAST_INSERT_ID()";
 		if ($result = $mysqli->query($sql) or die($mysqli->error))
 			$just_added_id = $result->fetch_row();
+
+		if ($perms == 'restrict') {
+			$st = $mysqli->prepare("insert into Idea_has_Group (Idea_IdeaID, Group_GroupID, CanView) values (?, 0, false)") or die($mysqli->error);
+			$st->bind_param("i", $just_added_id[0]);
+			$st->execute() or die($mysqli->error);
+		} else { // Mark everyone as 'can view'
+			$st = $mysqli->prepare("insert into Idea_has_Group (Idea_IdeaID, Group_GroupID, CanView, CanComment) values (?, 0, true, false)") or die($mysqli->error);
+			$st->bind_param("i", $just_added_id[0]);
+			$st->execute() or die($mysqli->error);
+		}
 
 		return $just_added_id[0];
 	}
@@ -143,6 +154,36 @@ function getVote($ideaID) {
 		return $result;
 	}
 
+function getIdeaName($id) {
+
+	$db = db_connect();
+
+	$st = $db->prepare("select Name from Idea where IdeaID = ?") or die($db->error);
+	$st->bind_param("i", $id);
+	$st->execute();
+	$st->bind_result($name);
+	$st->fetch();
+
+	$db->close();
+
+	return $name;
+}
+
+function getIdeaInventor($id) {
+
+	$db = db_connect();
+
+	$st = $db->prepare("select Inventor from Idea where IdeaID = ?") or die($db->error);
+	$st->bind_param("i", $id);
+	$st->execute();
+	$st->bind_result($name);
+	$st->fetch();
+
+	$db->close();
+
+	return $name;
+}
+
 // The following layer violation is explained by crappy PHP - no fetch_array etc
 // possible when using a parameterized query (!!)
 function getIdea($id, $userID, $isAdmin) {
@@ -189,10 +230,14 @@ function getIdea($id, $userID, $isAdmin) {
 		if ($userID == $Inventor) {
 			// Send idea-id along page change.
 			echo "<hr><a href='editIdea.php?ideaid=$id'>Edit idea</a>";
+			echo " &diams; ";
+			echo "<a href='perms.php?id=$id'>Edit permissions</a>";
 		}
 		// Idea editing button for adminz. It is possible that both buttons are visible.
 		if ($isAdmin) {
 			echo "<hr><a href='adminEditIdea.php?ideaid=$id'><br>Edit idea as admin</a><br><br>";
+			echo " &diams; ";
+			echo "<a href='perms.php?id=$id'>Edit permissions</a>";
 			echo "<form method=post action=showIdea.php?id=$id>";
 
 			if ($Status == 'new')
@@ -220,6 +265,15 @@ function userFollowIdea($ideaID, $userID) {
 		LIMIT 1))";
 	$stmt = $mysqli->prepare($sql);
 	$stmt->bind_param('iii', $userID, $ideaID, $ideaID);
+	$stmt->execute();
+}
+
+function stopFollowingIdea($ideaID, $userID) {
+	$mysqli = db_connect();
+	
+	$sql = "DELETE FROM Idea_has_follower WHERE FollowerID = ? AND Followed_IdeaID = ?";
+	$stmt = $mysqli->prepare($sql);
+	$stmt->bind_param('ii', $userID, $ideaID);
 	$stmt->execute();
 }
 
@@ -296,6 +350,7 @@ function getNewComments($userID) {
 	}
 }
 
+<<<<<<< HEAD:DatabaseOperation/idea.php
 function getCategory() {
 
 $result = array();
@@ -311,6 +366,79 @@ array_push($result, $row[0]);
 
 
 
+=======
+function getIdeaPermissions($id) {
+
+	$db = db_connect();
+
+	$st = $db->prepare("select Name, CanComment, CanView, CanEdit, Group_GroupID from Idea_has_Group inner join UserGroup on GroupID = Group_GroupID where Idea_IdeaID = ?") or die($db->error);
+	$st->bind_param("i", $id);
+	$st->execute();
+	$st->bind_result($name, $comment, $view, $edit, $gid);
+
+	$st->store_result();
+	if ($st->num_rows < 1)
+		return;
+
+	echo "<table border=0 class='highlight center'>\n";
+	echo "<tr><th>Group</th><th>Can comment</th><th>Can view</th><th>Can edit</th></tr>\n";
+
+	while ($st->fetch()) {
+		if ($gid == 0) { // We hijack the admin group for 'everyone' as admins can do everything
+			echo "<tr><td>Everyone</td>";
+		} else {
+			echo "<tr><td>$name</td>";
+		}
+
+		echo "<td><input type=checkbox name='comment[]' value=$gid ";
+
+		if ($comment) echo "checked";
+		echo "></td><td><input type=checkbox name='view[]' value=$gid ";
+
+		if ($view) echo "checked";
+		echo "></td><td><input type=checkbox name='edit[]' value=$gid ";
+
+		if ($edit) echo "checked";
+		echo "></td></tr>\n";
+	}
+
+	echo "</table>\n";
+
+	$db->close();
+
+	return $name;
+}
+
+function addPermGroup($grp, $id) {
+
+	$db = db_connect();
+
+	$st = $db->prepare("select GroupID from UserGroup where Name = ?") or die($db->error);
+	$st->bind_param("s", $grp);
+	$st->execute();
+	$st->bind_result($gid);
+
+	$st->fetch() or die("Fetch error");
+	$st->close();
+
+
+	$st = $db->prepare("insert into Idea_has_Group (Idea_IdeaID, Group_GroupID, CanComment, CanView, CanEdit) values (?, ?, false, false, false)") or die($db->error);
+	$st->bind_param("ii", $id, $gid);
+	$st->execute();
+
+	$db->close();
+}
+
+function setPerms($id, $gid, $comment, $view, $edit) {
+
+	$db = db_connect();
+
+	$st = $db->prepare("update Idea_has_Group set CanComment=?, CanView=s, CanEdit=s where Idea_IdeaID=? and Group_GroupID = ?") or die($db->error);
+	$st->bind_param("sssii", $comment, $view, $edit, $id, $gid);
+	$st->execute();
+
+	$db->close();
+>>>>>>> 4f54cb9dcb988e94f57a7b2fe1841ab69b09c804:DatabaseOperation/idea.php
 }
 
 ?>

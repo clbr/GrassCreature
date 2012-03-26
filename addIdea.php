@@ -65,13 +65,15 @@ $sess->mustBeLoggedIn();
 		echo "<div class='IdeaAdd'>";
 
 		$ideaID = addIdea($_POST['IdeaName'], $_POST['desc'], $_POST['ReqDate'], $_POST['CostEst'],
-			$_POST['AddInfo'], $_POST['BasedOn'], $sess->getUserID());
+			$_POST['AddInfo'], $_POST['BasedOn'], $_POST['permissions'], $sess->getUserID());
 
 		// Upload image if there are any.
 		if ($_FILES['file']['size'][0] != 0)
 			uploadImages($ideaID);
 
-		echo "<br><br>Idea succesfully added with the ID: $ideaID.</div>";
+		echo "<br><br>Idea succesfully added with the ID: $ideaID.<hr>";
+		if ($_POST["permissions"] == "restrict") echo "The idea is only visible to you currently. <a href='perms.php?id=$ideaID'>Edit permissions here.</a>";
+		echo "</div>\n";
 
 		// Wait 5 secs, then redirect to the newly added idea
 		echo "<script type=\"text/javascript\">

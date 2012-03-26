@@ -183,9 +183,17 @@ function deleteFromGroup($uid, $gid) {
 	$db->close();
 }
 
-function addToGroup($uid, $gid) {
+function addToGroup($uname, $gid) {
 
 	$db = db_connect();
+
+	// Who am I?
+	$st = $db->prepare("select UserID from User where Name = ?") or die($db->error);
+	$st->bind_param("s", $uname);
+	$st->execute();
+	$st->bind_result($uid);
+	$st->fetch() or die("Fetch error");
+	$st->close();
 
 	// Add me as a member
 	$st = $db->prepare("insert into User_has_Group (User_UserID, Group_GroupID) values (?, ?)") or die($db->error);

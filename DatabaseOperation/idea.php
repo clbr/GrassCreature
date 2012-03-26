@@ -296,4 +296,21 @@ function getNewComments($userID) {
 	}
 }
 
+function getCategory() {
+
+$result = array();
+$mysqli = db_connect();
+$query = "SELECT Name FROM Category";
+$res = $mysqli->query($query);
+while ($row = $res->fetch_row()) {
+array_push($result, $row[0]);
+    }
+
+
+        return $result;
+
+
+
+}
+
 ?>

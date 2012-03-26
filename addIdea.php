@@ -13,6 +13,11 @@ $sess->mustBeLoggedIn();
 	<link href="css/style.css" rel="stylesheet" type="text/css">
 	<link rel="icon" href="favicon.ico" type="image/x-icon">
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+	<script src="http://jquery-ui.googlecode.com/svn/tags/latest/ui/minified/i18n/jquery-ui-i18n.min.js" type="text/javascript"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+			<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js" type="text/javascript"></script>
+			<script src="http://jquery-ui.googlecode.com/svn/tags/latest/external/jquery.bgiframe-2.1.2.js" type="text/javascript"></script>
+			<script src="http://jquery-ui.googlecode.com/svn/tags/latest/ui/minified/i18n/jquery-ui-i18n.min.js" type="text/javascript"></script>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 	<base target=main>
 </head>
@@ -23,6 +28,8 @@ $sess->mustBeLoggedIn();
 	error_reporting(E_ALL);
 	require_once('DatabaseOperation/idea.php');
 	require_once('uploadFile.php');
+	
+	$category=getCategory();
 
 	if (!isset($_POST['IdeaName'])) {
 	// Fields are shown when the page loads, after submit is pressed, fields go away and a success message is shown instead.
@@ -50,7 +57,53 @@ $sess->mustBeLoggedIn();
 			Attach images:<br>
 			<div id=addimages>
 			<input type="file" name="file[]" onchange='moreimages()'></div>
-			<br>
+			
+
+			Category:<br>
+			<input type="text" id="category" name="category"/><br><br>
+
+
+
+
+
+
+<?php
+echo "<script language='JavaScript'>\n";
+
+echo "$(function() {";
+
+
+echo "var availableTags = new Array();\n";
+$i=0;
+foreach($category as $value)
+{
+echo "availableTags[$i] = '$value';\n";
+$i++;
+}
+?>
+
+		$( "#category" ).autocomplete({
+			source: availableTags
+		});
+	});
+	</script>
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 			<input type=button name="submitIdea" value="Submit idea" onclick='addidea_check()'>
 		</form>
 	</div>

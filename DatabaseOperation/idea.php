@@ -211,10 +211,14 @@ function getIdea($id, $userID, $isAdmin) {
 		if ($userID == $Inventor) {
 			// Send idea-id along page change.
 			echo "<hr><a href='editIdea.php?ideaid=$id'>Edit idea</a>";
+			echo " &diams; ";
+			echo "<a href='perms.php?id=$id'>Edit permissions</a>";
 		}
 		// Idea editing button for adminz. It is possible that both buttons are visible.
 		if ($isAdmin) {
 			echo "<hr><a href='adminEditIdea.php?ideaid=$id'><br>Edit idea as admin</a><br><br>";
+			echo " &diams; ";
+			echo "<a href='perms.php?id=$id'>Edit permissions</a>";
 			echo "<form method=post action=showIdea.php?id=$id>";
 
 			if ($Status == 'new')

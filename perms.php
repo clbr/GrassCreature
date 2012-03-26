@@ -22,9 +22,9 @@ if (!$sess->isAdmin() && getIdeaInventor($id) != $sess->getUserID()) {
 
 // Permissions checked. Post checks
 
-if (isset($_POST["add"]) && isset($_POST["group"])) {
+if (isset($_POST["add"]) && isset($_POST["selectgroups"])) {
 
-	addPermGroup($_POST["group"], $id);
+	addPermGroup($_POST['selectgroups'], $id);
 
 } else if (isset($_POST["save"])) {
 
@@ -73,7 +73,6 @@ echo "<form id=permform method=post action='perms.php?id=$id'>";
 ?>
 
 <input type=button name=addgroup value="Add group to permission list" onclick='addgrp()'>
-<input type=hidden name=group>
 <input type=submit name=save value="Save">
 <br><br>
 <div id=addgrpdiv></div>
@@ -94,19 +93,11 @@ getIdeaPermissions($id);
 function addgrp() {
 
 	var div = document.getElementById('addgrpdiv');
-	div.innerHTML = '<input type=text size=15 name=group id=grptext> <input type=submit name=add value=Add>' +
-			'<br><select onchange="pickgrp()" id=selectgroups></select>';
+	div.innerHTML = '<select id=selectgroups name=selectgroups></select> <input type=submit name=add value=Add>';
 
-	document.getElementById('grptext').focus();
+	document.getElementById('selectgroups').focus();
 
 	perms_ajaxy();
-}
-
-function pickgrp() {
-
-	var t = document.getElementById('grptext');
-	var s = document.getElementById('selectgroups');
-	t.value = s.options[s.selectedIndex].text;
 }
 
 function perms_ajaxy() {
@@ -127,7 +118,7 @@ function perms_ajaxy() {
 			var len = str.length;
 
 			for (var i = 0; i < len; i++) if(str[i].length > 1)
-				dest.options[dest.options.length] = new Option(str[i]);
+				dest.options[dest.options.length] = new Option(str[i], str[i]);
 		}
 	}
 

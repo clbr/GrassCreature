@@ -43,6 +43,21 @@ echo getIdeaName($id);
 ?>
 </h2>
 
+<?php
+echo "<form id=permform method=post action='perms.php?id=$id'>";
+?>
+
+<input type=button name=addgroup value="Add group to permission list" onclick='addgrp()'>
+<input type=hidden name=group>
+<input type=submit name=save value="Save">
+
+<?php
+getIdeaPermissions($id);
+?>
+
+<input type=submit name=save value="Save">
+
+</form>
 
 <script src="js/js.js" type="text/javascript"></script>
 </body>

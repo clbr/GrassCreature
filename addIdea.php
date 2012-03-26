@@ -28,7 +28,7 @@ $sess->mustBeLoggedIn();
 	error_reporting(E_ALL);
 	require_once('DatabaseOperation/idea.php');
 	require_once('uploadFile.php');
-	
+
 	$category=getCategory();
 
 	if (!isset($_POST['IdeaName'])) {
@@ -57,7 +57,7 @@ $sess->mustBeLoggedIn();
 			Attach images:<br>
 			<div id=addimages>
 			<input type="file" name="file[]" onchange='moreimages()'></div>
-			
+
 
 			Category:<br>
 			<input type="text" id="category" name="category"/><br><br>
@@ -89,7 +89,7 @@ $i++;
 	</script>
 
 
-	
+
 
 
 

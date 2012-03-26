@@ -162,7 +162,7 @@ if ($sess->isLoggedIn()) {
 	}
 
 	function sendComment(ideaid, userid) {
-		var call = 'sendComment';		
+		var call = 'sendComment';
 		var text = document.getElementById('commentText').value;
 
 		$.ajax({
@@ -180,13 +180,13 @@ if ($sess->isLoggedIn()) {
 				}
 
 				string += "<br><hr class='shortline'><p class=clear>" + text + "</p></div>";
-				
+
 				$('#commentsArea').append(string);
 				$('#comment'+comment.Rand).hide().slideDown(1000).fadeIn(1000);
 			}
 		});
 	}
-	
+
 	function userFollowIdea(ideaid, userid) {
 		var call = 'userFollowIdea';
 
@@ -194,20 +194,20 @@ if ($sess->isLoggedIn()) {
 			url: 'ajaxCalls.php',
 			type: 'POST',
 			data: 'call=' + call + '&ideaid=' + ideaid + '&userid=' + userid,
-			
+
 			success: function(response) {
 				$('#followIdeaButton').empty().fadeOut(500, function() {
 					$('#followIdeaButton').append("You are now following this idea.").css('background-color', '#66FF66').fadeIn(1000);
 
 					// This is necessary to get interactivity immediately after starting to follow idea.
 					$('#followIdeaButton').hover(function() {
-						stopFollowing(ideaid, userid) 
-					});	
+						stopFollowing(ideaid, userid)
+					});
 				});
 			}
 		});
 	}
-	
+
 	// This function has highlights and whatnot, button effects and interactivity for stopping idea following.
 	function stopFollowing(ideaid, userid) {
 		$('#followIdeaButton').text("Stop following this idea?").css('background-color', '#FF4D4D').fadeIn(1000);
@@ -220,7 +220,7 @@ if ($sess->isLoggedIn()) {
 			 stopFollowingIdea(ideaid, userid);
 		});
 	}
-	
+
 	// This function does the actual removal for following idea.
 	function stopFollowingIdea(ideaid, userid) {
 		var call = 'stopFollowingIdea';
@@ -231,8 +231,8 @@ if ($sess->isLoggedIn()) {
 			data: 'call=' + call + '&ideaid=' + ideaid + '&userid=' + userid,
 
 			// Reload page.
-			success: function(response) {					
-				window.location = 'showIdea.php?id='+ideaid;					
+			success: function(response) {
+				window.location = 'showIdea.php?id='+ideaid;
 			}
 		});
 	}

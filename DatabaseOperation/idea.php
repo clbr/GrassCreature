@@ -255,7 +255,7 @@ function getIdea($id, $userID, $isAdmin) {
 
 function userFollowIdea($ideaID, $userID) {
 	$mysqli = db_connect();
-	
+
 	$sql = "INSERT INTO Idea_has_follower(FollowerID, Followed_IdeaID, Last_CommentID)
 		VALUES(?, ?,
 		(SELECT CommentID
@@ -270,7 +270,7 @@ function userFollowIdea($ideaID, $userID) {
 
 function stopFollowingIdea($ideaID, $userID) {
 	$mysqli = db_connect();
-	
+
 	$sql = "DELETE FROM Idea_has_follower WHERE FollowerID = ? AND Followed_IdeaID = ?";
 	$stmt = $mysqli->prepare($sql);
 	$stmt->bind_param('ii', $userID, $ideaID);
@@ -286,13 +286,13 @@ function userIsFollowingIdea($ideaID, $userID) {
 	$stmt->execute();
 	$stmt->bind_result($result);
 	$stmt->fetch();
-	
+
 	return $result;
 }
 
 function setLastSeenComment($ideaID, $userID) {
 	$mysqli = db_connect();
-	
+
 	$sql = "UPDATE Idea_has_follower SET Last_CommentID =
 		(SELECT CommentID
 		FROM Comment
@@ -308,18 +308,18 @@ function setLastSeenComment($ideaID, $userID) {
 function getNewComments($userID) {
 	try {
 		$pdo = pdo_connect();
-		
+
 		// Get all the ideas that the user is following.
 		$sql = "SELECT Followed_IdeaID
-			FROM Idea_has_follower			
+			FROM Idea_has_follower
 			WHERE FollowerID = :UserID";
 		$stmt = $pdo->prepare($sql);
 		$stmt->bindParam(':UserID', $userID);
 		$stmt->execute();
-		
+
 		// Ideas with new comments, duh!
 		$iwnc;
-		
+
 		// Check which of the followed ideas have had new comments since last viewing the idea.
 		while ($followed_idea = $stmt->fetch(PDO::FETCH_OBJ)) {
 			$sql = "SELECT COUNT(CommentID) AS Count, Name
@@ -334,9 +334,9 @@ function getNewComments($userID) {
 			$stmt2->bindParam(':Followed_idea', $followed_idea->Followed_IdeaID);
 			$stmt2->bindParam(':UserID', $userID);
 			$stmt2->execute();
-			
+
 			$newcomments = $stmt2->fetch(PDO::FETCH_OBJ);
-			//echo $newcomments->Count . "<br>";			
+			//echo $newcomments->Count . "<br>";
 			if ($newcomments->Count > 0)
 				$iwnc[] = array('ideaID' => (int)$followed_idea->Followed_IdeaID, 'ideaname' => $newcomments->Name, 'comments' => (int)$newcomments->Count);
 		}

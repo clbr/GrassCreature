@@ -23,45 +23,45 @@
 			data: 'call=' + call + '&userid=' + userid,
 			success: function(response)
 			{
-				var ideas = JSON.parse(response);				
-				
+				var ideas = JSON.parse(response);
+
 				if (ideas.length > 0) {
 					var count = 0;
 					for (i in ideas)
 						count += ideas[i].comments;
-					
+
 					var notify = "Your followed ideas have <b><span style='color:#248F24'>" + count + "</span></b> new comments in " +
 					"<b><span style='color:#248F24'>" + ideas.length + "</span></b> ";
-					
+
 					if (ideas.length == 1)
 						notify += "idea.";
 					else
 						notify += "different ideas.";
-					
+
 					document.getElementById("followedIdeas").innerHTML = notify;
-					
+
 					// Div is initially hidden, so set display to inline (= show).
 					$('#followedIdeas').css('display', 'inline').click(function()
 					{
 						showFollowedIdeaComents(ideas);
 					});
-				}				
+				}
 			}
 		});
 	}
-	
+
 	function showFollowedIdeaComents(ideas) {
 		$('#followedIdeas').fadeOut(200, function()
 		{
 			$('#followedIdeas').empty().css('cursor', 'auto');
-			
+
 			for (i in ideas) {
 			document.getElementById("followedIdeas").innerHTML += "Idea <a href='showIdea.php?id=" + ideas[i].ideaID + "'>" + ideas[i].ideaname +
 			"</a> has " + ideas[i].comments + " new comments.<br>";
 			}
-			
+
 			$('#followedIdeas').fadeIn(500);
-		});		
+		});
 	}
 </script>
 </head>

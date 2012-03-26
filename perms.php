@@ -50,11 +50,13 @@ echo "<form id=permform method=post action='perms.php?id=$id'>";
 <input type=button name=addgroup value="Add group to permission list" onclick='addgrp()'>
 <input type=hidden name=group>
 <input type=submit name=save value="Save">
+<br><br>
 
 <?php
 getIdeaPermissions($id);
 ?>
 
+<br><br>
 <input type=submit name=save value="Save">
 
 </form>

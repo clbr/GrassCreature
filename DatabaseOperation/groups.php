@@ -135,4 +135,66 @@ function getGroupName($id) {
 	return $name;
 }
 
+
+function listGroupMembers($id) {
+
+	global $sess;
+
+	$db = db_connect();
+
+	$st = $db->prepare("select Name, UserID, User_UserID from User_has_Group inner join User on User_UserID = UserID where Group_GroupID = ?") or die ($db->error);
+	$st->bind_param("i", $id);
+	$st->execute();
+	$st->bind_result($name, $uid1, $uid2);
+
+	$st->store_result();
+	if ($st->num_rows < 1)
+		return;
+
+	echo "<table border=0 class=\"highlight center\">\n";
+
+	while ($st->fetch()) {
+
+		if ($sess->isAdmin() || $sess->getUserID() == $uid1)
+			echo "<tr><td><input type=checkbox name='chk[]' value='$uid1'></td><td><a href='showUser.php?id=$uid1'>$name</a></td></tr>\n";
+		else
+			echo "<tr><td></td><td><a href='showUser.php?id=$uid1'>$name</a></td></tr>\n";
+	}
+
+	echo "</table>\n";
+
+	$db->close();
+}
+
+function deleteFromGroup($uid, $gid) {
+
+	global $sess;
+
+	// User can only remove himself from a group
+	if (!($sess->isAdmin() || $sess->getUserID() == $uid))
+		return;
+
+	$db = db_connect();
+
+	$st = $db->prepare("delete from User_has_Group where User_UserID = ? and Group_GroupID = ?") or die($db->error);
+	$st->bind_param("ii", $uid, $gid);
+	$st->execute();
+
+	$db->close();
+}
+
+function addToGroup($uid, $gid) {
+
+	$db = db_connect();
+
+	// Add me as a member
+	$st = $db->prepare("insert into User_has_Group (User_UserID, Group_GroupID) values (?, ?)") or die($db->error);
+
+	$st->bind_param("ii", $uid, $gid);
+	$st->execute();
+	$st->close();
+
+	$db->close();
+}
+
 ?>

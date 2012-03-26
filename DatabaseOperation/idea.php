@@ -350,4 +350,46 @@ function getNewComments($userID) {
 	}
 }
 
+function getIdeaPermissions($id) {
+
+	$db = db_connect();
+
+	$st = $db->prepare("select Name, CanComment, CanView, CanEdit, Group_GroupID from Idea_has_Group inner join UserGroup on GroupID = Group_GroupID where Idea_IdeaID = ?") or die($db->error);
+	$st->bind_param("i", $id);
+	$st->execute();
+	$st->bind_result($name, $comment, $view, $edit, $gid);
+
+	$st->store_result();
+	if ($st->num_rows < 1)
+		return;
+
+	echo "<table border=0 class='highlight center'>\n";
+	echo "<tr><th>Group</th><th>Can comment</th><th>Can view</th><th>Can edit</th></tr>\n";
+
+	while ($st->fetch()) {
+		if ($gid == 0) { // We hijack the admin group for 'everyone' as admins can do everything
+			echo "<tr><td>Everyone</td>";
+		} else {
+			echo "<tr><td>$name</td>";
+		}
+
+		echo "<td><input type=checkbox name='comment[]' value=$gid ";
+
+		if ($comment) echo "checked";
+		echo "></td><td><input type=checkbox name='view[]' value=$gid ";
+
+		if ($view) echo "checked";
+		echo "></td><td><input type=checkbox name='edit[]' value=$gid ";
+
+		if ($edit) echo "checked";
+		echo "></td></tr>\n";
+	}
+
+	echo "</table>\n";
+
+	$db->close();
+
+	return $name;
+}
+
 ?>

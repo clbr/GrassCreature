@@ -72,11 +72,11 @@ echo "</div>\n";
 
 if ($sess->isLoggedIn()) {
 	if (userIsFollowingIdea($id,  $sess->getUserID())) {
-		echo "<span id='followIdeaButton' style='background-color:#66FF66; cursor:default'>You are following this idea.</span>";
+		echo "<span id='followIdeaButton' onmouseover='stopFollowingIdea(" . $id . ", " . $sess->getUserID() . ")' style='background-color:#66FF66;'>You are following this idea.</span>";
 		setLastSeenComment($id,  $sess->getUserID());
 	}
 	else
-		echo "<span id='followIdeaButton' onclick='userFollowIdea(" . $id . ", " . $sess->getUserID() . ", " . 5 . ")'>Follow this idea</span>";
+		echo "<span id='followIdeaButton' onclick='userFollowIdea(" . $id . ", " . $sess->getUserID() . ")'>Follow this idea</span>";
 }
 
 /* Attached images handling */
@@ -163,7 +163,7 @@ if ($sess->isLoggedIn()) {
 	}
 
 	function sendComment(ideaid, userid) {
-		var call = 'sendComment';
+		var call = 'sendComment';		
 		var text = document.getElementById('commentText').value;
 
 		$.ajax(
@@ -205,6 +205,34 @@ if ($sess->isLoggedIn()) {
 					$('#followIdeaButton').append("You are now following this idea.").css('background-color', '#66FF66').fadeIn(1000);
 				});
 			}
+		});
+	}
+	
+	function stopFollowingIdea(ideaid, userid) {
+		$('#followIdeaButton').text("Stop following this idea?").css('background-color', '#FF4D4D').fadeIn(1000);
+		
+		$('#followIdeaButton').click(function()
+		{
+			var call = 'stopFollowingIdea';
+			$('#followIdeaButton').text("Stopping...").css('background-color', '#FF4D4D')
+			
+			$.ajax(
+			{
+				url: 'ajaxCalls.php',
+				type: 'POST',
+				data: 'call=' + call + '&ideaid=' + ideaid + '&userid=' + userid,
+				
+				success: ()
+				{					
+					window.location = 'showIdea.php?id='+ideaid;					
+				}
+			});
+		})
+		
+		// Mouseout -> change outlook back as it was.
+		$('#followIdeaButton').mouseout(function()
+		{
+			$('#followIdeaButton').text("You are following this idea.").css('background-color', '#66FF66');
 		});
 	}
 </script>

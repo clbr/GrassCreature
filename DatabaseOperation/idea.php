@@ -223,6 +223,15 @@ function userFollowIdea($ideaID, $userID) {
 	$stmt->execute();
 }
 
+function stopFollowingIdea($ideaID, $userID) {
+	$mysqli = db_connect();
+	
+	$sql = "DELETE FROM Idea_has_follower WHERE FollowerID = ? AND Followed_IdeaID = ?";
+	$stmt = $mysqli->prepare($sql);
+	$stmt->bind_param('ii', $userID, $ideaID);
+	$stmt->execute();
+}
+
 function userIsFollowingIdea($ideaID, $userID) {
 	$mysqli = db_connect();
 

@@ -23,7 +23,7 @@
 			data: 'call=' + call + '&userid=' + userid,
 			success: function(response)
 			{
-				var ideas = JSON.parse(response);
+				var ideas = JSON.parse(response);				
 				
 				if (ideas.length > 0) {
 					var count = 0;
@@ -40,11 +40,12 @@
 					
 					document.getElementById("followedIdeas").innerHTML = notify;
 					
-					$('#followedIdeas').click(function()
+					// Div is initially hidden, so set display to inline (= show).
+					$('#followedIdeas').css('display', 'inline').click(function()
 					{
 						showFollowedIdeaComents(ideas);
 					});
-				}
+				}				
 			}
 		});
 	}
@@ -93,7 +94,7 @@ if ($sess->isAdmin()) {
 // Followed idea stuffs here.
 if ($sess->isLoggedIn()) {
 	echo '<script type="text/JavaScript">showFollowedIdeas(' . $sess->getUserID() . ');</script>';
-	echo "<div id=followedIdeas></div>";
+	echo "<div id=followedIdeas></div><br>";
 }
 
 ?>

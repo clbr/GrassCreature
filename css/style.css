@@ -345,6 +345,7 @@ hr.shortline {
 	background-color:#FFAF66;	
 	border: 1px solid blue; 
 	border-radius: 10px;
+	display: none;
 	padding: 0.6em;
 	width: 30%;
 }

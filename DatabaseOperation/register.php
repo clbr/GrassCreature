@@ -6,6 +6,11 @@ function register_user($uname, $mail, $pw, $comp = "", $compadd = "") {
 
 	$db = db_connect();
 
+	$uname = htmlspecialchars($uname);
+	$mail = htmlspecialchars($mail);
+	$comp = htmlspecialchars($comp);
+	$compadd = htmlspecialchars($compadd);
+
 	$st = $db->prepare("insert into User (Name, Email, PwdHash, Company, CompanyAddress) values (?, ?, ?, ?, ?)");
 	if (!$st)
 		die($db->error);

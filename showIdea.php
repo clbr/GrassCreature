@@ -187,6 +187,9 @@ if (canComment($id, $uid) || $sess->isAdmin()) {
 				$('#comment'+comment.Rand).hide().slideDown(1000).fadeIn(1000);
 			}
 		});
+
+		document.getElementById('commentText').value = '';
+		hideCommentForm();
 	}
 
 	function userFollowIdea(ideaid, userid) {

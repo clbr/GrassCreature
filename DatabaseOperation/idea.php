@@ -239,7 +239,7 @@ function getIdea($id, $userID, $isAdmin) {
 			"</table>\n";
 
 		// Idea editin button for inventor.
-		if ($userID == $Inventor) {
+		if ($userID == $Inventor || canEdit($id, $userID)) {
 			// Send idea-id along page change.
 			echo "<hr><a href='editIdea.php?ideaid=$id'>Edit idea</a>";
 			echo " &diams; ";

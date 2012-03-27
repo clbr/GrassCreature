@@ -35,8 +35,8 @@ $sess->mustBeLoggedIn();
 	$ideaData = getIdeaInfo($ideaid);
 	$idea = $ideaData->fetch_object();
 
-	if ($sess->getUserID() != $idea->Inventor) {
-		echo "You can not edit ideas you have not created.";
+	if ($sess->getUserID() != $idea->Inventor && !canEdit($ideaid, $sess->getUserID())) {
+		echo "You don't have the permissions to edit this idea.";
 	}
 	else {
 		if (isset($_GET['abandon'])) {

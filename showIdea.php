@@ -120,11 +120,13 @@ while ($comment = $comments->fetch_object()) {
 }
 echo "</div>\n";
 
-if ($sess->isLoggedIn()) {
-	echo "<input id='cmtButton' type='button' value='Comment...' onclick='showCommentForm(" . $id . ", " . $sess->getUserID() . ")'><div id='commentFormArea'></div>";
+if (canComment($id, $uid)) {
+	if ($sess->isLoggedIn()) {
+		echo "<input id='cmtButton' type='button' value='Comment...' onclick='showCommentForm(" . $id . ", " . $sess->getUserID() . ")'><div id='commentFormArea'></div>";
 
-} else
-	echo "<input id='cmtButton' type='button' value='Comment...' onclick='showCommentForm(" . -1 . ", " . -1 . ")'><div id='commentFormArea'></div>";
+	} else
+		echo "<input id='cmtButton' type='button' value='Comment...' onclick='showCommentForm(" . -1 . ", " . -1 . ")'><div id='commentFormArea'></div>";
+}
 
 
 ?>

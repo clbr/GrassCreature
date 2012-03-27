@@ -120,7 +120,7 @@ while ($comment = $comments->fetch_object()) {
 }
 echo "</div>\n";
 
-if (canComment($id, $uid)) {
+if (canComment($id, $uid) || $sess->isAdmin()) {
 	if ($sess->isLoggedIn()) {
 		echo "<input id='cmtButton' type='button' value='Comment...' onclick='showCommentForm(" . $id . ", " . $sess->getUserID() . ")'><div id='commentFormArea'></div>";
 

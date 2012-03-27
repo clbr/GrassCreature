@@ -13,7 +13,7 @@ $id = $_GET["id"];
 
 require_once("DatabaseOperation/idea.php");
 
-if (!$sess->isAdmin() && getIdeaInventor($id) != $sess->getUserID()) {
+if (!$sess->isAdmin() && !canEdit($id, $sess->getUserID())) {
 	echo "<script type=\"text/javascript\">" .
 		"alert(\"You don't have rights to edit the permissions of this idea.\"); window.history.back();" .
 		"</script>";

@@ -7,7 +7,7 @@ function top10_newest()
 //Connection to db and info request
 	require_once("DatabaseOperation/details.php");
 	$mysqli = db_connect();
-	$sql = "SELECT Name, IdeaID, date_format(AddingDate, '%a %D, %M %Y') FROM Idea ORDER BY AddingDate DESC limit 10";
+	$sql = "SELECT Name, IdeaID, date_format(AddingDate, '%a %D, %M %Y') FROM Idea where status != 'new' ORDER BY AddingDate DESC limit 10";
 	$result = $mysqli->query($sql) or die($mysqli->error);
 	if($result)
 	{
@@ -38,7 +38,7 @@ function top10_commented()
 	require_once("DatabaseOperation/details.php");
 	$mysqli=db_connect();
 	$sql = "SELECT Name, IdeaID, Count(Comment.CommentID) AS comments FROM Idea, " .
-		"Comment WHERE Comment.Idea_IdeaID=Idea.IdeaID group by IdeaID " .
+		"Comment WHERE Comment.Idea_IdeaID=Idea.IdeaID group by IdeaID and status != 'new' " .
 		"ORDER BY comments desc limit 10";
 	$result = $mysqli->query($sql) or die($mysqli->error);
 	if($result)
@@ -73,7 +73,8 @@ function top10_rated()
 	require_once("DatabaseOperation/details.php");
 	$mysqli = db_connect();
 
-	$sql = "SELECT sum(Rating), Idea_IdeaID, Name FROM Rating inner join Idea on IdeaID = Idea_IdeaID group by Idea_IdeaID ORDER BY sum(Rating) DESC limit 10";
+	$sql = "SELECT sum(Rating), Idea_IdeaID, Name FROM Rating inner join Idea on IdeaID = Idea_IdeaID group by Idea_IdeaID and status != 'new' " .
+		"ORDER BY sum(Rating) DESC limit 10";
 	$result = $mysqli->query($sql) or die($mysqli->error);
 	if($result)
 	{
@@ -108,7 +109,7 @@ function top10_latest_comments()
 	require_once("DatabaseOperation/details.php");
 	$mysqli = db_connect();
 	$sql = "SELECT Name, IdeaID, date_format(Date, '%a %D %H:%i, %M %Y'), CommentID FROM Idea, Comment WHERE Comment.Idea_IdeaID=Idea.IdeaID " .
-		"ORDER BY date desc limit 10";
+		" and status != 'new' ORDER BY date desc limit 10";
 	$result = $mysqli->query($sql) or die($mysqli->error);
 	if($result)
 	{

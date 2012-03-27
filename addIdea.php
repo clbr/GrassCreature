@@ -103,6 +103,10 @@ $i++;
 		$ideaID = addIdea($_POST['IdeaName'], $_POST['desc'], $_POST['ReqDate'], $_POST['CostEst'],
 			$_POST['AddInfo'], $_POST['BasedOn'], $_POST['permissions'], $sess->getUserID());
 
+                // User follows his own ideas by default.
+                require_once('DatabaseOperation/user.php');
+                userFollowIdea($ideaID, $sess->getUserID());
+
 		// Upload image if there are any.
 		if ($_FILES['file']['size'][0] != 0)
 			uploadImages($ideaID);

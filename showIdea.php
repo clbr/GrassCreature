@@ -48,7 +48,7 @@ if ($sess->isLoggedIn())
 
 /* Show the actual idea */
 
-getIdea($id, $uid, $sess->isAdmin());
+$inventor = getIdea($id, $uid, $sess->isAdmin());
 
 /* Ratings */
 echo "<div id='rating' class=ideabox>";
@@ -70,9 +70,12 @@ if ($sess->isLoggedIn()) {
 echo "Rating: " . getVote($id);
 echo "</div>\n";
 
+/* Idea following stuff */
+
 if ($sess->isLoggedIn()) {
+	require_once("DatabaseOperation/user.php");
 	if (userIsFollowingIdea($id,  $sess->getUserID())) {
-		echo "<span id='followIdeaButton' onmouseover='stopFollowing(" . $id . ", " . $sess->getUserID() . ")' style='background-color:#66FF66;'>You are following this idea.</span>";
+		echo "<span id='followIdeaButton' onmouseover='stopFollowingIdeaEff(" . $id . ", " . $sess->getUserID() . ")' style='background-color:#66FF66;'>You are following this idea.</span>";
 		setLastSeenComment($id,  $sess->getUserID());
 	}
 	else
@@ -132,6 +135,7 @@ if (canComment($id, $uid) || $sess->isAdmin()) {
 ?>
 
 <script src="js/js.js" type="text/javascript"></script>
+<script src="js/userfollowing.js" type="text/javascript"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js" type="text/JavaScript"></script>
 <script type="text/JavaScript">
 
@@ -206,7 +210,7 @@ if (canComment($id, $uid) || $sess->isAdmin()) {
 
 					// This is necessary to get interactivity immediately after starting to follow idea.
 					$('#followIdeaButton').hover(function() {
-						stopFollowing(ideaid, userid)
+						stopFollowingIdeaEff(ideaid, userid);
 					});
 				});
 			}
@@ -214,7 +218,7 @@ if (canComment($id, $uid) || $sess->isAdmin()) {
 	}
 
 	// This function has highlights and whatnot, button effects and interactivity for stopping idea following.
-	function stopFollowing(ideaid, userid) {
+	function stopFollowingIdeaEff(ideaid, userid) {
 		$('#followIdeaButton').text("Stop following this idea?").css('background-color', '#FF4D4D').fadeIn(1000);
 
 		$('#followIdeaButton').mouseout(function() {
@@ -240,10 +244,6 @@ if (canComment($id, $uid) || $sess->isAdmin()) {
 				window.location = 'showIdea.php?id='+ideaid;
 			}
 		});
-	}
-	
-	function escapeHTML(string) {
-		return String(string).replace(/</g, '&lt;').replace(/>/g, '&gt;');
 	}
 </script>
 </body>

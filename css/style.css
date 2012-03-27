@@ -343,6 +343,19 @@ hr.shortline {
 	cursor: pointer;
 }
 
+#followUserButton {
+	background-color:#FFAF66;	
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius:10px;	
+	padding: 0.3em;
+}
+
+#followUserButton:hover {
+	background-color: #FFBF85;
+	cursor: pointer;
+}
+
 #followedIdeas {
 	background-color:#FFAF66;	
 	border: 1px solid blue; 
@@ -354,6 +367,18 @@ hr.shortline {
 	width: 30%;
 }
 
+#followedUsers {
+	background-color:#FFAF66;	
+	border: 1px solid blue; 
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius:10px;
+	display: none;
+	padding: 0.6em;
+	width: 30%;
+}
+
 #followedIdeas:hover { cursor: pointer; }
+#followedUsers:hover { cursor: pointer; }
 
 

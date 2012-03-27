@@ -244,7 +244,21 @@ function getIdea($id, $userID, $isAdmin) {
 
 		echo "\t<tr><td>Requested date</td><td>$ReqDate</td></tr>\n" .
 			"\t<tr><td>Added date</td><td>$AddDate</td></tr>\n" .
-			"\t<tr><td class=bottom>Inventor</td><td class=bottom><a href=\"showUser.php?id=$Inventor\">$uname</a></td></tr>\n" .
+			"\t<tr><td class=bottom>Inventor</td><td class=bottom><a href=\"showUser.php?id=$Inventor\">$uname</a>\t";
+		
+		// Userfollowing stuff:
+		// This has to be done here in orded to have the button visible where it is now.
+		require_once("DatabaseOperation/user.php");
+		if (userIsFollowingUser($Inventor,  $userID)) {
+			// ideaID also needs to be sent, it is used when userfollowing is stopped and the page reloads to show the correct idea again.
+			echo "<span id='followUserButton' onmouseover='stopFollowingUserEff(" . $Inventor . ", " . $userID . ", " . $id .
+				")' style='background-color:#66FF66;'>You are following this user.</span>";
+			setLastSeenIdea($Inventor,  $userID);
+		}
+		else
+			echo "<span id='followUserButton' onclick='userFollowUser(" . $Inventor . ", " . $userID . ", " . $id . ")'>Follow this user</span>";
+
+		echo "</td></tr>\n" .
 
 //			"\t<tr><td></td><td></td></tr>\n" .
 
@@ -275,103 +289,9 @@ function getIdea($id, $userID, $isAdmin) {
 
 	}
 	$db->close();
-}
-
-function userFollowIdea($ideaID, $userID) {
-	$mysqli = db_connect();
-
-	$sql = "INSERT INTO Idea_has_follower(FollowerID, Followed_IdeaID, Last_CommentID)
-		VALUES(?, ?,
-		(SELECT CommentID
-		FROM Comment
-		WHERE Idea_IdeaID = ?
-		ORDER BY CommentID DESC
-		LIMIT 1))";
-	$stmt = $mysqli->prepare($sql);
-	$stmt->bind_param('iii', $userID, $ideaID, $ideaID);
-	$stmt->execute();
-}
-
-function stopFollowingIdea($ideaID, $userID) {
-	$mysqli = db_connect();
-
-	$sql = "DELETE FROM Idea_has_follower WHERE FollowerID = ? AND Followed_IdeaID = ?";
-	$stmt = $mysqli->prepare($sql);
-	$stmt->bind_param('ii', $userID, $ideaID);
-	$stmt->execute();
-}
-
-function userIsFollowingIdea($ideaID, $userID) {
-	$mysqli = db_connect();
-
-	$sql = "SELECT EXISTS(SELECT 1 FROM Idea_has_follower WHERE FollowerID = ? AND Followed_IdeaID = ?)";
-	$stmt = $mysqli->prepare($sql);
-	$stmt->bind_param('ii', $userID, $ideaID);
-	$stmt->execute();
-	$stmt->bind_result($result);
-	$stmt->fetch();
-
-	return $result;
-}
-
-function setLastSeenComment($ideaID, $userID) {
-	$mysqli = db_connect();
-
-	$sql = "UPDATE Idea_has_follower SET Last_CommentID =
-		(SELECT CommentID
-		FROM Comment
-		WHERE Idea_IdeaID = ?
-		ORDER BY CommentID DESC
-		LIMIT 1)
-		WHERE FollowerID = ? AND Followed_IdeaID = ?";
-	$stmt = $mysqli->prepare($sql);
-	$stmt->bind_param('iii', $ideaID, $userID, $ideaID);
-	$stmt->execute();
-}
-
-function getNewComments($userID) {
-	try {
-		$pdo = pdo_connect();
-
-		// Get all the ideas that the user is following.
-		$sql = "SELECT Followed_IdeaID
-			FROM Idea_has_follower
-			WHERE FollowerID = :UserID";
-		$stmt = $pdo->prepare($sql);
-		$stmt->bindParam(':UserID', $userID);
-		$stmt->execute();
-
-		// Ideas with new comments, duh!
-		$iwnc;
-
-		// Check which of the followed ideas have had new comments since last viewing the idea.
-		while ($followed_idea = $stmt->fetch(PDO::FETCH_OBJ)) {
-			$sql = "SELECT COUNT(CommentID) AS Count, Name
-				FROM Comment
-				LEFT OUTER JOIN Idea
-				ON Comment.Idea_IdeaID = Idea.IdeaID
-				WHERE Idea_IdeaID = :Followed_idea AND CommentID >
-					(SELECT Last_CommentID
-					FROM Idea_has_follower
-					WHERE FollowerID = :UserID AND Followed_IdeaID = :Followed_idea)";
-			$stmt2 = $pdo->prepare($sql);
-			$stmt2->bindParam(':Followed_idea', $followed_idea->Followed_IdeaID);
-			$stmt2->bindParam(':UserID', $userID);
-			$stmt2->execute();
-
-			$newcomments = $stmt2->fetch(PDO::FETCH_OBJ);
-			//echo $newcomments->Count . "<br>";
-			if ($newcomments->Count > 0)
-				$iwnc[] = array('ideaID' => (int)$followed_idea->Followed_IdeaID, 'ideaname' => $newcomments->Name, 'comments' => (int)$newcomments->Count);
-		}
-
-		$pdo = null; // Close connection.
-		//echo "<pre>"; var_dump(json_encode($iwnc)); echo "</pre><br>";
-		echo json_encode($iwnc);
-	}
-	catch (PDOException $err) {
-		echo $err;
-	}
+	
+	// To allow inventor following in showIdea.php
+	return $Inventor;
 }
 
 function getCategory() {

@@ -13,16 +13,17 @@
 	<base target=main>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js" type="text/JavaScript"></script>
 	<script type="text/JavaScript">
+
+	/* Idea following stuff, show new comments in followed ideas */
+
 	function showFollowedIdeas(userid) {
 		var call = 'followedIdeas';
 
-		$.ajax(
-		{
+		$.ajax({
 			url: 'ajaxCalls.php',
 			type: 'POST',
 			data: 'call=' + call + '&userid=' + userid,
-			success: function(response)
-			{
+			success: function(response) {
 				var ideas = JSON.parse(response);
 
 				if (ideas.length > 0) {
@@ -41,8 +42,7 @@
 					document.getElementById("followedIdeas").innerHTML = notify;
 
 					// Div is initially hidden, so set display to inline (= show).
-					$('#followedIdeas').css('display', 'inline').click(function()
-					{
+					$('#followedIdeas').css('display', 'inline').click(function() {
 						showFollowedIdeaComents(ideas);
 					});
 				}
@@ -51,16 +51,65 @@
 	}
 
 	function showFollowedIdeaComents(ideas) {
-		$('#followedIdeas').fadeOut(200, function()
-		{
+		$('#followedIdeas').fadeOut(200, function() {
 			$('#followedIdeas').empty().css('cursor', 'auto');
 
 			for (i in ideas) {
-			document.getElementById("followedIdeas").innerHTML += "Idea <a href='showIdea.php?id=" + ideas[i].ideaID + "'>" + ideas[i].ideaname +
-			"</a> has " + ideas[i].comments + " new comments.<br>";
+				document.getElementById("followedIdeas").innerHTML += "Idea <a href='showIdea.php?id=" + ideas[i].ideaID + "'>" + ideas[i].ideaname +
+					"</a> has " + ideas[i].comments + " new comments.<br>";
+			}
+			
+			$('#followedIdeas').fadeIn(500);
+		});
+	}
+
+	/* User following stuff, show newly added ideas by followed users */
+
+	function showFollowedUsers(userid) {
+		var call = 'followedUsers';
+
+		$.ajax({
+			url: 'ajaxCalls.php',
+			type: 'POST',
+			data: 'call=' + call + '&userid=' + userid,
+			success: function(response) {
+				var users = JSON.parse(response);
+
+				if (users.length > 0) {
+					/*var count = 0;
+					for (i in users)
+						count += parseInt(users[i].Count); // Count is returned by the DB as a string so...*/
+
+					var notify = "<b><span style='color:#248F24'>" + users.length +
+						"</span></b> new ideas by your followed users.";
+
+					/*if (users.length == 1)
+						notify += " user.";
+					else
+						notify += " different users.";*/
+
+					document.getElementById("followedUsers").innerHTML = notify;
+
+					// Div is initially hidden, so set display to inline (= show).
+					$('#followedUsers').css('display', 'inline').click(function() {
+						showFollowedUsersIdeas(users);
+					});
+				}
+			}
+		});
+	}
+
+	function showFollowedUsersIdeas(users) {
+		$('#followedUsers').fadeOut(200, function() {
+			$('#followedUsers').empty().css('cursor', 'auto');
+
+			for (i in users) {
+			//document.getElementById("followedUsers").innerHTML += 
+			$("#followedUsers").append("User <a href='showUser.php?id=" + users[i].UserID + "'>" + users[i].Username +
+			"</a> has added the idea <a href='showIdea.php?id=" + users[i].IdeaID + "'>\"" + users[i].Ideaname + "\"</a>.<br>");
 			}
 
-			$('#followedIdeas').fadeIn(500);
+			$('#followedUsers').fadeIn(500);
 		});
 	}
 </script>
@@ -91,8 +140,11 @@ if ($sess->isAdmin()) {
 
 }
 
-// Followed idea stuffs here.
+/* Followed idea/users stuffs here. */
+
 if ($sess->isLoggedIn()) {
+	echo '<script type="text/JavaScript">showFollowedUsers(' . $sess->getUserID() . ');</script>';
+	echo "<div id=followedUsers></div><br>";
 	echo '<script type="text/JavaScript">showFollowedIdeas(' . $sess->getUserID() . ');</script>';
 	echo "<div id=followedIdeas></div><br>";
 }

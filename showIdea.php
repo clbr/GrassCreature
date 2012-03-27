@@ -181,7 +181,7 @@ if (canComment($id, $uid) || $sess->isAdmin()) {
 					string += ", " + comment.Company;
 				}
 
-				string += "<br><hr class='shortline'><p class=clear>" + text + "</p></div>";
+				string += "<br><hr class='shortline'><p class=clear>" + escapeHTML(text )+ "</p></div>";
 
 				$('#commentsArea').append(string);
 				$('#comment'+comment.Rand).hide().slideDown(1000).fadeIn(1000);
@@ -240,6 +240,10 @@ if (canComment($id, $uid) || $sess->isAdmin()) {
 				window.location = 'showIdea.php?id='+ideaid;
 			}
 		});
+	}
+	
+	function escapeHTML(string) {
+		return String(string).replace(/</g, '&lt;').replace(/>/g, '&gt;');
 	}
 </script>
 </body>

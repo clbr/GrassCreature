@@ -38,7 +38,7 @@ function top10_commented()
 	require_once("DatabaseOperation/details.php");
 	$mysqli=db_connect();
 	$sql = "SELECT Name, IdeaID, Count(Comment.CommentID) AS comments FROM Idea, " .
-		"Comment WHERE Comment.Idea_IdeaID=Idea.IdeaID group by IdeaID and Status != 'new' " .
+		"Comment WHERE Comment.Idea_IdeaID=Idea.IdeaID and Status != 'new' group by IdeaID " .
 		"ORDER BY comments desc limit 10";
 	$result = $mysqli->query($sql) or die($mysqli->error);
 	if($result)
@@ -73,7 +73,7 @@ function top10_rated()
 	require_once("DatabaseOperation/details.php");
 	$mysqli = db_connect();
 
-	$sql = "SELECT sum(Rating), Idea_IdeaID, Name FROM Rating inner join Idea on IdeaID = Idea_IdeaID group by Idea_IdeaID and Status != 'new' " .
+	$sql = "SELECT sum(Rating), Idea_IdeaID, Name FROM Rating inner join Idea on IdeaID = Idea_IdeaID where Status != 'new' group by Idea_IdeaID " .
 		"ORDER BY sum(Rating) DESC limit 10";
 	$result = $mysqli->query($sql) or die($mysqli->error);
 	if($result)

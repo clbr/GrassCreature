@@ -190,6 +190,42 @@ function getIdea($id, $userID, $isAdmin) {
 
 	$db = db_connect();
 
+	// Admin can view any idea.
+	if ($isAdmin) goto override;
+
+	// Anyone can always view their own ideas.
+	$name = getIdeaInventor($id);
+	if ($name == $userID) goto override;
+
+	// Check if everyone has the right to view this idea
+	$st = $db->prepare("select CanView from Idea_has_Group where Idea_IdeaID = ? and Group_GroupID = 0") or die($db->error);
+	$st->bind_param('i', $id);
+	$st->execute();
+	$st->bind_result($view);
+	if (!$st->fetch())
+		die("You don't have permission to view this idea.");
+
+	$st->close();
+
+	// Check if you have the right to view this idea
+	if (!$view) {
+		$st = $db->prepare("select CanView from Idea_has_Group inner join User_has_Group on User_has_Group.Group_GroupID = Idea_has_Group.Group_GroupID where Idea_IdeaID = ? and User_UserID = ?") or die($db->error);
+		$st->bind_param('ii', $id, $userID);
+		$st->execute();
+		$st->bind_result($view);
+		while ($st->fetch()) {
+			if ($view) goto ok;
+		}
+
+		die("You don't have permission to view this idea.");
+
+		ok:
+		$st->close();
+
+	}
+
+	override:
+
 	$st = $db->prepare("select * from Idea where IdeaID=?");
 	$st->bind_param('i', $id);
 

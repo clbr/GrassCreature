@@ -197,32 +197,8 @@ function getIdea($id, $userID, $isAdmin) {
 	$name = getIdeaInventor($id);
 	if ($name == $userID) goto override;
 
-	// Check if everyone has the right to view this idea
-	$st = $db->prepare("select CanView from Idea_has_Group where Idea_IdeaID = ? and Group_GroupID = 0") or die($db->error);
-	$st->bind_param('i', $id);
-	$st->execute();
-	$st->bind_result($view);
-	if (!$st->fetch())
+	if (!canView($id, $userID))
 		die("You don't have permission to view this idea.");
-
-	$st->close();
-
-	// Check if you have the right to view this idea
-	if (!$view) {
-		$st = $db->prepare("select CanView from Idea_has_Group inner join User_has_Group on User_has_Group.Group_GroupID = Idea_has_Group.Group_GroupID where Idea_IdeaID = ? and User_UserID = ?") or die($db->error);
-		$st->bind_param('ii', $id, $userID);
-		$st->execute();
-		$st->bind_result($view);
-		while ($st->fetch()) {
-			if ($view) goto ok;
-		}
-
-		die("You don't have permission to view this idea.");
-
-		ok:
-		$st->close();
-
-	}
 
 	override:
 
@@ -487,6 +463,108 @@ function setPerms($id, $gid, $comment, $view, $edit) {
 	$st->execute();
 
 	$db->close();
+}
+
+function canComment($id, $uid) {
+
+	$db = db_connect();
+
+	// Check if everyone has the right to comment on this idea
+	$st = $db->prepare("select CanComment from Idea_has_Group where Idea_IdeaID = ? and Group_GroupID = 0") or die($db->error);
+	$st->bind_param('i', $id);
+	$st->execute();
+	$st->bind_result($view);
+	if (!$st->fetch())
+		return false;
+
+	$st->close();
+
+	// Check if you have the right to comment on this idea
+	if (!$view) {
+		$st = $db->prepare("select CanComment from Idea_has_Group inner join User_has_Group on User_has_Group.Group_GroupID = Idea_has_Group.Group_GroupID where Idea_IdeaID = ? and User_UserID = ?") or die($db->error);
+		$st->bind_param('ii', $id, $uid);
+		$st->execute();
+		$st->bind_result($view);
+		while ($st->fetch()) {
+			if ($view) goto ok;
+		}
+
+		return false;
+
+		ok:
+		$st->close();
+
+	}
+
+	return true;
+}
+
+function canEdit($id, $uid) {
+
+	$db = db_connect();
+
+	// Check if everyone has the right to edit this idea
+	$st = $db->prepare("select CanEdit from Idea_has_Group where Idea_IdeaID = ? and Group_GroupID = 0") or die($db->error);
+	$st->bind_param('i', $id);
+	$st->execute();
+	$st->bind_result($view);
+	if (!$st->fetch())
+		return false;
+
+	$st->close();
+
+	// Check if you have the right to edit this idea
+	if (!$view) {
+		$st = $db->prepare("select CanEdit from Idea_has_Group inner join User_has_Group on User_has_Group.Group_GroupID = Idea_has_Group.Group_GroupID where Idea_IdeaID = ? and User_UserID = ?") or die($db->error);
+		$st->bind_param('ii', $id, $uid);
+		$st->execute();
+		$st->bind_result($view);
+		while ($st->fetch()) {
+			if ($view) goto ok;
+		}
+
+		return false;
+
+		ok:
+		$st->close();
+
+	}
+
+	return true;
+}
+
+function canView($id, $uid) {
+
+	$db = db_connect();
+
+	// Check if everyone has the right to view this idea
+	$st = $db->prepare("select CanView from Idea_has_Group where Idea_IdeaID = ? and Group_GroupID = 0") or die($db->error);
+	$st->bind_param('i', $id);
+	$st->execute();
+	$st->bind_result($view);
+	if (!$st->fetch())
+		return false;
+
+	$st->close();
+
+	// Check if you have the right to view this idea
+	if (!$view) {
+		$st = $db->prepare("select CanView from Idea_has_Group inner join User_has_Group on User_has_Group.Group_GroupID = Idea_has_Group.Group_GroupID where Idea_IdeaID = ? and User_UserID = ?") or die($db->error);
+		$st->bind_param('ii', $id, $uid);
+		$st->execute();
+		$st->bind_result($view);
+		while ($st->fetch()) {
+			if ($view) goto ok;
+		}
+
+		return false;
+
+		ok:
+		$st->close();
+
+	}
+
+	return true;
 }
 
 ?>

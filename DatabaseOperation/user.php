@@ -77,6 +77,202 @@ function getUser($id, $isLoggedIn) {
 	$db->close();
 }
 
+function userFollowIdea($ideaID, $userID) {
+	$mysqli = db_connect();
+
+	$sql = "INSERT INTO Idea_has_follower(FollowerID, Followed_IdeaID, Last_CommentID)
+		VALUES(?, ?,
+		(SELECT CommentID
+		FROM Comment
+		WHERE Idea_IdeaID = ?
+		ORDER BY CommentID DESC
+		LIMIT 1))";
+	$stmt = $mysqli->prepare($sql);
+	$stmt->bind_param('iii', $userID, $ideaID, $ideaID);
+	$stmt->execute();
+}
+
+function stopFollowingIdea($ideaID, $userID) {
+	$mysqli = db_connect();
+
+	$sql = "DELETE FROM Idea_has_follower WHERE FollowerID = ? AND Followed_IdeaID = ?";
+	$stmt = $mysqli->prepare($sql);
+	$stmt->bind_param('ii', $userID, $ideaID);
+	$stmt->execute();
+}
+
+function userIsFollowingIdea($ideaID, $userID) {
+	$mysqli = db_connect();
+
+	$sql = "SELECT EXISTS(SELECT 1 FROM Idea_has_follower WHERE FollowerID = ? AND Followed_IdeaID = ?)";
+	$stmt = $mysqli->prepare($sql);
+	$stmt->bind_param('ii', $userID, $ideaID);
+	$stmt->execute();
+	$stmt->bind_result($result);
+	$stmt->fetch();
+
+	return $result;
+}
+
+function setLastSeenComment($ideaID, $userID) {
+	$mysqli = db_connect();
+
+	$sql = "UPDATE Idea_has_follower SET Last_CommentID =
+		(SELECT CommentID
+		FROM Comment
+		WHERE Idea_IdeaID = ?
+		ORDER BY CommentID DESC
+		LIMIT 1)
+		WHERE FollowerID = ? AND Followed_IdeaID = ?";
+	$stmt = $mysqli->prepare($sql);
+	$stmt->bind_param('iii', $ideaID, $userID, $ideaID);
+	$stmt->execute();
+}
+
+function getNewComments($userID) {
+	try {
+		$pdo = pdo_connect();
+
+		// Get all the ideas that the user is following.
+		$sql = "SELECT Followed_IdeaID
+			FROM Idea_has_follower
+			WHERE FollowerID = :UserID";
+		$stmt = $pdo->prepare($sql);
+		$stmt->bindParam(':UserID', $userID);
+		$stmt->execute();
+
+		// Ideas with new comments, duh!
+		$iwnc = array();
+		
+		// Check which of the followed ideas have had new comments since last viewing the idea.
+		while ($followed_idea = $stmt->fetch(PDO::FETCH_OBJ)) {
+			$sql = "SELECT COUNT(CommentID) AS Count, Name
+				FROM Comment
+				LEFT OUTER JOIN Idea
+				ON Comment.Idea_IdeaID = Idea.IdeaID
+				WHERE Idea_IdeaID = :Followed_idea AND CommentID >
+					(SELECT Last_CommentID
+					FROM Idea_has_follower
+					WHERE FollowerID = :UserID AND Followed_IdeaID = :Followed_idea)";
+			$stmt2 = $pdo->prepare($sql);
+			$stmt2->bindParam(':Followed_idea', $followed_idea->Followed_IdeaID);
+			$stmt2->bindParam(':UserID', $userID);
+			$stmt2->execute();
+
+			$newcomments = $stmt2->fetch(PDO::FETCH_OBJ);
+			//echo $newcomments->Count . "<br>";
+			if ($newcomments->Count > 0)
+				$iwnc[] = array('ideaID' => (int)$followed_idea->Followed_IdeaID, 'ideaname' => $newcomments->Name, 'comments' => (int)$newcomments->Count);
+		}
+
+		$pdo = null; // Close connection.
+		//echo "<pre>"; var_dump(json_encode($iwnc)); echo "</pre><br>";
+		echo json_encode($iwnc);
+	}
+	catch (PDOException $err) {
+		echo $err;
+	}
+}
+
+function userFollowUser($stalkedID, $userID) {
+	$mysqli = db_connect();
+
+	$sql = "INSERT INTO User_has_follower(StalkerID, StalkedID, Last_IdeaID)
+		VALUES(?, ?,
+		(SELECT IdeaID
+		FROM Idea
+		WHERE Inventor = ?
+		ORDER BY IdeaID DESC
+		LIMIT 1))";
+	$stmt = $mysqli->prepare($sql);
+	$stmt->bind_param('iii', $userID, $stalkedID, $stalkedID);
+	$stmt->execute();
+}
+
+function stopFollowingUser($stalkedID, $userID) {
+	$mysqli = db_connect();
+
+	$sql = "DELETE FROM User_has_follower WHERE StalkerID = ? AND StalkedID = ?";
+	$stmt = $mysqli->prepare($sql);
+	$stmt->bind_param('ii', $userID, $stalkedID);
+	$stmt->execute();
+}
+
+function userIsFollowingUser($stalkedID, $userID) {
+	$mysqli = db_connect();
+
+	$sql = "SELECT EXISTS(SELECT 1 FROM User_has_follower WHERE StalkerID = ? AND StalkedID = ?)";
+	$stmt = $mysqli->prepare($sql);
+	$stmt->bind_param('ii', $userID, $stalkedID);
+	$stmt->execute();
+	$stmt->bind_result($result);
+	$stmt->fetch();
+
+	return $result;
+}
+
+function setLastSeenIdea($stalkedID, $userID) {
+	$mysqli = db_connect();
+
+	$sql = "UPDATE User_has_follower SET Last_IdeaID =
+		(SELECT IdeaID
+		FROM Idea
+		WHERE Inventor = ?
+		ORDER BY IdeaID DESC
+		LIMIT 1)
+		WHERE StalkerID = ? AND StalkedID = ?";
+	$stmt = $mysqli->prepare($sql);
+	$stmt->bind_param('iii', $stalkedID, $userID, $stalkedID);
+	$stmt->execute();
+}
+
+function getNewIdeas($userID) {
+	try {
+		$pdo = pdo_connect();
+
+		// Get all the users that the user is following.
+		$sql = "SELECT StalkedID
+			FROM User_has_follower
+			WHERE StalkerID = :UserID";
+		$stmt = $pdo->prepare($sql);
+		$stmt->bindParam(':UserID', $userID);
+		$stmt->execute();
+
+		// Users with new ideas, duh!
+		$uwni = array();
+
+		// Check which of the followed users have new ideas added.
+		while ($followed_user = $stmt->fetch(PDO::FETCH_OBJ)) {
+			$sql = "SELECT Idea.IdeaID AS IdeaID, Idea.Name AS Ideaname, User.UserID AS UserID, User.Name as Username
+				FROM Idea
+				LEFT OUTER JOIN User
+				ON Idea.Inventor = User.UserID
+				WHERE Inventor = :Stalked AND IdeaID >
+					(SELECT Last_IdeaID
+					FROM User_has_follower
+					WHERE StalkerID = :UserID AND StalkedID = :Stalked)";
+			$stmt2 = $pdo->prepare($sql);
+			$stmt2->bindParam(':Stalked', $followed_user->StalkedID);
+			$stmt2->bindParam(':UserID', $userID);
+			$stmt2->execute();
+
+			$newideas = $stmt2->fetch(PDO::FETCH_OBJ);
+			//echo $newideas->Count . "<br>";
+			if (isset($newideas->IdeaID))
+				$uwni[] = $newideas;
+				
+				/*array('StalkedID' => (int)$followed_user->StalkedID, 'username' => $newideas->Username, 'userID' => $newideas->UserID,
+					'ideas' => (int)$newideas->Count, 'ideaID' => (int)$newideas->IdeaID, 'ideaname' => $newideas->Ideaname);*/			
+		}
+
+		$pdo = null; // Close connection.
+		//echo "<pre>"; var_dump(json_encode($uwni)); echo "</pre><br>";
+		echo json_encode($uwni);
+	}
+	catch (PDOException $err) {
+		echo $err;
+	}
+}
 
 
 ?>

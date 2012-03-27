@@ -6,6 +6,10 @@
 		// Add entirely new idea.
 		$mysqli = db_connect();
 
+		$name = htmlspecialchars($name);
+		$desc = htmlspecialchars($desc);
+		$additionalInfo = htmlspecialchars($additionalInfo);
+
 		$sql = "INSERT INTO Idea (Name, Description, Version, RequestDate, Cost, AdditionalInfo, BasedOn, Inventor, Status, AddingDate) VALUES (
 			?, ?, ?, ?, ?, ?, ?, ?, 'new', NOW())";
 		$stmt = $mysqli->prepare($sql);
@@ -45,6 +49,10 @@
 	function editIdea($ideaID, $name, $desc, $reqdate, $cost, $additionalInfo, $basedOn, $version, $inventorID) {
 		$mysqli = db_connect();
 
+		$name = htmlspecialchars($name);
+		$desc = htmlspecialchars($desc);
+		$additionalInfo = htmlspecialchars($additionalInfo);
+
 		// Before editing all current info will be retrieved from db to textfields for user to edit.
 		$version++;
 
@@ -72,6 +80,10 @@
 
 	function adminEditIdea($ideaID, $status, $name, $desc, $reqdate, $cost, $additionalInfo, $basedOn,$version, $inventorID) {
 		$mysqli = db_connect();
+
+		$name = htmlspecialchars($name);
+		$desc = htmlspecialchars($desc);
+		$additionalInfo = htmlspecialchars($additionalInfo);
 
 		// Difference to normal editing: Can change status.
 

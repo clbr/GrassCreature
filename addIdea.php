@@ -63,10 +63,6 @@ $sess->mustBeLoggedIn();
 			<input type="text" id="category" name="category"/><br><br>
 
 
-
-
-
-
 <?php
 echo "<script language='JavaScript'>\n";
 
@@ -87,20 +83,6 @@ $i++;
 		});
 	});
 	</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

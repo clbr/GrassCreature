@@ -243,7 +243,7 @@ function getNewIdeas($userID) {
 
 		// Check which of the followed users have new ideas added.
 		while ($followed_user = $stmt->fetch(PDO::FETCH_OBJ)) {
-			$sql = "SELECT Idea.IdeaID AS IdeaID, Idea.Name AS Ideaname, User.UserID AS UserID, User.Name as Username
+			$sql = "SELECT IdeaID, Idea.Name AS Ideaname, UserID, User.Name as Username
 				FROM Idea
 				LEFT OUTER JOIN User
 				ON Idea.Inventor = User.UserID
@@ -266,7 +266,7 @@ function getNewIdeas($userID) {
 		}
 
 		$pdo = null; // Close connection.
-		//echo "<pre>"; var_dump(json_encode($uwni)); echo "</pre><br>";
+		//echo "<pre>"; var_dump($uwni); echo "</pre><br>";
 		echo json_encode($uwni);
 	}
 	catch (PDOException $err) {

@@ -41,22 +41,22 @@
 
 					document.getElementById("followedIdeas").innerHTML = notify;
 
-					// Div is initially hidden, so set display to inline (= show).
-					$('#followedIdeas').css('display', 'inline').click(function() {
-						showFollowedIdeaComents(ideas);
+					// Div is initially hidden, so set display to block (= a form of show).
+					$('#followedIdeas').css('display', 'block').click(function() {
+						showFollowedIdeaComments(ideas);
 					});
 				}
 			}
 		});
 	}
 
-	function showFollowedIdeaComents(ideas) {
+	function showFollowedIdeaComments(ideas) {
 		$('#followedIdeas').fadeOut(200, function() {
 			$('#followedIdeas').empty().css('cursor', 'auto');
 
 			for (i in ideas) {
-				document.getElementById("followedIdeas").innerHTML += "Idea <a href='showIdea.php?id=" + ideas[i].ideaID + "'>" + ideas[i].ideaname +
-					"</a> has " + ideas[i].comments + " new comments.<br>";
+				document.getElementById("followedIdeas").innerHTML += "<div>Idea <a href='showIdea.php?id=" + ideas[i].ideaID + "'>" + ideas[i].ideaname +
+					"</a> has <b><span style='color:#248F24'>" + ideas[i].comments + "</span></b> new comments.</div>";
 			}
 			
 			$('#followedIdeas').fadeIn(500);
@@ -90,8 +90,8 @@
 
 					document.getElementById("followedUsers").innerHTML = notify;
 
-					// Div is initially hidden, so set display to inline (= show).
-					$('#followedUsers').css('display', 'inline').click(function() {
+					// Div is initially hidden, so set display to block (= a form of show).
+					$('#followedUsers').css('display', 'block').click(function() {
 						showFollowedUsersIdeas(users);
 					});
 				}
@@ -144,7 +144,7 @@ if ($sess->isAdmin()) {
 
 if ($sess->isLoggedIn()) {
 	echo '<script type="text/JavaScript">showFollowedUsers(' . $sess->getUserID() . ');</script>';
-	echo "<div id=followedUsers></div><br>";
+	echo "<div id=followedUsers></div><br><br><br>";
 	echo '<script type="text/JavaScript">showFollowedIdeas(' . $sess->getUserID() . ');</script>';
 	echo "<div id=followedIdeas></div><br>";
 }

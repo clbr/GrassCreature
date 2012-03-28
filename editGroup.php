@@ -75,8 +75,39 @@ listGroupMembers($id);
 function inviteusr() {
 
 	var div = document.getElementById('edgroups');
-	div.innerHTML = '<input type=text name=uname size=15> <input type=submit name=inv value=Send>';
+	div.innerHTML = '<select name=uname id=uname></select> <input type=submit name=inv value=Send>';
+
+	var dest = document.getElementById('uname');
+	dest.focus();
+
+	lstusers_ajaxy();
 }
+
+function lstusers_ajaxy() {
+
+	var x = new XMLHttpRequest();
+
+	var dest = document.getElementById('uname');
+
+	x.open("POST", "ajaxCalls.php", true);
+
+	x.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	x.setRequestHeader("Content-length", 11);
+	x.setRequestHeader("Connection", "close");
+
+	x.onreadystatechange = function() {
+		if (x.readyState == 4) {
+			var str = x.responseText.split('\n');
+			var len = str.length;
+
+			for (var i = 0; i < len; i++) if(str[i].length > 1)
+				dest.options[dest.options.length] = new Option(str[i], str[i]);
+		}
+	}
+
+	x.send('call=users');
+}
+
 
 </script>
 </body>

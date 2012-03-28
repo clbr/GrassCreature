@@ -210,12 +210,12 @@ function getIdea($id, $userID, $isAdmin) {
 
 	override:
 
-	$st = $db->prepare("select * from Idea where IdeaID=?");
+	$st = $db->prepare("select IdeaID, Name, Description, Version, Status, Cost, AdditionalInfo, BasedOn, RequestDate, AddingDate, Inventor, AcceptedDate from Idea where IdeaID=?");
 	$st->bind_param('i', $id);
 
 	$st->execute();
 
-	$st->bind_result($ID, $Name, $Description, $Version, $Status, $Cost, $AddInfo, $BasedOn, $ReqDate, $AddDate, $Inventor);
+	$st->bind_result($ID, $Name, $Description, $Version, $Status, $Cost, $AddInfo, $BasedOn, $ReqDate, $AddDate, $Inventor, $accdate);
 
 	if ($st->fetch()) {
 		$st->close();
@@ -239,9 +239,10 @@ function getIdea($id, $userID, $isAdmin) {
 		if (!empty($BasedOn)) echo "\t<tr><td>Based on</td><td><a href=\"showIdea.php?id=$BasedOn\">$BasedOn</a></td></tr>\n";
 
 		echo "\t<tr><td>Requested date</td><td>$ReqDate</td></tr>\n" .
+			"\t<tr><td>Accepted date</td><td>$accdate</td></tr>\n" .
 			"\t<tr><td>Added date</td><td>$AddDate</td></tr>\n" .
 			"\t<tr><td class=bottom>Inventor</td><td class=bottom><a href=\"showUser.php?id=$Inventor\">$uname</a>\t";
-		
+
 		// Userfollowing stuff:
 		// This has to be done here in orded to have the button visible where it is now.
 		require_once("DatabaseOperation/user.php");

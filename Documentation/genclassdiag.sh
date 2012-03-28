@@ -20,7 +20,7 @@ for i in `find -name "*.php" | grep -v pchart`; do
 	num=$((num+1))
 
 	echo -n "[label =\"${i#./}\n"
-	grep -e '^[[:space:]]*function' $i | sed -e 's@^[[:space:]]*@@' \
+	grep -e '^[[:space:]]*function' $i | sed -e 's@^[[:space:]]*function @+@' \
 		-e 's@[[:space:]]*{$@@' | perl -p -e 's@\n@\\n@'
 
 	echo "\"]"

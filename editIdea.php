@@ -35,7 +35,7 @@ $sess->mustBeLoggedIn();
 	$ideaData = getIdeaInfo($ideaid);
 	$idea = $ideaData->fetch_object();
 
-	if ($sess->getUserID() != $idea->Inventor && !canEdit($ideaid, $sess->getUserID())) {
+	if (!canEdit($ideaid, $sess->getUserID())) {
 		echo "You don't have the permissions to edit this idea.";
 	}
 	else {

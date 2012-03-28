@@ -205,10 +205,6 @@ function getIdea($id, $userID, $isAdmin) {
 	// Admin can view any idea.
 	if ($isAdmin) goto override;
 
-	// Anyone can always view their own ideas.
-	$name = getIdeaInventor($id);
-	if ($name == $userID) goto override;
-
 	if (!canView($id, $userID))
 		die("You don't have permission to view this idea.");
 
@@ -265,7 +261,7 @@ function getIdea($id, $userID, $isAdmin) {
 			"</table>\n";
 
 		// Idea editin button for inventor.
-		if (($userID == $Inventor || canEdit($id, $userID)) && !$isAdmin) {
+		if (canEdit($id, $userID) && !$isAdmin) {
 			// Send idea-id along page change.
 			echo "<hr><a href='editIdea.php?ideaid=$id'>Edit idea</a>";
 			echo " &diams; ";

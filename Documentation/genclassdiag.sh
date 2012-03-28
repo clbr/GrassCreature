@@ -31,7 +31,7 @@ cat << "EOF"
 [label=<
 <table bgcolor="palegoldenrod" border="0" cellborder="0" cellspacing="0" cellpadding="4">
 <tr><td align="center" bgcolor="olivedrab4">
-<font color="white" face="Helvetica">
+<font color="white" face="Helvetica" point-size="10">
 EOF
 
 	echo "${i#./}</font></td></tr>"

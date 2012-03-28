@@ -362,8 +362,8 @@ hr.shortline {
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	border-radius:10px;
-	display: none;
-	padding: 0.6em;
+	display: none;	
+	padding: 0.6em;	
 	width: 30%;
 }
 

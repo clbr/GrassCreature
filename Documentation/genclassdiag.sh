@@ -4,9 +4,14 @@ lines=0
 funcs=0
 
 cat << "EOF"
-digraph g {
+graph g {
 node [
-shape = "box"
+shape = "plaintext"
+fontsize = 10
+fontname = "Helvetica"
+]
+graph [
+overlap = false
 ]
 EOF
 
@@ -14,26 +19,61 @@ num=0
 
 for i in `find -name "*.php" | grep -v pchart`; do
 
+	l=`wc -l $i | cut -d" " -f1`
+	lines=$((lines + l))
+
 	grep -q -e '^[[:space:]]*function' $i || continue
 
 	echo -n "a$num "
 	num=$((num+1))
 
-	echo -n "[label =\"${i#./}\n"
-	grep -e '^[[:space:]]*function' $i | sed -e 's@^[[:space:]]*function @+@' \
-		-e 's@[[:space:]]*{$@@' | perl -p -e 's@\n@\\n@'
+cat << "EOF"
+[label=<
+<table bgcolor="palegoldenrod" border="0" cellborder="0" cellspacing="0" cellpadding="4">
+<tr><td align="center" bgcolor="olivedrab4">
+<font color="white" face="Helvetica">
+EOF
 
-	echo "\"]"
+	echo "${i#./}</font></td></tr>"
+IFS="
+"
+	for funcname in `grep -e '^[[:space:]]*function' $i | \
+		sed -e 's@^[[:space:]]*function @+@' \
+		-e 's@[[:space:]]*{$@@' | perl -p -e 's@\n@\\n@'`; do
+
+		echo "<tr><td align=\"left\">$funcname</td></tr>"
+	done
+
+	echo "</table>>]"
 
 
 	f=`grep -e '^[[:space:]]*function' $i | wc -l`
 	funcs=$((funcs + f))
-
-	l=`wc -l $i | cut -d" " -f1`
-	lines=$((lines + l))
 done
 
-echo "b [label=\"$lines lines in total (including blanks and comments)\"]"
-echo "c [label=\"$funcs functions\"]"
+cur=0;
+while [ $((cur < num)) -eq 1 ]; do
+	[ $((cur % 6)) -eq 0 ] && echo -n "{ rank=same; "
+	echo -n "a$cur "
+	set=not
+	[ $((cur % 6)) -eq 5 ] && echo " }" && set=set
+	cur=$((cur+1))
+done
+
+[ "$set" = "set" ] || echo " }"
+
+echo "{ rank=same; b c }"
+
+#cur=0;
+#while [ $((cur < num)) -eq 1 ]; do
+#	echo "a$cur -> a$((cur+6))"
+#	cur=$((cur+6))
+#done
+
+echo "b [label=\"$lines lines in total (including blanks and comments)\" \
+	shape=note fillcolor=\"#ccff00\" style=filled]"
+echo "c [label=\"$funcs functions\" shape=note fillcolor=\"#ccff00\" \
+	style=filled]"
+echo "b -- c [style=invis]"
 
 echo "}"

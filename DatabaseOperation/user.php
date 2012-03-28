@@ -247,7 +247,7 @@ function getNewIdeas($userID) {
 				FROM Idea
 				LEFT OUTER JOIN User
 				ON Idea.Inventor = User.UserID
-				WHERE Inventor = :Stalked AND IdeaID >
+				WHERE Inventor = :Stalked AND Status = 'active' AND IdeaID >
 					(SELECT Last_IdeaID
 					FROM User_has_follower
 					WHERE StalkerID = :UserID AND StalkedID = :Stalked)";

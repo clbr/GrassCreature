@@ -117,8 +117,10 @@ function perms_ajaxy() {
 			var str = x.responseText.split('\n');
 			var len = str.length;
 
-			for (var i = 0; i < len; i++) if(str[i].length > 1)
+			for (var i = 0; i < len; i++) if(str[i].length > 1) {
+				if (str[i] == 'Admin') str[i] = 'Everyone';
 				dest.options[dest.options.length] = new Option(str[i], str[i]);
+			}
 		}
 	}
 

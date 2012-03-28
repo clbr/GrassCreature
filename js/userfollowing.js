@@ -23,7 +23,7 @@ function userFollowUser(stalkedid, userid, ideaid) {
 
 	// This function has highlights and whatnot, button effects and interactivity for stopping user following.
 	function stopFollowingUserEff(stalkedid, userid, ideaid) {
-		$('#followUserButton').text("Stop following this user?"+ideaid).css('background-color', '#FF4D4D').fadeIn(1000);
+		$('#followUserButton').text("Stop following this user?").css('background-color', '#FF4D4D').fadeIn(1000);
 
 		$('#followUserButton').mouseout(function() {
 			$('#followUserButton').text("You are following this user.").css('background-color', '#66FF66');

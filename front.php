@@ -41,9 +41,7 @@ if ($sess->isAdmin()) {
 /* Followed idea/users stuffs here. */
 
 if ($sess->isLoggedIn()) {
-	echo '<script type="text/JavaScript">showFollowedUsers(' . $sess->getUserID() . ');</script>';
 	echo "<div id=followedUsers></div><br><br><br>";
-	echo '<script type="text/JavaScript">showFollowedIdeas(' . $sess->getUserID() . ');</script>';
 	echo "<div id=followedIdeas></div><br>";
 }
 
@@ -180,6 +178,14 @@ top10_latest_comments();
 			$('#followedUsers').fadeIn(500);
 		});
 	}
+
+<?php
+if ($sess->isLoggedIn()) {
+	$uid = $sess->getUserID();
+	echo "showFollowedUsers($uid);";
+	echo "showFollowedIdeas($uid);";
+}
+?>
 </script>
 
 </body>

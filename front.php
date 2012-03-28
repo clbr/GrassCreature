@@ -11,8 +11,74 @@
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 	<base target=main>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js" type="text/JavaScript"></script>
-	<script type="text/JavaScript">
+</head>
+
+<body class=lining>
+
+
+<h1 id=frontwelcome>Welcome to the Ideabank!</h1>
+
+
+<?php
+
+
+require_once("DatabaseOperation/accept.php");
+require_once("Top10.php");
+
+if ($sess->isAdmin()) {
+
+	$num = countNewIdeas();
+
+	if ($num > 0) {
+		echo "<div id=adminnote class=ideabox>\n" .
+			"<a href=\"accept.php\">" .
+			"You have $num new ideas to accept.</a><br>" .
+			"</div><p>\n";
+	}
+
+}
+
+/* Followed idea/users stuffs here. */
+
+if ($sess->isLoggedIn()) {
+	echo "<div id=followedUsers></div><br><br><br>";
+	echo "<div id=followedIdeas></div><br>";
+}
+
+?>
+
+<div id=newestideas class=ideabox>
+<h3>Top 10 newest ideas</h3>
+<?php
+top10_newest();
+?>
+</div>
+
+<div id=bestideas class=ideabox>
+<h3>Top 10 best ideas</h3>
+<?php
+top10_rated();
+?>
+</div>
+
+<div id=mostcommentedideas class=ideabox>
+<h3>Top 10 most commented ideas</h3>
+<?php
+top10_commented();
+?>
+</div>
+
+<div id=lastcommentedideas class=ideabox>
+<h3>Top 10 newest comments</h3>
+<?php
+top10_latest_comments();
+?>
+</div>
+
+
+<script src="js/js.js" type="text/javascript"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js" type="text/JavaScript"></script>
+<script type="text/JavaScript">
 
 	/* Idea following stuff, show new comments in followed ideas */
 
@@ -58,7 +124,7 @@
 				document.getElementById("followedIdeas").innerHTML += "<div>Idea <a href='showIdea.php?id=" + ideas[i].ideaID + "'>" + ideas[i].ideaname +
 					"</a> has <b><span style='color:#248F24'>" + ideas[i].comments + "</span></b> new comments.</div>";
 			}
-			
+
 			$('#followedIdeas').fadeIn(500);
 		});
 	}
@@ -112,75 +178,15 @@
 			$('#followedUsers').fadeIn(500);
 		});
 	}
-</script>
-</head>
-
-<body class=lining>
-
-
-<h1 id=frontwelcome>Welcome to the Ideabank!</h1>
-
 
 <?php
-
-
-require_once("DatabaseOperation/accept.php");
-require_once("Top10.php");
-
-if ($sess->isAdmin()) {
-
-	$num = countNewIdeas();
-
-	if ($num > 0) {
-		echo "<div id=adminnote class=ideabox>\n" .
-			"<a href=\"accept.php\">" .
-			"You have $num new ideas to accept.</a><br>" .
-			"</div><p>\n";
-	}
-
-}
-
-/* Followed idea/users stuffs here. */
-
 if ($sess->isLoggedIn()) {
-	echo '<script type="text/JavaScript">showFollowedUsers(' . $sess->getUserID() . ');</script>';
-	echo "<div id=followedUsers></div><br><br><br>";
-	echo '<script type="text/JavaScript">showFollowedIdeas(' . $sess->getUserID() . ');</script>';
-	echo "<div id=followedIdeas></div><br>";
+	$uid = $sess->getUserID();
+	echo "showFollowedUsers($uid);";
+	echo "showFollowedIdeas($uid);";
 }
-
 ?>
-
-<div id=newestideas class=ideabox>
-<h3>Top 10 newest ideas</h3>
-<?php
-top10_newest();
-?>
-</div>
-
-<div id=bestideas class=ideabox>
-<h3>Top 10 best ideas</h3>
-<?php
-top10_rated();
-?>
-</div>
-
-<div id=mostcommentedideas class=ideabox>
-<h3>Top 10 most commented ideas</h3>
-<?php
-top10_commented();
-?>
-</div>
-
-<div id=lastcommentedideas class=ideabox>
-<h3>Top 10 newest comments</h3>
-<?php
-top10_latest_comments();
-?>
-</div>
-
-
-<script src="js/js.js" type="text/javascript"></script>
+</script>
 
 </body>
 </html>

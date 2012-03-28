@@ -13,11 +13,6 @@ $sess->mustBeLoggedIn();
 	<link href="css/style.css" rel="stylesheet" type="text/css">
 	<link rel="icon" href="favicon.ico" type="image/x-icon">
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-	<script src="http://jquery-ui.googlecode.com/svn/tags/latest/ui/minified/i18n/jquery-ui-i18n.min.js" type="text/javascript"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-			<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js" type="text/javascript"></script>
-			<script src="http://jquery-ui.googlecode.com/svn/tags/latest/external/jquery.bgiframe-2.1.2.js" type="text/javascript"></script>
-			<script src="http://jquery-ui.googlecode.com/svn/tags/latest/ui/minified/i18n/jquery-ui-i18n.min.js" type="text/javascript"></script>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 	<base target=main>
 </head>
@@ -87,8 +82,8 @@ $i++;
 
 
 			<br>
-			<input type=radio name=permissions value=opentoall checked> Viewable by all
-			<input type=radio name=permissions value=restrict> Specify permissions
+			<input type=radio name=permissions value=opentoall checked> Viewable by all (public)
+			<input type=radio name=permissions value=restrict> Specify permissions (private)
 			<br>
 
 			<br>
@@ -163,6 +158,10 @@ function addidea_check() {
 }
 
 </script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js" type="text/javascript"></script>
+<script src="http://jquery-ui.googlecode.com/svn/tags/latest/external/jquery.bgiframe-2.1.2.js" type="text/javascript"></script>
+<script src="http://jquery-ui.googlecode.com/svn/tags/latest/ui/minified/i18n/jquery-ui-i18n.min.js" type="text/javascript"></script>
 
 </body>
 </html>

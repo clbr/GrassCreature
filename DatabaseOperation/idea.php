@@ -226,12 +226,8 @@ function getIdea($id, $userID, $isAdmin) {
 	$db = db_connect();
 
 	// Admin can view any idea.
-	if ($isAdmin) goto override;
-
-	if (!canView($id, $userID))
+	if (!$isAdmin && !canView($id, $userID))
 		die("You don't have permission to view this idea.");
-
-	override:
 
 	$st = $db->prepare("select IdeaID, Name, Description, Version, Status, Cost, AdditionalInfo, BasedOn, RequestDate, AddingDate, Inventor, AcceptedDate from Idea where IdeaID=?");
 	$st->bind_param('i', $id);
@@ -423,6 +419,7 @@ function canComment($id, $uid) {
 
 	$db = db_connect();
 
+	// inventor can always do anything
 	$inv = getIdeaInventor($id);
 	if ($inv == $uid) return true;
 
@@ -443,12 +440,11 @@ function canComment($id, $uid) {
 		$st->execute();
 		$st->bind_result($view);
 		while ($st->fetch()) {
-			if ($view) goto ok;
+			if ($view) return true;
 		}
 
 		return false;
 
-		ok:
 		$st->close();
 
 	}
@@ -460,6 +456,7 @@ function canEdit($id, $uid) {
 
 	$db = db_connect();
 
+	// inventor can always do anything
 	$inv = getIdeaInventor($id);
 	if ($inv == $uid) return true;
 
@@ -480,12 +477,11 @@ function canEdit($id, $uid) {
 		$st->execute();
 		$st->bind_result($view);
 		while ($st->fetch()) {
-			if ($view) goto ok;
+			if ($view) return true;
 		}
 
 		return false;
 
-		ok:
 		$st->close();
 
 	}
@@ -497,6 +493,7 @@ function canView($id, $uid) {
 
 	$db = db_connect();
 
+	// inventor can always do anything
 	$inv = getIdeaInventor($id);
 	if ($inv == $uid) return true;
 
@@ -517,12 +514,11 @@ function canView($id, $uid) {
 		$st->execute();
 		$st->bind_result($view);
 		while ($st->fetch()) {
-			if ($view) goto ok;
+			if ($view) return true;
 		}
 
 		return false;
 
-		ok:
 		$st->close();
 
 	}

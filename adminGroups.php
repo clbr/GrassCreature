@@ -48,6 +48,10 @@ else
 ?>
 </h2>
 
+Groups can be useful for limiting access, editing and commenting rights.<br>
+You can for example only allow editing to the group that is implementing an idea.<br><br>
+
+
 <form action=adminGroups.php method=post class=indent>
 
 <input type=button name=add value="Create new group" onclick='groupadd()''>

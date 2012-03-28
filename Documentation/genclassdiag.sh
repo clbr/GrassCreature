@@ -39,7 +39,7 @@ IFS="
 "
 	for funcname in `grep -e '^[[:space:]]*function' $i | \
 		sed -e 's@^[[:space:]]*function @+@' \
-		-e 's@[[:space:]]*{$@@' | perl -p -e 's@\n@\\n@'`; do
+		-e 's@[[:space:]]*{$@@' | perl -p -e 's@\n@\\n@' | sort`; do
 
 		echo "<tr><td align=\"left\">$funcname</td></tr>"
 	done

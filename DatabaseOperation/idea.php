@@ -401,6 +401,9 @@ function canComment($id, $uid) {
 
 	$db = db_connect();
 
+	$inv = getIdeaInventor($id);
+	if ($inv == $uid) return true;
+
 	// Check if everyone has the right to comment on this idea
 	$st = $db->prepare("select CanComment from Idea_has_Group where Idea_IdeaID = ? and Group_GroupID = 0") or die($db->error);
 	$st->bind_param('i', $id);
@@ -435,6 +438,9 @@ function canEdit($id, $uid) {
 
 	$db = db_connect();
 
+	$inv = getIdeaInventor($id);
+	if ($inv == $uid) return true;
+
 	// Check if everyone has the right to edit this idea
 	$st = $db->prepare("select CanEdit from Idea_has_Group where Idea_IdeaID = ? and Group_GroupID = 0") or die($db->error);
 	$st->bind_param('i', $id);
@@ -468,6 +474,9 @@ function canEdit($id, $uid) {
 function canView($id, $uid) {
 
 	$db = db_connect();
+
+	$inv = getIdeaInventor($id);
+	if ($inv == $uid) return true;
 
 	// Check if everyone has the right to view this idea
 	$st = $db->prepare("select CanView from Idea_has_Group where Idea_IdeaID = ? and Group_GroupID = 0") or die($db->error);

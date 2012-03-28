@@ -121,7 +121,7 @@ top10_latest_comments();
 			$('#followedIdeas').empty().css('cursor', 'auto');
 
 			for (i in ideas) {
-				document.getElementById("followedIdeas").innerHTML += "<div>Idea <a href='showIdea.php?id=" + ideas[i].ideaID + "'>" + ideas[i].ideaname +
+				document.getElementById("followedIdeas").innerHTML += "<div>Idea <a href='showIdea.php?id=" + ideas[i].ideaID + "#" + ideas[i].commentID + "'>" + ideas[i].ideaname +
 					"</a> has <b><span style='color:#248F24'>" + ideas[i].comments + "</span></b> new comments.</div>";
 			}
 

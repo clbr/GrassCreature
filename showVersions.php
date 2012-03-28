@@ -39,8 +39,32 @@ if ($sess->isAdmin()) {
 	require_once("DatabaseOperation/idea.php");
 	$versions = getVersions($ideaID);
 	echo "<pre>"; var_dump($versions); echo "</pre><br><br>";
-	echo $versions[0]->Name;
-	
+
+	for ($i = 0; $i < count($versions); $i++) {
+		echo "<div id=idea" . $versions[$i]->Version . " class=ideaboxtrans>\n" .			
+			"<input type=hidden name=id value=hiddenplaceholder>\n" .
+			"<table border=0 class=highlight>\n" .
+			"\t<tr><td>Version</td><td>" . $versions[$i]->Version . "</td></tr>\n" .
+			"\t<tr><td>Name</td><td>" . $versions[$i]->Name . "</td></tr>\n" .
+			"\t<tr><td>Description</td><td>" . $versions[$i]->Description . "</td></tr>\n" .
+			"\t<tr><td id=idealeft>Status</td><td>" . $versions[$i]->Status . "</td></tr>\n";
+
+		if (isset($versions[$i]->Cost)) echo "\t<tr><td>Cost</td><td>" . $versions[$i]->Cost . "</td></tr>\n";
+		if (isset($versions[$i]->AdditionalInfo)) echo "\t<tr><td>Additional info</td><td>" . $versions[$i]->AdditionalInfo . "</td></tr>\n";
+		if (isset($versions[$i]->BasedOn)) echo "\t<tr><td>Based on</td><td><a href=\"showIdea.php?id=" . $versions[$i]->BasedOn . "\">" . $versions[$i]->BasedOn . "</a></td></tr>\n";
+		if (isset($versions[$i]->RequestDate)) echo "\t<tr><td>Requested date</td><td>" . $versions[$i]->RequestDate . "</td></tr>\n" .
+
+			"\t<tr><td>Accepted date</td><td>" . $versions[$i]->AcceptedDate . "</td></tr>\n" .
+			"\t<tr><td>Added date</td><td>" . $versions[$i]->AddingDate . "</td></tr>\n" .
+			"\t<tr><td class=bottom>Inventor</td><td class=bottom><a href=\"showUser.php?id=" . $versions[$i]->Inventor . "\">username tähän</a>\t";
+
+
+		echo "</td></tr>\n" .
+
+	//			"\t<tr><td></td><td></td></tr>\n" .
+
+			"</table></div>\n";
+	}
 }
 
 

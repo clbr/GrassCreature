@@ -276,6 +276,7 @@ function getIdea($id, $userID, $isAdmin) {
 
 		echo "</td></tr>\n" .
 
+// For lazy coders:
 //			"\t<tr><td></td><td></td></tr>\n" .
 
 			"</table>\n";

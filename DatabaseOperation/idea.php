@@ -45,6 +45,29 @@
 		$stmt->bind_param('isssisisii', $ideaID, $name, $status , $desc, $version, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);
 		$stmt->execute();
 	}
+	
+	function getVersions($ideaID) {
+		try {
+			$pdo = pdo_connect();
+
+			$sql = "SELECT * FROM Version WHERE IdeaID = :IdeaID ORDER BY IdeaID DESC";
+			$stmt = $pdo->prepare($sql);
+			$stmt->bindParam(':IdeaID', $ideaID);
+			$stmt->execute();
+			$pdo = null; // Close connection.
+
+			$versions = array();
+			while ($version = $stmt->fetch(PDO::FETCH_OBJ))
+				$versions[] = $version;
+
+			//echo "<pre>"; var_dump($stmt); echo "</pre>";
+			return $versions;
+		}
+		catch (PDOException $err)
+		{
+			echo $err;
+		}
+	}
 
 	function editIdea($ideaID, $name, $desc, $reqdate, $cost, $additionalInfo, $basedOn, $version, $inventorID) {
 		$mysqli = db_connect();
@@ -273,6 +296,8 @@ function getIdea($id, $userID, $isAdmin) {
 			echo "<hr><a href='adminEditIdea.php?ideaid=$id'><br>Edit idea as admin</a>";
 			echo " &diams; ";
 			echo "<a href='perms.php?id=$id'>Edit permissions</a><br><br>";
+			echo " &diams; ";
+			echo "<a href='showVersions.php?id=$id'>Show versions</a><br><br>";
 			echo "<form method=post action=showIdea.php?id=$id>";
 
 			if ($Status == 'new')

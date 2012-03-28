@@ -382,3 +382,6 @@ hr.shortline {
 #followedUsers:hover { cursor: pointer; }
 
 
+#addideaform input, #addideaform textarea {
+	margin-bottom: 0.5em;
+}

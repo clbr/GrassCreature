@@ -87,8 +87,8 @@ $i++;
 
 
 			<br>
-			<input type=radio name=permissions value=opentoall checked> Viewable by all
-			<input type=radio name=permissions value=restrict> Specify permissions
+			<input type=radio name=permissions value=opentoall checked> Viewable by all (public)
+			<input type=radio name=permissions value=restrict> Specify permissions (private)
 			<br>
 
 			<br>

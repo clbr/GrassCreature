@@ -3,10 +3,17 @@
 lines=0
 funcs=0
 
+cat << "EOF"
+node [
+shape = "box"
+]
+EOF
+
 for i in `find -name "*.php" | grep -v pchart`; do
 
-	echo "$i:"
-	grep -e '^[[:space:]]*function' $i
+	echo "${i#./}:"
+	grep -e '^[[:space:]]*function' $i | sed -e 's@^[[:space:]]*@@' \
+		-e 's@[[:space:]]*{$@@'
 
 	f=`grep -e '^[[:space:]]*function' $i | wc -l`
 	funcs=$((funcs + f))

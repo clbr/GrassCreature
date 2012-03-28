@@ -123,8 +123,6 @@ function perms_ajaxy() {
 	}
 
 	x.send('call=groups');
-
-	dest.innerHTML = "<img src=\"img/loading.gif\" width=16 height=16>";
 }
 
 </script>

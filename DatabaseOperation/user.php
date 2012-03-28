@@ -256,10 +256,12 @@ function getNewIdeas($userID) {
 			$stmt2->bindParam(':UserID', $userID);
 			$stmt2->execute();
 
-			$newideas = $stmt2->fetch(PDO::FETCH_OBJ);
-			//echo $newideas->Count . "<br>";
-			if (isset($newideas->IdeaID))
-				$uwni[] = $newideas;
+			// Needs a loop, because one inventor can have more than one new ideas added!!
+			while ($newideas = $stmt2->fetch(PDO::FETCH_OBJ)) {
+				//echo $newideas->Count . "<br>";
+				if (isset($newideas->IdeaID))
+					$uwni[] = $newideas;
+			}
 				
 				/*array('StalkedID' => (int)$followed_user->StalkedID, 'username' => $newideas->Username, 'userID' => $newideas->UserID,
 					'ideas' => (int)$newideas->Count, 'ideaID' => (int)$newideas->IdeaID, 'ideaname' => $newideas->Ideaname);*/			

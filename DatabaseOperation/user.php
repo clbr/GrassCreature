@@ -277,4 +277,16 @@ function getNewIdeas($userID) {
 }
 
 
+function listUsers() {
+
+	$db = db_connect();
+
+	$st = $db->query("select Name from User") or die($db->error);
+
+	while ($row = $st->fetch_row())
+		echo "$row[0]\n";
+
+	$db->close();
+}
+
 ?>

@@ -44,5 +44,9 @@
 			require_once("DatabaseOperation/groups.php");
 			listGroups();
 			break;
+		case 'users':
+			require_once("DatabaseOperation/user.php");
+			listUsers();
+			break;
 	}
 ?>

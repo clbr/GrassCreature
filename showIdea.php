@@ -48,7 +48,7 @@ if ($sess->isLoggedIn())
 
 /* Notification if coming from changing versions */
 
-//if ($sess->isAdmin() && isset($_POST['versionChanged']))
+if ($sess->isAdmin() && isset($_GET['versionChanged']))
 	echo "<span id='versionChanged'>The idea has been reverted to version " . $_GET['versionChanged'] . ".</span><br>";
 
 /* Show the actual idea */

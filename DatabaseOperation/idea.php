@@ -51,7 +51,7 @@
 			$pdo = pdo_connect();
 
 			$sql = "SELECT VersionID, IdeaID, Version.Name, Description, Version, Status, Cost, AdditionalInfo, BasedOn,
-				DATE_FORMAT(RequestDate, '%d.%m.%Y') AS RequestDate, AddingDate, Inventor, DATE_FORMAT(AcceptDate, '%d.%m.%Y %H:%i:%s') AS AcceptDate,
+				DATE_FORMAT(RequestDate, '%d.%m.%Y') AS RequestDate, AddingDate, Inventor, DATE_FORMAT(AcceptedDate, '%d.%m.%Y %H:%i:%s') AS AcceptedDate,
 				User.Name AS Username
 				FROM Version
 				LEFT OUTER JOIN User
@@ -237,7 +237,7 @@ function getIdea($id, $userID, $isAdmin) {
 		die("You don't have permission to view this idea.");
 
 	$st = $db->prepare("select IdeaID, Name, Description, Version, Status, Cost, AdditionalInfo, BasedOn, DATE_FORMAT(RequestDate, '%d.%m.%Y') AS RequestDate,
-		DATE_FORMAT(AddingDate, '%d.%m.%Y %H:%i:%s') AS AddingDate, Inventor, DATE_FORMAT(AcceptDate, '%d.%m.%Y %H:%i:%s') AS AcceptDate
+		DATE_FORMAT(AddingDate, '%d.%m.%Y %H:%i:%s') AS AddingDate, Inventor, DATE_FORMAT(AcceptedDate, '%d.%m.%Y %H:%i:%s') AS AcceptedDate
 		from Idea where IdeaID=?");
 	$st->bind_param('i', $id);
 

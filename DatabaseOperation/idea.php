@@ -11,7 +11,7 @@
 		$additionalInfo = htmlspecialchars($additionalInfo);
 
 		$sql = "INSERT INTO Idea (Name, Description, Version, RequestDate, Cost, AdditionalInfo, BasedOn, Inventor, Status, AddingDate) VALUES (
-			?, ?, ?, ?, ?, ?, ?, ?, 'new', NOW())";
+			?, ?, ?, STR_TO_DATE(?, '%d.%m.%Y'), ?, ?, ?, ?, 'new', NOW())";
 		$stmt = $mysqli->prepare($sql);
 		$stmt->bind_param('ssisisii', $name, $desc, $version = 1, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);
 		$stmt->execute();
@@ -40,7 +40,7 @@
 		$mysqli = db_connect();
 
 		$sql = "INSERT INTO Version (IdeaID, Name, Status, Description, Version, RequestDate, Cost, AdditionalInfo, BasedOn, Inventor) VALUES (
-			?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			?, ?, ?, ?, ?, STR_TO_DATE(?, '%d.%m.%Y'), ?, ?, ?, ?)";
 		$stmt = $mysqli->prepare($sql);
 		$stmt->bind_param('isssisisii', $ideaID, $name, $status , $desc, $version, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);
 		$stmt->execute();
@@ -50,8 +50,9 @@
 		try {
 			$pdo = pdo_connect();
 
-			$sql = "SELECT VersionID, IdeaID, Version.Name, Description, Version, Status, Cost, AdditionalInfo, BasedOn, RequestDate, AddingDate,
-				Inventor, AcceptedDate, User.Name AS Username
+			$sql = "SELECT VersionID, IdeaID, Version.Name, Description, Version, Status, Cost, AdditionalInfo, BasedOn,
+				DATE_FORMAT(RequestDate, '%d.%m.%Y') AS RequestDate, AddingDate, Inventor, DATE_FORMAT(AcceptDate, '%d.%m.%Y %H:%i:%s') AS AcceptDate,
+				User.Name AS Username
 				FROM Version
 				LEFT OUTER JOIN User
 				ON Version.Inventor = User.UserID
@@ -84,11 +85,11 @@
 		// Before editing all current info will be retrieved from db to textfields for user to edit.
 		$version++;
 
-		$sql = "UPDATE Idea SET Name = ?, Description = ?, Version = ?, RequestDate = ?, Cost = ?, AdditionalInfo = ?,
-			BasedOn = ?, WHERE IdeaID = $ideaID";
+		$sql = "UPDATE Idea SET Name = ?, Description = ?, Version = ?, RequestDate = STR_TO_DATE(?, '%d.%m.%Y'), Cost = ?, AdditionalInfo = ?,
+			BasedOn = ?, WHERE IdeaID = ?";
 
 		$stmt = $mysqli->prepare($sql);
-		$stmt->bind_param('ssisisi', $name, $desc, $version, $reqdate, $cost, $additionalInfo, $basedOn);
+		$stmt->bind_param('ssisisii', $name, $desc, $version, $reqdate, $cost, $additionalInfo, $basedOn, $ideaID);
 		$stmt->execute();
 
 		// Return ID for images.
@@ -118,20 +119,21 @@
 		// Before editing all current info will be retrieved from db to textfields for user to edit.
 		$version++;
 
-		$sql = "UPDATE Idea SET Name = ?, Description = ?, Version = ?, Status = ?, RequestDate = ?, Cost = ?, AdditionalInfo = ?,
-			BasedOn = ?, Inventor = ? WHERE IdeaID = $ideaID";
+		$sql = "UPDATE Idea SET Name = ?, Description = ?, Version = ?, Status = ?, RequestDate = STR_TO_DATE(?, '%d.%m.%Y'), Cost = ?, AdditionalInfo = ?,
+			BasedOn = ?, Inventor = ? WHERE IdeaID = ?";
 
 		$stmt = $mysqli->prepare($sql);
-		$stmt->bind_param('ssisiisii', $name, $desc, $version, $status, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);
+		$stmt->bind_param('ssisiisiii', $name, $desc, $version, $status, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID, $ideaID);
 		$stmt->execute();
 	}
 
 	function removeIdeaPermanently($ideaID) {
 		$mysqli = db_connect();
 
-		$sql = "DELETE FROM Idea WHERE IdeaID = $ideaID";
-		$mysqli->query($sql) or die($mysqli->error);
-		$mysqli->close();
+		$sql = "DELETE FROM Idea WHERE IdeaID = ?";
+		$stmt = $mysqli->prepare($sql);
+		$stmt->bind_param('i', $ideaID);
+		$stmt->execute();
 	}
 
 function addVote($vote, $ideaID, $userID) {
@@ -234,7 +236,9 @@ function getIdea($id, $userID, $isAdmin) {
 	if (!$isAdmin && !canView($id, $userID))
 		die("You don't have permission to view this idea.");
 
-	$st = $db->prepare("select IdeaID, Name, Description, Version, Status, Cost, AdditionalInfo, BasedOn, RequestDate, AddingDate, Inventor, AcceptedDate from Idea where IdeaID=?");
+	$st = $db->prepare("select IdeaID, Name, Description, Version, Status, Cost, AdditionalInfo, BasedOn, DATE_FORMAT(RequestDate, '%d.%m.%Y') AS RequestDate,
+		DATE_FORMAT(AddingDate, '%d.%m.%Y %H:%i:%s') AS AddingDate, Inventor, DATE_FORMAT(AcceptDate, '%d.%m.%Y %H:%i:%s') AS AcceptDate
+		from Idea where IdeaID=?");
 	$st->bind_param('i', $id);
 
 	$st->execute();

@@ -119,10 +119,10 @@
 		$version++;
 
 		$sql = "UPDATE Idea SET Name = ?, Description = ?, Version = ?, Status = ?, RequestDate = ?, Cost = ?, AdditionalInfo = ?,
-			BasedOn = ? WHERE IdeaID = $ideaID";
+			BasedOn = ?, Inventor = ? WHERE IdeaID = $ideaID";
 
 		$stmt = $mysqli->prepare($sql);
-		$stmt->bind_param('ssisiisi', $name, $desc, $version, $status, $reqdate, $cost, $additionalInfo, $basedOn);
+		$stmt->bind_param('ssisiisii', $name, $desc, $version, $status, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);
 		$stmt->execute();
 	}
 

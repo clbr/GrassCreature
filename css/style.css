@@ -403,3 +403,14 @@ tr.diffNew{
 table.versions td, table.versions th {
 	padding: 0.5em;
 }
+
+#versionChanged{
+	background-color:#FFAF66;	
+	border: 1px solid blue; 
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius:10px;
+	display: inline-block;
+	margin-bottom: 2em;	
+	padding: 0.6em;		
+}

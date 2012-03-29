@@ -79,7 +79,7 @@ $sess->mustBeLoggedIn();
 
 			// and edit the idea with new data.
 			$ideaID = adminEditIdea($ideaid, $_POST['IdeaStatus'], $_POST['IdeaName'], $_POST['desc'], $_POST['ReqDate'], $_POST['CostEst'], $_POST['AddInfo'], $_POST['BasedOn'],
-				$idea->Version, $sess->getUserID());
+				$idea->Version, $idea->Inventor);
 
 			// Upload image if there are any. Uploads the image to a folder with the same name as the idea's id.
 			if (!$_FILES['file']['type'] == "")

@@ -19,10 +19,14 @@ num=0
 
 for i in `find -name "*.php" | grep -v pchart`; do
 
-	l=`wc -l $i | cut -d" " -f1`
+	conts=`cat $i`
+
+	l=`echo "$conts" | wc -l`
 	lines=$((lines + l))
 
-	grep -q -e '^[[:space:]]*function' $i || continue
+	conts=${conts/<script*<\/script>/}
+
+	echo "$conts" | grep -q -e '^[[:space:]]*function' || continue
 
 	echo -n "a$num "
 	num=$((num+1))
@@ -37,7 +41,7 @@ EOF
 	echo "${i#./}</font></td></tr>"
 IFS="
 "
-	for funcname in `grep -e '^[[:space:]]*function' $i | \
+	for funcname in `echo "$conts" | grep -e '^[[:space:]]*function' | \
 		sed -e 's@^[[:space:]]*function @+@' \
 		-e 's@[[:space:]]*{$@@' | perl -p -e 's@\n@\\n@' | sort`; do
 
@@ -47,7 +51,7 @@ IFS="
 	echo "</table>>]"
 
 
-	f=`grep -e '^[[:space:]]*function' $i | wc -l`
+	f=`echo "$conts" | grep -e '^[[:space:]]*function' | wc -l`
 	funcs=$((funcs + f))
 done
 

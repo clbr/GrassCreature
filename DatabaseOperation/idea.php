@@ -50,7 +50,12 @@
 		try {
 			$pdo = pdo_connect();
 
-			$sql = "SELECT * FROM Version WHERE IdeaID = :IdeaID ORDER BY IdeaID DESC";
+			$sql = "SELECT VersionID, IdeaID, Version.Name, Description, Version, Status, Cost, AdditionalInfo, BasedOn, RequestDate, AddingDate,
+				Inventor, AcceptedDate, User.Name AS Username
+				FROM Version
+				LEFT OUTER JOIN User
+				ON Version.Inventor = User.UserID
+				WHERE IdeaID = :IdeaID ORDER BY Version DESC";
 			$stmt = $pdo->prepare($sql);
 			$stmt->bindParam(':IdeaID', $ideaID);
 			$stmt->execute();
@@ -80,10 +85,10 @@
 		$version++;
 
 		$sql = "UPDATE Idea SET Name = ?, Description = ?, Version = ?, RequestDate = ?, Cost = ?, AdditionalInfo = ?,
-			BasedOn = ?, Inventor = ? WHERE IdeaID = $ideaID";
+			BasedOn = ?, WHERE IdeaID = $ideaID";
 
 		$stmt = $mysqli->prepare($sql);
-		$stmt->bind_param('ssisisii', $name, $desc, $version, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);
+		$stmt->bind_param('ssisisi', $name, $desc, $version, $reqdate, $cost, $additionalInfo, $basedOn);
 		$stmt->execute();
 
 		// Return ID for images.
@@ -114,10 +119,10 @@
 		$version++;
 
 		$sql = "UPDATE Idea SET Name = ?, Description = ?, Version = ?, Status = ?, RequestDate = ?, Cost = ?, AdditionalInfo = ?,
-			BasedOn = ?, Inventor = ? WHERE IdeaID = $ideaID";
+			BasedOn = ? WHERE IdeaID = $ideaID";
 
 		$stmt = $mysqli->prepare($sql);
-		$stmt->bind_param('ssisiisii', $name, $desc, $version, $status, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);
+		$stmt->bind_param('ssisiisi', $name, $desc, $version, $status, $reqdate, $cost, $additionalInfo, $basedOn);
 		$stmt->execute();
 	}
 

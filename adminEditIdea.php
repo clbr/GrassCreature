@@ -61,10 +61,10 @@ $sess->mustBeLoggedIn();
 				<input Name="BasedOn" rows="1" cols="20" value="'.$idea->BasedOn.'"><br>
 				Status:<br>
 				<select id="IdeaStatus" name="IdeaStatus">
-					<option value="Active" '; if ($idea->Status == 'active') { echo 'selected="selected"'; } echo '>Active</option>
-					<option value="Closed" '; if ($idea->Status == 'closed') { echo 'selected="selected"'; } echo '>Closed</option>
-					<option value="In implementation" '; if ($idea->Status == 'in implementation') { echo 'selected="selected"'; } echo '>In implementation</option>
-					<option value="Implemented" '; if ($idea->Status == 'implementation') { echo 'selected="selected"'; } echo '>Implemented</option>
+					<option value="active" '; if ($idea->Status == 'active') { echo 'selected="selected"'; } echo '>Active</option>
+					<option value="closed" '; if ($idea->Status == 'closed') { echo 'selected="selected"'; } echo '>Closed</option>
+					<option value="in implementation" '; if ($idea->Status == 'in implementation') { echo 'selected="selected"'; } echo '>In implementation</option>
+					<option value="implemented" '; if ($idea->Status == 'implementation') { echo 'selected="selected"'; } echo '>Implemented</option>
 				</select><br>
 				Attach image:<br>
 				<input type="file" name="file" id="file"><br>

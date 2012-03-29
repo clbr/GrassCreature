@@ -385,3 +385,21 @@ hr.shortline {
 #addideaform input, #addideaform textarea {
 	margin-bottom: 0.5em;
 }
+
+tr.diffOld {
+	background-color:#FF3333;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius:10px;
+}
+
+tr.diffNew{
+	background-color:green;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius:10px;
+}
+
+table.versions td, table.versions th {
+	padding: 0.5em;
+}

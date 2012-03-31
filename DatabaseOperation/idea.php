@@ -230,6 +230,8 @@ function getIdeaInventor($id) {
 // possible when using a parameterized query (!!)
 function getIdea($id, $userID, $isAdmin) {
 
+	global $sess;
+
 	$db = db_connect();
 
 	// Admin can view any idea.
@@ -271,17 +273,18 @@ function getIdea($id, $userID, $isAdmin) {
 			"\t<tr><td>Added date</td><td>$AddDate</td></tr>\n" .
 			"\t<tr><td class=bottom>Inventor</td><td class=bottom><a href=\"showUser.php?id=$Inventor\">$uname</a>\t";
 
-		// Userfollowing stuff:
-		// This has to be done here in orded to have the button visible where it is now.
-		require_once("DatabaseOperation/user.php");
-		if (userIsFollowingUser($Inventor,  $userID)) {
-			// ideaID also needs to be sent, it is used when userfollowing is stopped and the page reloads to show the correct idea again.
-			echo "<span id='followUserButton' onmouseover='stopFollowingUserEff(" . $Inventor . ", " . $userID . ", " . $id .
-				")' style='background-color:#66FF66;'>You are following this user.</span>";
-			setLastSeenIdea($Inventor,  $userID);
+		if ($sess->isLoggedIn()) {
+			// Userfollowing stuff:
+			// This has to be done here in orded to have the button visible where it is now.
+			require_once("DatabaseOperation/user.php");
+			if (userIsFollowingUser($Inventor,  $userID)) {
+				// ideaID also needs to be sent, it is used when userfollowing is stopped and the page reloads to show the correct idea again.
+				echo "<span id='followUserButton' onmouseover='stopFollowingUserEff(" . $Inventor . ", " . $userID . ", " . $id .
+					")' style='background-color:#66FF66;'>You are following this user.</span>";
+				setLastSeenIdea($Inventor,  $userID);
+			} else
+				echo "<span id='followUserButton' onclick='userFollowUser(" . $Inventor . ", " . $userID . ", " . $id . ")'>Follow this user</span>";
 		}
-		else
-			echo "<span id='followUserButton' onclick='userFollowUser(" . $Inventor . ", " . $userID . ", " . $id . ")'>Follow this user</span>";
 
 		echo "</td></tr>\n" .
 

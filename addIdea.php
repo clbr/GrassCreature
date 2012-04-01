@@ -32,7 +32,7 @@ $sess->mustBeLoggedIn();
 	<div id="ideaForms" class="IdeaAdd">
 		<form method="POST" action="addIdea.php" enctype="multipart/form-data" id=addideaform>
 			*Idea name:<br>
-			<input type="text" id="IdeaName" name="IdeaName"><br>
+			<input name="IdeaName" type="text" id="IdeaName"><br>
 
 			*Idea description:<br>
 			<TEXTAREA name="desc" rows="10" cols="70" id="IdeaDesc"></TEXTAREA><br>
@@ -126,13 +126,14 @@ function addidea_check() {
 	name = document.getElementById('IdeaName');
 	desc = document.getElementById('IdeaDesc');
 
-	if (name.value.length < 1 || desc.value.length < 1) {
+	if (name.value.lenght<1 || desc.value.lenght<1) {
 		alert("Please fill all required fields (marked by *)");
 		return;
 	}
 
 	form.submit();
 }
+
 
 </script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>

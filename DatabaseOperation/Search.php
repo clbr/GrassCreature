@@ -95,7 +95,7 @@ if(empty($_POST['inventor']) && !empty($_POST['tags'])){
 						  FROM Idea, User
 						  WHERE Status= (?)
 						  AND UserID = Inventor and (Idea.Name LIKE CONCAT('%',(?),'%')
-
+						  
 
 						  ORDER BY AddingDate ";
 						  if ($date == "Newest")
@@ -108,7 +108,7 @@ if(empty($_POST['inventor']) && !empty($_POST['tags'])){
 		}
 $stmt = $mysqli->prepare($sql);
 
-$stmt->bind_param("ss",$status1, $inventor1);
+$stmt->bind_param("sss",$status1, $inventor1);
   }
 
 
@@ -152,13 +152,6 @@ $stmt->bind_param("ssss", $status1, $inventor1, $keyword2, $keyword2);
 
 
 	if (!$stmt) die ("NOOOOOO " . $mysqli->error);
-
-
-
-
-
-
-
 
 
 $stmt->execute();

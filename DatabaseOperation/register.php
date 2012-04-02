@@ -11,7 +11,7 @@ function register_user($uname, $mail, $pw, $comp = "", $compadd = "") {
 	$comp = htmlspecialchars($comp);
 	$compadd = htmlspecialchars($compadd);
 
-	$st = $db->prepare("insert into User (Name, Email, PwdHash, Company, CompanyAddress) values (?, ?, ?, ?, ?)");
+	$st = $db->prepare("insert into User (Name, Email, PwdHash, Company, CompanyAddress, JoinDate) values (?, ?, ?, ?, ?, now())");
 	if (!$st)
 		die($db->error);
 

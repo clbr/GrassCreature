@@ -278,13 +278,17 @@ function getVote($ideaID) {
 }
 
 	function getIdeaInfo($ideaID) {
-		$mysqli = db_connect();
+		$pdo = pdo_connect();
 
 		$sql = "select IdeaID, Name, Description, Version, Status, Cost, AdditionalInfo, BasedOn, DATE_FORMAT(RequestDate, '%e.%c.%Y') AS RequestDate, Inventor,
 			DATE_FORMAT(AddingDate, '%e.%c.%Y %H:%i:%s') AS AddingDate,  DATE_FORMAT(StatusLastEdited, '%e.%c.%Y %H:%i:%s') AS StatusLastEdited
 			from Idea where IdeaID=$ideaID";
-		$result = $mysqli->query($sql) or die($mysqli->error);
-		return $result;
+		$stmt = $pdo->prepare($sql);
+		$stmt->bindParam(':IdeaID', $ideaID);
+		$stmt->execute();
+		if ($idea = $stmt->fetch(PDO::FETCH_OBJ))
+			return $idea;
+		$pdo = null; // Close connection.
 	}
 
 	function getMyIdeas($userID) {

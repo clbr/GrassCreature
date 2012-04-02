@@ -135,29 +135,6 @@ function addidea_check() {
 }
 
 </script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js" type="text/javascript"></script>
-<script src="http://jquery-ui.googlecode.com/svn/tags/latest/external/jquery.bgiframe-2.1.2.js" type="text/javascript"></script>
-<script src="http://jquery-ui.googlecode.com/svn/tags/latest/ui/minified/i18n/jquery-ui-i18n.min.js" type="text/javascript"></script>
-<?php
-echo "<script language='JavaScript'>\n";
-
-echo "$(function() {";
-
-
-echo "var availableTags = new Array();\n";
-$i=0;
-foreach($category as $value)
-{
-echo "availableTags[$i] = '$value';\n";
-$i++;
-}
-?>
-		$( "#category" ).autocomplete({
-			source: availableTags
-		});
-	});
-</script>
 
 </body>
 </html>

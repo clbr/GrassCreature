@@ -20,7 +20,7 @@
 if (isset($_POST["simpletext"])) {
 
 	require_once("DatabaseOperation/Search_simple.php");
-	searchIdea();
+	searchIdea($_POST["simpletext"]);
 
 } else {
 

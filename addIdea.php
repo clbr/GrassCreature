@@ -33,7 +33,7 @@ $sess->mustBeLoggedIn();
 			<input type="text" id="IdeaName" name="IdeaName" value=""><br>
 
 			*Idea description:<br>
-			<TEXTAREA name="desc" rows="10" cols="70" id="IdeaDesc" value=""></TEXTAREA><br>
+			<TEXTAREA name="desc" rows="10" cols="70" id="IdeaDesc"></TEXTAREA><br>
 
 			Cost estimation (&euro;)<br>
 			<input type="text" id="CostEst" name="CostEst"><br>
@@ -42,10 +42,10 @@ $sess->mustBeLoggedIn();
 			<TEXTAREA Name="AddInfo" rows="6" cols="70"></TEXTAREA><br>
 
 			Request date/time frame for idea/implementation:<br>
-			<input Name="ReqDate" rows="1" cols="20"><br>
+			<input type=text Name="ReqDate" size=20><br>
 
 			Based on idea ID (if any):<br>
-			<input Name="BasedOn" rows="1" cols="20"><br>
+			<input type=text Name="BasedOn" size=20><br>
 
 			Attach images:<br>
 			<div id=addimages>
@@ -53,16 +53,18 @@ $sess->mustBeLoggedIn();
 
 			Most Used Categories:<br>
 			<?php
+				echo "<div class='mostused'>";
 				$categoryString="";
 				$category=getMostUsedCategories();
 				foreach($category as $value) {
-					$categoryString=$categoryString."<div class='mostused' onClick='getElementById(\"category\").value+=\"".htmlspecialchars($value, ENT_QUOTES)." \"'>".$value."</div>";
+					$categoryString=$categoryString."<a onClick='getElementById(\"category\").value+=\"".htmlspecialchars($value, ENT_QUOTES)." \"'>".$value."</a>\n";
 				}
 				echo $categoryString;
+				echo "</div>\n";
 			?><br>
 
 			Category:<br>
-			<input type="text" id="category" name="category"/><br><br>
+			<input type="text" id="category" name="category"><br><br>
 
 
 			<br>

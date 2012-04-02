@@ -53,12 +53,12 @@ $sess->mustBeLoggedIn();
 
 			Most Used Categories:<br>
 			<?php
-			        $categoryString="";
-			        $category=getMostUsedCategories();
- 			        foreach($category as $value) {
-                			$categoryString=$categoryString."<div class='mostused' onClick='getElementById(\"category\").value+=\"".htmlspecialchars($value, ENT_QUOTES)." \"'>".$value."</div>";
-        			}
-			echo $categoryString;
+				$categoryString="";
+				$category=getMostUsedCategories();
+				foreach($category as $value) {
+					$categoryString=$categoryString."<div class='mostused' onClick='getElementById(\"category\").value+=\"".htmlspecialchars($value, ENT_QUOTES)." \"'>".$value."</div>";
+				}
+				echo $categoryString;
 			?><br>
 
 			Category:<br>
@@ -82,9 +82,9 @@ $sess->mustBeLoggedIn();
 		$ideaID = addIdea($_POST['IdeaName'], $_POST['desc'], $_POST['ReqDate'], $_POST['CostEst'],
 			$_POST['AddInfo'], $_POST['BasedOn'], $_POST['permissions'], $sess->getUserID(), $_POST['category']);
 
-                // User follows his own ideas by default.
-                require_once('DatabaseOperation/user.php');
-                userFollowIdea($ideaID, $sess->getUserID());
+		// User follows his own ideas by default.
+		require_once('DatabaseOperation/user.php');
+		userFollowIdea($ideaID, $sess->getUserID());
 
 		// Upload image if there are any.
 		if ($_FILES['file']['size'][0] != 0)

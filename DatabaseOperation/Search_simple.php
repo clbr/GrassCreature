@@ -27,26 +27,23 @@ $count = count($pieces);
 	$keyword2 = "%".$keyword."%";
 	
 	
-	$sql = "SELECT IdeaId, Name, Version, LEFT(Description, 100), Status, RequestDate, AddingDate, AdditionalInfo, Inventor
-						  FROM Idea
-						  WHERE Name LIKE CONCAT('%',(?),'%')
-						  OR Inventor LIKE (SELECT UserID FROM User WHERE Name LIKE CONCAT('%',(?),'%'))	
+	$sql = "SELECT IdeaId, Idea.Name, Version, LEFT(Description, 100), Status, RequestDate, AddingDate, AdditionalInfo, Inventor, User.Name, UserID
+						  FROM Idea, User
+						  WHERE UserID = Inventor and (Idea.Name LIKE CONCAT('%',(?),'%')
+						  OR User.Name LIKE CONCAT('%',(?),'%')
 						  OR Description LIKE CONCAT('%',(?),'%')
-						  OR AdditionalInfo LIKE CONCAT('%',(?),'%')
-						  ORDER BY AddingDate ";	
+						  OR AdditionalInfo LIKE CONCAT('%',(?),'%'))
+						  ORDER BY AddingDate ";
 
 
 
-		$stmt = $mysqli->prepare($sql);	
-  
-	if (!$stmt) die ("NOOOOOO " . $mysqli->error);
-	
-	
+	$stmt = $mysqli->prepare($sql) or die ($mysqli->error);
+
 $stmt->bind_param("ssss",$keyword2, $keyword2, $keyword2, $keyword2);
 	
-$stmt->execute();		
+$stmt->execute() or die($mysqli->error);
 
-$stmt->bind_result($id, $name, $version, $desc, $stat, $dateReq, $dateAdd, $addInfo, $inventor);
+$stmt->bind_result($id, $name, $version, $desc, $stat, $dateReq, $dateAdd, $addInfo, $inventor, $username, $uid);
 
 $stmt->store_result();
 

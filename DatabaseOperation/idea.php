@@ -159,7 +159,7 @@ require_once('DatabaseOperation/perms.php');
 		$version++;
 
 		$sql = "UPDATE Idea SET Name = ?, Description = ?, Version = ?, RequestDate = STR_TO_DATE(?, '%e.%c.%Y'), Cost = ?, AdditionalInfo = ?,
-			BasedOn = ?, WHERE IdeaID = ?";
+			BasedOn = ? WHERE IdeaID = ?";
 
 		$stmt = $mysqli->prepare($sql);
 		$stmt->bind_param('ssisisii', $name, $desc, $version, $reqdate, $cost, $additionalInfo, $basedOn, $ideaID);
@@ -253,7 +253,9 @@ function getVote($ideaID) {
 	function getIdeaInfo($ideaID) {
 		$mysqli = db_connect();
 
-		$sql = "select * from Idea where IdeaID=$ideaID";
+		$sql = "select IdeaID, Name, Description, Version, Status, Cost, AdditionalInfo, BasedOn, DATE_FORMAT(RequestDate, '%e.%c.%Y') AS RequestDate, Inventor,
+			DATE_FORMAT(AddingDate, '%e.%c.%Y %H:%i:%s') AS AddingDate,  DATE_FORMAT(StatusLastEdited, '%e.%c.%Y %H:%i:%s') AS StatusLastEdited
+			from Idea where IdeaID=$ideaID";
 		$result = $mysqli->query($sql) or die($mysqli->error);
 		return $result;
 	}

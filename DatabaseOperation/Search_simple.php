@@ -85,12 +85,13 @@ $inventor4=$username;
 // Checking if the current idea has already been added in the list (through checking its id against the id-array)
 	if(!in_array($array['id'], $array2)){
 
-	echo "<tr><td>$array[name]";
+	echo "<tr><td><a href='showIdea.php?id=$id'>$array[name]";
 	if ($namelen > 99) echo "...";
-	echo "</td><td>$array[desc]";
+	echo "</a></td><td><a href='showIdea.php?id=$id'>$array[desc]";
 	if ($desclen > 99) echo "...";
-	echo "</td><td>$array[status]</td>
-	<td>$array[datereq]</td><td>$array[dateadd]</td><td>$array[addinfo]...</td><td>$array[inventor]</td>
+	echo "</a></td><td>$array[status]</td>
+	<td>$array[datereq]</td><td>$array[dateadd]</td><td>$array[addinfo]...</td>";
+	echo "<td><a href='showUser.php?id=$inventor'>$array[inventor]</a></td>
 	</tr>\n";
 	}
 	// Pushing the current idea's id into the idea id array

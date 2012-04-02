@@ -20,6 +20,7 @@ if ($sess->isAdmin()) {
 		acceptIdea($id);
 	} else if (isset($_POST["delete"])) {
 		deleteIdea($id);
+		echo "<script type='text/JavaScript'>window.parent.location = 'index.php';</script>";
 	}
 }
 

@@ -1,8 +1,25 @@
+function readCookie(name) {
+
+	var nameEQ = name + "=";
+	var ca = document.cookie.split(';');
+	for(var i=0; i < ca.length; i++) {
+		var c = ca[i];
+		while (c.charAt(0)==' ') c = c.substring(1,c.length);
+		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+	}
+
+	return null;
+}
+
 function showlogin() {
+
+	var un = readCookie('un');
+	if (!un) un = '';
+
 	var div = document.getElementById("loginbox");
 	div.innerHTML = "<form action=login.php method=post name=loginform>" +
 			"<input type=text name=username length=20 " +
-			"onkeypress=\"return noenter(event)\">" +
+			"onkeypress=\"return noenter(event)\" value=\"" + un + "\">" +
 			" <input type=password name=password length=20 " +
 			"onkeypress=\"return noenter(event)\">" +
 			" <input type=button onclick=\"dologin()\" value=\"Log in\">" +

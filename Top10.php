@@ -7,7 +7,7 @@ function top10_newest()
 //Connection to db and info request
 	require_once("DatabaseOperation/details.php");
 	$mysqli = db_connect();
-	$sql = "SELECT Name, IdeaID, date_format(AddingDate, '%a %D, %M %Y') FROM Idea where Status != 'new' ORDER BY AddingDate DESC limit 10";
+	$sql = "SELECT left(Name, 50), IdeaID, date_format(AddingDate, '%a %D, %M %Y') FROM Idea where Status != 'new' and Status != 'closed' ORDER BY AddingDate DESC limit 10";
 	$result = $mysqli->query($sql) or die($mysqli->error);
 	if($result)
 	{
@@ -37,8 +37,8 @@ function top10_commented()
 //Connection to db and info request
 	require_once("DatabaseOperation/details.php");
 	$mysqli=db_connect();
-	$sql = "SELECT Name, IdeaID, Count(Comment.CommentID) AS comments FROM Idea, " .
-		"Comment WHERE Comment.Idea_IdeaID=Idea.IdeaID and Status != 'new' group by IdeaID " .
+	$sql = "SELECT left(Name, 50), IdeaID, Count(Comment.CommentID) AS comments FROM Idea, " .
+		"Comment WHERE Comment.Idea_IdeaID=Idea.IdeaID and Status != 'new' and Status != 'closed' group by IdeaID " .
 		"ORDER BY comments desc limit 10";
 	$result = $mysqli->query($sql) or die($mysqli->error);
 	if($result)
@@ -73,7 +73,7 @@ function top10_rated()
 	require_once("DatabaseOperation/details.php");
 	$mysqli = db_connect();
 
-	$sql = "SELECT sum(Rating), Idea_IdeaID, Name FROM Rating inner join Idea on IdeaID = Idea_IdeaID where Status != 'new' group by Idea_IdeaID " .
+	$sql = "SELECT sum(Rating), Idea_IdeaID, left(Name,50) FROM Rating inner join Idea on IdeaID = Idea_IdeaID where Status != 'new' and Status != 'closed' group by Idea_IdeaID " .
 		"ORDER BY sum(Rating) DESC limit 10";
 	$result = $mysqli->query($sql) or die($mysqli->error);
 	if($result)
@@ -108,8 +108,8 @@ function top10_latest_comments()
 //Connection to db and info request
 	require_once("DatabaseOperation/details.php");
 	$mysqli = db_connect();
-	$sql = "SELECT Name, IdeaID, date_format(Date, '%a %D %H:%i, %M %Y'), CommentID FROM Idea, Comment WHERE Comment.Idea_IdeaID=Idea.IdeaID " .
-		" and Status != 'new' ORDER BY date desc limit 10";
+	$sql = "SELECT left(Name, 50), IdeaID, date_format(Date, '%a %D %H:%i, %M %Y'), CommentID FROM Idea, Comment WHERE Comment.Idea_IdeaID=Idea.IdeaID " .
+		" and Status != 'new' and Status != 'closed' ORDER BY date desc limit 10";
 	$result = $mysqli->query($sql) or die($mysqli->error);
 	if($result)
 	{

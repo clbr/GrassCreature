@@ -47,9 +47,7 @@ button {
 .IdeaAdd{
 
 	margin:auto;
-	width:50%;
-	padding:5%;
-	border: 1px solid black;
+	width: 50%;
 }
 
 
@@ -413,4 +411,19 @@ table.versions td, table.versions th {
 	display: inline-block;
 	margin-bottom: 2em;	
 	padding: 0.6em;		
+}
+
+.mostuseddiv {
+	float: right;
+	width: 30%;
+	text-align: center;
+}
+
+.mostuseda {
+	color: #00590f;
+	text-decoration: underline;
+}
+
+.mostuseda:hover {
+	text-decoration: none;
 }

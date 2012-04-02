@@ -12,9 +12,9 @@ $pieces = explode(" ", $trim);
 $count = count($pieces);
 
 
- print"<table border=1>\n";
- print "<tr><td><strong>Idea name</strong></td><td><strong>Version</strong></td><td><strong>Description</strong></td><td><strong>
- Status</strong></td><td> <strong>RequestDate</strong></td><td><strong>Added On</strong></td><td><strong>Addiotional Information</strong></td><td><strong>Inventor</strong></td>
+ print"<table border=0 class='highlight center'>\n";
+ print "<tr><th>Idea name</th><th>Description</th><th>
+ Status</th><th>RequestDate</th><th>Added On</th><th>Additional Information</th><th>Inventor</th>
  </tr>\n";
 
 
@@ -27,9 +27,9 @@ $count = count($pieces);
 	$keyword2 = "%".$keyword."%";
 
 
-	$sql = "SELECT IdeaId, LEFT(Idea.Name, 100), Version, LEFT(Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor, User.Name, UserID
+	$sql = "SELECT IdeaId, LEFT(Idea.Name, 100), LEFT(Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor, User.Name, UserID, char_length(Idea.Name), char_length(Description)
 						  FROM Idea, User
-						  WHERE UserID = Inventor and (Idea.Name LIKE CONCAT('%',(?),'%')
+						  WHERE UserID = Inventor and Status != 'new' and Status != 'closed' and (Idea.Name LIKE CONCAT('%',(?),'%')
 						  OR User.Name LIKE CONCAT('%',(?),'%')
 						  OR Description LIKE CONCAT('%',(?),'%')
 						  OR AdditionalInfo LIKE CONCAT('%',(?),'%'))
@@ -43,7 +43,7 @@ $stmt->bind_param("ssss",$keyword2, $keyword2, $keyword2, $keyword2);
 
 $stmt->execute() or die($mysqli->error);
 
-$stmt->bind_result($id, $name, $version, $desc, $stat, $dateReq, $dateAdd, $addInfo, $inventor, $username, $uid);
+$stmt->bind_result($id, $name, $desc, $stat, $dateReq, $dateAdd, $addInfo, $inventor, $username, $uid, $namelen, $desclen);
 
 $stmt->store_result();
 
@@ -53,7 +53,6 @@ $stmt->store_result();
 	{
 
 	$name3 = $name;
-	$version3 = $version;
     $desc3 = $desc;
     $status3 = $stat;
     $date3 = $dateReq;
@@ -68,7 +67,6 @@ $inventor4=$username;
 	$array = array(
 				 "id" => $id,
 				 "name" => $name,
-				 "version"=>$version,
 				 "desc"=>$desc,
 				 "status"=>$stat,
 				 "datereq"=>$dateReq,
@@ -87,8 +85,13 @@ $inventor4=$username;
 // Checking if the current idea has already been added in the list (through checking its id against the id-array)
 	if(!in_array($array['id'], $array2)){
 
-	print "<tr><td>$array[name]</td><td>$array[version]</td><td>$array[desc]</td><td>$array[status]</td>
-	<td>$array[datereq]</td><td>$array[dateadd]</td><td>$array[addinfo]</td><td>$array[inventor]</td>
+	echo "<tr><td><a href='showIdea.php?id=$id'>$array[name]";
+	if ($namelen > 99) echo "...";
+	echo "</a></td><td><a href='showIdea.php?id=$id'>$array[desc]";
+	if ($desclen > 99) echo "...";
+	echo "</a></td><td>$array[status]</td>
+	<td>$array[datereq]</td><td>$array[dateadd]</td><td>$array[addinfo]...</td>";
+	echo "<td><a href='showUser.php?id=$inventor'>$array[inventor]</a></td>
 	</tr>\n";
 	}
 	// Pushing the current idea's id into the idea id array

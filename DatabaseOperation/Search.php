@@ -50,8 +50,8 @@ else
 
 
 if(empty($_POST['inventor']) && empty($_POST['tags'])){
-	$sql = "SELECT IdeaId, LEFT(Name, 100), Version, LEFT(Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor
-						  FROM Idea
+	$sql = "SELECT IdeaId, LEFT(Idea.Name, 100), Version, LEFT(Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor, User.Name, UserID
+						  FROM Idea, User
 						  WHERE Status= (?)
 
 						  ORDER BY AddingDate ";
@@ -70,12 +70,13 @@ if(empty($_POST['inventor']) && empty($_POST['tags'])){
 
 
 if(empty($_POST['inventor']) && !empty($_POST['tags'])){
-	$sql = "SELECT IdeaId, Name, Version, LEFT(Description, 100), Status, RequestDate, AddingDate, AdditionalInfo, Inventor
-						  FROM Idea
+	$sql = "SELECT IdeaId, LEFT(Idea.Name, 100), Version, LEFT(Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor, User.Name, UserID
+						  FROM Idea, User
 						  WHERE Status= (?)
 
 						  AND (Description LIKE CONCAT('%',(?),'%')
-						   OR AdditionalInfo LIKE CONCAT('%',(?),'%')	)
+						   OR AdditionalInfo LIKE CONCAT('%',(?),'%')	
+						   OR Idea.Name LIKE CONCAT('%',(?),'%'))
 						  ORDER BY AddingDate ";
 						  if ($date == "Newest")
 		{
@@ -86,17 +87,16 @@ if(empty($_POST['inventor']) && !empty($_POST['tags'])){
 		$sql .= "ASC";
 		}
 						  $stmt = $mysqli->prepare($sql);
-						  $stmt->bind_param("sss", $status1, $keyword2, $keyword2);
+						  $stmt->bind_param("ssss", $status1, $keyword2, $keyword2, $keyword2);
 						  }
 
 
  if(!empty($_POST['inventor']) && empty($_POST['tags'])){
-	$sql = "SELECT IdeaId, Name, Version, LEFT(Description, 100), Status, RequestDate, AddingDate, AdditionalInfo, Inventor
-						  FROM Idea
+	$sql = "SELECT IdeaId, LEFT(Idea.Name, 100), Version, LEFT(Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor, User.Name, UserID
+						  FROM Idea, User
 						  WHERE Status= (?)
-						  AND Inventor	=
-						   				  (SELECT UserID FROM User WHERE Name LIKE CONCAT('%',(?),'%'))
-
+						  AND User.Name LIKE CONCAT('%',(?),'%')
+						 
 
 						  ORDER BY AddingDate ";
 						  if ($date == "Newest")
@@ -115,11 +115,15 @@ $stmt->bind_param("ss",$status1, $inventor1);
 
 
 if(!empty($_POST['inventor']) && !empty($_POST['tags'])){
-	$sql = "SELECT IdeaId, Name, Version, LEFT(Description, 100), Status, RequestDate, AddingDate, AdditionalInfo, Inventor
-						FROM Idea
+	$sql = "SELECT IdeaId, LEFT(Idea.Name, 100), Version, LEFT(Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor, User.Name, UserID
+						  FROM Idea, User
 						WHERE Status= (?)
-						  AND Inventor	=
-						   				  (SELECT UserID FROM User WHERE Name LIKE CONCAT('%',(?),'%'))
+						  
+						  AND 
+						  
+						  (User.Name LIKE CONCAT('%',(?),'%')
+						  
+						  
 						  AND
 								(
 						  Description LIKE CONCAT('%',(?),'%')
@@ -127,8 +131,9 @@ if(!empty($_POST['inventor']) && !empty($_POST['tags'])){
 							OR
 
 							AdditionalInfo LIKE CONCAT('%',(?),'%')
-												  	)
-
+									OR Idea.Name LIKE CONCAT('%',(?),'%')
+								)
+)
 						  ORDER BY AddingDate ";
 
 if ($date == "Newest")
@@ -140,7 +145,7 @@ if ($date == "Newest")
 		$sql .= "ASC";
 		}
 $stmt = $mysqli->prepare($sql);
-$stmt->bind_param("ssss", $status1, $inventor1, $keyword2, $keyword2);
+$stmt->bind_param("sssss", $status1, $inventor1, $keyword2, $keyword2, $keyword2);
 
 						  }
 
@@ -156,16 +161,9 @@ $stmt->bind_param("ssss", $status1, $inventor1, $keyword2, $keyword2);
 	if (!$stmt) die ("NOOOOOO " . $mysqli->error);
 
 
-
-
-
-
-
-
-
 $stmt->execute();
 
-$stmt->bind_result($id, $name, $version, $desc, $stat, $dateReq, $dateAdd, $addInfo, $inventor);
+$stmt->bind_result($id, $name, $version, $desc, $stat, $dateReq, $dateAdd, $addInfo, $inventor, $username, $uid);
 
 $stmt->store_result();
 
@@ -184,23 +182,7 @@ $stmt->store_result();
 	$ideaid =$id;
 
 
-	$sql2 = "SELECT Name
-			FROM User
-			WHERE UserID = ?
-			";
-
-	$stmt2 = $mysqli->prepare($sql2);
-
-	$stmt2->bind_param("s",$inventor3);
-
-	$stmt2->execute();
-
-$stmt2->bind_result($iName);
-
-$stmt2->store_result();
-
-$stmt2->fetch();
-$inventor4=$iName;
+$inventor4=$username;
 
 // Array for the current idea
 	$array = array(

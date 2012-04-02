@@ -51,6 +51,12 @@
 		"<a href='register.php'>Register</a></div><p>\n";
 	}
 	?>
+
+	<div class=rightbox>
+	<a href='stats.php'>Statistics</a>
+	</div><p>
+
+
 </div>
 
 <iframe name=main id=main src="front.php"></iframe>

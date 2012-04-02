@@ -17,7 +17,7 @@ $sess->mustBeLoggedIn();
 	<base target=main>
 </head>
 
-<body>
+<body class=lining>
 
 <?php
 	error_reporting(E_ALL);
@@ -33,7 +33,7 @@ $sess->mustBeLoggedIn();
 			<input type="text" id="IdeaName" name="IdeaName" value=""><br>
 
 			*Idea description:<br>
-			<TEXTAREA name="desc" rows="10" cols="70" id="IdeaDesc" value=""></TEXTAREA><br>
+			<TEXTAREA name="desc" rows="10" cols="70" id="IdeaDesc"></TEXTAREA><br>
 
 			Cost estimation (&euro;)<br>
 			<input type="text" id="CostEst" name="CostEst"><br>
@@ -42,18 +42,30 @@ $sess->mustBeLoggedIn();
 			<TEXTAREA Name="AddInfo" rows="6" cols="70"></TEXTAREA><br>
 
 			Request date/time frame for idea/implementation:<br>
-			<input Name="ReqDate" rows="1" cols="20"><br>
+			<input type=text Name="ReqDate" size=20><br>
 
 			Based on idea ID (if any):<br>
-			<input Name="BasedOn" rows="1" cols="20"><br>
+			<input type=text Name="BasedOn" size=20><br>
 
 			Attach images:<br>
 			<div id=addimages>
 			<input type="file" name="file[]" onchange='moreimages()'></div>
 
+			<?php
+				echo "<div class='mostuseddiv'>";
+				$categoryString="";
+				$category=getMostUsedCategories();
+				$size = 28;
+				foreach($category as $value) {
+					$categoryString.="<a class=mostuseda onClick='getElementById(\"category\").value+=\"".htmlspecialchars($value, ENT_QUOTES)." \"' style='font-size: " . $size . "px;'>".$value."</a>\n";
+					$size--;
+				}
+				echo $categoryString;
+				echo "</div>\n";
+			?><br>
 
-			Category:<br>
-			<input type="text" id="category" name="category"/><br><br>
+			Categories:<br>
+			<input type="text" id="category" name="category" size=60><br><br>
 
 
 			<br>
@@ -73,9 +85,9 @@ $sess->mustBeLoggedIn();
 		$ideaID = addIdea($_POST['IdeaName'], $_POST['desc'], $_POST['ReqDate'], $_POST['CostEst'],
 			$_POST['AddInfo'], $_POST['BasedOn'], $_POST['permissions'], $sess->getUserID(), $_POST['category']);
 
-                // User follows his own ideas by default.
-                require_once('DatabaseOperation/user.php');
-                userFollowIdea($ideaID, $sess->getUserID());
+		// User follows his own ideas by default.
+		require_once('DatabaseOperation/user.php');
+		userFollowIdea($ideaID, $sess->getUserID());
 
 		// Upload image if there are any.
 		if ($_FILES['file']['size'][0] != 0)

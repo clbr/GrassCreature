@@ -87,8 +87,8 @@ $inventor4=$username;
 // Checking if the current idea has already been added in the list (through checking its id against the id-array)
 	if(!in_array($array['id'], $array2)){
 
-	print "<tr><td>$array[name]</td><td>$array[version]</td><td>$array[desc]</td><td>$array[status]</td>
-	<td>$array[datereq]</td><td>$array[dateadd]</td><td>$array[addinfo]</td><td>$array[inventor]</td>
+	print "<tr><td>$array[name]...</td><td>$array[version]</td><td>$array[desc]...</td><td>$array[status]</td>
+	<td>$array[datereq]</td><td>$array[dateadd]</td><td>$array[addinfo]...</td><td>$array[inventor]</td>
 	</tr>\n";
 	}
 	// Pushing the current idea's id into the idea id array

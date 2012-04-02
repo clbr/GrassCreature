@@ -24,8 +24,6 @@ $sess->mustBeLoggedIn();
 	require_once('DatabaseOperation/idea.php');
 	require_once('uploadFile.php');
 
-	$category=getCategory();
-
 	if (!isset($_POST['IdeaName'])) {
 	// Fields are shown when the page loads, after submit is pressed, fields go away and a success message is shown instead.
 	?>

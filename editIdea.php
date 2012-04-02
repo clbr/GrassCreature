@@ -44,8 +44,7 @@ if (!isset($_GET["ideaid"])) {
 	$ideaid = $_GET['ideaid'];
 
 	// Gets the currently open idea's info.
-	$ideaData = getIdeaInfo($ideaid);
-	$idea = $ideaData->fetch_object();
+	$idea = getIdeaInfo($ideaid);
 
 	if (!canEdit($ideaid, $sess->getUserID())) {
 		echo "You don't have the permissions to edit this idea.";

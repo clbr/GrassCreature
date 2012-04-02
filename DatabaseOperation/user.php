@@ -83,7 +83,7 @@ function editUser($userID, $email, $company, $compAddr, $theme)
 	try
 	{
 		$pdo = pdo_connect();
-		
+
 		$sql = "UPDATE User SET Email = :Email, Company = :Company, CompanyAddress = :CompAddr, SelectedTheme = :Theme WHERE UserID = :UserID";
 		$stmt = $pdo->prepare($sql);
 		$stmt->bindParam(':UserID', $userID);
@@ -97,16 +97,16 @@ function editUser($userID, $email, $company, $compAddr, $theme)
 	}
 	catch (PDOException $err)
 	{
-		echo $err;			
-	}		
+		echo $err;
+	}
 }
 
 function getUserData($userID)
 {
 	try
-	{			
+	{
 		$pdo = pdo_connect();
-		
+
 		$sql = "SELECT * FROM User WHERE UserID = :UserID";
 		$stmt = $pdo->prepare($sql);
 		$stmt->bindParam(':UserID', $userID);
@@ -123,12 +123,12 @@ function getUserData($userID)
 function getUserTheme($userID)
 {
 	try
-	{			
+	{
 		$pdo = pdo_connect();
 
 		$sql = "SELECT SelectedTheme FROM User WHERE UserID = :UserID";
 		$stmt = $pdo->prepare($sql);
-		$stmt->bindParam(':UserID', $userID);			
+		$stmt->bindParam(':UserID', $userID);
 		if ($stmt->execute()) {
 			if ($theme = $stmt->fetch(PDO::FETCH_OBJ))
 				return $theme->SelectedTheme;
@@ -156,7 +156,7 @@ function getNewComments($userID) {
 
 		// Ideas with new comments, duh!
 		$iwnc = array();
-		
+
 		// Check which of the followed ideas have had new comments since last viewing the idea.
 		while ($followed_idea = $stmt->fetch(PDO::FETCH_OBJ)) {
 			$sql = "SELECT COUNT(CommentID) AS Count, CommentID, Name
@@ -224,9 +224,9 @@ function getNewIdeas($userID) {
 				if (isset($newideas->IdeaID))
 					$uwni[] = $newideas;
 			}
-				
+
 				/*array('StalkedID' => (int)$followed_user->StalkedID, 'username' => $newideas->Username, 'userID' => $newideas->UserID,
-					'ideas' => (int)$newideas->Count, 'ideaID' => (int)$newideas->IdeaID, 'ideaname' => $newideas->Ideaname);*/			
+					'ideas' => (int)$newideas->Count, 'ideaID' => (int)$newideas->IdeaID, 'ideaname' => $newideas->Ideaname);*/
 		}
 
 		$pdo = null; // Close connection.

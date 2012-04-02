@@ -8,7 +8,7 @@ $mysqli = db_connect();
 if(isset($_POST['date']))
 {$date = $_POST['date'];}
 else
-{$date = null;}	
+{$date = null;}
 
 if($date!=null){
  print"<table border=1>\n";
@@ -22,7 +22,7 @@ if(isset($_POST['tags']))
 $trim = trim($tag1);}
 else
 {$tag1 = null;
-$trim = null;}	
+$trim = null;}
 	// Splitting the $tag1 string into pieces
 
 $pieces = explode(" ", $trim);
@@ -31,12 +31,12 @@ $count = count($pieces);
 if(isset($_POST['inventor']))
 {$inventor1 = $_POST['inventor'];}
 else
-{$inventor1 = null;}	
+{$inventor1 = null;}
 
 if(isset($_POST['status']))
 {$status1 = $_POST['status'];}
 else
-{$status1 = null;}	
+{$status1 = null;}
 
 // Array for keeping list of idea IDs to prevent duplicates.
 	$array2 = array(
@@ -75,7 +75,7 @@ if(empty($_POST['inventor']) && !empty($_POST['tags'])){
 						  WHERE Status= (?)
 
 						  AND (Description LIKE CONCAT('%',(?),'%')
-						   OR AdditionalInfo LIKE CONCAT('%',(?),'%')	
+						   OR AdditionalInfo LIKE CONCAT('%',(?),'%')
 						   OR Idea.Name LIKE CONCAT('%',(?),'%'))
 						  ORDER BY AddingDate ";
 						  if ($date == "Newest")
@@ -96,7 +96,7 @@ if(empty($_POST['inventor']) && !empty($_POST['tags'])){
 						  FROM Idea, User
 						  WHERE Status= (?)
 						  AND User.Name LIKE CONCAT('%',(?),'%')
-						 
+
 
 						  ORDER BY AddingDate ";
 						  if ($date == "Newest")
@@ -118,12 +118,12 @@ if(!empty($_POST['inventor']) && !empty($_POST['tags'])){
 	$sql = "SELECT IdeaId, LEFT(Idea.Name, 100), Version, LEFT(Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor, User.Name, UserID
 						  FROM Idea, User
 						WHERE Status= (?)
-						  
-						  AND 
-						  
+
+						  AND
+
 						  (User.Name LIKE CONCAT('%',(?),'%')
-						  
-						  
+
+
 						  AND
 								(
 						  Description LIKE CONCAT('%',(?),'%')

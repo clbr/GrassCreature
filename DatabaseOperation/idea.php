@@ -67,7 +67,7 @@ require_once('DatabaseOperation/perms.php');
                 $stmt = $mysqli->prepare($sql);
                 $stmt->bind_param('ss', $ideaID, $categoryID);
                 $stmt->execute();
-                $stmt->close();	
+                $stmt->close();
 		}
 		else {
                 $sql = "insert into Category (Name, Description) values (?, 'kuvaus');";
@@ -151,7 +151,7 @@ require_once('DatabaseOperation/perms.php');
 		$stmt->bind_param('isssisisii', $ideaID, $name, $status , $desc, $version, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);
 		$stmt->execute();
 	}
-	
+
 	function getVersions($ideaID) {
 		try {
 			$pdo = pdo_connect();
@@ -357,7 +357,7 @@ function getIdea($id, $userID, $isAdmin) {
 		AdditionalInfo, BasedOn, DATE_FORMAT(RequestDate, '%e.%c.%Y') AS RequestDate, DATE_FORMAT(AddingDate, '%e.%c.%Y %H:%i:%s') AS AddingDate,
 		Inventor, DATE_FORMAT(AcceptedDate, '%e.%c.%Y %H:%i:%s') AS AcceptedDate
 		from Idea where IdeaID=?");
-	$st->bind_param('i', $id);	
+	$st->bind_param('i', $id);
 
 	$st->execute();
 
@@ -419,7 +419,7 @@ function getIdea($id, $userID, $isAdmin) {
 			echo " &diams; ";
 			echo "<a href='showVersions.php?id=$id'>Show versions</a><br><br>";
 		}
-		// Idea editing button for adminz. 
+		// Idea editing button for adminz.
 		if ($isAdmin) {
 			echo "<hr><a href='adminEditIdea.php?ideaid=$id'><br>Edit idea as admin</a>";
 			echo " &diams; ";
@@ -439,7 +439,7 @@ function getIdea($id, $userID, $isAdmin) {
 
 	}
 	$db->close();
-	
+
 	// To allow inventor following in showIdea.php
 	return $Inventor;
 }

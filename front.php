@@ -175,7 +175,7 @@ top10_latest_comments();
 			$('#followedUsers').empty().css('cursor', 'auto');
 
 			for (i in users) {
-			//document.getElementById("followedUsers").innerHTML += 
+			//document.getElementById("followedUsers").innerHTML +=
 			$("#followedUsers").append("User <a href='showUser.php?id=" + users[i].UserID + "'>" + users[i].Username +
 			"</a> has added the idea <a href='showIdea.php?id=" + users[i].IdeaID + "'>\"" + users[i].Ideaname + "\"</a>.<br>");
 			}

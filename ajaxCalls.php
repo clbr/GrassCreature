@@ -38,7 +38,7 @@
 		case 'followedUsers':
 			require_once("DatabaseOperation/user.php");
 			getNewIdeas($_POST['userid']);
-			break;		
+			break;
 
 		case 'groups':
 			require_once("DatabaseOperation/groups.php");

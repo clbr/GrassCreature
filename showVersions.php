@@ -42,16 +42,16 @@ if ($sess->isLoggedIn())
 require_once("DatabaseOperation/idea.php");
 
 // Adminz & inventor of the idea can see/restore versions.
-if ($sess->isAdmin() || canEdit($ideaID, $uid)) {	
+if ($sess->isAdmin() || canEdit($ideaID, $uid)) {
 	$versions = getVersions($ideaID);
 	//echo "<pre>"; var_dump($versions); echo "</pre><br><br>";
 
 	for ($i = 0; $i < count($versions); $i++) {
-	
+
 		// Print idea version unless activateVersion -button is pressed.
 		if (!isset($_POST["activateVersion" . $versions[$i]->Version])) {
-		
-			echo "<div id=idea" . $versions[$i]->Version . " class=ideaboxtrans>\n" .			
+
+			echo "<div id=idea" . $versions[$i]->Version . " class=ideaboxtrans>\n" .
 				"<form method='POST' action='showVersions.php?id=" . $ideaID . "'>" .
 				"<input type=hidden name=id value=hiddenplaceholder>\n" .
 				"<table border=0 class=versions>\n" .
@@ -86,7 +86,7 @@ if ($sess->isAdmin() || canEdit($ideaID, $uid)) {
 			}
 			else // Looks messy, but what happens is: If the idea field is set, print it, else print "NOT SET".
 				echo "\t<tr><td>Cost</td><td>"; if (isset($versions[$i]->Cost)) { echo $versions[$i]->Cost; } else { echo "NOT SET"; } echo "</td></tr>\n";
-			
+
 			if (isset($versions[$i+1]->AdditionalInfo) && ($versions[$i]->AdditionalInfo != $versions[$i+1]->AdditionalInfo)) {
 				echo "\t<tr class='diffNew'><td>New Addit. Info</td><td>" . $versions[$i]->AdditionalInfo . "</td></tr>\n";
 				echo "\t<tr class='diffOld'><td>Previous Addit. Info</td><td>" . $versions[$i+1]->AdditionalInfo . "</td></tr>\n";
@@ -94,7 +94,7 @@ if ($sess->isAdmin() || canEdit($ideaID, $uid)) {
 			else {
 				echo "\t<tr><td>Additional info</td><td>"; if (isset($versions[$i]->AdditionalInfo)) { echo $versions[$i]->AdditionalInfo; } else { echo "NOT SET"; } echo "</td></tr>\n";
 			}
-	
+
 			if (isset($versions[$i+1]->BasedOn) && ($versions[$i]->BasedOn != $versions[$i+1]->BasedOn)) {
 				echo "\t<tr class='diffNew'><td>New Based On</td><td>" . $versions[$i]->BasedOn . "</td></tr>\n";
 				echo "\t<tr class='diffOld'><td>Previous Based On</td><td>" . $versions[$i+1]->BasedOn . "</td></tr>\n";
@@ -103,7 +103,7 @@ if ($sess->isAdmin() || canEdit($ideaID, $uid)) {
 				echo "\t<tr><td>Based on</td><td>"; if (isset($versions[$i]->BasedOn)) { echo "<a href=\"showIdea.php?id=" . $versions[$i]->BasedOn . "\">" .
 					$versions[$i]->BasedOn . "</a>"; } else { echo "NOT SET"; } echo "</td></tr>\n";
 			}
-	
+
 			if (isset($versions[$i+1]->RequestDate) && ($versions[$i]->RequestDate != $versions[$i+1]->RequestDate)) {
 				echo "\t<tr class='diffNew'><td>New Req. date</td><td>" . $versions[$i]->RequestDate . "</td></tr>\n";
 				echo "\t<tr class='diffOld'><td>Previous Req. date</td><td>" . $versions[$i+1]->RequestDate . "</td></tr>\n";
@@ -111,7 +111,7 @@ if ($sess->isAdmin() || canEdit($ideaID, $uid)) {
 			else {
 				echo "\t<tr><td>Requested date</td><td>"; if (isset($versions[$i]->RequestDate)) { echo $versions[$i]->RequestDate; } else { echo "NOT SET"; } echo "</td></tr>\n";
 			}
-	
+
 			if (isset($versions[$i+1]->AcceptedDate) && ($versions[$i]->AcceptedDate != $versions[$i+1]->AcceptedDate)) {
 				echo "\t<tr class='diffNew'><td>New Accepted Date</td><td>" . $versions[$i]->AcceptedDate . "</td></tr>\n";
 				echo "\t<tr class='diffOld'><td>Previous Accepted Date</td><td>" . $versions[$i+1]->AcceptedDate . "</td></tr>\n";
@@ -119,7 +119,7 @@ if ($sess->isAdmin() || canEdit($ideaID, $uid)) {
 			else {
 				echo "\t<tr><td>Accepted date</td><td>"; if (isset($versions[$i]->AcceptedDate)) { echo $versions[$i]->AcceptedDate; } else { echo "NOT SET"; } echo "</td></tr>\n";
 			}
-	
+
 			if (isset($versions[$i+1]->AddingDate) && ($versions[$i]->AddingDate != $versions[$i+1]->AddingDate)) {
 				echo "\t<tr class='diffNew'><td>New Adding Date</td><td>" . $versions[$i]->AddingDate . "</td></tr>\n";
 				echo "\t<tr class='diffOld'><td>Previous Adding Date</td><td>" . $versions[$i+1]->AddingDate . "</td></tr>\n";
@@ -127,7 +127,7 @@ if ($sess->isAdmin() || canEdit($ideaID, $uid)) {
 			else {
 				echo "\t<tr><td>Added date</td><td>"; if (isset($versions[$i]->AddingDate)) { echo $versions[$i]->AddingDate; } else { echo "NOT SET"; } echo "</td></tr>\n";
 			}
-	
+
 			if (isset($versions[$i+1]->Inventor) && ($versions[$i]->Inventor != $versions[$i+1]->Inventor)) {
 				echo "\t<tr class='diffNew'><td>New Inventor</td><td><a href=\"showUser.php?id=" . $versions[$i]->Inventor . "\">" . $versions[$i]->Username . "</a></td></tr>\n";
 				echo "\t<tr class='diffOld'><td>Previous Inventor</td><td>"; if (isset($versions[$i+1]->Inventor)) { echo "<a href=\"showUser.php?id=" . $versions[$i+1]->Inventor . "\">" .
@@ -139,15 +139,15 @@ if ($sess->isAdmin() || canEdit($ideaID, $uid)) {
 			}
 
 		//			"\t<tr><td></td><td></td></tr>\n" .
-			
+
 			echo "</table>";
-			
+
 			// Submit button for this version.
 			echo "<input type='submit' name='activateVersion" . $versions[$i]->Version .
 				"' value='Activate this version'></form>";
-			
+
 			echo "</div><br>\n";
-			
+
 		}
 		else {
 			//save version of the real current idea

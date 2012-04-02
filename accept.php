@@ -19,9 +19,15 @@ require_once("DatabaseOperation/accept.php");
 
 <body class=lining>
 
+<?php
+if ($sess->isAdmin()) {
+
+?>
+
 <form method="post" action="accept.php">
 
 <?php
+
 if(isset($_POST['Accept'])){
 	acceptSelected();
 } else if(isset($_POST['Delete'])){
@@ -58,6 +64,12 @@ function accept_selall() {
 }
 
 </script>
+
+<? } else { ?>
+
+UNAUTHORIZED ACCESS VIOLATION, YOUR IP IS STORED FOR FURTHER INVESTIGATION
+
+<? } ?>
 
 </body>
 </html>

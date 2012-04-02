@@ -12,6 +12,9 @@ require_once('DatabaseOperation/perms.php');
 		$desc = htmlspecialchars($desc);
 		$additionalInfo = htmlspecialchars($additionalInfo);
 
+		/*$sql = "BEGIN";
+		$mysqli->query($sql) or die($mysqli->error);*/
+
 		$sql = "INSERT INTO Idea (Name, Description, Version, RequestDate, Cost, AdditionalInfo, BasedOn, Inventor, Status, StatusLastEdited, AddingDate) VALUES (
 			?, ?, ?, STR_TO_DATE(?, '%e.%c.%Y'), ?, ?, ?, ?, 'new', NOW(), NOW())";
 		$stmt = $mysqli->prepare($sql);
@@ -42,6 +45,9 @@ require_once('DatabaseOperation/perms.php');
 		foreach ($category as $value) {
 			addCategory($just_added_id[0], $value);
 		}
+
+		//$sql = "COMMIT";
+		//$mysqli->query($sql) or die($mysqli->error);
 
 		return $just_added_id[0];
 	}

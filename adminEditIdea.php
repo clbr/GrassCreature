@@ -25,10 +25,6 @@ $sess->mustBeLoggedIn();
 	require_once('DatabaseOperation/idea.php');
 	require_once('uploadFile.php');
 
-	// TODO:
-	// - Create adminEditIdea.php where status can also be changed. (This page uses normal user's idea editin db function.)
-	// - RequestDate is currently printed in mySQL format.
-
 	$ideaid = $_GET['ideaid'];
 
 	// Gets the currently open idea's info.
@@ -78,7 +74,12 @@ $sess->mustBeLoggedIn();
 				$idea->BasedOn, $idea->Inventor);
 
 			// and edit the idea with new data.
-			$ideaID = adminEditIdea($ideaid, $_POST['IdeaStatus'], $_POST['IdeaName'], $_POST['desc'], $_POST['ReqDate'], $_POST['CostEst'], $_POST['AddInfo'], $_POST['BasedOn'],
+			if ($idea->Status != $_POST['IdeaStatus']) // Needed to know to set StatusLastEdited in db.
+				$status_changed = 1;
+			else
+				$status_changed = 0;
+
+			$ideaID = adminEditIdea($ideaid, $_POST['IdeaStatus'], $status_changed, $_POST['IdeaName'], $_POST['desc'], $_POST['ReqDate'], $_POST['CostEst'], $_POST['AddInfo'], $_POST['BasedOn'],
 				$idea->Version, $idea->Inventor);
 
 			// Upload image if there are any. Uploads the image to a folder with the same name as the idea's id.

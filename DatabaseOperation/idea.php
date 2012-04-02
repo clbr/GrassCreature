@@ -10,8 +10,8 @@
 		$desc = htmlspecialchars($desc);
 		$additionalInfo = htmlspecialchars($additionalInfo);
 
-		$sql = "INSERT INTO Idea (Name, Description, Version, RequestDate, Cost, AdditionalInfo, BasedOn, Inventor, Status, AddingDate) VALUES (
-			?, ?, ?, STR_TO_DATE(?, '%d.%m.%Y'), ?, ?, ?, ?, 'new', NOW())";
+		$sql = "INSERT INTO Idea (Name, Description, Version, RequestDate, Cost, AdditionalInfo, BasedOn, Inventor, Status, StatusLastEdited, AddingDate) VALUES (
+			?, ?, ?, STR_TO_DATE(?, '%e.%c.%Y'), ?, ?, ?, ?, 'new', NOW(), NOW())";
 		$stmt = $mysqli->prepare($sql);
 		$stmt->bind_param('ssisisii', $name, $desc, $version = 1, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);
 		$stmt->execute();
@@ -40,7 +40,7 @@
 		$mysqli = db_connect();
 
 		$sql = "INSERT INTO Version (IdeaID, Name, Status, Description, Version, RequestDate, Cost, AdditionalInfo, BasedOn, Inventor) VALUES (
-			?, ?, ?, ?, ?, STR_TO_DATE(?, '%d.%m.%Y'), ?, ?, ?, ?)";
+			?, ?, ?, ?, ?, STR_TO_DATE(?, '%e.%c.%Y'), ?, ?, ?, ?)";
 		$stmt = $mysqli->prepare($sql);
 		$stmt->bind_param('isssisisii', $ideaID, $name, $status , $desc, $version, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);
 		$stmt->execute();
@@ -51,7 +51,7 @@
 			$pdo = pdo_connect();
 
 			$sql = "SELECT VersionID, IdeaID, Version.Name, Description, Version, Status, Cost, AdditionalInfo, BasedOn,
-				DATE_FORMAT(RequestDate, '%d.%m.%Y') AS RequestDate, AddingDate, Inventor, DATE_FORMAT(AcceptedDate, '%d.%m.%Y %H:%i:%s') AS AcceptedDate,
+				DATE_FORMAT(RequestDate, '%e.%c.%Y') AS RequestDate, AddingDate, Inventor, DATE_FORMAT(AcceptedDate, '%e.%c.%Y %H:%i:%s') AS AcceptedDate,
 				User.Name AS Username
 				FROM Version
 				LEFT OUTER JOIN User
@@ -85,7 +85,7 @@
 		// Before editing all current info will be retrieved from db to textfields for user to edit.
 		$version++;
 
-		$sql = "UPDATE Idea SET Name = ?, Description = ?, Version = ?, RequestDate = STR_TO_DATE(?, '%d.%m.%Y'), Cost = ?, AdditionalInfo = ?,
+		$sql = "UPDATE Idea SET Name = ?, Description = ?, Version = ?, RequestDate = STR_TO_DATE(?, '%e.%c.%Y'), Cost = ?, AdditionalInfo = ?,
 			BasedOn = ?, WHERE IdeaID = ?";
 
 		$stmt = $mysqli->prepare($sql);
@@ -102,12 +102,13 @@
 
 		$db = db_connect();
 
-		$db->query("UPDATE Idea SET Status = 'abandoned' WHERE IdeaID = $ideaID") or die($db->error);
-
+		$stmt = $mysqli->prepare("UPDATE Idea SET Status = 'abandoned' WHERE IdeaID = ?") or die($db->error);
+		$stmt->bind_param('i', $ideaID);
+		$stmt->execute();
 		$db->close();
 	}
 
-	function adminEditIdea($ideaID, $status, $name, $desc, $reqdate, $cost, $additionalInfo, $basedOn,$version, $inventorID) {
+	function adminEditIdea($ideaID, $status, $status_changed, $name, $desc, $reqdate, $cost, $additionalInfo, $basedOn,$version, $inventorID) {
 		$mysqli = db_connect();
 
 		$name = htmlspecialchars($name);
@@ -119,8 +120,13 @@
 		// Before editing all current info will be retrieved from db to textfields for user to edit.
 		$version++;
 
-		$sql = "UPDATE Idea SET Name = ?, Description = ?, Version = ?, Status = ?, RequestDate = STR_TO_DATE(?, '%d.%m.%Y'), Cost = ?, AdditionalInfo = ?,
-			BasedOn = ?, Inventor = ? WHERE IdeaID = ?";
+		$sql = "UPDATE Idea SET Name = ?, Description = ?, Version = ?, Status = ?, RequestDate = STR_TO_DATE(?, '%e.%c.%Y'), Cost = ?, AdditionalInfo = ?,
+				BasedOn = ?, Inventor = ?";
+
+		if ($status_changed)
+			 $sql .= ", StatusLastEdited = NOW()";
+
+		$sql .= " WHERE IdeaID = ?";
 
 		$stmt = $mysqli->prepare($sql);
 		$stmt->bind_param('ssisiisiii', $name, $desc, $version, $status, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID, $ideaID);
@@ -191,7 +197,7 @@ function getVote($ideaID) {
 	function getMyIdeas($userID) {
 		$mysqli = db_connect();
 		// Could fetch amount of comments too and maybe rating.
-		$sql = "select IdeaID, Name, Status, DATE_FORMAT(AddingDate, '%d.%m.%Y %H:%i:%s') AS AddingDate from Idea where Inventor=$userID ORDER BY AddingDate DESC";
+		$sql = "select IdeaID, Name, Status, DATE_FORMAT(AddingDate, '%e.%c.%Y %H:%i:%s') AS AddingDate from Idea where Inventor=$userID ORDER BY AddingDate DESC";
 		$result = $mysqli->query($sql) or die($mysqli->error);
 		return $result;
 	}
@@ -238,14 +244,15 @@ function getIdea($id, $userID, $isAdmin) {
 	if (!$isAdmin && !canView($id, $userID))
 		die("You don't have permission to view this idea.");
 
-	$st = $db->prepare("select IdeaID, Name, Description, Version, Status, Cost, AdditionalInfo, BasedOn, DATE_FORMAT(RequestDate, '%d.%m.%Y') AS RequestDate,
-		DATE_FORMAT(AddingDate, '%d.%m.%Y %H:%i:%s') AS AddingDate, Inventor, DATE_FORMAT(AcceptedDate, '%d.%m.%Y %H:%i:%s') AS AcceptedDate
+	$st = $db->prepare("select IdeaID, Name, Description, Version, Status, DATE_FORMAT(StatusLastEdited, '%e.%c.%Y %H:%i:%s') AS StatusLastEdited, Cost,
+		AdditionalInfo, BasedOn, DATE_FORMAT(RequestDate, '%e.%c.%Y') AS RequestDate, DATE_FORMAT(AddingDate, '%e.%c.%Y %H:%i:%s') AS AddingDate,
+		Inventor, DATE_FORMAT(AcceptedDate, '%e.%c.%Y %H:%i:%s') AS AcceptedDate
 		from Idea where IdeaID=?");
 	$st->bind_param('i', $id);
 
 	$st->execute();
 
-	$st->bind_result($ID, $Name, $Description, $Version, $Status, $Cost, $AddInfo, $BasedOn, $ReqDate, $AddDate, $Inventor, $accdate);
+	$st->bind_result($ID, $Name, $Description, $Version, $Status, $StatusLastEdited, $Cost, $AddInfo, $BasedOn, $ReqDate, $AddDate, $Inventor, $accdate);
 
 	if ($st->fetch()) {
 		$st->close();
@@ -262,7 +269,7 @@ function getIdea($id, $userID, $isAdmin) {
 
 			"\t<tr><td>Name</td><td>$Name</td></tr>\n" .
 			"\t<tr><td>Description</td><td>$Description</td></tr>\n" .
-			"\t<tr><td id=idealeft>Status</td><td>$Status</td></tr>\n";
+			"\t<tr><td id=idealeft>Status</td><td>$Status (<i>as of ". $StatusLastEdited ."</i>)</td></tr>\n";
 
 		if (!empty($Cost)) echo "\t<tr><td>Cost</td><td>$Cost</td></tr>\n";
 		if (!empty($AddInfo)) echo "\t<tr><td>Additional info</td><td>$AddInfo</td></tr>\n";
@@ -293,14 +300,14 @@ function getIdea($id, $userID, $isAdmin) {
 
 			"</table>\n";
 
-		// Idea editin button for inventor.
+		// Idea editing button for inventor.
 		if (canEdit($id, $userID) && !$isAdmin) {
 			// Send idea-id along page change.
 			echo "<hr><a href='editIdea.php?ideaid=$id'>Edit idea</a>";
 			echo " &diams; ";
 			echo "<a href='perms.php?id=$id'>Edit permissions</a>";
 		}
-		// Idea editing button for adminz. It is possible that both buttons are visible.
+		// Idea editing button for adminz. 
 		if ($isAdmin) {
 			echo "<hr><a href='adminEditIdea.php?ideaid=$id'><br>Edit idea as admin</a>";
 			echo " &diams; ";

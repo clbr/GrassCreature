@@ -412,3 +412,18 @@ table.versions td, table.versions th {
 	margin-bottom: 2em;	
 	padding: 0.6em;		
 }
+
+.mostuseddiv {
+	float: right;
+	width: 30%;
+	text-align: center;
+}
+
+.mostuseda {
+	color: #00590f;
+	text-decoration: underline;
+}
+
+.mostuseda:hover {
+	text-decoration: none;
+}

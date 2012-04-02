@@ -51,20 +51,21 @@ $sess->mustBeLoggedIn();
 			<div id=addimages>
 			<input type="file" name="file[]" onchange='moreimages()'></div>
 
-			Most Used Categories:<br>
 			<?php
-				echo "<div class='mostused'>";
+				echo "<div class='mostuseddiv'>";
 				$categoryString="";
 				$category=getMostUsedCategories();
+				$size = 28;
 				foreach($category as $value) {
-					$categoryString=$categoryString."<a onClick='getElementById(\"category\").value+=\"".htmlspecialchars($value, ENT_QUOTES)." \"'>".$value."</a>\n";
+					$categoryString.="<a class=mostuseda onClick='getElementById(\"category\").value+=\"".htmlspecialchars($value, ENT_QUOTES)." \"' style='font-size: " . $size . "px;'>".$value."</a>\n";
+					$size--;
 				}
 				echo $categoryString;
 				echo "</div>\n";
 			?><br>
 
-			Category:<br>
-			<input type="text" id="category" name="category"><br><br>
+			Categories:<br>
+			<input type="text" id="category" name="category" size=60><br><br>
 
 
 			<br>

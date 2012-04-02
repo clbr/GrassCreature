@@ -56,7 +56,7 @@ $sess->mustBeLoggedIn();
 			        $categoryString="";
 			        $category=getMostUsedCategories();
  			        foreach($category as $value) {
-                			$categoryString=$categoryString."<div class='mostused' onClick='getElementById(\"category\").value+=\"".$value." \"'>".$value."</div>";
+                			$categoryString=$categoryString."<div class='mostused' onClick='getElementById(\"category\").value+=\"".htmlspecialchars($value, ENT_QUOTES)." \"'>".$value."</div>";
         			}
 			echo $categoryString;
 			?><br>

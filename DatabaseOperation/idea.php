@@ -34,6 +34,9 @@ require_once('DatabaseOperation/perms.php');
 			$st->execute() or die($mysqli->error);
 		}
 
+		// Replace more than one space with one space
+		$categories = str_replace("  ", " ", $categories);
+
 		//add category
 		$category = explode(" ", $categories);
 		foreach ($category as $value) {

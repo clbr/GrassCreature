@@ -12,9 +12,9 @@ $pieces = explode(" ", $trim);
 $count = count($pieces);
 
 
- print"<table border=1>\n";
- print "<tr><td><strong>Idea name</strong></td><td><strong>Version</strong></td><td><strong>Description</strong></td><td><strong>
- Status</strong></td><td> <strong>RequestDate</strong></td><td><strong>Added On</strong></td><td><strong>Addiotional Information</strong></td><td><strong>Inventor</strong></td>
+ print"<table border=0 class='highlight center'>\n";
+ print "<tr><th>Idea name</th><th>Version</th><th>Description</th><th>
+ Status</th><th>RequestDate</th><th>Added On</th><th>Additional Information</th><th>Inventor</th>
  </tr>\n";
 
 

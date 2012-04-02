@@ -20,7 +20,6 @@ $sess->mustBeLoggedIn();
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 	<base target=main>
-	<script src="js/js.js" type="text/javascript"></script>
 </head>
 
 <body class=lining>
@@ -80,6 +79,7 @@ $sess->mustBeLoggedIn();
 		echo "You don't have the permissions to edit this user.";
 ?>
 </script>
+<script src="js/js.js" type="text/javascript"></script>
 
 </body>
 </html>

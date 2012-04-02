@@ -51,6 +51,12 @@
 		echo "<div class=rightbox>" .
 		"<a href='adminGroups.php'>Manage groups</a>" .
 		"</div><p>\n";
+
+		$uid = $sess->getUserID();
+
+		echo "<div class=rightbox>" .
+		"<a href='showUser.php?id=$uid'>My profile</a>" .
+		"</div><p>\n";
 	} else {
 		echo "<div class=rightbox>" .
 		"<a href='register.php'>Register</a></div><p>\n";

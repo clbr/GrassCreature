@@ -2,6 +2,13 @@
 
 // This page requires login.
 $sess->mustBeLoggedIn();
+
+if (!isset($_GET["ideaid"])) {
+	echo "<script type=\"text/javascript\">" .
+		"alert(\"No idea id given\"); window.history.back();" .
+		"</script>";
+	return;
+}
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"

@@ -35,13 +35,14 @@ $userID = $_GET["id"];
 
 <?php
 
-getUser($userID, $sess->isLoggedIn());
-
 if ($userID == $sess->getUserID() || $sess->isAdmin()) {
 	echo '<form method=POST action="editUser.php?userid='.$userID.'">
 		<input type="submit" name="editUser" value="Edit details">
 		</form>';
 }
+
+getUser($userID, $sess->isLoggedIn());
+
 
 ?>
 

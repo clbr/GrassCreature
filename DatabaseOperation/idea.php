@@ -35,6 +35,45 @@
 		return $just_added_id[0];
 	}
 
+	function addCategory($ideaID, $category){
+
+		$mysqli = db_connect();
+                $sql = "SELECT CategoryID FROM `ideapankki_dev`.`Category` WHERE Name=?;";
+                $stmt = $mysqli->prepare($sql);
+                $stmt->bind_param('s', $category);
+                $stmt->execute();
+		$stmt->bind_result($categoryID);
+		$stmt->fetch();
+                $stmt->close();
+		if($categoryID>0) {
+		$sql = "insert into Idea_has_Category (Idea_IdeaID, Category_CategoryID) values (?,?);";
+                $stmt = $mysqli->prepare($sql);
+                $stmt->bind_param('ss', $ideaID, $categoryID);
+                $stmt->execute();
+                $stmt->close();	
+		}
+		else {
+                $sql = "insert into Category (Name, Description) values (?, 'kuvaus');";
+                $stmt = $mysqli->prepare($sql);
+                $stmt->bind_param('s', $category);
+                $stmt->execute();
+                $stmt->close();
+                $sql = "SELECT LAST_INSERT_ID();";
+                $stmt = $mysqli->prepare($sql);
+                $stmt->execute();
+                $stmt->bind_result($categoryID);
+                $stmt->fetch();
+                $stmt->close();
+		$sql = "insert into Idea_has_Category (Idea_IdeaID, Category_CategoryID) values (?,?);";
+                $stmt = $mysqli->prepare($sql);
+                $stmt->bind_param('ss', $ideaID, $categoryID);
+                $stmt->execute();
+                $stmt->close();
+		}
+
+
+	}
+
 	function saveVersion($ideaID, $version, $status, $name, $desc, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID) {
 		// When updating idea, saves the old version of it.
 		$mysqli = db_connect();

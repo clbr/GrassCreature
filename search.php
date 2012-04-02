@@ -37,8 +37,10 @@ if (isset($_POST["simpletext"])) {
 
 	<form action="search.php" name="SearchIdea" id="Search"  method="POST">
 <select name="status">
-<option value="New" selected="selected">New</option>
-<option value="Active">Active</option>
+<option value="Active" selected="selected">active</option>
+<option value="Closed">closed</option>
+<option value="In-Implementation">in implementation</option>
+<option value="Implemented">implemented</option>
 </select>
 <select name="date">
 <option value="Newest" selected="selected">Newest</option>
@@ -53,7 +55,7 @@ if (isset($_POST["simpletext"])) {
 <?php
 
 error_reporting(E_ALL);
-require_once("DatabaseOperation/Search5.php");
+require_once("DatabaseOperation/Search.php");
 advancedSearch();
 
 }

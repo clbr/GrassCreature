@@ -1,11 +1,10 @@
 <?php
 /*error_reporting(E_ALL);*/
 require_once("details.php");
-function searchIdea() {
+function searchIdea($tag1) {
 
 $mysqli = db_connect();
 	
-$tag1 = $_POST['tags'];	
 
 // Splitting the $tag1 string into pieces (=keywords)
 

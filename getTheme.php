@@ -5,6 +5,6 @@
 		if ($theme == "default" || $theme == null)
 			$theme="style";
 
-		echo "\"css/$theme.css\"";
+		echo "href=\"css/$theme.css\"";
 	}
 ?>

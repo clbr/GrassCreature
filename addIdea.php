@@ -51,6 +51,15 @@ $sess->mustBeLoggedIn();
 			<div id=addimages>
 			<input type="file" name="file[]" onchange='moreimages()'></div>
 
+			Most Used Categories:<br>
+			<?php
+			        $categoryString="";
+			        $category=getMostUsedCategories();
+ 			        foreach($category as $value) {
+                			$categoryString=$categoryString."<div class='mostused' onClick='getElementById(\"category\").value+=\"naama \"'>".$value."</div>";
+        			}
+			echo $categoryString;
+			?><br>
 
 			Category:<br>
 			<input type="text" id="category" name="category"/><br><br>

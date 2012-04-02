@@ -62,24 +62,7 @@ $stmt->store_result();
 	$inventor3 = $inventor;
 	$ideaid =$id;
 	
-	// Query to get the name of the inventor
-		$sql2 = "SELECT Name
-			FROM User
-			WHERE UserID = ?
-			";
-						  
-	$stmt2 = $mysqli->prepare($sql2);	
-	
-	$stmt2->bind_param("s",$inventor3);
-
-	$stmt2->execute();		
-
-$stmt2->bind_result($iName);
-
-$stmt2->store_result();
-	
-$stmt2->fetch();
-$inventor4=$iName;	
+$inventor4=$username;
 
 // Array for the current idea
 	$array = array(

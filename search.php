@@ -38,8 +38,7 @@ if (isset($_POST["simpletext"])) {
 	<form action="search.php" name="SearchIdea" id="Search"  method="POST">
 <select name="status">
 <option value="Active" selected="selected">active</option>
-<option value="Closed">closed</option>
-<option value="In-Implementation">in implementation</option>
+<option value="in implementation">in implementation</option>
 <option value="Implemented">implemented</option>
 </select>
 <select name="date">

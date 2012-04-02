@@ -129,15 +129,6 @@ require_once('perms.php');
 		$stmt->execute();
 	}
 
-	function removeIdeaPermanently($ideaID) {
-		$mysqli = db_connect();
-
-		$sql = "DELETE FROM Idea WHERE IdeaID = ?";
-		$stmt = $mysqli->prepare($sql);
-		$stmt->bind_param('i', $ideaID);
-		$stmt->execute();
-	}
-
 function addVote($vote, $ideaID, $userID) {
 
 	if($vote==-1||$vote==1) {

@@ -34,9 +34,10 @@ if ($sess->isLoggedIn())
 	$uid = $sess->getUserID();
 
 /* Get old versions of the idea*/
+require_once("DatabaseOperation/idea.php");
 
-if ($sess->isAdmin()) {
-	require_once("DatabaseOperation/idea.php");
+// Adminz & inventor of the idea can see/restore versions.
+if ($sess->isAdmin() || canEdit($ideaID, $uid)) {	
 	$versions = getVersions($ideaID);
 	//echo "<pre>"; var_dump($versions); echo "</pre><br><br>";
 

@@ -109,15 +109,37 @@ function getUserData($userID)
 		
 		$sql = "SELECT * FROM User WHERE UserID = :UserID";
 		$stmt = $pdo->prepare($sql);
-		$stmt->bindParam(':UserID', $userID);			
+		$stmt->bindParam(':UserID', $userID);
 		if ($stmt->execute())
 			return $stmt;
 		$pdo = null; // Close connection.
 	}
 	catch (PDOException $err)
 	{
-		echo $err;			
-	}		
+		echo $err;
+	}
+}
+
+function getUserTheme($userID)
+{
+	try
+	{			
+		$pdo = pdo_connect();
+
+		$sql = "SELECT SelectedTheme FROM User WHERE UserID = :UserID";
+		$stmt = $pdo->prepare($sql);
+		$stmt->bindParam(':UserID', $userID);			
+		if ($stmt->execute()) {
+			if ($theme = $stmt->fetch(PDO::FETCH_OBJ))
+				return $theme->SelectedTheme;
+		}
+
+		$pdo = null; // Close connection.
+	}
+	catch (PDOException $err)
+	{
+		echo $err;
+	}
 }
 
 function getNewComments($userID) {

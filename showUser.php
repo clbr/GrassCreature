@@ -19,7 +19,12 @@ $userID = $_GET["id"];
 <head>
 	<title>Ideabank</title>
 
-	<link href="css/style.css" rel="stylesheet" type="text/css">
+	<link href="css/
+	<?php
+		require_once("getTheme.php");
+		getTheme($sess->getUserID());
+	?>
+	.css" rel="stylesheet" type="text/css">
 	<link rel="icon" href="favicon.ico" type="image/x-icon">
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -33,7 +38,9 @@ $userID = $_GET["id"];
 getUser($userID, $sess->isLoggedIn());
 
 if ($userID == $sess->getUserID() || $sess->isAdmin()) {
-	echo '<form method=POST action="editUser.php?userid='.$userID.'"><input type="submit" name="editUser" value="Edit details"></form>';
+	echo '<form method=POST action="editUser.php?userid='.$userID.'">
+		<input type="submit" name="editUser" value="Edit details">
+		</form>';
 }
 
 ?>

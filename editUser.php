@@ -10,7 +10,12 @@ $sess->mustBeLoggedIn();
 <head>
 	<title>Ideabank</title>
 
-	<link href="css/style.css" rel="stylesheet" type="text/css">
+	<link href="css/
+	<?php
+		require_once("getTheme.php");
+		getTheme($sess->getUserID());
+	?>
+	.css" rel="stylesheet" type="text/css">
 	<link rel="icon" href="favicon.ico" type="image/x-icon">
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -46,10 +51,10 @@ $sess->mustBeLoggedIn();
 				Company info:<br>
 				<input Name="CompanyAddress" rows="1" cols="20" value="'.$user->CompanyAddress.'"><br>
 				Site theme:<br>
-				<select id="SelectedTheme" name="SelectedTheme">
-					<option value="active" '; if ($user->SelectedTheme == 'Default') { echo 'selected="selected"'; } echo '>Default</option>
-					<option value="closed" '; if ($user->SelectedTheme == 'Hello Kitty') { echo 'selected="selected"'; } echo '>Hello Kitty</option>
-					<option value="in implementation" '; if ($user->SelectedTheme == 'Teema') { echo 'selected="selected"'; } echo '>Teema</option>
+				<select id="SelectedTheme" name="Theme">
+					<option value="style" '; if ($user->SelectedTheme == 'style') { echo 'selected="selected"'; } echo '>Default</option>
+					<option value="hellokitty" '; if ($user->SelectedTheme == 'hellokitty') { echo 'selected="selected"'; } echo '>Hello Kitty</option>
+					<option value="teema" '; if ($user->SelectedTheme == 'teema') { echo 'selected="selected"'; } echo '>Teema</option>
 				</select><br>
 				<input type="submit" name="submitChanges" value="Submit changes">
 			</form>
@@ -57,20 +62,7 @@ $sess->mustBeLoggedIn();
 		}
 		else {
 			//<link href="css/style.css" rel="stylesheet" type="text/css">
-			$theme = "";
-			switch ($_POST['SelectedTheme'])
-			{
-				case 'Default':
-					$theme = "style";
-					break;
-				case 'Hello Kitty':
-					$theme = "hellokitty";
-					break;
-				case 'Teema':
-					$theme = "teema";
-					break;
-			}
-
+			$theme = $_POST['Theme'];
 			$email = htmlspecialchars($_POST['Email']);
 			$company = htmlspecialchars($_POST['Company']);
 			$compAddr = htmlspecialchars($_POST['CompanyAddress']);

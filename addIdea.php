@@ -32,10 +32,10 @@ $sess->mustBeLoggedIn();
 	<div id="ideaForms" class="IdeaAdd">
 		<form method="POST" action="addIdea.php" enctype="multipart/form-data" id=addideaform>
 			*Idea name:<br>
-			<input type="text" id="IdeaName" name="IdeaName"><br>
+			<input type="text" id="IdeaName" name="IdeaName" value=""><br>
 
 			*Idea description:<br>
-			<TEXTAREA name="desc" rows="10" cols="70" id="IdeaDesc"></TEXTAREA><br>
+			<TEXTAREA name="desc" rows="10" cols="70" id="IdeaDesc" value=""></TEXTAREA><br>
 
 			Cost estimation (&euro;)<br>
 			<input type="text" id="CostEst" name="CostEst"><br>

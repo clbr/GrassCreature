@@ -2,7 +2,7 @@
 
 error_reporting(E_ALL);
 require_once("details.php");
-require_once('perms.php');
+require_once('DatabaseOperation/perms.php');
 
 	function addIdea($name, $desc, $reqdate, $cost, $additionalInfo, $basedOn, $perms, $inventorID) {
 		// Add entirely new idea.

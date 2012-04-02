@@ -17,7 +17,7 @@ $sess->mustBeLoggedIn();
 	<base target=main>
 </head>
 
-<body>
+<body class=lining>
 
 <?php
 	error_reporting(E_ALL);

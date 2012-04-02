@@ -28,12 +28,12 @@ if (isset($_POST["name"])) {
 <head>
 	<title>Ideabank</title>
 
-	<link href="css/
+	<link href=
 	<?php
 		require_once("getTheme.php");
 		getTheme($sess->getUserID());
 	?>
-	.css" rel="stylesheet" type="text/css">
+ rel="stylesheet" type="text/css">
 	<link rel="icon" href="favicon.ico" type="image/x-icon">
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">

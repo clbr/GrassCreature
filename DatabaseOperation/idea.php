@@ -108,6 +108,30 @@ require_once('DatabaseOperation/perms.php');
 
 	}
 
+	function getMostUsedCategories() {
+                $mysqli = db_connect();
+                $sql = "SELECT Name FROM Category LEFT JOIN Idea_has_Category ON Category.CategoryID = Idea_has_Category.Category_CategoryID GROUP BY Category_CategoryID ORDER BY COUNT(Idea_IdeaID) DESC LIMIT 10;";
+                $stmt = $mysqli->prepare($sql);
+                $stmt->execute();
+
+
+                $stmt->bind_result($name);
+                $stmt->store_result();
+
+
+                $category = array();
+
+                while($stmt->fetch()) {
+
+                $category[] = $name;
+
+                }
+
+                $stmt->close();
+                return $category;
+
+	}
+
 	function saveVersion($ideaID, $version, $status, $name, $desc, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID) {
 		// When updating idea, saves the old version of it.
 		$mysqli = db_connect();

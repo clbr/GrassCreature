@@ -4,7 +4,7 @@ error_reporting(E_ALL);
 require_once("details.php");
 require_once('DatabaseOperation/perms.php');
 
-	function addIdea($name, $desc, $reqdate, $cost, $additionalInfo, $basedOn, $perms, $inventorID) {
+	function addIdea($name, $desc, $reqdate, $cost, $additionalInfo, $basedOn, $perms, $inventorID, $categories) {
 		// Add entirely new idea.
 		$mysqli = db_connect();
 
@@ -32,6 +32,12 @@ require_once('DatabaseOperation/perms.php');
 			$st = $mysqli->prepare("insert into Idea_has_Group (Idea_IdeaID, Group_GroupID) values (?, 0)") or die($mysqli->error);
 			$st->bind_param("i", $just_added_id[0]);
 			$st->execute() or die($mysqli->error);
+		}
+
+		//add category
+		$category = explode(" ", $categories);
+		foreach ($category as $value) {
+			addCategory($just_added_id[0], $value);
 		}
 
 		return $just_added_id[0];

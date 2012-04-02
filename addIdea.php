@@ -73,7 +73,7 @@ $sess->mustBeLoggedIn();
 		echo "<div class='IdeaAdd'>";
 
 		$ideaID = addIdea($_POST['IdeaName'], $_POST['desc'], $_POST['ReqDate'], $_POST['CostEst'],
-			$_POST['AddInfo'], $_POST['BasedOn'], $_POST['permissions'], $sess->getUserID());
+			$_POST['AddInfo'], $_POST['BasedOn'], $_POST['permissions'], $sess->getUserID(), $_POST['category']);
 
                 // User follows his own ideas by default.
                 require_once('DatabaseOperation/user.php');

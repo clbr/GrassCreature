@@ -148,7 +148,7 @@ require_once('DatabaseOperation/perms.php');
 			$pdo = pdo_connect();
 
 			$sql = "SELECT VersionID, IdeaID, Version.Name, Description, Version, Status, Cost, AdditionalInfo, BasedOn,
-				DATE_FORMAT(RequestDate, '%e.%c.%Y') AS RequestDate, AddingDate, Inventor, DATE_FORMAT(AcceptedDate, '%e.%c.%Y %H:%i:%s') AS AcceptedDate,
+				DATE_FORMAT(RequestDate, '%e.%c.%Y') AS RequestDate, DATE_FORMAT(AddingDate, '%e.%c.%Y %H:%i:%s') AS AddingDate, Inventor, DATE_FORMAT(AcceptedDate, '%e.%c.%Y %H:%i:%s') AS AcceptedDate,
 				User.Name AS Username
 				FROM Version
 				LEFT OUTER JOIN User

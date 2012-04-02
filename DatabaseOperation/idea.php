@@ -82,6 +82,32 @@ require_once('DatabaseOperation/perms.php');
 
 	}
 
+	function getCategory($ideaID) {
+
+                $mysqli = db_connect();
+                $sql = "SELECT Name FROM Category LEFT JOIN Idea_has_Category ON Category.CategoryID = Idea_has_Category.Category_CategoryID WHERE Idea_IdeaID=?;";
+                $stmt = $mysqli->prepare($sql);
+                $stmt->bind_param('s', $ideaID);
+                $stmt->execute();
+
+
+		$stmt->bind_result($name);
+		$stmt->store_result();
+
+
+		$category = array();
+
+        	while($stmt->fetch()) {
+
+                $category[] = $name;
+
+		}
+
+                $stmt->close();
+		return $category;
+
+	}
+
 	function saveVersion($ideaID, $version, $status, $name, $desc, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID) {
 		// When updating idea, saves the old version of it.
 		$mysqli = db_connect();
@@ -276,6 +302,12 @@ function getIdea($id, $userID, $isAdmin) {
 
 	global $sess;
 
+	$categoryString="";
+	$category=getCategory($id);
+	foreach($category as $value) {
+		$categoryString=$categoryString.$value." ";
+	}
+
 	$db = db_connect();
 
 	// Admin can view any idea.
@@ -286,7 +318,7 @@ function getIdea($id, $userID, $isAdmin) {
 		AdditionalInfo, BasedOn, DATE_FORMAT(RequestDate, '%e.%c.%Y') AS RequestDate, DATE_FORMAT(AddingDate, '%e.%c.%Y %H:%i:%s') AS AddingDate,
 		Inventor, DATE_FORMAT(AcceptedDate, '%e.%c.%Y %H:%i:%s') AS AcceptedDate
 		from Idea where IdeaID=?");
-	$st->bind_param('i', $id);
+	$st->bind_param('i', $id);	
 
 	$st->execute();
 
@@ -316,6 +348,7 @@ function getIdea($id, $userID, $isAdmin) {
 		echo "\t<tr><td>Requested date</td><td>$ReqDate</td></tr>\n" .
 			"\t<tr><td>Accepted date</td><td>$accdate</td></tr>\n" .
 			"\t<tr><td>Added date</td><td>$AddDate</td></tr>\n" .
+			"\t<tr><td>Category</td><td>$categoryString</td></tr>\n" .
 			"\t<tr><td class=bottom>Inventor</td><td class=bottom><a href=\"showUser.php?id=$Inventor\">$uname</a>\t";
 
 		if ($sess->isLoggedIn()) {
@@ -368,21 +401,6 @@ function getIdea($id, $userID, $isAdmin) {
 	
 	// To allow inventor following in showIdea.php
 	return $Inventor;
-}
-
-function getCategory() {
-
-$result = array();
-$mysqli = db_connect();
-$query = "SELECT Name FROM Category";
-$res = $mysqli->query($query);
-while ($row = $res->fetch_row()) {
-array_push($result, $row[0]);
-    }
-
-
-        return $result;
-
 }
 
 

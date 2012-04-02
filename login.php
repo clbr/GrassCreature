@@ -59,6 +59,8 @@ if ($st->fetch() && $dbpwd == $p) {
 	$_SESSION["isAdmin"] = checkadmin($db, $dbid);
 	$_SESSION["userID"] = $dbid;
 	$_SESSION["uname"] = $u;
+
+	setcookie("un", $u, time() + 60*60*24*150);
 }
 
 $db->close();

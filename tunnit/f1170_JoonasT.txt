@@ -36,3 +36,9 @@ Sat 17.3.2012
 
 21.3.2012
 1½ hours - Finishing Search
+
+1.4.2012
+3 hours - Erasing duplicate problems from search
+
+2.4.2012
+5½ hours - Fine tuning search + adding category to search (not working yet)

@@ -28,7 +28,7 @@ if (isset($_POST["name"])) {
 <head>
 	<title>Ideabank</title>
 
-	<link href=
+	<link
 	<?php
 		require_once("getTheme.php");
 		getTheme($sess->getUserID());

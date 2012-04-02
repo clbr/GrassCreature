@@ -32,7 +32,7 @@ if ($sess->isAdmin()) {
 <head>
 	<title>Ideabank</title>
 
-	<link href=
+	<link
 	<?php
 		require_once("getTheme.php");
 		getTheme($sess->getUserID());

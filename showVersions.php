@@ -18,7 +18,7 @@ $ideaID = $_GET["id"];
 <head>
 	<title>Ideabank</title>
 
-	<link href=
+	<link
 	<?php
 		require_once("getTheme.php");
 		getTheme($sess->getUserID());

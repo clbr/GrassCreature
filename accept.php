@@ -11,7 +11,7 @@ require_once("DatabaseOperation/accept.php");
 <head>
 	<title>Ideabank - Accept Ideas</title>
 
-	<link href=
+	<link
 	<?php
 		require_once("getTheme.php");
 		getTheme($sess->getUserID());

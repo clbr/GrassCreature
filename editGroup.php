@@ -33,7 +33,7 @@ if (isset($_POST["chk"]) && isset($_POST["remove"])) {
 <head>
 	<title>Ideabank</title>
 
-	<link href=
+	<link
 	<?php
 		require_once("getTheme.php");
 		getTheme($sess->getUserID());

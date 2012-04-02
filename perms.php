@@ -53,7 +53,7 @@ if (isset($_POST["add"]) && isset($_POST["selectgroups"])) {
 <head>
 	<title>Ideabank</title>
 
-	<link href=
+	<link
 	<?php
 		require_once("getTheme.php");
 		getTheme($sess->getUserID());

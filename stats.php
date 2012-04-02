@@ -15,8 +15,21 @@
 
 <body class=lining>
 
+<h2>IdeaBank Statistics</h2>
 
+<form method=post action=stats.php>
 
-<script src="js/js.js" type="text/javascript"></script>
+Starting from &nbsp; &nbsp;
+<select name=period>
+	<option value=30>30 days ago</option>
+	<option value=60>60 days ago</option>
+	<option value=90>90 days ago</option>
+	<option value=180>six months ago</option>
+	<option value=360>one year ago</option>
+	<option value=300000>the start</option>
+</select>
+
+</form>
+
 </body>
 </html>

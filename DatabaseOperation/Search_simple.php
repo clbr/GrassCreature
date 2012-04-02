@@ -27,7 +27,7 @@ $count = count($pieces);
 	$keyword2 = "%".$keyword."%";
 
 
-	$sql = "SELECT IdeaId, LEFT(Idea.Name, 100), LEFT(Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor, User.Name, UserID
+	$sql = "SELECT IdeaId, LEFT(Idea.Name, 100), LEFT(Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor, User.Name, UserID, char_length(Idea.Name), char_length(Description)
 						  FROM Idea, User
 						  WHERE UserID = Inventor and Status != 'new' and Status != 'closed' and (Idea.Name LIKE CONCAT('%',(?),'%')
 						  OR User.Name LIKE CONCAT('%',(?),'%')
@@ -43,7 +43,7 @@ $stmt->bind_param("ssss",$keyword2, $keyword2, $keyword2, $keyword2);
 
 $stmt->execute() or die($mysqli->error);
 
-$stmt->bind_result($id, $name, $desc, $stat, $dateReq, $dateAdd, $addInfo, $inventor, $username, $uid);
+$stmt->bind_result($id, $name, $desc, $stat, $dateReq, $dateAdd, $addInfo, $inventor, $username, $uid, $namelen, $desclen);
 
 $stmt->store_result();
 
@@ -85,7 +85,11 @@ $inventor4=$username;
 // Checking if the current idea has already been added in the list (through checking its id against the id-array)
 	if(!in_array($array['id'], $array2)){
 
-	print "<tr><td>$array[name]...</td><td>$array[desc]...</td><td>$array[status]</td>
+	echo "<tr><td>$array[name]";
+	if ($namelen > 99) echo "...";
+	echo "</td><td>$array[desc]";
+	if ($desclen > 99) echo "...";
+	echo "</td><td>$array[status]</td>
 	<td>$array[datereq]</td><td>$array[dateadd]</td><td>$array[addinfo]...</td><td>$array[inventor]</td>
 	</tr>\n";
 	}

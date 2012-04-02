@@ -38,7 +38,7 @@ function acceptIdea($id) {
 
 	$mysqli = db_connect();
 
-	$sth = $mysqli->prepare("update Idea set Status='active', AcceptedDate=now() where IdeaID=?;") or die($mysqli->error);
+	$sth = $mysqli->prepare("update Idea set Status='active', AcceptedDate=now(), StatusLastEdited=now() where IdeaID=?;") or die($mysqli->error);
 
 	$sth->bind_param("i", $id);
 	$sth->execute();

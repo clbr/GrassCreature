@@ -75,7 +75,8 @@ if(empty($_POST['inventor']) && !empty($_POST['tags'])){
 						  WHERE Status= (?)
 
 						  AND (Description LIKE CONCAT('%',(?),'%')
-						   OR AdditionalInfo LIKE CONCAT('%',(?),'%')	)
+						   OR AdditionalInfo LIKE CONCAT('%',(?),'%')	
+						   OR Idea.Name LIKE CONCAT('%',(?),'%'))
 						  ORDER BY AddingDate ";
 						  if ($date == "Newest")
 		{
@@ -86,7 +87,7 @@ if(empty($_POST['inventor']) && !empty($_POST['tags'])){
 		$sql .= "ASC";
 		}
 						  $stmt = $mysqli->prepare($sql);
-						  $stmt->bind_param("sss", $status1, $keyword2, $keyword2);
+						  $stmt->bind_param("ssss", $status1, $keyword2, $keyword2, $keyword2);
 						  }
 
 
@@ -94,8 +95,8 @@ if(empty($_POST['inventor']) && !empty($_POST['tags'])){
 	$sql = "SELECT IdeaId, LEFT(Idea.Name, 100), Version, LEFT(Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor, User.Name, UserID
 						  FROM Idea, User
 						  WHERE Status= (?)
-						  AND UserID = Inventor and (Idea.Name LIKE CONCAT('%',(?),'%')
-
+						  AND User.Name LIKE CONCAT('%',(?),'%')
+						 
 
 						  ORDER BY AddingDate ";
 						  if ($date == "Newest")
@@ -117,7 +118,12 @@ if(!empty($_POST['inventor']) && !empty($_POST['tags'])){
 	$sql = "SELECT IdeaId, LEFT(Idea.Name, 100), Version, LEFT(Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor, User.Name, UserID
 						  FROM Idea, User
 						WHERE Status= (?)
-						  AND UserID = Inventor and (Idea.Name LIKE CONCAT('%',(?),'%')
+						  
+						  AND 
+						  
+						  (User.Name LIKE CONCAT('%',(?),'%')
+						  
+						  
 						  AND
 								(
 						  Description LIKE CONCAT('%',(?),'%')
@@ -125,8 +131,9 @@ if(!empty($_POST['inventor']) && !empty($_POST['tags'])){
 							OR
 
 							AdditionalInfo LIKE CONCAT('%',(?),'%')
-												  	)
-
+									OR Idea.Name LIKE CONCAT('%',(?),'%')
+								)
+)
 						  ORDER BY AddingDate ";
 
 if ($date == "Newest")
@@ -138,7 +145,7 @@ if ($date == "Newest")
 		$sql .= "ASC";
 		}
 $stmt = $mysqli->prepare($sql);
-$stmt->bind_param("ssss", $status1, $inventor1, $keyword2, $keyword2);
+$stmt->bind_param("sssss", $status1, $inventor1, $keyword2, $keyword2, $keyword2);
 
 						  }
 
@@ -152,13 +159,6 @@ $stmt->bind_param("ssss", $status1, $inventor1, $keyword2, $keyword2);
 
 
 	if (!$stmt) die ("NOOOOOO " . $mysqli->error);
-
-
-
-
-
-
-
 
 
 $stmt->execute();

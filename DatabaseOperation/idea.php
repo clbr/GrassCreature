@@ -346,6 +346,8 @@ function getIdea($id, $userID, $isAdmin) {
 			echo "<hr><a href='editIdea.php?ideaid=$id'>Edit idea</a>";
 			echo " &diams; ";
 			echo "<a href='perms.php?id=$id'>Edit permissions</a>";
+			echo " &diams; ";
+			echo "<a href='showVersions.php?id=$id'>Show versions</a><br><br>";
 		}
 		// Idea editing button for adminz. 
 		if ($isAdmin) {

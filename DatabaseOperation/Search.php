@@ -5,7 +5,10 @@ function advancedSearch() {
 
 $mysqli = db_connect();
 
-$date = $_POST['date'];
+if(isset($_POST['date']))
+{$date = $_POST['date'];}
+else
+{$date = null;}	
 
 if($date!=null){
  print"<table border=1>\n";
@@ -14,13 +17,26 @@ if($date!=null){
  </tr>\n";}
 
 
-$tag1 = $_POST['tags'];
+if(isset($_POST['tags']))
+{$tag1 = $_POST['tags'];
+$trim = trim($tag1);}
+else
+{$tag1 = null;
+$trim = null;}	
 	// Splitting the $tag1 string into pieces
 
-$pieces = explode(" ", $tag1);
+$pieces = explode(" ", $trim);
 $count = count($pieces);
-$inventor1 = $_POST['inventor'];
-$status1 = $_POST['status'];
+
+if(isset($_POST['inventor']))
+{$inventor1 = $_POST['inventor'];}
+else
+{$inventor1 = null;}	
+
+if(isset($_POST['status']))
+{$status1 = $_POST['status'];}
+else
+{$status1 = null;}	
 
 // Array for keeping list of idea IDs to prevent duplicates.
 	$array2 = array(
@@ -34,7 +50,7 @@ $status1 = $_POST['status'];
 
 
 if(empty($_POST['inventor']) && empty($_POST['tags'])){
-	$sql = "SELECT IdeaId, Name, Version, LEFT(Description, 100), Status, RequestDate, AddingDate, AdditionalInfo, Inventor
+	$sql = "SELECT IdeaId, LEFT(Name, 100), Version, LEFT(Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor
 						  FROM Idea
 						  WHERE Status= (?)
 

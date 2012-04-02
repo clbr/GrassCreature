@@ -5,10 +5,10 @@ function searchIdea($tag1) {
 
 $mysqli = db_connect();
 
-
+$trim = trim($tag1);
 // Splitting the $tag1 string into pieces (=keywords)
 
-$pieces = explode(" ", $tag1);
+$pieces = explode(" ", $trim);
 $count = count($pieces);
 
 
@@ -27,7 +27,7 @@ $count = count($pieces);
 	$keyword2 = "%".$keyword."%";
 
 
-	$sql = "SELECT IdeaId, Idea.Name, Version, LEFT(Description, 100), Status, RequestDate, AddingDate, AdditionalInfo, Inventor, User.Name, UserID
+	$sql = "SELECT IdeaId, LEFT(Idea.Name, 100), Version, LEFT(Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor, User.Name, UserID
 						  FROM Idea, User
 						  WHERE UserID = Inventor and (Idea.Name LIKE CONCAT('%',(?),'%')
 						  OR User.Name LIKE CONCAT('%',(?),'%')

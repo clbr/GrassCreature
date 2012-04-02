@@ -27,7 +27,8 @@ $count = count($pieces);
 	$keyword2 = "%".$keyword."%";
 
 
-	$sql = "SELECT IdeaId, LEFT(Idea.Name, 100), LEFT(Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor, User.Name, UserID, char_length(Idea.Name), char_length(Description)
+	$sql = "SELECT IdeaId, LEFT(Idea.Name, 100), LEFT(Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor, User.Name, UserID,
+						char_length(Idea.Name), char_length(Description), char_length(AdditionalInfo)
 						  FROM Idea, User
 						  WHERE UserID = Inventor and Status != 'new' and Status != 'closed' and (Idea.Name LIKE CONCAT('%',(?),'%')
 						  OR User.Name LIKE CONCAT('%',(?),'%')
@@ -43,7 +44,7 @@ $stmt->bind_param("ssss",$keyword2, $keyword2, $keyword2, $keyword2);
 
 $stmt->execute() or die($mysqli->error);
 
-$stmt->bind_result($id, $name, $desc, $stat, $dateReq, $dateAdd, $addInfo, $inventor, $username, $uid, $namelen, $desclen);
+$stmt->bind_result($id, $name, $desc, $stat, $dateReq, $dateAdd, $addInfo, $inventor, $username, $uid, $namelen, $desclen, $addlen);
 
 $stmt->store_result();
 
@@ -90,7 +91,9 @@ $inventor4=$username;
 	echo "</a></td><td><a href='showIdea.php?id=$id'>$array[desc]";
 	if ($desclen > 99) echo "...";
 	echo "</a></td><td>$array[status]</td>
-	<td>$array[datereq]</td><td>$array[dateadd]</td><td>$array[addinfo]...</td>";
+	<td>$array[datereq]</td><td>$array[dateadd]</td><td>$array[addinfo]";
+	if ($addlen > 99) echo "...";
+	echo "</td>";
 	echo "<td><a href='showUser.php?id=$inventor'>$array[inventor]</a></td>
 	</tr>\n";
 	}

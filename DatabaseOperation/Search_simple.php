@@ -33,7 +33,7 @@ $count = count($pieces);
 						  OR User.Name LIKE CONCAT('%',(?),'%')
 						  OR Description LIKE CONCAT('%',(?),'%')
 						  OR AdditionalInfo LIKE CONCAT('%',(?),'%'))
-						  ORDER BY AddingDate ";
+						  ORDER BY AddingDate DESC ";
 
 
 

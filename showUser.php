@@ -9,7 +9,7 @@ if (!isset($_GET["id"])) {
 
 require_once("DatabaseOperation/user.php");
 
-$id = $_GET["id"];
+$userID = $_GET["id"];
 
 ?>
 
@@ -30,7 +30,11 @@ $id = $_GET["id"];
 
 <?php
 
-getUser($id, $sess->isLoggedIn());
+getUser($userID, $sess->isLoggedIn());
+
+if ($userID == $sess->getUserID() || $sess->isAdmin()) {
+	echo '<form method=POST action="editUser.php?userid='.$userID.'"><input type="submit" name="editUser" value="Edit details"></form>';
+}
 
 ?>
 

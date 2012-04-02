@@ -78,6 +78,48 @@ function getUser($id, $isLoggedIn) {
 	$db->close();
 }
 
+function editUser($userID, $email, $company, $compAddr, $theme)
+{
+	try
+	{
+		$pdo = pdo_connect();
+		
+		$sql = "UPDATE User SET Email = :Email, Company = :Company, CompanyAddress = :CompAddr, SelectedTheme = :Theme WHERE UserID = :UserID";
+		$stmt = $pdo->prepare($sql);
+		$stmt->bindParam(':UserID', $userID);
+		$stmt->bindParam(':Email', $email);
+		$stmt->bindParam(':Company', $company);
+		$stmt->bindParam(':CompAddr', $compAddr);
+		$stmt->bindParam(':Theme', $theme);
+		$stmt->execute();
+
+		$pdo = null; // Close connection.
+	}
+	catch (PDOException $err)
+	{
+		echo $err;			
+	}		
+}
+
+function getUserData($userID)
+{
+	try
+	{			
+		$pdo = pdo_connect();
+		
+		$sql = "SELECT * FROM User WHERE UserID = :UserID";
+		$stmt = $pdo->prepare($sql);
+		$stmt->bindParam(':UserID', $userID);			
+		if ($stmt->execute())
+			return $stmt;
+		$pdo = null; // Close connection.
+	}
+	catch (PDOException $err)
+	{
+		echo $err;			
+	}		
+}
+
 function getNewComments($userID) {
 	try {
 		$pdo = pdo_connect();

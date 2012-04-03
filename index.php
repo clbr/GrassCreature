@@ -16,7 +16,7 @@
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 </head>
 
-<body>
+<body style="margin-right: 2em;">
 
 <?php
 	$sess->printBox();

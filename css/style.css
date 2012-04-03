@@ -422,6 +422,7 @@ table.versions td, table.versions th {
 .mostuseda {
 	color: #00590f;
 	text-decoration: underline;
+	cursor: pointer;
 }
 
 .mostuseda:hover {

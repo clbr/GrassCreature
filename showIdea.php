@@ -35,7 +35,7 @@ if ($sess->isAdmin()) {
 	<link
 	<?php
 		require_once("getTheme.php");
-		getTheme($sess->getUserID());
+		getTheme();
 	?>
  rel="stylesheet" type="text/css">
 	<link rel="icon" href="favicon.ico" type="image/x-icon">

@@ -428,3 +428,9 @@ table.versions td, table.versions th {
 .mostuseda:hover {
 	text-decoration: none;
 }
+
+.longtext {
+	max-width: 90%;
+	min-width: 100px;
+	width: 50%;
+}

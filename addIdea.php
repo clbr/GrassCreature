@@ -35,16 +35,16 @@ $sess->mustBeLoggedIn();
 	<div id="ideaForms" class="IdeaAdd">
 		<form method="POST" action="addIdea.php" enctype="multipart/form-data" id=addideaform>
 			*Idea name:<br>
-			<input type="text" id="IdeaName" name="IdeaName" value=""><br>
+			<input type="text" id="IdeaName" name="IdeaName" value="" class=longtext><br>
 
 			*Idea description:<br>
-			<TEXTAREA name="desc" rows="10" cols="70" id="IdeaDesc"></TEXTAREA><br>
+			<TEXTAREA name="desc" rows="10" class=longtext id="IdeaDesc"></TEXTAREA><br>
 
 			Cost estimation (&euro;)<br>
 			<input type="text" id="CostEst" name="CostEst"><br>
 
 			Additional information:<br>
-			<TEXTAREA Name="AddInfo" rows="6" cols="70"></TEXTAREA><br>
+			<TEXTAREA Name="AddInfo" rows="6" class=longtext></TEXTAREA><br>
 
 			Request date/time frame for idea/implementation:<br>
 			<input type=text Name="ReqDate" size=20><br>
@@ -70,7 +70,7 @@ $sess->mustBeLoggedIn();
 			?><br>
 
 			Categories:<br>
-			<input type="text" id="category" name="category" size=60><br><br>
+			<input type="text" id="category" name="category" class=longtext><br><br>
 
 
 			<br>

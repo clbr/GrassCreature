@@ -52,7 +52,7 @@ $uid = -1;
 if ($sess->isLoggedIn())
 	$uid = $sess->getUserID();
 
-/* Notification if coming from changing versions */
+/* Notification if coming after changing versions */
 
 if ($sess->isAdmin() && isset($_GET['versionChanged']))
 	echo "<span id='versionChanged'>The idea has been reverted to version " . $_GET['versionChanged'] . ".</span><br>";
@@ -126,7 +126,7 @@ require_once("DatabaseOperation/comment.php");
 $comments = getComments($id);
 
 echo "<div id='commentsArea'>";
-while ($comment = $comments->fetch_object()) {
+while ($comment = $comments->fetch(PDO::FETCH_OBJ)) {
 	echo "<div id=comment" . $comment->CommentID . " class='comment'>" . $comment->Date . " " .
 	"<a href='showUser.php?id=" . $comment->UserID . "' name=" . $comment->CommentID . ">" . $comment->Name . "</a>";
 	if ($comment->Company != "") { echo ", " . $comment->Company; }

@@ -46,15 +46,23 @@
 	}
 
 	function getComments($ideaID) {
-		$mysqli = db_connect();
+		try {
+			$pdo = pdo_connect();
 
-		// If there are column name collisions, use User.Name etc. instead.
-		$sql = "SELECT CommentID, DATE_FORMAT(Date, '%d.%m.%Y %H:%i:%s') AS Date, Name, UserID, Company, Text
+			$sql = "SELECT CommentID, DATE_FORMAT(Date, '%d.%m.%Y %H:%i:%s') AS Date, Name, UserID, Company, Text
 			FROM Comment
 			LEFT OUTER JOIN User ON Comment.User_UserID = User.UserID
 			WHERE Idea_IdeaID = $ideaID";
-		$result = $mysqli->query($sql) or die($mysqli->error);
 
-		return $result;
+			$stmt = $pdo->prepare($sql);
+			$stmt->bindParam(':IdeaID', $ideaID);
+			$stmt->execute();
+
+			return $stmt;
+		}
+		catch (PDOException $err)
+		{
+			echo $err;
+		}
 	}
 ?>

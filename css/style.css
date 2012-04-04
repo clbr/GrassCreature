@@ -70,9 +70,6 @@ color:purple;
 /* ----------- stylized ----------- */
 
 
-
-
-
 div#bg{
 
 	background-image:url(../Documentation/Images/GrassCreature.png);
@@ -103,11 +100,6 @@ label#Add{
 	float:left;
 }
 
-
-/*
-.submit{
-	background-color:;
-}*/
 
 /* session / login */
 

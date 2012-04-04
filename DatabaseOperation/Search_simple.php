@@ -13,6 +13,12 @@ $count = count($pieces);
 
 
 
+ print"<table border=0 class='highlight center longtext'>\n";
+ print "<tr><th>Idea name</th><th>Description</th><th>
+ Status</th><th>RequestDate</th><th>Added On</th><th>Additional Information</th><th>Inventor</th>
+ </tr>\n";
+
+
 // Array for keeping list of idea IDs to prevent duplicates.
 	$array2 = array(
 		 9999
@@ -22,7 +28,7 @@ $count = count($pieces);
 	$keyword2 = "%".$keyword."%";
 
 
-	$sql = "SELECT IdeaId, LEFT(Idea.Name, 100), LEFT(Idea.Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor, User.Name, UserID,
+	$sql = "SELECT distinct IdeaId, LEFT(Idea.Name, 100), LEFT(Idea.Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor, User.Name, UserID,
 						char_length(Idea.Name), char_length(Idea.Description), char_length(AdditionalInfo)
 						  FROM Idea, User, Category, Idea_has_Category
 						  WHERE UserID = Inventor and Status != 'new' and Status != 'closed' and (Idea.Name LIKE CONCAT('%',(?),'%')
@@ -44,14 +50,6 @@ $stmt->bind_result($id, $name, $desc, $stat, $dateReq, $dateAdd, $addInfo, $inve
 
 $stmt->store_result();
 
-
-echo "<h2>Found " . $stmt->num_rows . " ideas:</h2>";
-
-
- print"<table border=0 class='highlight center longtext'>\n";
- print "<tr><th>Idea name</th><th>Description</th><th>
- Status</th><th>RequestDate</th><th>Added On</th><th>Additional Information</th><th>Inventor</th>
- </tr>\n";
 
 
 	while($stmt->fetch())

@@ -56,7 +56,7 @@ Chart all
 
 </form>
 
-<div id=chartdiv>
+<div id=chartdiv style="padding: 1em;">
 <?php
 if (isset($_POST["submitbtn"])) {
 

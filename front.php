@@ -23,7 +23,12 @@
 
 <h1 id=frontwelcome>Welcome to the Ideabank!</h1>
 
+<div style="margin-left: 6em; width: 25%; min-width: 300px; margin-bottom: 2em;">
+The Ideabank of JAMK Generator is here to help you publish an idea, get feedback on it, and either form a team yourself
+to work on it or perhaps get some interested team of students on the case, with royalties for you as the idea inventor.
+</div>
 
+<p>
 <?php
 
 

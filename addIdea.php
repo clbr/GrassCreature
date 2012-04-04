@@ -24,6 +24,10 @@ $sess->mustBeLoggedIn();
 
 <body class=lining>
 
+<div class=introtext>
+
+</div>
+
 <?php
 	error_reporting(E_ALL);
 	require_once('DatabaseOperation/idea.php');

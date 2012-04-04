@@ -418,3 +418,10 @@ table.versions td, table.versions th {
 	min-width: 100px;
 	width: 50%;
 }
+
+.introtext {
+	margin-left: 6em;
+	width: 25%;
+	min-width: 300px;
+	margin-bottom: 2em;
+}

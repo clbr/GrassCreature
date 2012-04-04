@@ -12,7 +12,7 @@ else
 
 if($date!=null){
  print "<br><br><table border=0 class='highlight center'>\n";
- print "<tr><th>Idea name</th><th>Version</th><th>Description</th><th>
+ print "<tr><th>Idea name</th><th>Description</th><th>
  Status</th><th> RequestDate</th><th>Added On</th><th>Addiotional Information</th><th>Inventor</th>
  </tr>\n";}
 
@@ -50,7 +50,7 @@ else
 
 
 if(empty($_POST['inventor']) && empty($_POST['tags'])){
-	$sql = "SELECT IdeaId, LEFT(Idea.Name, 100), Version, LEFT(Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor, User.Name, UserID
+	$sql = "SELECT IdeaId, LEFT(Idea.Name, 100), LEFT(Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor, User.Name, UserID
 						  FROM Idea, User
 						  WHERE Status= (?)
 
@@ -70,7 +70,7 @@ if(empty($_POST['inventor']) && empty($_POST['tags'])){
 
 
 if(empty($_POST['inventor']) && !empty($_POST['tags'])){
-	$sql = "SELECT IdeaId, LEFT(Idea.Name, 100), Version, LEFT(Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor, User.Name, UserID
+	$sql = "SELECT IdeaId, LEFT(Idea.Name, 100), LEFT(Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor, User.Name, UserID
 						  FROM Idea, User
 						  WHERE Status= (?)
 
@@ -92,7 +92,7 @@ if(empty($_POST['inventor']) && !empty($_POST['tags'])){
 
 
  if(!empty($_POST['inventor']) && empty($_POST['tags'])){
-	$sql = "SELECT IdeaId, LEFT(Idea.Name, 100), Version, LEFT(Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor, User.Name, UserID
+	$sql = "SELECT IdeaId, LEFT(Idea.Name, 100), LEFT(Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor, User.Name, UserID
 						  FROM Idea, User
 						  WHERE Status= (?)
 						  AND User.Name LIKE CONCAT('%',(?),'%')
@@ -115,7 +115,7 @@ $stmt->bind_param("ss",$status1, $inventor1);
 
 
 if(!empty($_POST['inventor']) && !empty($_POST['tags'])){
-	$sql = "SELECT IdeaId, LEFT(Idea.Name, 100), Version, LEFT(Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor, User.Name, UserID
+	$sql = "SELECT IdeaId, LEFT(Idea.Name, 100), LEFT(Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor, User.Name, UserID
 						  FROM Idea, User
 						WHERE Status= (?)
 
@@ -163,7 +163,7 @@ $stmt->bind_param("sssss", $status1, $inventor1, $keyword2, $keyword2, $keyword2
 
 $stmt->execute();
 
-$stmt->bind_result($id, $name, $version, $desc, $stat, $dateReq, $dateAdd, $addInfo, $inventor, $username, $uid);
+$stmt->bind_result($id, $name, $desc, $stat, $dateReq, $dateAdd, $addInfo, $inventor, $username, $uid);
 
 $stmt->store_result();
 
@@ -172,7 +172,6 @@ $stmt->store_result();
 	{
 
 	$name3 = $name;
-	$version3 = $version;
     $desc3 = $desc;
     $status3 = $stat;
     $date3 = $dateReq;
@@ -188,7 +187,6 @@ $inventor4=$username;
 	$array = array(
 				 "id" => $id,
 				 "name" => $name,
-				 "version"=>$version,
 				 "desc"=>$desc,
 				 "status"=>$stat,
 				 "datereq"=>$dateReq,
@@ -203,7 +201,7 @@ $inventor4=$username;
 
 	if(!in_array($array['id'], $array2)){
 
-	print "<tr><td>$array[name]</td><td>$array[version]</td><td>$array[desc]</td><td>$array[status]</td>
+	print "<tr><td>$array[name]</td><td>$array[desc]</td><td>$array[status]</td>
 	<td>$array[datereq]</td><td>$array[dateadd]</td><td>$array[addinfo]</td><td>$array[inventor]</td>
 	</tr>\n";
 	}

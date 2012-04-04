@@ -201,8 +201,8 @@ $inventor4=$username;
 
 	if(!in_array($array['id'], $array2)){
 
-	print "<tr><td>$array[name]</td><td>$array[desc]</td><td>$array[status]</td>
-	<td>$array[datereq]</td><td>$array[dateadd]</td><td>$array[addinfo]</td><td>$array[inventor]</td>
+	print "<tr><td><a href=showIdea.php?id=$id>$array[name]</a></td><td><a href=showIdea.php?id=$id>$array[desc]</a></td><td>$array[status]</td>
+	<td>$array[datereq]</td><td>$array[dateadd]</td><td>$array[addinfo]</td><td><a href=showUser.php?id=$uid>$array[inventor]</a></td>
 	</tr>\n";
 	}
 	// Pushing the current idea's id into the idea id array

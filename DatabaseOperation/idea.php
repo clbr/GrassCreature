@@ -298,11 +298,13 @@ function getVote($ideaID) {
 	}
 
 	function getMyIdeas($userID) {
-		$mysqli = db_connect();
-		// Could fetch amount of comments too and maybe rating.
-		$sql = "select IdeaID, Name, Status, DATE_FORMAT(AddingDate, '%e.%c.%Y %H:%i:%s') AS AddingDate from Idea where Inventor=$userID ORDER BY AddingDate DESC";
-		$result = $mysqli->query($sql) or die($mysqli->error);
-		return $result;
+		$pdo = pdo_connect();
+
+		$sql = "select IdeaID, Name, Status, DATE_FORMAT(AddingDate, '%e.%c.%Y %H:%i:%s') AS AddingDate from Idea where Inventor=:UserID ORDER BY AddingDate DESC";
+		$stmt = $pdo->prepare($sql);
+		$stmt->bindParam(':UserID', $userID);
+		$stmt->execute();
+		return $stmt;
 	}
 
 function getIdeaName($id) {

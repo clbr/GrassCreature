@@ -75,7 +75,7 @@ if (isset($_POST["submitbtn"])) {
 	$what = $_POST["what"];
 	$per = $_POST["period"];
 
-	echo "<img src=chart.php?what=$what&period=$per>";
+	echo "<img src=\"chart.php?what=$what&amp;period=$per\" alt=stats>";
 }
 ?>
 </div>

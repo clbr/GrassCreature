@@ -41,9 +41,21 @@
 Chart all
 </td><td>
 <select name=what>
-	<option value=comments>Comments</option>
-	<option value=>Comments</option>
-	<option value=comments>Comments</option>
+	<optgroup label="Comments">
+		<option value=comments>Comments</option>
+	</optgroup>
+	<optgroup label="Users">
+		<option value=userstotal>Total users</option>
+		<option value=userjoined>Users joined</option>
+	</optgroup>
+	<optgroup label="Ideas">
+		<option value=ideastotal>Total ideas</option>
+		<option value=ideasinimplementation>Ideas in implementation</option>
+		<option value=ideascorporated>Ideas incorporated</option>
+	</optgroup>
+	<optgroup label="Groups">
+		<option value=groupstotal>Total groups</option>
+	</optgroup>
 </select>
 </td></tr>
 

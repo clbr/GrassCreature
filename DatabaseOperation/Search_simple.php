@@ -27,20 +27,21 @@ $count = count($pieces);
 	$keyword2 = "%".$keyword."%";
 
 
-	$sql = "SELECT IdeaId, LEFT(Idea.Name, 100), LEFT(Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor, User.Name, UserID,
-						char_length(Idea.Name), char_length(Description), char_length(AdditionalInfo)
-						  FROM Idea, User
+	$sql = "SELECT IdeaId, LEFT(Idea.Name, 100), LEFT(Idea.Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor, User.Name, UserID,
+						char_length(Idea.Name), char_length(Idea.Description), char_length(AdditionalInfo)
+						  FROM Idea, User, Category, Idea_has_Category
 						  WHERE UserID = Inventor and Status != 'new' and Status != 'closed' and (Idea.Name LIKE CONCAT('%',(?),'%')
 						  OR User.Name LIKE CONCAT('%',(?),'%')
-						  OR Description LIKE CONCAT('%',(?),'%')
-						  OR AdditionalInfo LIKE CONCAT('%',(?),'%'))
+						  OR Idea.Description LIKE CONCAT('%',(?),'%')
+						  OR AdditionalInfo LIKE CONCAT('%',(?),'%')
+						  OR (IdeaID = Idea_IdeaID and Category_CategoryID = CategoryID and Category.Name like concat('%',(?),'%')))
 						  ORDER BY AddingDate DESC ";
 
 
 
 	$stmt = $mysqli->prepare($sql) or die ($mysqli->error);
 
-$stmt->bind_param("ssss",$keyword2, $keyword2, $keyword2, $keyword2);
+$stmt->bind_param("sssss",$keyword2, $keyword2, $keyword2, $keyword2, $keyword2);
 
 $stmt->execute() or die($mysqli->error);
 

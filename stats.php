@@ -24,8 +24,10 @@
 
 <form method=post action=stats.php>
 
-Starting from &nbsp; &nbsp;
-<select name=period>
+<table border=0>
+<tr>
+<td>Starting from &nbsp; &nbsp;</td>
+<td><select name=period>
 	<option value=30>30 days ago</option>
 	<option value=60>60 days ago</option>
 	<option value=90>90 days ago</option>
@@ -33,8 +35,39 @@ Starting from &nbsp; &nbsp;
 	<option value=360>one year ago</option>
 	<option value=300000>the start</option>
 </select>
+</td></tr>
+
+<tr><td>
+Chart all
+</td><td>
+<select name=what>
+	<option value=comments>Comments</option>
+	<option value=>Comments</option>
+	<option value=comments>Comments</option>
+</select>
+</td></tr>
+
+<tr><td colspan=2 style="text-align:center; padding: 0.5em;">
+<input type=submit value="Go" name=submitbtn style="width: 50%;">
+</td>
+</tr>
+
+</table>
 
 </form>
+
+<div id=chartdiv>
+<?php
+if (isset($_POST["submitbtn"])) {
+
+	$what = $_POST["what"];
+	$per = $_POST["period"];
+
+	echo "<img src=chart.php?what=$what&period=$per>";
+}
+?>
+</div>
+
 
 </body>
 </html>

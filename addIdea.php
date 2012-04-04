@@ -24,8 +24,12 @@ $sess->mustBeLoggedIn();
 
 <body class=lining>
 
-<div class=introtext>
-
+<div class=introtext style='float:right; margin-right: 10%;'>
+By adding an idea here, you gain the public review of the experienced engineer students and staff of JAMK.
+<br><br>
+No matter who eventually takes up the execution of the idea, you will stay as the inventor as long as you want.
+<br><br>
+You can control whether the idea is public or private, who gets to see it and who gets to comment on it.
 </div>
 
 <?php

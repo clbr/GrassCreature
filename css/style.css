@@ -425,3 +425,8 @@ table.versions td, table.versions th {
 	min-width: 300px;
 	margin-bottom: 2em;
 }
+
+.bigintro {
+	color: darkred;
+	font-size: larger;
+}

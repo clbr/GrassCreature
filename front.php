@@ -24,8 +24,11 @@
 <h1 id=frontwelcome>Welcome to the Ideabank!</h1>
 
 <div class=introtext>
-The Ideabank of JAMK Generator is here to help you publish an idea, get feedback on it, and either form a team yourself
-to work on it or perhaps get some interested team of students on the case, with royalties for you as the idea inventor.
+The Ideabank of JAMK Generator is here to help you <span class=bigintro>publish an idea</span>, <span class=bigintro>get feedback</span> on it,
+and either <span class=bigintro>form a team</span> yourself
+to work on it or perhaps <span class=bigintro>get some interested team of students on the case</span>, with <span class=bigintro>royalties</span> for you as the idea inventor.
+<br><br>
+The goal is to maintain the competitiveness of Finland, and help the innovators meet the executors.
 </div>
 
 <p>

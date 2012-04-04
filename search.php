@@ -37,7 +37,7 @@ if (isset($_POST["simpletext"])) {
     <h1>Search Ideas</h1>
   </div>
 
-  <div id="View" class="IdeaView">
+  <div id="View">
 
 
 	<form action="search.php" name="SearchIdea" id="Search"  method="POST">

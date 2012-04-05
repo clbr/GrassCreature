@@ -4,6 +4,10 @@
 	require_once("details.php");
 
 	function addComment ($ideaID, $commentorID, $text) {
+
+		if (commentTooSoon($commentorID))
+			die("You must wait 15s before posting new comments");
+
 		try {
 			$pdo = pdo_connect();
 
@@ -65,4 +69,27 @@
 			echo $err;
 		}
 	}
+
+// Return true if the last comment was made less than 15s ago
+function commentTooSoon($uid) {
+
+	$db = db_connect();
+
+	$st = $db->prepare("select unix_timestamp()-unix_timestamp(Date) from Comment where " .
+				"User_UserID=? order by Date desc limit 1") or die($db->error);
+
+	$st->bind_param("i", $uid);
+	$st->execute();
+	$st->bind_result($secs);
+
+	if ($st->fetch()) {
+		if ($secs > 15)
+			return false;
+
+		return true;
+	}
+
+	return false;
+}
+
 ?>

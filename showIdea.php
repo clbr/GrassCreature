@@ -187,7 +187,7 @@ if (canComment($id, $uid) || $sess->isAdmin()) {
 			type: 'POST',
 			data: 'call=' + call + '&ideaid=' + ideaid + '&userid=' + userid + '&comment=' + text,
 			success: function(result) {
-				var comment = JSON.parse(result);
+				var comment = $.parseJSON(result);
 				var string = "<div id='comment" + comment.Rand + "' class='comment' style='display:none'>" + comment.Date +
 					"<a href='showUser.php?id=" + userid + "'> " + comment.Name + "</a>";
 

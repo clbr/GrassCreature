@@ -103,7 +103,7 @@ top10_latest_comments();
 			type: 'POST',
 			data: 'call=' + call + '&userid=' + userid,
 			success: function(response) {
-				var ideas = JSON.parse(response);
+				var ideas = $.parseJSON(response);
 
 				if (ideas.length > 0) {
 					var count = 0;
@@ -152,7 +152,7 @@ top10_latest_comments();
 			type: 'POST',
 			data: 'call=' + call + '&userid=' + userid,
 			success: function(response) {
-				var users = JSON.parse(response);
+				var users = $.parseJSON(response);
 
 				if (users.length > 0) {
 					/*var count = 0;

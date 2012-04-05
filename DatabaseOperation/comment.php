@@ -5,8 +5,11 @@
 
 	function addComment ($ideaID, $commentorID, $text) {
 
-		if (commentTooSoon($commentorID))
-			die("You must wait 15s before posting new comments");
+		if (commentTooSoon($commentorID)) {
+			$error["error"] = "You must wait 15s before posting new comments!";
+			echo json_encode($error);
+			return;
+		}
 
 		try {
 			$pdo = pdo_connect();

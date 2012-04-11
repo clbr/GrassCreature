@@ -37,6 +37,13 @@ function drawbg($pic) {
 
 }
 
+function labely($when, $days) {
+	if ($days < 180)
+		return date("j M", $when);
+	else
+		return date("M Y", $when);
+}
+
 // Each data gathering function returns a pImage object
 function getCommentData($days) {
 
@@ -62,7 +69,7 @@ function getCommentData($days) {
 //			echo "com++\n";
 		} else {
 			$data->addPoints($com, "Comments");
-			$label = date("j M Y", $start);
+			$label = labely($start, $days);
 			$data->addPoints($label, "Labels");
 
 //			echo "$com comments at $label\n";
@@ -74,7 +81,7 @@ function getCommentData($days) {
 
 	// Last one
 	$data->addPoints($com, "Comments");
-	$label = date("j M Y", $start);
+	$label = labely($start, $days);
 	$data->addPoints($label, "Labels");
 //	echo "$com comments at $label\n";
 

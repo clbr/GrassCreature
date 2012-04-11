@@ -56,8 +56,10 @@ function getCommentData($days) {
 	$com = 0;
 	while ($st->fetch()) {
 		$tick = $sec - $start;
+//		echo "$tick and $lim\n";
 		if ($tick < $lim) {
 			$com++;
+//			echo "com++\n";
 		} else {
 			$data->addPoints($com, "Comments");
 			$label = date("j M Y", $start);
@@ -69,6 +71,12 @@ function getCommentData($days) {
 			$start += $lim;
 		}
 	}
+
+	// Last one
+	$data->addPoints($com, "Comments");
+	$label = date("j M Y", $start);
+	$data->addPoints($label, "Labels");
+//	echo "$com comments at $label\n";
 
 	$db->close();
 

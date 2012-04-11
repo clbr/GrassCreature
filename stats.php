@@ -38,6 +38,7 @@ if (isset($_POST["what"])) {
 <tr>
 <td>Starting from &nbsp; &nbsp;</td>
 <td><select name=period>
+	<option value=7 <?php if ($per == 7) echo "selected"; ?>>7 days ago</option>
 	<option value=30 <?php if ($per == 30) echo "selected"; ?>>30 days ago</option>
 	<option value=60 <?php if ($per == 60) echo "selected"; ?>>60 days ago</option>
 	<option value=90 <?php if ($per == 90) echo "selected"; ?>>90 days ago</option>

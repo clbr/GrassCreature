@@ -41,16 +41,17 @@ require_once('DatabaseOperation/perms.php');
 		// Replace more than one space with one space
 		$categories = str_replace("  ", " ", $categories);
 
+		//$sql = "COMMIT";
+		//$mysqli->query($sql) or die($mysqli->error);
+
+		$mysqli->commit() or die($mysqli->error);
+		$mysqli->close();
+
 		//add category
 		$category = explode(" ", $categories);
 		foreach ($category as $value) {
 			addCategory($just_added_id[0], $value);
 		}
-
-		//$sql = "COMMIT";
-		//$mysqli->query($sql) or die($mysqli->error);
-
-		$mysqli->commit() or die($mysqli->error);
 
 		return $just_added_id[0];
 	}
@@ -73,7 +74,7 @@ require_once('DatabaseOperation/perms.php');
 		if($categoryID>0) {
 			$sql = "insert into Idea_has_Category (Idea_IdeaID, Category_CategoryID) values (?,?);";
         	        $stmt = $mysqli->prepare($sql);
-                	$stmt->bind_param('ss', $ideaID, $categoryID);
+                	$stmt->bind_param('ii', $ideaID, $categoryID);
 	                $stmt->execute();
         	        $stmt->close();
 		} else {
@@ -93,7 +94,7 @@ require_once('DatabaseOperation/perms.php');
 
 			$sql = "insert into Idea_has_Category (Idea_IdeaID, Category_CategoryID) values (?,?);";
         	        $stmt = $mysqli->prepare($sql);
-                	$stmt->bind_param('ss', $ideaID, $categoryID);
+                	$stmt->bind_param('ii', $ideaID, $categoryID);
 	                $stmt->execute();
         	        $stmt->close();
 		}

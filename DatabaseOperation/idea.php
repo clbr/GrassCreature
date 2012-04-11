@@ -63,40 +63,40 @@ require_once('DatabaseOperation/perms.php');
 		$mysqli = db_connect();
 		$mysqli->autocommit(false);
 
-                $sql = "SELECT CategoryID FROM `ideapankki_dev`.`Category` WHERE Name=?;";
-                $stmt = $mysqli->prepare($sql);
-                $stmt->bind_param('s', $category);
-                $stmt->execute();
+		$sql = "SELECT CategoryID FROM `ideapankki_dev`.`Category` WHERE Name=?;";
+		$stmt = $mysqli->prepare($sql);
+		$stmt->bind_param('s', $category);
+		$stmt->execute();
 		$stmt->bind_result($categoryID);
 		$stmt->fetch();
-                $stmt->close();
+		$stmt->close();
 
 		if($categoryID>0) {
 			$sql = "insert into Idea_has_Category (Idea_IdeaID, Category_CategoryID) values (?,?);";
-        	        $stmt = $mysqli->prepare($sql);
-                	$stmt->bind_param('ii', $ideaID, $categoryID);
-	                $stmt->execute();
-        	        $stmt->close();
+			$stmt = $mysqli->prepare($sql);
+			$stmt->bind_param('ii', $ideaID, $categoryID);
+			$stmt->execute();
+			$stmt->close();
 		} else {
-	                $sql = "insert into Category (Name, Description) values (?, 'kuvaus');";
-        	        $stmt = $mysqli->prepare($sql);
-                	$stmt->bind_param('s', $category);
-	                $stmt->execute();
-        	        $stmt->close();
+			$sql = "insert into Category (Name, Description) values (?, 'kuvaus');";
+			$stmt = $mysqli->prepare($sql);
+			$stmt->bind_param('s', $category);
+			$stmt->execute();
+			$stmt->close();
 
-	                $sql = "SELECT LAST_INSERT_ID();";
-        	        $stmt = $mysqli->prepare($sql);
-                	$stmt->execute();
+			$sql = "SELECT LAST_INSERT_ID();";
+			$stmt = $mysqli->prepare($sql);
+			$stmt->execute();
 
-	                $stmt->bind_result($categoryID);
-        	        $stmt->fetch();
-                	$stmt->close();
+			$stmt->bind_result($categoryID);
+			$stmt->fetch();
+			$stmt->close();
 
 			$sql = "insert into Idea_has_Category (Idea_IdeaID, Category_CategoryID) values (?,?);";
-        	        $stmt = $mysqli->prepare($sql);
-                	$stmt->bind_param('ii', $ideaID, $categoryID);
-	                $stmt->execute();
-        	        $stmt->close();
+			$stmt = $mysqli->prepare($sql);
+			$stmt->bind_param('ii', $ideaID, $categoryID);
+			$stmt->execute();
+			$stmt->close();
 		}
 
 		$mysqli->commit();
@@ -105,11 +105,11 @@ require_once('DatabaseOperation/perms.php');
 
 	function getCategory($ideaID) {
 
-                $mysqli = db_connect();
-                $sql = "SELECT Name FROM Category LEFT JOIN Idea_has_Category ON Category.CategoryID = Idea_has_Category.Category_CategoryID WHERE Idea_IdeaID=?;";
-                $stmt = $mysqli->prepare($sql);
-                $stmt->bind_param('s', $ideaID);
-                $stmt->execute();
+		$mysqli = db_connect();
+		$sql = "SELECT Name FROM Category LEFT JOIN Idea_has_Category ON Category.CategoryID = Idea_has_Category.Category_CategoryID WHERE Idea_IdeaID=?;";
+		$stmt = $mysqli->prepare($sql);
+		$stmt->bind_param('s', $ideaID);
+		$stmt->execute();
 
 
 		$stmt->bind_result($name);
@@ -118,38 +118,38 @@ require_once('DatabaseOperation/perms.php');
 
 		$category = array();
 
-        	while($stmt->fetch()) {
+		while($stmt->fetch()) {
 
-                $category[] = $name;
+		$category[] = $name;
 
 		}
 
-                $stmt->close();
+		$stmt->close();
 		return $category;
 
 	}
 
 	function getMostUsedCategories() {
-                $mysqli = db_connect();
-                $sql = "SELECT Name FROM Category LEFT JOIN Idea_has_Category ON Category.CategoryID = Idea_has_Category.Category_CategoryID GROUP BY Category_CategoryID ORDER BY COUNT(Idea_IdeaID) DESC LIMIT 10;";
-                $stmt = $mysqli->prepare($sql);
-                $stmt->execute();
+		$mysqli = db_connect();
+		$sql = "SELECT Name FROM Category LEFT JOIN Idea_has_Category ON Category.CategoryID = Idea_has_Category.Category_CategoryID GROUP BY Category_CategoryID ORDER BY COUNT(Idea_IdeaID) DESC LIMIT 10;";
+		$stmt = $mysqli->prepare($sql);
+		$stmt->execute();
 
 
-                $stmt->bind_result($name);
-                $stmt->store_result();
+		$stmt->bind_result($name);
+		$stmt->store_result();
 
 
-                $category = array();
+		$category = array();
 
-                while($stmt->fetch()) {
+		while($stmt->fetch()) {
 
-                $category[] = $name;
+		$category[] = $name;
 
-                }
+		}
 
-                $stmt->close();
-                return $category;
+		$stmt->close();
+		return $category;
 
 	}
 

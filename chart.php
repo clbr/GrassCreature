@@ -6,19 +6,6 @@ require_once("charting.php");
 
 require_once("DatabaseOperation/details.php");
 
-/* Create and populate the pData object */
-$data = new pData();
-
-$db = db_connect();
-
-$res = $db->query("select count(CommentID), Idea_IdeaID from Comment group by Idea_IdeaID order by count(CommentID) desc") or die($db->error);
-
-while ($row = $res->fetch_row()) {
-	$data->addPoints($row[0], "Comments");
-	$data->addPoints($row[1], "Labels");
-}
-
-$db->close();
 
 $data->setAxisName(0,"Kommentteja");
 $data->setAbscissa("Labels"); // X-akselin otsikot

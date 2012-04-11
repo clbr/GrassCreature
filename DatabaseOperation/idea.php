@@ -7,6 +7,7 @@ require_once('DatabaseOperation/perms.php');
 	function addIdea($name, $desc, $reqdate, $cost, $additionalInfo, $basedOn, $perms, $inventorID, $categories) {
 		// Add entirely new idea.
 		$mysqli = db_connect();
+		$mysqli->autocommit(false);
 
 		$name = htmlspecialchars($name);
 		$desc = htmlspecialchars($desc);
@@ -49,12 +50,16 @@ require_once('DatabaseOperation/perms.php');
 		//$sql = "COMMIT";
 		//$mysqli->query($sql) or die($mysqli->error);
 
+		$mysqli->commit() or die($mysqli->error);
+
 		return $just_added_id[0];
 	}
 
 	function addCategory($ideaID, $category){
 
 		$mysqli = db_connect();
+		$mysqli->autocommit(false);
+
                 $sql = "SELECT CategoryID FROM `ideapankki_dev`.`Category` WHERE Name=?;";
                 $stmt = $mysqli->prepare($sql);
                 $stmt->bind_param('s', $category);
@@ -62,33 +67,37 @@ require_once('DatabaseOperation/perms.php');
 		$stmt->bind_result($categoryID);
 		$stmt->fetch();
                 $stmt->close();
+
 		if($categoryID>0) {
-		$sql = "insert into Idea_has_Category (Idea_IdeaID, Category_CategoryID) values (?,?);";
-                $stmt = $mysqli->prepare($sql);
-                $stmt->bind_param('ss', $ideaID, $categoryID);
-                $stmt->execute();
-                $stmt->close();
-		}
-		else {
-                $sql = "insert into Category (Name, Description) values (?, 'kuvaus');";
-                $stmt = $mysqli->prepare($sql);
-                $stmt->bind_param('s', $category);
-                $stmt->execute();
-                $stmt->close();
-                $sql = "SELECT LAST_INSERT_ID();";
-                $stmt = $mysqli->prepare($sql);
-                $stmt->execute();
-                $stmt->bind_result($categoryID);
-                $stmt->fetch();
-                $stmt->close();
-		$sql = "insert into Idea_has_Category (Idea_IdeaID, Category_CategoryID) values (?,?);";
-                $stmt = $mysqli->prepare($sql);
-                $stmt->bind_param('ss', $ideaID, $categoryID);
-                $stmt->execute();
-                $stmt->close();
+			$sql = "insert into Idea_has_Category (Idea_IdeaID, Category_CategoryID) values (?,?);";
+        	        $stmt = $mysqli->prepare($sql);
+                	$stmt->bind_param('ss', $ideaID, $categoryID);
+	                $stmt->execute();
+        	        $stmt->close();
+		} else {
+	                $sql = "insert into Category (Name, Description) values (?, 'kuvaus');";
+        	        $stmt = $mysqli->prepare($sql);
+                	$stmt->bind_param('s', $category);
+	                $stmt->execute();
+        	        $stmt->close();
+
+	                $sql = "SELECT LAST_INSERT_ID();";
+        	        $stmt = $mysqli->prepare($sql);
+                	$stmt->execute();
+
+	                $stmt->bind_result($categoryID);
+        	        $stmt->fetch();
+                	$stmt->close();
+
+			$sql = "insert into Idea_has_Category (Idea_IdeaID, Category_CategoryID) values (?,?);";
+        	        $stmt = $mysqli->prepare($sql);
+                	$stmt->bind_param('ss', $ideaID, $categoryID);
+	                $stmt->execute();
+        	        $stmt->close();
 		}
 
-
+		$mysqli->commit();
+		$mysqli->close();
 	}
 
 	function getCategory($ideaID) {

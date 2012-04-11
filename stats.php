@@ -41,9 +41,9 @@ if (isset($_POST["what"])) {
 	<option value=30 <?php if ($per == 30) echo "selected"; ?>>30 days ago</option>
 	<option value=60 <?php if ($per == 60) echo "selected"; ?>>60 days ago</option>
 	<option value=90 <?php if ($per == 90) echo "selected"; ?>>90 days ago</option>
-	<option value=180 <?php if ($per == 180) echo "selected"; ?>>six months ago</option>
-	<option value=360 <?php if ($per == 360) echo "selected"; ?>>one year ago</option>
-	<option value=300000 <?php if ($per == 300000) echo "selected"; ?>>the start</option>
+	<option value=180 <?php if ($per == 180) echo "selected"; ?>>Six months ago</option>
+	<option value=360 <?php if ($per == 360) echo "selected"; ?>>One year ago</option>
+	<option value=3650 <?php if ($per == 3650) echo "selected"; ?>>The start</option>
 </select>
 </td></tr>
 

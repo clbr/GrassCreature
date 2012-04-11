@@ -1,10 +1,7 @@
 <?php
 error_reporting(E_ALL);
 
-/* pChart library inclusions */
-require_once("charting.php");
-
-require_once("DatabaseOperation/details.php");
+require_once("DatabaseOperation/chart.php");
 
 if (!isset($_GET["what"]) || !isset($_GET["period"]))
 	return;
@@ -12,7 +9,7 @@ if (!isset($_GET["what"]) || !isset($_GET["period"]))
 
 switch($_GET["what"]) {
 	case "comments":
-		$pic = $getCommentData($_GET["period"]);
+		$pic = getCommentData($_GET["period"]);
 	break;
 
 	default:

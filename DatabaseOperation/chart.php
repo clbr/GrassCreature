@@ -24,7 +24,7 @@ function getStartTime($days) {
 	return $then;
 }
 
-function $picbg($pic) {
+function drawbg($pic) {
 
 	/* Draw the background */
 	$Settings = array("R"=>170, "G"=>183, "B"=>87, "Dash"=>1, "DashR"=>190, "DashG"=>203, "DashB"=>107);

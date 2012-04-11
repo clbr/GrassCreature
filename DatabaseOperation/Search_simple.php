@@ -46,7 +46,7 @@ $stmt->bind_param("sssss",$keyword2, $keyword2, $keyword2, $keyword2, $keyword2)
 
 $stmt->execute() or die($mysqli->error);
 
-$stmt->bind_result($id, $name, $desc, $stat, $dateReq, $dateAdd, $addInfo, $inventor, $username, $uid, $namelen, $desclen, $addlen,$category);
+$stmt->bind_result($id, $name, $desc, $stat, $dateReq, $dateAdd, $addInfo, $inventor, $username, $uid, $namelen, $desclen, $addlen);
 
 $stmt->store_result();
 
@@ -63,7 +63,6 @@ $stmt->store_result();
 	$addInfo4 = $addInfo;
 	$inventor3 = $inventor;
 	$ideaid =$id;
-	
 
 $inventor4=$username;
 
@@ -76,8 +75,7 @@ $inventor4=$username;
 				 "datereq"=>$dateReq,
 				 "dateadd"=>$dateAdd,
 				 "addinfo"=>$addInfo,
-				 "inventor"=>$inventor4,
-				 
+				 "inventor"=>$inventor4
 				);
 
 
@@ -95,7 +93,7 @@ $inventor4=$username;
 	echo "</a></td><td><a href='showIdea.php?id=$id'>$array[desc]";
 	if ($desclen > 99) echo "...";
 	echo "</a></td><td>$array[status]</td>
-	<td>$array[datereq]</td><td>$array[dateadd]</td><td>$array[addinfo]</td>;
+	<td>$array[datereq]</td><td>$array[dateadd]</td><td>$array[addinfo]";
 	if ($addlen > 99) echo "...";
 	echo "</td>";
 	echo "<td><a href='showUser.php?id=$inventor'>$array[inventor]</a></td>

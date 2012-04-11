@@ -28,12 +28,12 @@ function drawbg($pic) {
 
 	/* Draw the background */
 	$Settings = array("R"=>170, "G"=>183, "B"=>87, "Dash"=>1, "DashR"=>190, "DashG"=>203, "DashB"=>107);
-	$pic->drawFilledRectangle(0,0,800,230,$Settings);
+	$pic->drawFilledRectangle(0,0,850,230,$Settings);
 
 	/* Overlay with a gradient */
 	$Settings = array("StartR"=>219, "StartG"=>231, "StartB"=>139, "EndR"=>1, "EndG"=>138, "EndB"=>68, "Alpha"=>50);
-	$pic->drawGradientArea(0,0,800,230,DIRECTION_VERTICAL,$Settings);
-	$pic->drawGradientArea(0,0,800,20,DIRECTION_VERTICAL,array("StartR"=>0,"StartG"=>0,"StartB"=>0,"EndR"=>50,"EndG"=>50,"EndB"=>50,"Alpha"=>80));
+	$pic->drawGradientArea(0,0,850,230,DIRECTION_VERTICAL,$Settings);
+	$pic->drawGradientArea(0,0,850,20,DIRECTION_VERTICAL,array("StartR"=>0,"StartG"=>0,"StartB"=>0,"EndR"=>50,"EndG"=>50,"EndB"=>50,"Alpha"=>80));
 
 }
 
@@ -88,7 +88,7 @@ function getCommentData($days) {
 	$db->close();
 
 	/* Create the pChart object */
-	$pic = new pImage(800,230,$data);
+	$pic = new pImage(850,230,$data);
 
 	$data->setAxisName(0,"Kommentteja");
 	$data->setAbscissa("Labels"); // X-akselin otsikot

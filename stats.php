@@ -18,6 +18,16 @@
 	<base target=main>
 </head>
 
+<?php
+if (isset($_POST["what"])) {
+	$what = $_POST["what"];
+	$per = $_POST["period"];
+} else {
+	$what = "";
+	$per = 0;
+}
+?>
+
 <body class=lining>
 
 <h2>IdeaBank Statistics</h2>
@@ -28,12 +38,12 @@
 <tr>
 <td>Starting from &nbsp; &nbsp;</td>
 <td><select name=period>
-	<option value=30>30 days ago</option>
-	<option value=60>60 days ago</option>
-	<option value=90>90 days ago</option>
-	<option value=180>six months ago</option>
-	<option value=360>one year ago</option>
-	<option value=300000>the start</option>
+	<option value=30 <?php if ($per == 30) echo "selected"; ?>>30 days ago</option>
+	<option value=60 <?php if ($per == 60) echo "selected"; ?>>60 days ago</option>
+	<option value=90 <?php if ($per == 90) echo "selected"; ?>>90 days ago</option>
+	<option value=180 <?php if ($per == 180) echo "selected"; ?>>six months ago</option>
+	<option value=360 <?php if ($per == 360) echo "selected"; ?>>one year ago</option>
+	<option value=300000 <?php if ($per == 300000) echo "selected"; ?>>the start</option>
 </select>
 </td></tr>
 
@@ -42,19 +52,19 @@ Chart all
 </td><td>
 <select name=what>
 	<optgroup label="Comments">
-		<option value=comments>Comments</option>
+		<option value=comments <?php if ($what == "comments") echo "selected"; ?>>Comments</option>
 	</optgroup>
 	<optgroup label="Users">
-		<option value=userstotal>Total users</option>
-		<option value=userjoined>Users joined</option>
+		<option value=userstotal <?php if ($what == "userstotal") echo "selected"; ?>>Total users</option>
+		<option value=userjoined <?php if ($what == "userjoined") echo "selected"; ?>>Users joined</option>
 	</optgroup>
 	<optgroup label="Ideas">
-		<option value=ideastotal>Total ideas</option>
-		<option value=ideasinimplementation>Ideas in implementation</option>
-		<option value=ideascorporated>Ideas incorporated</option>
+		<option value=ideastotal <?php if ($what == "ideastotal") echo "selected"; ?>>Total ideas</option>
+		<option value=ideasinimplementation <?php if ($what == "ideasinimplementation") echo "selected"; ?>>Ideas in implementation</option>
+		<option value=ideascorporated <?php if ($what == "ideascorporated") echo "selected"; ?>>Ideas incorporated</option>
 	</optgroup>
 	<optgroup label="Groups">
-		<option value=groupstotal>Total groups</option>
+		<option value=groupstotal <?php if ($what == "groupstotal") echo "selected"; ?>>Total groups</option>
 	</optgroup>
 </select>
 </td></tr>

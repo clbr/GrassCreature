@@ -8,7 +8,7 @@ require_once("charting.php");
 // Get the limit in seconds between steps
 function getTimeDelim($days) {
 
-	$steps = 15;
+	$steps = 12;
 
 	$then = ($days * 24 * 60 * 60) / $steps;
 
@@ -52,6 +52,14 @@ function getCommentData($days) {
 	$lim = getTimeDelim($days);
 
 	$db = db_connect();
+
+	if ($days == 3650) {
+		$res = $db->query("select unix_timestamp(Date) as pvm from Comment order by pvm asc limit 1;") or die($db->error);
+		$row = $res->fetch_row();
+		$start = $row[0];
+		$lim = getTimeDelim((time() - $start)/60/60/24);
+		$res->close();
+	}
 
 	$st = $db->prepare("select unix_timestamp(Date) as pvm from Comment where unix_timestamp(Date) >= ? order by pvm asc;") or die($db->error);
 

@@ -70,13 +70,14 @@ if(empty($_POST['inventor']) && empty($_POST['tags'])){
 
 
 if(empty($_POST['inventor']) && !empty($_POST['tags'])){
-	$sql = "select distinct IdeaId, LEFT(Idea.Name, 100), LEFT(Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor, User.Name, UserID
-						  FROM Idea, User
+	$sql = "select distinct IdeaId, LEFT(Idea.Name, 100), LEFT(Idea.Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor, User.Name, UserID
+						  FROM Idea, User, Category, Idea_has_Category
 						  WHERE Status= (?)
 							AND UserID = Inventor	
-						  AND (Description LIKE CONCAT('%',(?),'%')
+						  AND ((Idea.Description LIKE CONCAT('%',(?),'%')
 						   OR AdditionalInfo LIKE CONCAT('%',(?),'%')
 						   OR Idea.Name LIKE CONCAT('%',(?),'%'))
+						   OR (IdeaID = Idea_IdeaID and Category_CategoryID = CategoryID and Category.Name like concat('%',(?),'%')))
 						  ORDER BY AddingDate ";
 						  if ($date == "Newest")
 		{
@@ -86,8 +87,8 @@ if(empty($_POST['inventor']) && !empty($_POST['tags'])){
 		else{
 		$sql .= "ASC";
 		}
-						  $stmt = $mysqli->prepare($sql);
-						  $stmt->bind_param("ssss", $status1, $keyword2, $keyword2, $keyword2);
+						  $stmt = $mysqli->prepare($sql) or die($mysqli->error);
+						  $stmt->bind_param("sssss", $status1, $keyword2, $keyword2, $keyword2, $keyword2);
 						  }
 
 
@@ -116,26 +117,17 @@ $stmt->bind_param("ss",$status1, $inventor1);
 
 
 if(!empty($_POST['inventor']) && !empty($_POST['tags'])){
-	$sql = "select distinct IdeaId, LEFT(Idea.Name, 100), LEFT(Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor, User.Name, UserID
-						  FROM Idea, User
+	$sql = "select distinct IdeaId, LEFT(Idea.Name, 100), LEFT(Idea.Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor, User.Name, UserID
+						  FROM Idea, User, Category, Idea_has_Category
 						WHERE Status= (?)
 						AND UserID = Inventor	
 
-						  AND
-
-						  (User.Name LIKE CONCAT('%',(?),'%')
-
-
-						  AND
-								(
-						  Description LIKE CONCAT('%',(?),'%')
-
-							OR
-
-							AdditionalInfo LIKE CONCAT('%',(?),'%')
-									OR Idea.Name LIKE CONCAT('%',(?),'%')
-								)
-)
+						  AND (User.Name LIKE CONCAT('%',(?),'%')
+						  AND ((Idea.Description LIKE CONCAT('%',(?),'%')
+							OR AdditionalInfo LIKE CONCAT('%',(?),'%')
+							OR Idea.Name LIKE CONCAT('%',(?),'%')
+						       ) OR (IdeaID = Idea_IdeaID and Category_CategoryID = CategoryID and Category.Name like concat('%',(?),'%')))
+						)
 						  ORDER BY AddingDate ";
 
 if ($date == "Newest")
@@ -146,8 +138,8 @@ if ($date == "Newest")
 		else{
 		$sql .= "ASC";
 		}
-$stmt = $mysqli->prepare($sql);
-$stmt->bind_param("sssss", $status1, $inventor1, $keyword2, $keyword2, $keyword2);
+$stmt = $mysqli->prepare($sql) or die($mysqli->error);
+$stmt->bind_param("ssssss", $status1, $inventor1, $keyword2, $keyword2, $keyword2, $keyword2);
 
 						  }
 

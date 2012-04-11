@@ -8,7 +8,7 @@ require_once("charting.php");
 // Get the limit in seconds between steps
 function getTimeDelim($days) {
 
-	$steps = 15;
+	$steps = 12;
 
 	$then = ($days * 24 * 60 * 60) / $steps;
 

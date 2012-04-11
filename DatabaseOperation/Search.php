@@ -53,7 +53,7 @@ if(empty($_POST['inventor']) && empty($_POST['tags'])){
 	$sql = "SELECT IdeaId, LEFT(Idea.Name, 100), LEFT(Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor, User.Name, UserID
 						  FROM Idea, User
 						  WHERE Status= (?)
-
+							AND UserID = Inventor	
 						  ORDER BY AddingDate ";
 						  if ($date == "Newest")
 		{
@@ -73,7 +73,7 @@ if(empty($_POST['inventor']) && !empty($_POST['tags'])){
 	$sql = "SELECT IdeaId, LEFT(Idea.Name, 100), LEFT(Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor, User.Name, UserID
 						  FROM Idea, User
 						  WHERE Status= (?)
-
+							AND UserID = Inventor	
 						  AND (Description LIKE CONCAT('%',(?),'%')
 						   OR AdditionalInfo LIKE CONCAT('%',(?),'%')
 						   OR Idea.Name LIKE CONCAT('%',(?),'%'))
@@ -95,6 +95,7 @@ if(empty($_POST['inventor']) && !empty($_POST['tags'])){
 	$sql = "SELECT IdeaId, LEFT(Idea.Name, 100), LEFT(Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor, User.Name, UserID
 						  FROM Idea, User
 						  WHERE Status= (?)
+						  AND UserID = Inventor	
 						  AND User.Name LIKE CONCAT('%',(?),'%')
 
 
@@ -118,6 +119,7 @@ if(!empty($_POST['inventor']) && !empty($_POST['tags'])){
 	$sql = "SELECT IdeaId, LEFT(Idea.Name, 100), LEFT(Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor, User.Name, UserID
 						  FROM Idea, User
 						WHERE Status= (?)
+						AND UserID = Inventor	
 
 						  AND
 

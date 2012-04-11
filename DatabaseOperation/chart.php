@@ -92,6 +92,7 @@ function getCommentData($days) {
 
 	$data->setAxisName(0,"Comments");
 	$data->setAbscissa("Labels"); // X-akselin otsikot
+	$data->setPalette("Comments", array("R"=>45, "G"=>100, "B"=> 10, "Alpha"=>190));
 
 	drawbg($pic);
 

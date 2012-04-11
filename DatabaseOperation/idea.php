@@ -57,6 +57,8 @@ require_once('DatabaseOperation/perms.php');
 
 	function addCategory($ideaID, $category){
 
+		if (strlen($category) < 1) return;
+
 		$mysqli = db_connect();
 		$mysqli->autocommit(false);
 

@@ -6,10 +6,11 @@ require_once("DatabaseOperation/chart.php");
 if (!isset($_GET["what"]) || !isset($_GET["period"]))
 	return;
 
+$period = $_GET["period"];
 
 switch($_GET["what"]) {
 	case "comments":
-		$pic = getCommentData($_GET["period"]);
+		$pic = getCommentData($period);
 	break;
 
 	default:

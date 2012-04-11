@@ -90,13 +90,13 @@ function getCommentData($days) {
 	/* Create the pChart object */
 	$pic = new pImage(850,230,$data);
 
-	$data->setAxisName(0,"Kommentteja");
+	$data->setAxisName(0,"Comments");
 	$data->setAbscissa("Labels"); // X-akselin otsikot
 
 	drawbg($pic);
 
 	/* Write the chart title */
-	$pic->drawText(250,55,"Kommentteja",array("FontSize"=>20,"Align"=>TEXT_ALIGN_BOTTOMMIDDLE));
+	$pic->drawText(350,55,"Comments",array("FontSize"=>20,"Align"=>TEXT_ALIGN_BOTTOMMIDDLE));
 
 	return $pic;
 }

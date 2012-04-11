@@ -50,7 +50,7 @@ else
 
 
 if(empty($_POST['inventor']) && empty($_POST['tags'])){
-	$sql = "SELECT IdeaId, LEFT(Idea.Name, 100), LEFT(Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor, User.Name, UserID
+	$sql = "SELECT distinct IdeaId, LEFT(Idea.Name, 100), LEFT(Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor, User.Name, UserID
 						  FROM Idea, User
 						  WHERE Status= (?)
 							AND UserID = Inventor	
@@ -70,7 +70,7 @@ if(empty($_POST['inventor']) && empty($_POST['tags'])){
 
 
 if(empty($_POST['inventor']) && !empty($_POST['tags'])){
-	$sql = "SELECT IdeaId, LEFT(Idea.Name, 100), LEFT(Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor, User.Name, UserID
+	$sql = "select distinct IdeaId, LEFT(Idea.Name, 100), LEFT(Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor, User.Name, UserID
 						  FROM Idea, User
 						  WHERE Status= (?)
 							AND UserID = Inventor	
@@ -92,7 +92,7 @@ if(empty($_POST['inventor']) && !empty($_POST['tags'])){
 
 
  if(!empty($_POST['inventor']) && empty($_POST['tags'])){
-	$sql = "SELECT IdeaId, LEFT(Idea.Name, 100), LEFT(Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor, User.Name, UserID
+	$sql = "select distinct IdeaId, LEFT(Idea.Name, 100), LEFT(Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor, User.Name, UserID
 						  FROM Idea, User
 						  WHERE Status= (?)
 						  AND UserID = Inventor	
@@ -116,7 +116,7 @@ $stmt->bind_param("ss",$status1, $inventor1);
 
 
 if(!empty($_POST['inventor']) && !empty($_POST['tags'])){
-	$sql = "SELECT IdeaId, LEFT(Idea.Name, 100), LEFT(Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor, User.Name, UserID
+	$sql = "select distinct IdeaId, LEFT(Idea.Name, 100), LEFT(Description, 100), Status, RequestDate, AddingDate, LEFT(AdditionalInfo, 100), Inventor, User.Name, UserID
 						  FROM Idea, User
 						WHERE Status= (?)
 						AND UserID = Inventor	

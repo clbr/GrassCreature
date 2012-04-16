@@ -13,7 +13,7 @@ else
 if($date!=null){
  print "<br><br><table border=0 class='highlight center longtext'>\n";
  print "<tr><th>Idea name</th><th>Description</th><th>
- Status</th><th> RequestDate</th><th>Added On</th><th>Addiotional Information</th><th>Inventor</th>
+ Status</th><th> RequestDate</th><th>Added On</th><th>Additional Information</th><th>Inventor</th>
  </tr>\n";}
 
 

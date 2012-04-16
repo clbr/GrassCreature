@@ -109,5 +109,47 @@ function getCommentData($days) {
 
 	return $pic;
 }
+function getIdeasPerDay($days){
+$data = new pData();
+$start = getStartTime($days);
+$lim = getTimeDelim($days);
 
+$db = db_connect();
+
+$res = $db->prepare("SELECT unix_timestamp(AcceptedDate) AS pvm FROM Idea WHERE unix_timestamp(AcceptedDate) >=? ORDER BY pvm asc;") or die($db->error);
+
+$res->bind_param("i", $start);
+	$res->execute() or die($db->error);
+	$res->bind_result($sec);
+
+$com = 0;	
+While($res->fetch()){
+$tick = $sec - $start;
+if ($tick < $lim) {
+			$com++;
+		} else {
+			$data->addPoints($com, "Comments");
+			$label = date("j M Y", $start);
+			$data->addPoints($label, "Labels");
+
+			$com = 0;
+			$start += $lim;
+		}
+}
+
+$db->close();
+
+/* Create the pChart object */
+	$pic = new pImage(800,230,$data);
+
+	$data->setAxisName(0,"Kommentteja");
+	$data->setAbscissa("Labels"); // X-akselin otsikot
+
+	drawbg($pic);
+
+	/* Write the chart title */
+	$pic->drawText(250,55,"Kommentteja",array("FontSize"=>20,"Align"=>TEXT_ALIGN_BOTTOMMIDDLE));
+
+	return $pic;
+}
 ?>

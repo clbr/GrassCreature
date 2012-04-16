@@ -33,8 +33,7 @@ $sess->mustBeLoggedIn();
 	$ideaid = $_GET['ideaid'];
 
 	// Gets the currently open idea's info.
-	$ideaData = getIdeaInfo($ideaid);
-	$idea = $ideaData->fetch(PDO::FETCH_OBJ));
+	$idea = getIdeaInfo($ideaid);
 
 	if (!$sess->isAdmin()) {
 		echo "You are not an admin.";

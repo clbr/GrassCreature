@@ -22,9 +22,11 @@
 if (isset($_POST["what"])) {
 	$what = $_POST["what"];
 	$per = $_POST["period"];
+	$line = $_POST["line"];
 } else {
 	$what = "";
 	$per = 0;
+	$line = "";
 }
 ?>
 
@@ -39,6 +41,7 @@ if (isset($_POST["what"])) {
 <td>Starting from &nbsp; &nbsp;</td>
 <td><select name=period>
 	<option value=7 <?php if ($per == 7) echo "selected"; ?>>7 days ago</option>
+	<option value=14 <?php if ($per == 14) echo "selected"; ?>>14 days ago</option>
 	<option value=30 <?php if ($per == 30) echo "selected"; ?>>30 days ago</option>
 	<option value=60 <?php if ($per == 60) echo "selected"; ?>>60 days ago</option>
 	<option value=90 <?php if ($per == 90) echo "selected"; ?>>90 days ago</option>
@@ -70,6 +73,16 @@ Chart all
 </select>
 </td></tr>
 
+
+<tr><td>
+Line format
+</td><td>
+<select name=line>
+	<option value=smooth <?php if ($line == "smooth") echo "selected"; ?>>Smooth</option>
+	<option value=direct <?php if ($line == "direct") echo "selected"; ?>>Direct</option>
+</select>
+</td></tr>
+
 <tr><td colspan=2 style="text-align:center; padding: 0.5em;">
 <input type=submit value="Go" name=submitbtn style="width: 50%;">
 </td>
@@ -85,8 +98,9 @@ if (isset($_POST["submitbtn"])) {
 
 	$what = $_POST["what"];
 	$per = $_POST["period"];
+	$line = $_POST["line"];
 
-	echo "<img src=\"chart.php?what=$what&amp;period=$per\" alt=stats>";
+	echo "<img src=\"chart.php?what=$what&amp;period=$per&amp;line=$line\" alt=stats>";
 }
 ?>
 </div>

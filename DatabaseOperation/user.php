@@ -71,6 +71,8 @@ function getUser($id, $isLoggedIn) {
 
 			echo "</table>\n";
 		}
+		// Add a list of ideas by followed users/list of followed ideas.
+			
 	}
 
 	echo "</div>\n";

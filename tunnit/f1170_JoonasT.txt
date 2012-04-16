@@ -48,3 +48,6 @@ Sat 17.3.2012
 
 11.4.2012
 2½ hours - Misc.
+
+16.4.2012
+3 hours - Documentation/Bug finding/fixing

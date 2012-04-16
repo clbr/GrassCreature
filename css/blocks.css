@@ -1,0 +1,434 @@
+body{
+	/*background-color: #ffa655;*/
+	background-image: url('../img/diagmonds.png');
+	font-size: 10pt;
+	color: white;
+	padding-bottom: 5em;
+}
+
+body.lining {
+	margin-top: 6em;
+	margin-left: 2em;
+	padding-right: 200px;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+a:link {
+	color: #009c1a;
+}
+
+a:visited {
+	color: #00590f;
+}
+
+p, h1, form {
+	border:0;
+	margin:0;
+	padding:0;
+}
+
+button {
+	border: 0px;
+	background-color: transparent;
+}
+
+.center {
+	text-align: center;
+}
+
+.spacer{
+	clear:both;
+	height:1px;
+}
+
+/* ----------- Adding Idea ----------- */
+
+.IdeaAdd{
+
+	margin:auto;
+	width: 50%;
+}
+
+
+/* ------------ Submit Button ------- */
+
+.submit{
+	margin-top:5%;
+	
+	margin-left:18%;
+	color:#565656;
+	
+}
+
+.submit input{
+font-size: 80%;
+color:purple;
+}
+
+
+/* ----------- stylized ----------- */
+
+
+div#bg{
+
+	background-image:url(../Documentation/Images/GrassCreature.png);
+
+}
+
+
+div#banner {
+	font-size:120%;
+	font-weight:bold;
+	margin: 1em;
+}
+
+div#Add{
+
+	font-size:120%;
+	color:#666666;
+	color:blue;
+
+
+}
+
+label#Add{
+	display:block;
+	font-weight:bold;
+	text-align:right;
+	color:#FFB6C1;
+	float:left;
+}
+
+
+/* session / login */
+
+#loginbox {
+	border-style: groove;
+	border-color: #98bf21;
+	padding: 0.5em;
+	display: inline-block;
+	float: right;
+	margin-right: 2em;
+	margin-top: 10px;
+}
+
+#registerform td {
+	padding: 5px;
+	height: 42px;
+}
+
+#registerform img {
+	vertical-align: middle;
+}
+
+#registerform input {
+	vertical-align: middle;
+}
+
+iframe#main {
+	width: 99%;
+	border: 0px;
+	position: fixed;
+	z-index: -1;
+	right: 10px;
+	height: 98%;
+}
+
+.ideabox {
+	border: 2px groove #4b7daa;
+	display: inline-block;
+	padding: 0.5em;
+	margin: 1em;
+	background-image: url(../img/cloudbg.png);
+	text-align: center;
+
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+}
+
+.ideaboxtrans {
+	border: 2px groove #4b7daa;
+	display: inline-block;
+	clear: both;
+	padding: 0.5em;
+	margin: 1em;
+	text-align: center;
+
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+}
+
+.ideabox h3 {
+	margin-top: 0px;
+}
+
+.ideabox td {
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+}
+
+#frontwelcome {
+	margin-left: 2em;
+	margin-bottom: 1em;
+}
+
+#adminnote {
+	margin: 3em;
+	margin-top: 1em;
+	border-width: 5px;
+	font-size: larger;
+	padding: 2em;
+}
+
+#frontsearch {
+	text-align: left;
+}
+
+#frontsearch input {
+	margin-bottom: 0.5em;
+}
+
+#ideadiv {
+	margin: 0px;
+	margin-bottom: 1em;
+	max-width: 50%;
+}
+
+#ideadiv td {
+	border-bottom: 1px solid;
+}
+
+#ideadiv td.bottom {
+	border-bottom: 0px;
+}
+
+#userdiv td.bottom {
+	border-bottom: 0px;
+}
+
+#idealeft {
+	min-width: 9em;
+}
+
+.accidea {
+	display: inline-block;
+	margin: 70px;
+}
+
+.accidea input {
+	margin-left: 1em;
+	margin-right: 1em;
+}
+
+#rightbar {
+	float: right;
+	clear: both;
+	text-align: center;
+	margin-top: 5em;
+}
+
+.rightbox {
+	display: inline-block;
+	padding: 0.5em;
+	margin-right: 1em;
+	margin-top: 0.4em;
+	margin-bottom: 0.4em;
+	background-image: url(../img/cloudbg.png);
+	min-width: 150px;
+	min-height: 20px;
+	font-size: larger;
+
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+}
+
+.rightbox input {
+	font-size: 12px;
+}
+
+.rightbox img {
+	border-style: none;
+}
+
+#userdiv {
+	margin: 2em;
+}
+
+#userdiv td, th {
+	border-bottom: 1px solid;
+}
+
+table.highlight tr:hover {
+	background-image: url(../img/cloudbg.png);
+}
+
+table.highlight {
+	border-collapse: collapse;
+}
+
+table.highlight td, table.highlight th {
+	padding: 0.5em;
+}
+
+/* Comments */
+
+div.comment {
+	margin-top: 2em;
+	margin-bottom: 1em;
+
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius:10px;
+
+	padding: 0.5em;
+	background-color: #43434C;
+	width: 40%;
+}
+
+hr.shortline {
+	color: black;
+	float: left;
+	width: 8.5em;
+	margin-left: 2em;
+}
+
+.clear {
+	clear: both;
+}
+
+#rating button {
+	margin-bottom: 1em;
+}
+
+.indent {
+	margin-left: 4em;
+}
+
+#groupsdiv {
+	padding: 1em;
+}
+
+#followIdeaButton {
+	background-color:#43434C;	
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius:10px;
+	padding: 0.6em;
+}
+
+#followIdeaButton:hover {
+	background-color: #FFBF85;
+	cursor: pointer;
+}
+
+#followUserButton {
+	background-color:#43434C;	
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius:10px;	
+	padding: 0.3em;
+}
+
+#followUserButton:hover {
+	background-color: #FFBF85;
+	cursor: pointer;
+}
+
+#followedIdeas {
+	background-color:#43434C;	
+	border: 1px solid blue; 
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius:10px;
+	display: none;	
+	padding: 0.6em;	
+	width: 30%;
+}
+
+#followedUsers {
+	background-color:#43434C;	
+	border: 1px solid blue; 
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius:10px;
+	display: none;
+	padding: 0.6em;
+	width: 30%;
+}
+
+#followedIdeas:hover { cursor: pointer; }
+#followedUsers:hover { cursor: pointer; }
+
+
+#addideaform input, #addideaform textarea {
+	margin-bottom: 0.5em;
+}
+
+tr.diffOld {
+	background-color:#FF3333;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius:10px;
+}
+
+tr.diffNew{
+	background-color:green;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius:10px;
+}
+
+table.versions td, table.versions th {
+	padding: 0.5em;
+}
+
+#versionChanged{
+	background-color:#FFAF66;	
+	border: 1px solid blue; 
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius:10px;
+	display: inline-block;
+	margin-bottom: 2em;	
+	padding: 0.6em;		
+}
+
+.mostuseddiv {
+	float: right;
+	width: 30%;
+	text-align: center;
+}
+
+.mostuseda {
+	color: #00590f;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.mostuseda:hover {
+	text-decoration: none;
+}
+
+.longtext {
+	max-width: 90%;
+	min-width: 100px;
+	width: 50%;
+}
+
+.introtext {
+	margin-left: 6em;
+	width: 25%;
+	min-width: 300px;
+	margin-bottom: 2em;
+}
+
+.bigintro {
+	color: darkred;
+	font-size: larger;
+}

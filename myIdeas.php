@@ -24,7 +24,7 @@ $sess->mustBeLoggedIn();
 </head>
 
 <body class=lining>
-
+<div class=middle>
 <?php
 	error_reporting(E_ALL);
 	require_once('DatabaseOperation/idea.php');
@@ -44,6 +44,6 @@ $sess->mustBeLoggedIn();
 		echo "You have not added any ideas yet.";
 	}
 ?>
-
+</div>
 </body>
 </html>

@@ -31,7 +31,7 @@ $ideaID = $_GET["id"];
 </head>
 
 <body class=lining>
-
+<div class=middle>
 <?php
 
 $uid = -1;
@@ -179,7 +179,7 @@ if ($sess->isAdmin() || canEdit($ideaID, $uid)) {
 }
 
 ?>
-
+</div>
 <script src="js/js.js" type="text/javascript"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js" type="text/JavaScript"></script>
 <script type="text/JavaScript"></script>

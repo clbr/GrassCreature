@@ -20,7 +20,6 @@
 
 <body class=lining>
 
-
 <h1 id=frontwelcome>Welcome to the Ideabank!</h1>
 
 <div class=introtext>
@@ -54,12 +53,11 @@ if ($sess->isAdmin()) {
 /* Followed idea/users stuffs here. */
 
 if ($sess->isLoggedIn()) {
-	echo "<div id=followedUsers></div><br><br><br>";
+	echo "<div id=followedUsers></div><br>";
 	echo "<div id=followedIdeas></div><br>";
 }
 
 ?>
-
 <div id=newestideas class=ideabox>
 <h3>Top 10 newest ideas</h3>
 <?php

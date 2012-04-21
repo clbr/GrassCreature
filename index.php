@@ -17,7 +17,7 @@
 </head>
 
 <body style="margin-right: 2em;">
-
+<img id=frontpic src='img/ideabankheader.png' alt=ideabank>
 <?php
 	$sess->printBox();
 ?>
@@ -71,7 +71,7 @@
 </div>
 
 <iframe name=main id=main src="front.php"></iframe>
-
+<img id=frontpic2 src='img/ideabankbottom.png' alt=ideabank>
 <script src="js/js.js" type="text/javascript"></script>
 <script type="text/javascript">
 

@@ -21,9 +21,12 @@
 <?php
 	require_once("DatabaseOperation/user.php");
 	$theme = "ideabankheader";
-	$cur_theme = getUserTheme($sess->getUserID());
-	if ($cur_theme == "blocks")
-		$theme .= "white";
+	$cur_theme = "default";
+	if ($sess->isLoggedIn()) {
+		$cur_theme = getUserTheme($sess->getUserID());
+		if ($cur_theme == "blocks")
+			$theme .= "white";
+	}
 	$theme .= ".png";
 	echo "<img id=frontpic src='img/$theme' alt=ideabank>";
 	$sess->printBox();

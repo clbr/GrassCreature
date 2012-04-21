@@ -94,6 +94,7 @@ dolinks();
 
 </script>
 <?php
+$theme = 'ideabankbottom.png';
 if ($cur_theme == "blocks")
 	$theme = "ideabankbottomwhite.png";
 

@@ -168,7 +168,7 @@ iframe#main {
 .ideaboxtrans {
 	border: 2px groove #4b7daa;
 	display: inline-block;
-	float: left;
+	clear: both;
 	padding: 0.5em;
 	margin: 1em;
 	text-align: center;
@@ -274,6 +274,8 @@ iframe#main {
 #userdiv {
 	margin: 2em;
 	min-width: 15em;
+	float: left;
+	clear: none;
 }
 
 #userdiv td, th {
@@ -452,9 +454,13 @@ table.versions td, table.versions th {
 #myFollowedIdeas {
 	min-width: 15em;
 	margin: 2em;
+	float: left;
+	clear: none;
 }
 
 #myFollowedUsers {
 	min-width: 15em;
 	margin: 2em;
+	float: left;
+	clear: none;
 }

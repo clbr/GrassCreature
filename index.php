@@ -17,8 +17,15 @@
 </head>
 
 <body style="margin-right: 2em;">
-<img id=frontpic src='img/ideabankheader.png' alt=ideabank>
+
 <?php
+	require_once("DatabaseOperation/user.php");
+	$theme = "ideabankheader";
+	$cur_theme = getUserTheme($sess->getUserID());
+	if ($cur_theme == "blocks")
+		$theme .= "white";
+	$theme .= ".png";
+	echo "<img id=frontpic src='img/$theme' alt=ideabank>";
 	$sess->printBox();
 ?>
 
@@ -71,7 +78,6 @@
 </div>
 
 <iframe name=main id=main src="front.php"></iframe>
-<img id=frontpic2 src='img/ideabankbottom.png' alt=ideabank>
 <script src="js/js.js" type="text/javascript"></script>
 <script type="text/javascript">
 
@@ -87,6 +93,11 @@ function dolinks() {
 dolinks();
 
 </script>
+<?php
+if ($cur_theme == "blocks")
+	$theme = "ideabankbottomwhite.png";
 
+echo "<img id=frontpic2 src='img/$theme' alt=ideabank>";
+?>
 </body>
 </html>

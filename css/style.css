@@ -45,7 +45,7 @@ button {
 	background-color: transparent;
 }
 
-.middle {
+div.middle {
 	margin-left:16em;
 }
 
@@ -446,4 +446,18 @@ table.versions td, table.versions th {
 .bigintro {
 	color: darkred;
 	font-size: larger;
+}
+
+#myFollowedIdeas {
+	position: absolute;
+	width: 15em;
+	margin-top:2em;
+	margin-left:37em;
+}
+
+#myFollowedUsers {
+	position: absolute;
+	width: 15em;
+	margin-top:2em;
+	margin-left:56em;
 }

@@ -1,5 +1,7 @@
 <?php
 
+require_once('details.php');
+
 function userFollowIdea($ideaID, $userID) {
 	$mysqli = db_connect();
 
@@ -35,6 +37,36 @@ function userIsFollowingIdea($ideaID, $userID) {
 	$stmt->fetch();
 
 	return $result;
+}
+
+function getFollowedIdeas($userID) {
+	$pdo = pdo_connect();
+	$pdo->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING );
+	$sql = "SELECT Followed_IdeaID AS IdeaID, Name
+		FROM Idea_has_follower
+		LEFT OUTER JOIN Idea
+		ON Followed_IdeaID = Idea.IdeaID
+		WHERE FollowerID = :UserID";
+	$stmt = $pdo->prepare($sql);
+	$stmt->bindParam(':UserID', $userID);
+	$stmt->execute();
+	return $stmt;
+	$pdo = null; // Close connection.
+}
+
+function getFollowedUsers($userID) {
+	$pdo = pdo_connect();
+	$pdo->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING );
+	$sql = "SELECT StalkedID, Name
+		FROM User_has_follower
+		LEFT OUTER JOIN User
+		ON StalkedID = User.UserID
+		WHERE StalkerID = :UserID";
+	$stmt = $pdo->prepare($sql);
+	$stmt->bindParam(':UserID', $userID);
+	$stmt->execute();
+	return $stmt;
+	$pdo = null; // Close connection.
 }
 
 function setLastSeenComment($ideaID, $userID) {

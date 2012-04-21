@@ -39,6 +39,33 @@ if ($sess->isLoggedIn() && ($userID == $sess->getUserID() || $sess->isAdmin())) 
 	echo '<form method=POST action="editUser.php?userid='.$userID.'">
 		<input type="submit" name="editUser" value="Edit details">
 		</form>';
+
+	/* Print followed ideas. */
+	require_once("DatabaseOperation/follow.php");
+	$followed_ideas = getFollowedIdeas($userID);
+	
+	if ($followed_ideas->rowCount() > 0) {
+		echo "<div id=myFollowedIdeas class=ideaboxtrans>Followed ideas:<br><table class=highlight>";
+		while ($idea = $followed_ideas->fetch(PDO::FETCH_OBJ)) {
+			//echo "<pre>".var_dump($idea)."</pre>";
+			echo "<tr><td><a href='showIdea.php?id=$idea->IdeaID'>$idea->Name</a></td></tr>";
+		}
+		echo "</table></div>";
+	}
+
+	/* Print followed users. */
+	$followed_users= getFollowedUsers($userID);
+	
+	if ($followed_users->rowCount() > 0) {
+		echo "<div id=myFollowedUsers class=ideaboxtrans>Followed users:<br><table class=highlight style='width:100%'>";
+		while ($user = $followed_users->fetch(PDO::FETCH_OBJ)) {
+			//echo "<pre>".var_dump($idea)."</pre>";
+			echo "<tr><td><div class=center><a href='showUser.php?id=$user->StalkedID'>$user->Name</a></div></td></tr>";
+		}
+		echo "</table></div>";
+	}
+	
+	
 }
 
 getUser($userID, $sess->isLoggedIn());

@@ -33,7 +33,7 @@ $sess->mustBeLoggedIn();
 
 	// First check if query result contains anything.
 	if ($myIdeas->rowCount() > 0) {
-		echo "<table>";
+		echo "<table class=highlight>";
 		while ($idea = $myIdeas->fetch(PDO::FETCH_OBJ)) {
 			echo "<tr><td>" . $idea->AddingDate . "</td><td><a href='showIdea.php?id=" . $idea->IdeaID . "'>" . $idea->Name . "</a>" .
 			"</td><td>" . $idea->Status . "</td></tr>";

@@ -70,6 +70,8 @@ function getCommentData($days) {
 
 	$com = 0;
 	while ($st->fetch()) {
+		starty:
+
 		$tick = $sec - $start;
 //		echo "$tick and $lim\n";
 		if ($tick < $lim) {
@@ -84,6 +86,7 @@ function getCommentData($days) {
 
 			$com = 0;
 			$start += $lim;
+			goto starty;
 		}
 	}
 

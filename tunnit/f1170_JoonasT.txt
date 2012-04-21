@@ -42,3 +42,12 @@ Sat 17.3.2012
 
 2.4.2012
 5½ hours - Fine tuning search + adding category to search (not working yet)
+
+9.4.2012
+3 hours - Searching categories works.
+
+11.4.2012
+2½ hours - Misc.
+
+16.4.2012
+3 hours - Documentation/Bug finding/fixing

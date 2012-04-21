@@ -1,6 +1,8 @@
 body{
-	background-image: url(../img/rough_diagonal.png);
+	/*background-color: #ffa655;*/
+	background-image: url('../img/diagmonds.png');
 	font-size: 10pt;
+	color: white;
 	padding-bottom: 5em;
 }
 
@@ -8,18 +10,6 @@ body.lining {
 	margin-top: 6em;
 	margin-left: 2em;
 	padding-right: 200px;
-}
-
-#frontpic {
-	position:absolute;
-	top:0em;
-	left:0em;
-}
-
-#frontpic2 {
-	position:fixed;
-	bottom:0em;
-	right:2em;
 }
 
 a:hover {
@@ -43,10 +33,6 @@ p, h1, form {
 button {
 	border: 0px;
 	background-color: transparent;
-}
-
-.middle {
-	margin-left:16em;
 }
 
 .center {
@@ -143,13 +129,12 @@ label#Add{
 }
 
 iframe#main {
-	margin-top:13em;
 	width: 99%;
 	border: 0px;
 	position: fixed;
 	z-index: -1;
 	right: 10px;
-	height: 80%;
+	height: 98%;
 }
 
 .ideabox {
@@ -302,7 +287,7 @@ div.comment {
 	border-radius:10px;
 
 	padding: 0.5em;
-	background-image: url(../img/cloudbg.png);
+	background-color: #43434C;
 	width: 40%;
 }
 
@@ -330,7 +315,7 @@ hr.shortline {
 }
 
 #followIdeaButton {
-	background-color:#FFAF66;	
+	background-color:#43434C;	
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	border-radius:10px;
@@ -343,7 +328,7 @@ hr.shortline {
 }
 
 #followUserButton {
-	background-color:#FFAF66;	
+	background-color:#43434C;	
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	border-radius:10px;	
@@ -356,7 +341,7 @@ hr.shortline {
 }
 
 #followedIdeas {
-	background-color:#FFAF66;	
+	background-color:#43434C;	
 	border: 1px solid blue; 
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
@@ -367,7 +352,7 @@ hr.shortline {
 }
 
 #followedUsers {
-	background-color:#FFAF66;	
+	background-color:#43434C;	
 	border: 1px solid blue; 
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;

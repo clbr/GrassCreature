@@ -86,7 +86,7 @@ if (!isset($_GET["ideaid"])) {
 		else {
 			// Save old version to db...
 			saveVersion($idea->IdeaID, $idea->Version, $idea->Status, $idea->Name, $idea->Description, $idea->RequestDate, $idea->Cost, $idea->AdditionalInfo,
-				$idea->BasedOn, $idea->Inventor);
+				$idea->BasedOn, $idea->Inventor, $idea->AddingDate, $idea->AcceptedDate);
 
 			// and edit the idea with new data.
 			$ideaID = editIdea($ideaid, $_POST['IdeaName'], $_POST['desc'], $_POST['ReqDate'], $_POST['CostEst'], $_POST['AddInfo'], $_POST['BasedOn'],
@@ -97,6 +97,10 @@ if (!isset($_GET["ideaid"])) {
 				uploadImages($ideaID);
 
 			echo "<div class='IdeaEdit'>Idea with id ".$idea->IdeaID." succesfully edited.</div>";
+			echo "<script type=\"text/javascript\">
+			setTimeout(function() {
+			window.location = 'showIdea.php?id=$ideaID';
+			}, 2000);</script>";
 		}
 	}
 ?>

@@ -53,7 +53,7 @@ $sess->mustBeLoggedIn();
 				<select id="SelectedTheme" name="Theme">
 					<option value="style" '; if ($user->SelectedTheme == 'style') { echo 'selected="selected"'; } echo '>Default</option>
 					<option value="hellokitty" '; if ($user->SelectedTheme == 'hellokitty') { echo 'selected="selected"'; } echo '>Hello Kitty</option>
-					<option value="teema" '; if ($user->SelectedTheme == 'teema') { echo 'selected="selected"'; } echo '>Teema</option>
+					<option value="blocks" '; if ($user->SelectedTheme == 'blocks') { echo 'selected="selected"'; } echo '>Blocks</option>
 				</select><br>
 				<input type="submit" name="submitChanges" value="Submit changes">
 			</form>

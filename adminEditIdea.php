@@ -24,7 +24,7 @@ $sess->mustBeLoggedIn();
 </head>
 
 <body class=lining>
-
+<div id=content>
 <?php
 	error_reporting(E_ALL);
 	require_once('DatabaseOperation/idea.php');
@@ -33,8 +33,7 @@ $sess->mustBeLoggedIn();
 	$ideaid = $_GET['ideaid'];
 
 	// Gets the currently open idea's info.
-	$ideaData = getIdeaInfo($ideaid);
-	$idea = $ideaData->fetch_object();
+	$idea = getIdeaInfo($ideaid);
 
 	if (!$sess->isAdmin()) {
 		echo "You are not an admin.";
@@ -76,7 +75,7 @@ $sess->mustBeLoggedIn();
 		else {
 			// Save old version to db...
 			saveVersion($idea->IdeaID, $idea->Version, $idea->Status, $idea->Name, $idea->Description, $idea->RequestDate, $idea->Cost, $idea->AdditionalInfo,
-				$idea->BasedOn, $idea->Inventor);
+				$idea->BasedOn, $idea->Inventor, $idea->AddingDate, $idea->AcceptedDate);
 
 			// and edit the idea with new data.
 			if ($idea->Status != $_POST['IdeaStatus']) // Needed to know to set StatusLastEdited in db.
@@ -92,9 +91,13 @@ $sess->mustBeLoggedIn();
 				uploadImage($ideaID);
 
 			echo "<div class='IdeaEdit'>Idea with id ".$idea->IdeaID." succesfully edited.</div>";
+			echo "<script type=\"text/javascript\">
+			setTimeout(function() {
+			window.location = 'showIdea.php?id=$ideaID';
+			}, 2000);</script>";
 		}
 	}
 ?>
-
+</div>
 </body>
 </html>

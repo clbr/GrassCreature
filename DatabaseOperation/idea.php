@@ -153,14 +153,14 @@ require_once('DatabaseOperation/perms.php');
 
 	}
 
-	function saveVersion($ideaID, $version, $status, $name, $desc, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID) {
+	function saveVersion($ideaID, $version, $status, $name, $desc, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID, $addingDate, $acceptedDate) {
 		// When updating idea, saves the old version of it.
 		$mysqli = db_connect();
 
-		$sql = "INSERT INTO Version (IdeaID, Name, Status, Description, Version, RequestDate, Cost, AdditionalInfo, BasedOn, Inventor) VALUES (
-			?, ?, ?, ?, ?, STR_TO_DATE(?, '%e.%c.%Y'), ?, ?, ?, ?)";
+		$sql = "INSERT INTO Version (IdeaID, Name, Status, Description, Version, RequestDate, Cost, AdditionalInfo, BasedOn, Inventor, AddingDate, AcceptedDate) VALUES (
+			?, ?, ?, ?, ?, STR_TO_DATE(?, '%e.%c.%Y'), ?, ?, ?, ?, STR_TO_DATE(?, '%e.%c.%Y %H:%i:%s'), STR_TO_DATE(?, '%e.%c.%Y %H:%i:%s'))";
 		$stmt = $mysqli->prepare($sql);
-		$stmt->bind_param('isssisisii', $ideaID, $name, $status , $desc, $version, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID);
+		$stmt->bind_param('isssisisiiss', $ideaID, $name, $status , $desc, $version, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID, $addingDate, $acceptedDate);
 		$stmt->execute();
 	}
 
@@ -247,7 +247,7 @@ require_once('DatabaseOperation/perms.php');
 		$sql .= " WHERE IdeaID = ?";
 
 		$stmt = $mysqli->prepare($sql);
-		$stmt->bind_param('ssisiisiii', $name, $desc, $version, $status, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID, $ideaID);
+		$stmt->bind_param('ssissisiii', $name, $desc, $version, $status, $reqdate, $cost, $additionalInfo, $basedOn, $inventorID, $ideaID);
 		$stmt->execute();
 	}
 
@@ -299,8 +299,9 @@ function getVote($ideaID) {
 		$pdo = pdo_connect();
 
 		$sql = "select IdeaID, Name, Description, Version, Status, Cost, AdditionalInfo, BasedOn, DATE_FORMAT(RequestDate, '%e.%c.%Y') AS RequestDate, Inventor,
-			DATE_FORMAT(AddingDate, '%e.%c.%Y %H:%i:%s') AS AddingDate,  DATE_FORMAT(StatusLastEdited, '%e.%c.%Y %H:%i:%s') AS StatusLastEdited
-			from Idea where IdeaID=$ideaID";
+			DATE_FORMAT(AddingDate, '%e.%c.%Y %H:%i:%s') AS AddingDate,  DATE_FORMAT(StatusLastEdited, '%e.%c.%Y %H:%i:%s') AS StatusLastEdited,
+			DATE_FORMAT(AcceptedDate, '%e.%c.%Y %H:%i:%s') AS AcceptedDate
+			from Idea where IdeaID=:IdeaID";
 		$stmt = $pdo->prepare($sql);
 		$stmt->bindParam(':IdeaID', $ideaID);
 		$stmt->execute();

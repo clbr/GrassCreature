@@ -275,6 +275,9 @@ iframe#main {
 
 #userdiv {
 	margin: 2em;
+	min-width: 15em;
+	float: left;
+	clear: none;
 }
 
 #userdiv td, th {
@@ -451,15 +454,15 @@ table.versions td, table.versions th {
 }
 
 #myFollowedIdeas {
-	position: absolute;
-	width: 15em;
-	margin-top:2em;
-	margin-left:37em;
+	min-width: 15em;
+	margin: 2em;
+	float: left;
+	clear: none;
 }
 
 #myFollowedUsers {
-	position: absolute;
-	width: 15em;
-	margin-top:2em;
-	margin-left:56em;
+	min-width: 15em;
+	margin: 2em;
+	float: left;
+	clear: none;
 }

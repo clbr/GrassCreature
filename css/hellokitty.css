@@ -4,10 +4,23 @@ body{
 	padding-bottom: 5em;
 }
 
+
 body.lining {
 	margin-top: 6em;
 	margin-left: 2em;
-	padding-right: 20%;
+	padding-right: 200px;
+}
+
+#frontpic {
+	position:absolute;
+	top:0em;
+	left:0em;
+}
+
+#frontpic2 {
+	position:fixed;
+	bottom:0em;
+	right:2em;
 }
 
 a:hover {
@@ -31,6 +44,10 @@ p, h1, form {
 button {
 	border: 0px;
 	background-color: transparent;
+}
+
+div.middle {
+	margin-left:16em;
 }
 
 .center {
@@ -57,7 +74,7 @@ button {
 	margin-top:5%;
 	
 	margin-left:18%;
-	color:#CC0066;
+	color:#565656;
 	
 }
 
@@ -70,23 +87,12 @@ color:purple;
 /* ----------- stylized ----------- */
 
 
-
-
-
 div#bg{
 
 	background-image:url(../Documentation/Images/GrassCreature.png);
 
 }
 
-
-
-div#ulko{
-	
-	margin:auto;
-	width:65%;
-
-}
 
 div#banner {
 	font-size:120%;
@@ -112,20 +118,15 @@ label#Add{
 }
 
 
-/*
-.submit{
-	background-color:;
-}*/
-
 /* session / login */
 
 #loginbox {
 	border-style: groove;
-	border-color: #FF3399;
+	border-color: #98bf21;
 	padding: 0.5em;
 	display: inline-block;
 	float: right;
-	margin-right: 30px;
+	margin-right: 2em;
 	margin-top: 10px;
 }
 
@@ -143,12 +144,13 @@ label#Add{
 }
 
 iframe#main {
+	margin-top:13em;
 	width: 99%;
 	border: 0px;
 	position: fixed;
 	z-index: -1;
 	right: 10px;
-	height: 98%;
+	height: 80%;
 }
 
 .ideabox {
@@ -272,6 +274,9 @@ iframe#main {
 
 #userdiv {
 	margin: 2em;
+	min-width: 15em;
+	float: left;
+	clear: none;
 }
 
 #userdiv td, th {
@@ -301,7 +306,7 @@ div.comment {
 	border-radius:10px;
 
 	padding: 0.5em;
-	background-color: #FFB877;
+	background-image: url(../img/cloudbg.png);
 	width: 40%;
 }
 
@@ -355,7 +360,7 @@ hr.shortline {
 }
 
 #followedIdeas {
-	background-color:#FF33CC;	
+	background-color:#FFAF66;	
 	border: 1px solid blue; 
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
@@ -366,7 +371,7 @@ hr.shortline {
 }
 
 #followedUsers {
-	background-color:#FF33CC;	
+	background-color:#FFAF66;	
 	border: 1px solid blue; 
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
@@ -385,14 +390,14 @@ hr.shortline {
 }
 
 tr.diffOld {
-	background-color:#CC99FF;
+	background-color:#FF3333;
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	border-radius:10px;
 }
 
 tr.diffNew{
-	background-color:FF99FF;
+	background-color:green;
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	border-radius:10px;
@@ -410,7 +415,7 @@ table.versions td, table.versions th {
 	border-radius:10px;
 	display: inline-block;
 	margin-bottom: 2em;	
-	padding: 0.6em;
+	padding: 0.6em;		
 }
 
 .mostuseddiv {
@@ -422,8 +427,41 @@ table.versions td, table.versions th {
 .mostuseda {
 	color: #00590f;
 	text-decoration: underline;
+	cursor: pointer;
 }
 
 .mostuseda:hover {
 	text-decoration: none;
+}
+
+.longtext {
+	max-width: 90%;
+	min-width: 100px;
+	width: 50%;
+}
+
+.introtext {
+	margin-left: 6em;
+	width: 25%;
+	min-width: 300px;
+	margin-bottom: 2em;
+}
+
+.bigintro {
+	color: darkred;
+	font-size: larger;
+}
+
+#myFollowedIdeas {
+	min-width: 15em;
+	margin: 2em;
+	float: left;
+	clear: none;
+}
+
+#myFollowedUsers {
+	min-width: 15em;
+	margin: 2em;
+	float: left;
+	clear: none;
 }

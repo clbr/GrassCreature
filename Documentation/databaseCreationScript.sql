@@ -335,6 +335,8 @@ insert into UserGroup (GroupID, Name) values (0, "admin");
 insert into User (Name, Email, PwdHash, JoinDate) values ("admin", "admin@example.com", "5df9a2c16f9c42063ff99fb8ae5d95b6", now());
 insert into User_has_Group (User_UserID, Group_GroupID) values ((select UserID from User where Name='admin'), 0);
 
+update UserGroup set GroupID=0 where Name='admin';
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

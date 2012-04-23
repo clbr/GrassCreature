@@ -22,25 +22,25 @@ Mon 12.3.2012
 5h - php frontpage continuation
 
 Mon 19.3.2012
-
 5h - php frontpage top things (top newest done, top 10 commented on some form)
 
 Mon 26.3.2012
-
 5h more top stuff and graphical charts
 
-
 Wed 28.3.2012
-
 3h charts.
 
 mon 2.4.2012
-
 6h charts
 
 wed 4.4.2012
-
 3h charts
 
+wed 11.4.2012
+3h chart. in the end nothing came from it.
 
+mon 16.4.2012
+2.5h documentation.
 
+23.4.2012
+4h presetntation and docs.

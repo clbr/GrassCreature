@@ -51,3 +51,6 @@ Sat 17.3.2012
 
 16.4.2012
 3 hours - Documentation/Bug finding/fixing
+
+23.4.2012
+6 hours - Final documentation/reviewing/presentation
